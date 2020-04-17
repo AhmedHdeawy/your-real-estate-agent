@@ -12,13 +12,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $guarded = ['status'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'password', 'avatar', 'status'
+        'name', 'username', 'email', 'phone', 'password', 'avatar'
     ];
 
     /**
@@ -50,8 +52,8 @@ class User extends Authenticatable
     public function setAvatarAttribute($file)
     {
 
-    	if ($file) {    		
-	        
+    	if ($file) {
+
 	        if (is_string($file)) {
 	          $this->attributes['avatar'] = $file;
 
@@ -72,12 +74,23 @@ class User extends Authenticatable
      * Scope a query to fetch Active data only.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
         return $query->where('status', '1');
+    }
+
+
+    public function groups()
+    {
+        return $this->hasMany('App\Models\Group', 'user_id', 'id');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany('App\Models\GroupRequest', 'user_id', 'id');
     }
 
 }
