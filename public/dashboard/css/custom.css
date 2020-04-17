@@ -1,0 +1,14 @@
+*:not(i) {
+  font-family: "Tajawal", sans-serif;
+  overflow-wrap: break-word;
+  outline: none !important;
+}
+
+.dashboard-statistic a{
+    text-decoration: none;
+}
+
+header.navbar a.navbar-brand {
+	background-image: url('../img/logo.png') !important;
+	background-size: 45px auto;
+}
