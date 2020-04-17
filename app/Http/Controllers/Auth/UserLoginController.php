@@ -64,7 +64,7 @@ class UserLoginController extends Controller
      */
     protected function validator(array $data)
     {
-        
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
@@ -106,10 +106,9 @@ class UserLoginController extends Controller
 
     public function logout(Request $request)
     {
-        dd("lo");
-        // auth()->logout();
-        auth()->guard('user')->logout()
-        
+
+        auth()->guard('user')->logout();
+
         return redirect()->route('user-login-form');
 
     }

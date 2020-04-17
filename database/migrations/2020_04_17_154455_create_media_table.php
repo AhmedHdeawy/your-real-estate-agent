@@ -15,6 +15,9 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable();
+            $table->string('title')->nullable();
+            $table->morphs('mediable');
             $table->timestamps();
         });
     }

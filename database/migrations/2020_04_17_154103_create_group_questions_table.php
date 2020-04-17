@@ -15,7 +15,12 @@ class CreateGroupQuestionsTable extends Migration
     {
         Schema::create('group_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
+            $table->text('answer')->nullable();
+            $table->unsignedBigInteger('group_id');
             $table->timestamps();
+
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
         });
     }
 
