@@ -33,7 +33,7 @@ class RolesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $roles = $searchQuery->paginate(env('perPage'));
+      $roles = $searchQuery->paginate(config('loqyana.perPage'));
 
       return view('dashboard.roles.index', compact('roles'));
     }
@@ -68,7 +68,7 @@ class RolesController extends Controller
 
         $role->syncPermissions($request->input('permissions'));
 
-        return redirect()->route('admin.roles.index')->with('msg_success', __('lang.createdSuccessfully'));
+        return redirect()->route('admin.roles.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 
@@ -120,7 +120,7 @@ class RolesController extends Controller
 
         $role->syncPermissions($request->input('permissions'));
 
-        return redirect()->route('admin.roles.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        return redirect()->route('admin.roles.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
     /**
@@ -132,7 +132,7 @@ class RolesController extends Controller
         // Delete Record
         $role->delete();
 
-      return back()->with('msg_success', __('lang.deletedSuccessfully'));
+      return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }
 
 
@@ -197,7 +197,7 @@ class RolesController extends Controller
             }
         }
 
-        return redirect()->route('admin.roles.index')->with('msg_success', __('lang.createdSuccessfully'));
+        return redirect()->route('admin.roles.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 }

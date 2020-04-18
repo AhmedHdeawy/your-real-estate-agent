@@ -20,20 +20,20 @@ class SlidersController extends Controller
      */
     public function index(Request $request)
     {
-    
+
       $request->flash();
 
-      $inputsArray = [    
+      $inputsArray = [
         'slider_translations.sliders_title'   => [ 'like', request('title') ],
         'sliders.sliders_status'              => [ '=', request('status') ]
       ];
 
       $query = Slider::join('slider_translations', 'sliders.id', 'slider_translations.slider_id')
                         ->groupBy('sliders.id');
-      
+
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $sliders = $searchQuery->paginate(env('perPage'));
+      $sliders = $searchQuery->paginate(config('loqyana.perPage'));
 
       return view('dashboard.sliders.index', compact('sliders'));
     }
@@ -61,7 +61,7 @@ class SlidersController extends Controller
        // dd($request->all());
         $slider = Slider::create($request->all());
 
-        return redirect()->route('admin.sliders.index')->with('msg_success', __('lang.createdSuccessfully'));
+        return redirect()->route('admin.sliders.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 
@@ -89,7 +89,7 @@ class SlidersController extends Controller
       return view('dashboard.sliders.edit', compact('slider'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -101,7 +101,7 @@ class SlidersController extends Controller
     {
         $slider->update($request->all());
 
-        return redirect()->route('admin.sliders.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        return redirect()->route('admin.sliders.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
     /**
@@ -111,7 +111,7 @@ class SlidersController extends Controller
     {
         // Get Image name
         $logo = $slider->sliders_img;
-        
+
         // Delete Record
         $slider->delete();
 
@@ -119,7 +119,7 @@ class SlidersController extends Controller
         $this->deleteFile('sliders/', $logo);
 
 
-      return back()->with('msg_success', __('lang.deletedSuccessfully'));
+      return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }
 
 }

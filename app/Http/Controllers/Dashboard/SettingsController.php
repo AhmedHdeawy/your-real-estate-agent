@@ -20,7 +20,7 @@ class SettingsController extends Controller
     public function index(Request $request)
     {
 
-      $settings = Setting::all();        
+      $settings = Setting::all();
 
       return view('dashboard.settings.index', compact('settings'));
     }
@@ -49,7 +49,7 @@ class SettingsController extends Controller
       return view('dashboard.settings.edit', compact('setting'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -59,12 +59,12 @@ class SettingsController extends Controller
      */
     public function update(SettingRequest $request, Setting $setting)
     {
-       
+
         $setting = Setting::where('settings_key', $request->settings_key)->first();
         $setting->settings_value = $request->settings_value;
         $setting->save();
 
-        return redirect()->route('admin.settings.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        return redirect()->route('admin.settings.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
 }

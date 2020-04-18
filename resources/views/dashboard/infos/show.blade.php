@@ -2,23 +2,23 @@
 
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">{{ __('lang.home') }}</li>
-    <li class="breadcrumb-item"><a href="{{ route('admin.infos.index') }}">{{ __('lang.infos') }}</a></li>
-      <li class="breadcrumb-item active">{{ __('lang.show') }}</li>
+    <li class="breadcrumb-item">{{ __('dashboard.home') }}</li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.infos.index') }}">{{ __('dashboard.infos') }}</a></li>
+      <li class="breadcrumb-item active">{{ __('dashboard.show') }}</li>
 @endsection
 
 @section('content')
 
 <div class="row">
 	<div class="col-12">
-        
+
         <div class="card">
             <div class="card-block">
 
 
                 <div class="row show-details-row">
                     <div class="col-sm-2">
-                        {{ __('lang.'.$info->infos_key) }} :
+                        {{ __('dashboard.'.$info->infos_key) }} :
                     </div>
                     <div class="col-sm-10">
                         {{ $info->translate($showLang)->infos_desc }}
@@ -27,13 +27,13 @@
 
                 <div class="row show-details-row">
                     <div class="col-sm-2">
-                        {{ __('lang.status') }} :
+                        {{ __('dashboard.status') }} :
                     </div>
                     <div class="col-sm-10">
                         @if($info->infos_status == 1)
-                            <strong class="text-success">{{ __('lang.'.$showLang.'.active') }}</strong>
+                            <strong class="text-success">{{ __('dashboard.'.$showLang.'.active') }}</strong>
                         @else
-                            <strong class="text-danger">{{ __('lang.'.$showLang.'.stopped') }}</strong>
+                            <strong class="text-danger">{{ __('dashboard.'.$showLang.'.stopped') }}</strong>
                         @endif
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 </a>
 
                 <a href="{{ route('admin.infos.index') }}" class="btn btn-secondary">
-                  {{ __('lang.back') }}
+                  {{ __('dashboard.back') }}
                 </a>
             </div>
         </div>

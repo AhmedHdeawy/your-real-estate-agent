@@ -33,7 +33,7 @@ class InfosController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $infos = $searchQuery->paginate(env('perPage'));
+      $infos = $searchQuery->paginate(config('loqyana.perPage'));
 
       return view('dashboard.infos.index', compact('infos'));
     }
@@ -61,7 +61,7 @@ class InfosController extends Controller
        // dd($request->all());
         $info = Info::create($request->all());
 
-        return redirect()->route('admin.infos.index')->with('msg_success', __('lang.createdSuccessfully'));
+        return redirect()->route('admin.infos.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 
@@ -102,7 +102,7 @@ class InfosController extends Controller
 
         $info->update($request->all());
 
-        return redirect()->route('admin.infos.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        return redirect()->route('admin.infos.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
 }

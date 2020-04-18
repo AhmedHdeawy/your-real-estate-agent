@@ -21,35 +21,43 @@ Route::prefix('admin')
     Route::post('login', 'Auth\AdminLoginController@login')->name('postLogin');
 
 
-	Route::middleware(['admin', 'check_permission'])->group(function(){
+	Route::group(['middleware'    =>  'admin'],function(){
+	// Route::middleware(['admin', 'check_permission'])->group(function(){
 
-		// Dashboard Routes
-		Route::get('/', 'Dashboard\DashboardController@index')->name('dashboard.index');
+        Route::group(['namespace' => 'Dashboard', 'middleware'  =>  ['check_permission']], function () {
 
+            // Dashboard Routes
+            Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-       	// Infos Routes
-    	Route::resource('infos', 'Dashboard\InfosController')->except('create', 'store', 'destroy');
+            // Groups Routes
+            Route::resource('groups', 'GroupsController')->except('create', 'store', 'edit');
 
-    	// Settings Routes
-    	Route::resource('settings', 'Dashboard\SettingsController')->except('create', 'store', 'destroy');
+            // Posts Routes
+            Route::resource('posts', 'PostsController')->except('create', 'store', 'edit', 'update');
 
-        // ContactUs Routes
-        Route::resource('contactus', 'Dashboard\ContactUsController');
+            // Infos Routes
+            Route::resource('infos', 'InfosController')->except('create', 'store', 'destroy');
 
-    	// Users Routes
-    	Route::resource('users', 'Dashboard\UsersController');
+            // Settings Routes
+            Route::resource('settings', 'SettingsController')->except('create', 'store', 'destroy');
 
-        // Admins Routes
-        Route::resource('admins', 'Dashboard\AdminsController');
+            // ContactUs Routes
+            Route::resource('contactus', 'ContactUsController');
 
-        // Roles Routes
-        Route::resource('roles', 'Dashboard\RolesController');
-        Route::get('permissions', 'Dashboard\RolesController@permissions')->name('roles.permissions');
+            // Users Routes
+            Route::resource('users', 'UsersController');
 
+            // Admins Routes
+            Route::resource('admins', 'AdminsController');
+
+            // Roles Routes
+            Route::resource('roles', 'RolesController');
+            Route::get('permissions', 'RolesController@permissions')->name('roles.permissions');
+
+        });
 
         // Admin Logout Route
         Route::post('logout', 'Auth\AdminLoginController@logout')->name('logout');
-
 
 	});
 

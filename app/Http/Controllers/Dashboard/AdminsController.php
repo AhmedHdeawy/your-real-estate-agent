@@ -25,16 +25,16 @@ class AdminsController extends Controller
 
       $request->flash();
 
-      $inputsArray = [    
+      $inputsArray = [
         'admins.username'   => [ 'like', request('username') ],
         'admins.email'   => [ 'like', request('email') ],
       ];
 
       $query = Admin::groupBy('id');
-      
+
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $admins = $searchQuery->paginate(env('perPage'));
+      $admins = $searchQuery->paginate(config('loqyana.perPage'));
 
       return view('dashboard.admins.index', compact('admins'));
     }
@@ -48,7 +48,7 @@ class AdminsController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        
+
         return view('dashboard.admins.create', compact('roles'));
     }
 
@@ -65,7 +65,7 @@ class AdminsController extends Controller
 
         $admin->assignRole($request->roles);
 
-        return redirect()->route('admin.admins.index')->with('msg_success', __('lang.createdSuccessfully'));
+        return redirect()->route('admin.admins.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 
@@ -95,7 +95,7 @@ class AdminsController extends Controller
       return view('dashboard.admins.edit', compact('admin', 'roles','adminRole'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -112,7 +112,7 @@ class AdminsController extends Controller
 
         $admin->assignRole($request->roles);
 
-        return redirect()->route('admin.admins.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        return redirect()->route('admin.admins.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
     /**
@@ -123,7 +123,7 @@ class AdminsController extends Controller
         // Delete Record
         $admin->delete();
 
-      return back()->with('msg_success', __('lang.deletedSuccessfully'));
+      return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }
 
 }

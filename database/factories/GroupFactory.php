@@ -10,7 +10,5 @@ $factory->define(Group::class, function (Faker $faker) {
     return [
         'name'  =>  $faker->realText(30),
         'description'   =>  $faker->realText(200),
-        // 'user_id'   =>  User::get()->random()->id,
-        'user_id'   =>  $faker->numberBetween(1, 50),
     ];
 });

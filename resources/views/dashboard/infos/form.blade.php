@@ -1,10 +1,10 @@
 
 <h5 class="text-primary m-b-h">
-  {{ __('lang.staticData') }}
+  {{ __('dashboard.staticData') }}
 </h5>
 
 <div class="form-group row">
-  <label class="col-md-3 form-control-label"> {{ __('lang.status') }} </label>
+  <label class="col-md-3 form-control-label"> {{ __('dashboard.status') }} </label>
 
   <div class="col-md-9">
 
@@ -14,12 +14,12 @@
 
       <label class="radio-inline" for="active">
           <input type="radio" id="active" name="infos_status" value="1" {{ $status == 1 ? 'checked' : '' }}>
-          {{ __('lang.active') }}
+          {{ __('dashboard.active') }}
       </label>
 
       <label class="radio-inline" for="stopped">
           <input type="radio" id="stopped" name="infos_status" value="0" {{ $status == 0 ? 'checked' : '' }}>
-          {{ __('lang.stopped') }}
+          {{ __('dashboard.stopped') }}
       </label>
 
       @if ($errors->first('infos_status'))
@@ -34,19 +34,19 @@
 
 
   <h5 class="text-primary m-t-h m-b-h p-t-h">
-    {{ __('lang.'. $languag->locale .'Data') }}
+    {{ __('dashboard.'. $languag->locale .'Data') }}
   </h5>
 
 
    <div class="form-group row">
-      <label class="col-md-3 form-control-label" for="{{ $languag->locale }}[infos_desc]"> {{ __('lang.'.$info->infos_key) }} </label>
+      <label class="col-md-3 form-control-label" for="{{ $languag->locale }}[infos_desc]"> {{ __('dashboard.'.$info->infos_key) }} </label>
       <div class="col-md-9">
-          
-          <textarea type="text" id="{{ $languag->locale }}[infos_desc]" name="{{ $languag->locale }}[infos_desc]" 
-            class="form-control {{ $errors->first($languag->locale .'.infos_desc') ? 'is-invalid' : '' }}" 
-            placeholder="{{ __('lang.infos_desc') }}"
+
+          <textarea type="text" id="{{ $languag->locale }}[infos_desc]" name="{{ $languag->locale }}[infos_desc]"
+            class="form-control {{ $errors->first($languag->locale .'.infos_desc') ? 'is-invalid' : '' }}"
+            placeholder="{{ __('dashboard.infos_desc') }}"
           >{{ old($languag->locale .'infos_desc', isset($info) ? $info->translate($languag->locale)->infos_desc : '') }}</textarea>
-          
+
           @if ($errors->first($languag->locale .'.infos_desc'))
             <div class="invalid-feedback text-danger">{{ $errors->first($languag->locale .'.infos_desc') }}</div>
           @endif

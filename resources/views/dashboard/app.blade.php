@@ -9,17 +9,17 @@
 
   <link rel="icon" href="{{ asset('front/images/logo-icon.png') }}" type="image/png" sizes="16x16">
 
-  <title>{{ __('lang.websiteAdminPanel') }}</title>
-  
+  <title>{{ __('dashboard.websiteAdminPanel') }}</title>
+
 
   <!-- Fonts CSS-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tajawal:400,500,700,800,900">
   <link rel="stylesheet" href="{{ asset('dashboard/css/font-awesome.min.css') }}">
-  
+
 
   <!-- Icons CSS-->
   <link rel="stylesheet" href="{{ asset('dashboard/css/simple-line-icons.css') }}">
-  
+
   <!-- Styles CSS-->
   @if($currentLangDir == 'rtl')
     <link rel="stylesheet" href="{{ asset('dashboard/css/style-ar.css') }}">
@@ -30,11 +30,11 @@
   {{-- Plugins --}}
   <link rel="stylesheet" href="{{ asset('dashboard/css/alertify.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dashboard/plugins/select2/css/select2.min.css') }}">
-  
-  
+
+
   <!-- Custom CSS-->
     <link rel="stylesheet" href="{{ asset('dashboard/css/custom.css') }}">
-    
+
   @if($currentLangDir == 'rtl')
     <link rel="stylesheet" href="{{ asset('dashboard/css/custom-ar.css') }}">
   @else
@@ -46,7 +46,7 @@
 
 <body class="navbar-fixed sidebar-nav fixed-nav">
 
-   
+
     <!-- Main Navbar-->
     @include('dashboard.includes.navbar')
     <!-- End / Main Navbar-->
@@ -63,7 +63,7 @@
           @yield('breadcrumb')
         </ol>
       <!-- End / Breadcrumb -->
-        
+
       {{-- Page Content --}}
         <div class="container-fluid">
           <div class="animated fadeIn">
@@ -76,7 +76,7 @@
     {{-- Footer --}}
     <footer class="footer">
         <span class="pull-left">
-            {{ __('lang.poweredBy') }}
+            {{ __('dashboard.poweredBy') }}
             <a href="https://eg.mostaql.com/u/AhmedHdeawy/portfolio" target="_blank">Ahmed Hdeawy</a>
         </span>
 
@@ -84,17 +84,17 @@
              <a href="http://coreui.io">CoreUI</a>
         </span>
     </footer>
-  
+
     <!-- Bootstrap and necessary plugins -->
     <script src="{{ asset('dashboard/js/libs/jquery.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/tether.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/bootstrap.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/pace.min.js') }}"></script>
-    
+
     <!-- CoreUI main scripts -->
     <script src="{{ asset('dashboard/js/app.js') }}"></script>
 
-    
+
     <!-- Plugins and scripts required by this views -->
     <script src="{{ asset('dashboard/js/libs/alertify.min.js') }}"></script>
 

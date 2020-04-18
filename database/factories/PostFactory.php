@@ -7,11 +7,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Post::class, function (Faker $faker) {
 
-    $group = App\Models\Group::get()->random();
+    $member = App\Models\GroupMember::get()->random();
 
     return [
         'text'  =>  $faker->realText(400),
-        'user_id'   =>  $group->id,
-        'group_id'   =>  $group->user_id,
+        'group_id'   =>  $member->group_id,
+        'user_id'   =>  $member->user_id,
     ];
 });

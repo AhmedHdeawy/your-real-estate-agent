@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ $localeLang }}" dir="{{ $currentLangDir == 'rtl' ? 'rtl' : 'ltr' }}">
 
-<head>  
+<head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,17 +14,17 @@
 
   <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
 
-  <title>{{ __('lang.websiteAdminPanel') }}</title>
-  
+  <title>{{ __('dashboard.websiteAdminPanel') }}</title>
+
   <!-- Bootstrap CSS-->
   {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/bootstrap.min.css') }}"> --}}
-  
+
   <!-- Fonts CSS-->
   <link rel="stylesheet" href="{{ asset('dashboard/css/font-awesome.min.css') }}">
-  
+
   <!-- Icons CSS-->
   <link rel="stylesheet" href="{{ asset('dashboard/css/simple-line-icons.css') }}">
-  
+
   <!-- Styles CSS-->
   @if($currentLangDir == 'rtl')
     <link rel="stylesheet" href="{{ asset('dashboard/css/style-ar.css') }}">
@@ -50,8 +50,8 @@
                 <div class="card-group ">
                     <div class="card p-a-2">
                         <div class="card-block">
-                            <h1>{{ __('lang.login') }}</h1>
-                            <p class="text-muted">{{ __('lang.loginDetails') }}</p>
+                            <h1>{{ __('dashboard.login') }}</h1>
+                            <p class="text-muted">{{ __('dashboard.loginDetails') }}</p>
 
                             <p>
                                 @if ($errors->has('email'))
@@ -66,21 +66,21 @@
 
                                 <div class="input-group m-b-1">
                                     <span class="input-group-addon"><i class="icon-user"></i></span>
-                                    <input type="text" 
-                                        class="form-control en {{ $errors->has('email') ? ' is-invalid' : '' }}" 
-                                        name="email" 
+                                    <input type="text"
+                                        class="form-control en {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                        name="email"
                                         value="{{ old('email') }}" required autofocus
-                                        placeholder="{{ __('lang.email') }}"
+                                        placeholder="{{ __('dashboard.email') }}"
                                     >
 
                                 </div>
-                                
+
                                 <div class="input-group m-b-2">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                    <input type="password" 
-                                        class="form-control en {{ $errors->has('password') ? ' is-invalid' : '' }}" 
-                                        name="password" 
-                                        placeholder="{{ __('lang.password') }}"
+                                    <input type="password"
+                                        class="form-control en {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                        name="password"
+                                        placeholder="{{ __('dashboard.password') }}"
                                     >
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback">
@@ -88,12 +88,12 @@
                                         </span>
                                     @endif
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <button type="submit" class="btn btn-primary p-x-2">
                                             <i class="icon-login"></i>
-                                            {{ __('lang.login') }}
+                                            {{ __('dashboard.login') }}
                                         </button>
                                     </div>
                                 </div>
@@ -105,8 +105,8 @@
                     <div class="card card-inverse card-primary p-y-3" style="width:44%">
                         <div class="card-block text-xs-center">
                             <div>
-                                <h2>{{ __('lang.websiteAdminPanel') }}</h2>
-                                <p>{{ __('lang.websiteAdminPanelDetails') }}</p>
+                                <h2>{{ __('dashboard.websiteAdminPanel') }}</h2>
+                                <p>{{ __('dashboard.websiteAdminPanelDetails') }}</p>
                             </div>
                         </div>
                     </div>
@@ -114,16 +114,16 @@
             </div>
         </div>
     </div>
-  
+
     <!-- Bootstrap and necessary plugins -->
     <script src="{{ asset('dashboard/js/libs/jquery.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/tether.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/bootstrap.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/libs/pace.min.js') }}"></script>
-    
+
     <!-- CoreUI main scripts -->
     <script src="{{ asset('dashboard/js/app.js') }}"></script>
-    
+
     <!-- Plugins and scripts required by this views -->
     <!-- Custom scripts required by this view -->
     <script src="{{ asset('dashboard/js/views/main.js') }}"></script>

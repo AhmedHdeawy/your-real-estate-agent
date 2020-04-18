@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'password', 'avatar'
+        'name', 'username', 'age', 'email', 'phone', 'password', 'avatar'
     ];
 
     /**
@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->hasMany('App\Models\Group', 'user_id', 'id');
+        return $this->belongsToMany('App\Models\Group', 'group_members', 'user_id', 'group_id');
     }
 
     public function requests()

@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|min:2',
-            'phone' => 'required|min:2|max:30',
+            'phone' => 'required|min:2|max:30|unique:users,phone',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'status' => 'required',
@@ -34,6 +34,7 @@ class UserRequest extends FormRequest
 
         if ($this->isMethod('PUT')) {
             $rules['email'] = 'required|email|unique:users,email,'. $this->segment(4) .',id';
+            $rules['phone'] = 'required|unique:users,phone,'. $this->segment(4) .',id';
             $rules['password'] = 'confirmed';
             $rules['avatar']  =  'nullable|image';
         }

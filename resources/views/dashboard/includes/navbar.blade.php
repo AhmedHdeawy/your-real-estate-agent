@@ -12,11 +12,11 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ str_replace( '/'.$localeLang.'/',  '/'.$localeLangInverse.'/', url()->full() ) }}">
-                    <i class="fa fa-globe"></i> 
-                    {{ __('lang.'.$localeLangInverse.'.inverse') }}
+                    <i class="fa fa-globe"></i>
+                    {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
                 </a>
             </li>
-            
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('dashboard/img/AdminLTELogo.png') }} " class="img-avatar img-thumbnail">
@@ -24,12 +24,12 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ route('admin.admins.edit', auth()->guard('admin')->id()) }}"><i class="fa fa-user"></i> {{ __('lang.profile') }} </a>
+                    <a class="dropdown-item" href="{{ route('admin.admins.edit', auth()->guard('admin')->id()) }}"><i class="fa fa-user"></i> {{ __('dashboard.profile') }} </a>
 
                     <form action="{{ route('admin.logout') }}" method="post">
                         @csrf
                         <button type="submit" class="dropdown-item">
-                            <i class="fa fa-lock"></i> {{ __('lang.logout') }}
+                            <i class="fa fa-lock"></i> {{ __('dashboard.logout') }}
                         </button>
                     </form>
                 </div>

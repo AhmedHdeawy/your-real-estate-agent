@@ -3,12 +3,12 @@
 
 
 <div class="form-group row">
-    <label class="col-md-3 form-control-label" for="settings_value"> {{ __('lang.'.$setting->settings_key) }} </label>
+    <label class="col-md-3 form-control-label" for="settings_value"> {{ __('dashboard.'.$setting->settings_key) }} </label>
     <div class="col-md-9">
-        
-        <input type="text" id="settings_value" name="settings_value" 
-          class="form-control {{ $errors->first('settings_value') ? 'is-invalid' : '' }}" 
-          placeholder="{{ __('lang.name') }}"
+
+        <input type="text" id="settings_value" name="settings_value"
+          class="form-control {{ $errors->first('settings_value') ? 'is-invalid' : '' }}"
+          placeholder="{{ __('dashboard.name') }}"
           value="{{ old('settings_value', isset($setting) ? $setting->settings_value : '') }}"
         >
         @if ($errors->first('settings_value'))

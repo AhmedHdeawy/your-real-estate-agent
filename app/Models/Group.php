@@ -6,23 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+
+    protected $guarded = ['status', 'unique_name'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-    	'name', 'description', 'user_id'
+        'name', 'description', 'image',
     ];
 
-
     /**
-     * User who owner the Group
+     * Set Group image
+     *  @param string $file
      */
-    public function user()
+    public function setImageAttribute($file)
     {
-        return $this->belongsTo('App\User', 'user_id', 'id');
+
+        if ($file) {
+
+            if (is_string($file)) {
+                $this->attributes['image'] = $file;
+            } else {
+
+                $name =  $file->getClientOriginalName();
+                $name = time() . '_' . $name;
+
+                Image::make($file)->save('uploads/groups/' . $name);
+
+                $this->attributes['image'] = $name;
+            }
+        }
     }
+
 
     public function questions()
     {
@@ -35,4 +53,23 @@ class Group extends Model
         return $this->hasMany('App\Models\GroupRequest', 'group_id', 'id');
     }
 
+    public function members()
+    {
+        return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id')->wherePivot('role', 'member');
+    }
+
+    public function owners()
+    {
+        return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id')->wherePivot('role', 'owner');
+    }
+
+    public function admins()
+    {
+        return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id')->wherePivot('role', 'admin');
+    }
+
+    public function owner($userID)
+    {
+        return $this->owners()->where('users.id', $userID)->first();
+    }
 }

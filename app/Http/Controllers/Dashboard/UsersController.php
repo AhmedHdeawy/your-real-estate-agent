@@ -23,18 +23,18 @@ class UsersController extends Controller
 
       $request->flash();
 
-      $inputsArray = [    
-        'users.name'   => [ 'like', request('name') ],
+      $inputsArray = [
+        'users.full_name'   => [ 'like', request('name') ],
         'users.phone'   => [ 'like', request('phone') ],
         'users.email'   => [ 'like', request('email') ],
         'users.status'              => [ '=', request('status') ]
       ];
 
-      $query = User::groupBy('id');
-      
+      $query = User::latest();
+
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $users = $searchQuery->paginate(env('perPage'));
+      $users = $searchQuery->paginate(config('loqyana.perPage'));
 
       return view('dashboard.users.index', compact('users'));
     }
@@ -59,15 +59,17 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-       
+
        $request->merge([
-          'location'  => 'location',
           'username'  =>  mt_rand(1000000, mt_getrandmax())
         ]);
 
         $user = User::create($request->all());
 
-        return redirect()->route('admin.users.index')->with('msg_success', __('lang.createdSuccessfully'));
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
 
@@ -94,7 +96,7 @@ class UsersController extends Controller
       return view('dashboard.users.edit', compact('user'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -104,10 +106,12 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-
         $user->update($request->all());
 
-        return redirect()->route('admin.users.index')->with('msg_success', __('lang.updatedSuccessfully'));
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
     /**
@@ -117,7 +121,7 @@ class UsersController extends Controller
     {
         // Get Image name
         $avatar = $user->avatar;
-        
+
         // Delete Record
         $user->delete();
 
@@ -125,7 +129,7 @@ class UsersController extends Controller
         $this->deleteFile('users/', $avatar);
 
 
-      return back()->with('msg_success', __('lang.deletedSuccessfully'));
+      return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }
 
 }
