@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-block p-a-1 clearfix">
                     <i
-                        class="icon-people bg-success p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
+                        class="icon-layers bg-success p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
                     <div class="h5 text-primary m-b-0 m-t-h">
                         {{ countRows('App\Models\Group') }}
                     </div>
@@ -48,7 +48,7 @@
             <div class="card">
                 <div class="card-block p-a-1 clearfix">
                     <i
-                        class="icon-people bg-warning p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
+                        class="icon-pencil bg-warning p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
                     <div class="h5 text-primary m-b-0 m-t-h">
                         {{ countRows('App\Models\Post') }}
                     </div>

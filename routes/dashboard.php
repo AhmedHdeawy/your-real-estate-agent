@@ -33,7 +33,13 @@ Route::prefix('admin')
             Route::resource('groups', 'GroupsController')->except('create', 'store', 'edit');
 
             // Posts Routes
-            Route::resource('posts', 'PostsController')->except('create', 'store', 'edit', 'update');
+            Route::resource('posts', 'PostsController')->except('create', 'store', 'edit');
+
+            // Countries Routes
+            Route::resource('countries', 'CountriesController');
+
+            // States Routes
+            Route::resource('states', 'StatesController');
 
             // Infos Routes
             Route::resource('infos', 'InfosController')->except('create', 'store', 'destroy');

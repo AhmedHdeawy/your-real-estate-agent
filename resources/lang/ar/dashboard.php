@@ -42,7 +42,7 @@ return [
     'email'                     =>  'البريد الالكتروني',
     'phone'                     =>  'الجوال',
     'age'                       =>  'العمر',
-    'text'                      =>  'الرسالة',
+    'text'                      =>  'النص',
     'send'                      =>  'ارسال',
     'address'                   =>  'العنوان',
     'mobile'                    =>  'الموبايل',
@@ -104,21 +104,11 @@ return [
     'id'    =>  'الكود',
     'lang'  =>  'اللغة',
 
-    /**
-     * Front
-     */
-    'booking'   =>  'الحجز',
-    'login'    =>  'دخول',
-    'register'    =>  'تسجيل',
-    'latestArticle' =>  'أحدث المقالات',
-    'copyRight' =>  'جميع الحقوق محفوظه لموقع ويدان',
-    'poweredBy' =>  'تطوير بواسطة:',
-    'whoWe' =>  'من نحن',
-    'contactUsTitle'  =>  'اتصل بنا',
-    'contactUsMessage'  =>  'ارسل شكواك او مقترحاتك',
-    'yourBooking'   =>  'حجوزاتك السابقة',
-    'yourBookingHint'   =>  'حجوزاتك السابقة لدينا بكل تفاصيلها',
 
+    /**
+     * Users
+     */
+    'writer'    =>  'الكاتب',
 
     /**
      * Groups
@@ -143,7 +133,10 @@ return [
     /**
      * ContactUs
      */
-    'contactus' =>  'الرسائل',
+    'contactus' =>  'رسائل الاتصال بنا',
+    'suggestions'   =>  'الاقتراحات',
+    'complaints'   =>  'الشكاوى',
+    'suggestionsComplaints'   =>  'الاقتراحات والشكاوى',
 
     /**
      * Settings
@@ -164,6 +157,18 @@ return [
     'message'   =>  'الرسالة',
     'mission'   =>  'المهمة',
     'vision'   =>  'الرؤية',
+
+    /**
+     * Countries
+     */
+    'countries' =>  'الدول',
+    'country' =>  'الدوله',
+
+    /**
+     * States
+     */
+    'states' =>  'المحافظات',
+    'state' =>  'المحافظة',
 
 
 ];

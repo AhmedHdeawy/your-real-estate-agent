@@ -12,7 +12,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $guarded = ['has_media'];
+    protected $guarded = ['has_media', 'status'];
 
     /**
      * The attributes that are mass assignable.

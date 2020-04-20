@@ -1,7 +1,12 @@
-<?php 
+<?php
 
 use App\Models\Info;
 use App\Models\Setting;
+use App\Models\State;
+use App\Models\StateTranslation;
+use App\Models\Country;
+use App\Models\CountryTranslation;
+use App\Models\Language;
 
 
 /**
@@ -43,7 +48,7 @@ function make_slug($string = null, $separator = "-") {
     // Remove spaces from the beginning and from the end of the string
     $string = trim($string);
 
-    // Lower case everything 
+    // Lower case everything
     // using mb_strtolower() function is important for non-Latin UTF-8 string | more info: http://goo.gl/QL2tzK
     $string = mb_strtolower($string, "UTF-8");;
 
@@ -58,6 +63,62 @@ function make_slug($string = null, $separator = "-") {
     // Convert whitespaces and underscore to the given separator
     $string = preg_replace("/[\s_]/", $separator, $string);
     return $string;
+}
+
+
+function fillCountries()
+{
+    $cs = \DB::table('api_countries')->get()->toArray();
+    $localesLangs = Language::get()->pluck('locale')->toArray();
+
+    foreach ($cs as $c) {
+
+        $Nc = json_decode(json_encode($c, true), true);
+
+        // $nCountry = Country::create(['code' =>  $c->code]);
+        $nCountry = new Country();
+        $nCountry->id = $c->id;
+        $nCountry->code = $c->code;
+        $nCountry->save();
+
+        foreach ($localesLangs as $lang) {
+            $getName = 'name_' . $lang;
+
+            $nCT = new CountryTranslation();
+            $nCT->country_id = $nCountry->id;
+            $nCT->locale = $lang;
+            $nCT->name = $Nc[$getName];
+            $nCT->save();
+        }
+    }
+
+    dd('Done');
+}
+
+
+function fillCities()
+{
+    $cs = \DB::table('api_cities')->get()->toArray();
+    $localesLangs = Language::get()->pluck('locale')->toArray();
+
+    foreach ($cs as $c) {
+
+        $Nc = json_decode(json_encode($c, true), true);
+
+        $nCountry = State::create(['country_id' =>  $c->country_id]);
+
+        foreach ($localesLangs as $lang) {
+            $getName = 'name_' . $lang;
+
+            $nCT = new StateTranslation();
+            $nCT->state_id = $nCountry->id;
+            $nCT->locale = $lang;
+            $nCT->name = $Nc[$getName];
+            $nCT->save();
+        }
+    }
+
+    dd('Done');
 }
 
 

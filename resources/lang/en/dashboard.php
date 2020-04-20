@@ -99,6 +99,11 @@ return [
     'lang'  =>  'Lang',
 
     /**
+     * Users
+     */
+    'writer'    =>  'Writer',
+
+    /**
      * Groups
      */
     'groups'    =>  'Groups',
@@ -122,7 +127,7 @@ return [
     /**
      * ContactUs
      */
-    'contactus' =>  'Messages',
+    'contactus' =>  'ContactUS Messages',
 
     /**
      * Settings
@@ -142,5 +147,17 @@ return [
     'message'   =>  'Message',
     'mission'   =>  'Mission',
     'vision'   =>  'Vision',
+
+    /**
+     * Countries
+     */
+    'countries' =>  'Countries',
+    'country' =>  'Country',
+
+    /**
+     * States
+     */
+    'states' =>  'States',
+    'city' =>  'State',
 
 ];

@@ -23,8 +23,31 @@
             </li>
             @endif
 
-            @if (auth('admin')->user()->can('admin.infos.view'))
+            @if(auth('admin')->user()->can('admin.posts.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'posts' ? 'active' : '' }}" href="{{ route('admin.posts.index') }}">
+                    <i class="icon-pencil"></i> {{ __('dashboard.posts') }}
+                </a>
+            </li>
+            @endif
 
+            @if(auth('admin')->user()->can('admin.countries.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'countries' ? 'active' : '' }}" href="{{ route('admin.countries.index') }}">
+                    <i class="icon-flag"></i> {{ __('dashboard.countries') }}
+                </a>
+            </li>
+            @endif
+
+            @if(auth('admin')->user()->can('admin.states.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'states' ? 'active' : '' }}" href="{{ route('admin.states.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.states') }}
+                </a>
+            </li>
+            @endif
+{{--
+            @if (auth('admin')->user()->can('admin.infos.view'))
             <li class="nav-item">
                 <a class="nav-link {{ $segment == 'infos' ? 'active' : '' }}" href="{{ route('admin.infos.index') }}">
                     <i class="icon-info"></i> {{ __('dashboard.infos') }}
@@ -33,14 +56,13 @@
             @endif
 
             @if (auth('admin')->user()->can('admin.settings.view'))
-
             <li class="nav-item">
                 <a class="nav-link {{ $segment == 'settings' ? 'active' : '' }}"
                     href="{{ route('admin.settings.index') }}">
                     <i class="icon-settings"></i> {{ __('dashboard.settings') }}
                 </a>
             </li>
-            @endif
+            @endif --}}
 
             @if(auth('admin')->user()->can('admin.contactus.view'))
             <li class="nav-item">
