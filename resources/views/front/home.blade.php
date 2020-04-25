@@ -2,5 +2,10 @@
 
 @section('content')
 
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Coming Soon</h1>
+    </div>
+</div>
 
 @endsection
