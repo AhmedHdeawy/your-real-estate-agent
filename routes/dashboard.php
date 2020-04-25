@@ -60,6 +60,7 @@ Route::prefix('admin')
             Route::resource('roles', 'RolesController');
             Route::get('permissions', 'RolesController@permissions')->name('roles.permissions');
 
+
         });
 
         // Admin Logout Route
