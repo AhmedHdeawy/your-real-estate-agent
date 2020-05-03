@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
 <div class="container">
     <div class="row">
-        <h1 class="text-center">Coming Soon</h1>
+        <h1 class="text-center text-primary">Coming Soon</h1>
     </div>
 </div>
 
