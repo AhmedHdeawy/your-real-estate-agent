@@ -43,6 +43,7 @@ return [
     'address'                   =>  'العنوان',
     'mobile'                    =>  'الموبايل',
     'login'                     =>  'تسجيل الدخول',
+    'register'                  =>  'انشاء حساب',
     'logout'                     =>  'تسجيل الخروج',
     'loginDetails'              =>  'ادخل بيانات حسابك',
     'password'                  =>  'كلمة المرور',
@@ -66,7 +67,7 @@ return [
     'rememberMe'        =>  'تذكرني',
     'loginTitle'    =>  'تسجيل الدخول',
     'loginHint'     =>  'من فضلك ادخل بياناتك',
-    'registerTitle'    =>  'تسجيل عضوية جديدة',
+    'registerTitle'    =>  'تسجيل مستخدم جديدة',
     'registerHint'     =>  'من فضلك ادخل بياناتك كاملة وبشكل صحيح',
     'bookingTitle'    =>  'احجز الان',
     'bookingHint'     =>  'من فضلك ادخل بياناتك صحيحة لنتواصل معك بسهولة',
@@ -84,11 +85,6 @@ return [
     'workers'   =>  'عدد العاملات',
     'permissionDenied'  =>  'ليس لديك صلاحية الدخول لهذه الصفحة',
 
-    
-
-    'createdSuccessfully'   =>  'تمت الاضافة بنجاح',
-    'updatedSuccessfully'   =>  'تم التحديث بنجاح',
-    'deletedSuccessfully'   =>  'تم الحذف بنجاح',
 
     'search'    =>  'بحث',
     'reset'     =>  'تفريغ',
@@ -103,50 +99,31 @@ return [
     /**
      * Front
      */
-    'booking'   =>  'الحجز',
-    'login'    =>  'دخول',
-    'register'    =>  'تسجيل',
-    'latestArticle' =>  'أحدث المقالات',
     'copyRight' =>  'جميع الحقوق محفوظه لموقع ويدان',
     'poweredBy' =>  'تطوير بواسطة:',
     'whoWe' =>  'من نحن',
     'contactUsTitle'  =>  'اتصل بنا',
     'contactUsMessage'  =>  'ارسل شكواك او مقترحاتك',
-    'yourBooking'   =>  'حجوزاتك السابقة',
-    'yourBookingHint'   =>  'حجوزاتك السابقة لدينا بكل تفاصيلها',
+    'circles'   =>  'دوائر',
+    'circle'   =>  'دائرة',
+    'posts' =>  'المنشورات',
+    'post' =>  'منشور',
+    'and'   =>  'و',
 
     /**
-     * Roles
+     * Home Page
      */
-    'roles' =>  'الادوار',
-    'role' =>  'الدور',
-    'permissions' =>  'الصلاحيات',
-    'permission' =>  'الصلاحية',
-
-    /**
-     * ContactUs
-     */
-    'contactus' =>  'الرسائل',
-
-    /**
-     * Settings
-     */
-    'settings'  =>  'الاعدادات',
-    'facebook'  =>  'رابط الفيس بوك',
-    'twitter'  =>  'رابط تويتر',
-    'google'  =>  'رابط جوجل',
-    'address'  =>  'العنوان',
-    'about'  =>  'نبذه عنا',
-    'hour_price'    =>  'سعر الساعة',
+    'welcomeSectionTitle'       =>  'سجل معنا واعثر على أصدقائك بكل سهولة',
+    'stepsSectionTitle'         =>  'اعثر على أصدقائك بخطوات بسيطة',
+    'moreThan'                  =>  'اكثر من',
+    'member'                    =>  'عضو',
+    'createNewAccount'          =>  'انشئ حساب جديد',
+    'findYourGroup'             =>  'ابحث عن مجموعتك',
+    'joinToYourGroup'           =>  'انضم إلى مجموعتك',
+    'startWithUsNow'            =>  'ابدأ معنا الان',
+    'footerText'                =>  'عند قيامك بإنشاء حساب فانك توافق على',
+    'conditionsTerms'           =>  'الشروط والاحكام',
+    'privacyPolicy'             =>  'سياسة الخصوصية',
 
 
-    /**
-     * Infos
-     */
-    'infos'  =>  'البيانات',
-    'message'   =>  'الرسالة',
-    'mission'   =>  'المهمة',
-    'vision'   =>  'الرؤية',
-
-        
 ];

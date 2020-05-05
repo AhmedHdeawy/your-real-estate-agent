@@ -43,6 +43,7 @@ return [
     'address'                   =>  'Address',
     'mobile'                    =>  'Mobile',
     'login'                     =>  'Login',
+    'register'                  =>  'Create account',
     'logout'                     =>  'Logout',
     'loginDetails'              =>  'Login Details',
     'password'          =>  'Password',
@@ -98,49 +99,30 @@ return [
     /**
      * Front
      */
-    'booking'   =>  'Booking',
-    'login'    =>  'Login',
-    'register'    =>  'Register',
-    'latestArticle' =>  'Latest Articles',
     'copyRight' =>  'All Copyright Reserved to Widan',
     'poweredBy' =>  'Powerd By:',
     'whoWe' =>  'Who We Are',
     'contactUsTitle'  =>  'Contact Us',
     'contactUsMessage'  =>  'Send your Complaints or your Suggestion',
-    'yourBooking'   =>  'Your Old Booking',
-    'yourBookingHint'   =>  'your old booking with all details',
-
-/**
-     * Roles
-     */
-    'roles' =>  'Roles',
-    'role' =>  'Role',
-    'permissions' =>  'Permissions',
-    'permission' =>  'Permission',
-
+    'circles'   =>  'Circles',
+    'circle'   =>  'Circle',
+    'posts' =>  'Posts',
+    'post' =>  'Post',
+    'and'   =>  'and',
 
     /**
-     * ContactUs
+     * Home Page
      */
-    'contactus' =>  'Messages',
+    'welcomeSectionTitle'       =>  'Register with us and find your friends easily',
+    'stepsSectionTitle'         =>  'Find your friends in simple steps',
+    'moreThan'                  =>  'More Than',
+    'member'                    =>  'Member',
+    'createNewAccount'          =>  'Create New Account',
+    'findYourGroup'             =>  'Find Your Group',
+    'joinToYourGroup'           =>  'Join To The Group',
+    'startWithUsNow'            =>  'Start With Us',
+    'footerText'                =>  'When you create an account, you agree to',
+    'conditionsTerms'           =>  'Conditions & Terms',
+    'privacyPolicy'             =>  'Privacy Policy',
 
-    /**
-     * Settings
-     */
-    'settings'  =>  'Settings',
-    'facebook'  =>  'Facebook',
-    'twitter'  =>  'Twitter',
-    'google'  =>  'Google',
-    'address'  =>  'Address',
-    'about'  =>  'About Us',
-    'hour_price'    =>  'Hour Price',
-
-    /**
-     * Infos
-     */
-    'infos'  =>  'Information',
-    'message'   =>  'Message',
-    'mission'   =>  'Mission',
-    'vision'   =>  'Vision',
-        
 ];

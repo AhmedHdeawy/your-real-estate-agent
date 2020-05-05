@@ -46,7 +46,7 @@
                 </a>
             </li>
             @endif
-{{--
+
             @if (auth('admin')->user()->can('admin.infos.view'))
             <li class="nav-item">
                 <a class="nav-link {{ $segment == 'infos' ? 'active' : '' }}" href="{{ route('admin.infos.index') }}">
@@ -62,7 +62,7 @@
                     <i class="icon-settings"></i> {{ __('dashboard.settings') }}
                 </a>
             </li>
-            @endif --}}
+            @endif
 
             @if(auth('admin')->user()->can('admin.contactus.view'))
             <li class="nav-item">
