@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class='logo'>
-            <img src='./images/gotogather-logo.png' alt='Go To Gather Logo' class='img-fluid'>
+            <img src='{{ asset('images/gotogather-logo.png') }}' alt='Go To Gather Logo' class='img-fluid'>
             <h4 class='welcoming-head'>أهلا بك في لقايانا</h4>
         </div>
         <ul class='sections'>

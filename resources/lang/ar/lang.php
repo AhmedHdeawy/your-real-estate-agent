@@ -38,6 +38,10 @@ return [
     'username'                  =>  'اسم المستخدم',
     'email'                     =>  'البريد الالكتروني',
     'phone'                     =>  'الجوال',
+    'age'                       =>  'العمر',
+    'gender'                    =>  'النوع',
+    'male'                    =>  'ذكر',
+    'female'                    =>  'انثى',
     'text'                      =>  'الرسالة',
     'send'                      =>  'ارسال',
     'address'                   =>  'العنوان',
@@ -48,6 +52,7 @@ return [
     'loginDetails'              =>  'ادخل بيانات حسابك',
     'password'                  =>  'كلمة المرور',
     'password_confirmation'     =>  'اعادة كلمة المرور',
+    'forgetPassword'            =>  'نسيت كلمة السر ؟',
     'websiteAdminPanel'  =>  'لوحة تحكم الموقع',
     'websiteAdminPanelDetails'  =>  'للدخول الى لوحة تحكم الموقع. ادخل بيانات حسابك الصحيحة',
     'profile'   =>  'الملف الشخصي',
@@ -99,7 +104,7 @@ return [
     /**
      * Front
      */
-    'copyRight' =>  'جميع الحقوق محفوظه لموقع ويدان',
+    'copyRight' =>  'جميع الحقوق محفوظه',
     'poweredBy' =>  'تطوير بواسطة:',
     'whoWe' =>  'من نحن',
     'contactUsTitle'  =>  'اتصل بنا',

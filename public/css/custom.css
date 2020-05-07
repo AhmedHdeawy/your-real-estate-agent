@@ -1,0 +1,12 @@
+.invalid-feedback {
+    text-align: left;
+}
+
+body[dir='rtl'] .invalid-feedback {
+    text-align: right;
+}
+
+
+.logout-btn {
+    background: transparent;
+}

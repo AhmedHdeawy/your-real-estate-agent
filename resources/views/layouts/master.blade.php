@@ -17,6 +17,7 @@
     <link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' rel='stylesheet' as='font'>
     <script crossorigin='anonymous' src='https://kit.fontawesome.com/9a07467a57.js' async></script>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/custom.css">
     @yield('style')
 
 
