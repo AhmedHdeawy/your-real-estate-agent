@@ -184,7 +184,8 @@ return [
         'street'                =>  'Street',
         'notes'                 =>  'Notes',
         'time_from'             =>  'Start Time',
-        'time_to'             =>  'End Time',
+        'time_to'               =>  'End Time',
+        'questions'             => 'Questions',
 
 
         'infos_value' =>  'Entered Value',

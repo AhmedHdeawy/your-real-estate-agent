@@ -130,4 +130,15 @@ return [
     'conditionsTerms'           =>  'Conditions & Terms',
     'privacyPolicy'             =>  'Privacy Policy',
 
+    /**
+     * Groups
+     */
+    'createGroup'   =>  'Create Group',
+    'groupName' =>  'Group Name',
+    'groupImage' =>  'Group image',
+    'groupDescription' =>  'Group Description',
+    'groupJoinsQuestions' =>  'Group Join Questions',
+    'questionTitle' =>  'Question title',
+    'createTheGroup'   =>  'Create The Group',
+
 ];

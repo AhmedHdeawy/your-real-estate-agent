@@ -11,21 +11,27 @@
 \
 */
 
+Auth::routes();
 
 // Front Controller
-Route::group([ 'prefix' =>	'/' ], function(){
-
-    Auth::routes();
+Route::group(['namespace' => 'Front' ], function(){
 
     // Home
-    Route::get('/', 'Front\HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
+
+    // Groups
+    Route::group(['prefix' => 'groups', 'middleware'    =>  'auth', 'as'  =>  'groups.'], function () {
+        Route::get('create', 'GroupsController@create')->name('create');
+        Route::post('store', 'GroupsController@store')->name('store');
+        Route::get('{name}', 'GroupsController@show')->name('show');
+    });
 
     // About
-    Route::get('about', 'Front\HomeController@about')->name('about');
+    Route::get('about', 'HomeController@about')->name('about');
 
     // Contact Us
-    Route::get('contact-us', 'Front\HomeController@contactus')->name('contactus');
-    Route::post('contact-us', 'Front\HomeController@postContactUs')->name('postContactUs');
+    Route::get('contact-us', 'HomeController@contactus')->name('contactus');
+    Route::post('contact-us', 'HomeController@postContactUs')->name('postContactUs');
 
     Route::group([ 'middleware' =>  'auth' ], function(){
 

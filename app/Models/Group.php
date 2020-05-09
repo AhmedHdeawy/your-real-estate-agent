@@ -15,7 +15,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'image',
+        'name', 'description', 'image', 'user_id',
     ];
 
     /**
@@ -40,7 +40,6 @@ class Group extends Model
             }
         }
     }
-
 
     public function questions()
     {
@@ -68,8 +67,8 @@ class Group extends Model
         return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id')->wherePivot('role', 'admin');
     }
 
-    public function owner($userID)
+    public function owner()
     {
-        return $this->owners()->where('users.id', $userID)->first();
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

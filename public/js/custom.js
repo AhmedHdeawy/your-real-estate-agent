@@ -85,30 +85,30 @@ const hideSearch = function () {
 
 //	Start Stories Carousel Options
 if (window.location.href.indexOf('group') > -1) {
-	$('.owl-carousel').owlCarousel({
-		rtl: true,
-		loop: false,
-		margin: -20,
-		stagePadding: 40,
-		nav: true,
-		dots: false,
-		items: 6,
-		navText: ['<i class="fas fa-chevron-right">', '<i class="fas fa-chevron-left">'],
-		responsive: {
-			// breakpoint from 0 up
-			'0': {
-				items: 3
-			},
-			// breakpoint from 480 up
-			'480': {
-				items: 5
-			},
-			// breakpoint from 768 up
-			'768': {
-				items: 6
-			}
-		}
-	});
+	// $('.owl-carousel').owlCarousel({
+	// 	rtl: true,
+	// 	loop: false,
+	// 	margin: -20,
+	// 	stagePadding: 40,
+	// 	nav: true,
+	// 	dots: false,
+	// 	items: 6,
+	// 	navText: ['<i class="fas fa-chevron-right">', '<i class="fas fa-chevron-left">'],
+	// 	responsive: {
+	// 		// breakpoint from 0 up
+	// 		'0': {
+	// 			items: 3
+	// 		},
+	// 		// breakpoint from 480 up
+	// 		'480': {
+	// 			items: 5
+	// 		},
+	// 		// breakpoint from 768 up
+	// 		'768': {
+	// 			items: 6
+	// 		}
+	// 	}
+	// });
 }
 //	End Stories Carousel Options
 
@@ -133,3 +133,23 @@ const friendsShow = function () {
 	}
 };
 //	End Friends List Hide / Show
+
+
+// Add another Question when create the group
+$('.btn-create-question').click(function (e) {
+    e.preventDefault();
+
+    // Get Teaxtarea Container
+    const textAreaSection = $(this).parent().find('section');
+
+    // Get the first textarea
+    const textArea = textAreaSection.find('textarea.first:first');
+
+    if (textAreaSection.find('textarea').length > 2) {}
+    // Clone it, and insert it in the last
+    textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
+
+
+
+
+});

@@ -130,5 +130,16 @@ return [
     'conditionsTerms'           =>  'الشروط والاحكام',
     'privacyPolicy'             =>  'سياسة الخصوصية',
 
+    /**
+     * Groups
+     */
+    'createGroup'   =>  'إنشاء مجموعة',
+    'groupName' =>  'اسم المجموعة',
+    'groupImage' =>  'صورة المجموعة',
+    'groupDescription' =>  'وصف المجموعة',
+    'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
+    'questionTitle' =>  'عنوان السؤال',
+    'createTheGroup'   =>  'إنشاء المجموعة',
+
 
 ];
