@@ -70,7 +70,7 @@
         <section class='steps text-center'>
             <h2> {{ __('lang.stepsSectionTitle') }} </h2>
             <div class='row'>
-                <div class='col-lg-6 col-md-8 mx-auto'>
+                <div class='col-lg-7 col-md-8 mx-auto'>
                     <div class='row'>
                         <div class='col-md-4 col-6'>
                             <h3> {{ __('lang.createNewAccount') }} </h3>
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='col-md-4 col-6 mx-auto mx-sm-0'>
+                        <div class='col-md-4 col-6 mx-auto mx-md-0'>
                             <h3> {{ __('lang.joinToYourGroup') }} </h3>
                             <div class='step-box'>
                                 <div class='step-content'>

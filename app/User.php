@@ -83,7 +83,12 @@ class User extends Authenticatable
     }
 
 
-    public function groups()
+    public function myGroups()
+    {
+        return $this->hasMany('App\Models\Group', 'user_id', 'id');
+    }
+
+    public function inGroups()
     {
         return $this->belongsToMany('App\Models\Group', 'group_members', 'user_id', 'group_id');
     }

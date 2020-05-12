@@ -23,9 +23,31 @@ class GroupsController extends Controller
      */
     public function show(Request $request)
     {
-        $group = Group::whereUniqueName($request->name)->with(['questions', 'members', 'owner'])->first();
+        $group = Group::whereUniqueName($request->name)
+                    ->with(['requests', 'members'])
+                    ->first();
 
-        return view('front.groups.show', compact('group'));
+        // Load Group Posts
+        $posts = $group->posts()->paginate(2);
+
+        return view('front.groups.show', compact('group', 'posts'));
+    }
+
+
+    /**
+     * Load Posts Ajax.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function posts(Request $request)
+    {
+
+        $group = Group::whereUniqueName($request->name)->first();
+
+        // Load Group Posts
+        $posts = $group->posts()->paginate(2);
+
+        return response()->json($posts, 200);
     }
 
 

@@ -23,7 +23,13 @@ Route::group(['namespace' => 'Front' ], function(){
     Route::group(['prefix' => 'groups', 'middleware'    =>  'auth', 'as'  =>  'groups.'], function () {
         Route::get('create', 'GroupsController@create')->name('create');
         Route::post('store', 'GroupsController@store')->name('store');
-        Route::get('{name}', 'GroupsController@show')->name('show');
+
+        // Actions inside the group, must be owner the group or member in it
+        Route::group(['middleware' => 'userMemberInGroup'], function () {
+
+            Route::get('{name}', 'GroupsController@show')->name('show');
+            Route::get('{name}/posts', 'GroupsController@posts')->name('posts');
+        });
     });
 
     // About

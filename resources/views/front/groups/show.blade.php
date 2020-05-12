@@ -2,6 +2,10 @@
 
 @section('content')
 
-Welcome to {{ $group->name }}
+
+<section id="app" class='home-page'>
+    <group :group="{{ json_encode($group) }}" :posts="{{ json_encode($posts) }}"></group>
+</section>
+
 
 @endsection

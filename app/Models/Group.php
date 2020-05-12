@@ -46,7 +46,6 @@ class Group extends Model
         return $this->hasMany('App\Models\GroupQuestion', 'group_id', 'id');
     }
 
-
     public function requests()
     {
         return $this->hasMany('App\Models\GroupRequest', 'group_id', 'id');
@@ -70,5 +69,10 @@ class Group extends Model
     public function owner()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post', 'group_id', 'id');
     }
 }

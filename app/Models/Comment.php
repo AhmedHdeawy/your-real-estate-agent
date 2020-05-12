@@ -21,7 +21,14 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $with = ['replies'];
+    protected $with = ['replies', 'user'];
+
+    /**
+     * The relationship counts that should be eager loaded on every query.
+     *
+     * @var array
+     */
+    protected $withCount = ['likes'];
 
 
     /**
