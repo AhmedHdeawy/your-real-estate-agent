@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Front' ], function(){
 
             Route::get('{name}', 'GroupsController@show')->name('show');
             Route::get('{name}/posts', 'GroupsController@posts')->name('posts');
+            Route::post('{name}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
             Route::post('{name}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');
             Route::post('{name}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
         });

@@ -18,15 +18,15 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <!-- New Post -->
-        <new-post :unique-name="group.unique_name"></new-post>
+        <new-post :unique-name="group.unique_name" @update-posts="updatePosts"></new-post>
 
         <!-- Posts -->
         <div class="posts-con">
-          <h2> {{ translate('lang.discussions') }} </h2>
+          <h2>{{ translate('lang.discussions') }}</h2>
           <post v-for="post in posts.data" :key="post.id" :post="post"></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
-              <div slot="no-more"> {{ translate('lang.noMorePosts') }} </div>
+            <div slot="no-more">{{ translate('lang.noMorePosts') }}</div>
           </infinite-loading>
         </div>
       </div>
@@ -37,7 +37,7 @@
 <script>
 import story from "./story";
 import post from "./posts/post";
-import NewPost from './posts/NewPost'
+import NewPost from "./posts/NewPost";
 import InfiniteLoading from "vue-infinite-loading";
 
 export default {
@@ -45,7 +45,7 @@ export default {
     story,
     post,
     NewPost,
-    InfiniteLoading,
+    InfiniteLoading
   },
   props: {
     group: {
@@ -66,10 +66,15 @@ export default {
       image: this.group.image,
       members: this.group.members,
       posts: this.groupPosts,
-      page: 2,
+      page: 2
     };
   },
   methods: {
+
+    // Add New Post to the data
+    updatePosts(post) {
+      this.posts.data.unshift(post);
+    },
     //   Handle Infinte Scroll to Load more posts and append it to posts array
     infiniteHandler($state) {
       axios
@@ -87,7 +92,7 @@ export default {
             $state.complete();
           }
         });
-    },
+    }
   }
 };
 </script>

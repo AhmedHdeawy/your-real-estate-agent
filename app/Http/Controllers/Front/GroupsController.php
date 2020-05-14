@@ -28,7 +28,7 @@ class GroupsController extends Controller
                     ->first();
 
         // Load Group Posts
-        $posts = $group->posts()->paginate(2);
+        $posts = $group->posts()->latest()->paginate(2);
 
         return view('front.groups.show', compact('group', 'posts'));
     }
@@ -45,7 +45,7 @@ class GroupsController extends Controller
         $group = Group::whereUniqueName($request->name)->first();
 
         // Load Group Posts
-        $posts = $group->posts()->paginate(2);
+        $posts = $group->posts()->latest()->paginate(2);
 
         return response()->json($posts, 200);
     }

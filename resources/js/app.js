@@ -14,13 +14,19 @@ window.Vue = require('vue');
 // window.tranlate = require('./VueTranslation/Translation').default.translate;
 Vue.prototype.translate = require('./VueTranslation/Translation').default.translate;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg.. / components / GroupComponent.vue - > < example - component > < /example-component>
- */
+Vue.filter('dateFromNow', function (date) {
+
+    // Get Date in UTC
+    var stillUtc = moment.utc(date).toDate();
+    // Convert it to Locale timezone 'Africa/Cairo'
+
+    var local = moment(stillUtc).local();
+
+    // Date From Now in Human readable
+    var fromNow = local.fromNow();
+
+    return fromNow;
+});
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));

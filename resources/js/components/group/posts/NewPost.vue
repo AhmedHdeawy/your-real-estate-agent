@@ -2,7 +2,12 @@
   <!-- New Post -->
   <div class="new-post mb-4">
     <div class="form-group">
-      <textarea class="form-control" :placeholder="textareaPlaceholder" v-model="postData.text" :title="textareaPlaceholder"></textarea>
+      <textarea
+        class="form-control"
+        :placeholder="textareaPlaceholder"
+        v-model="postData.text"
+        :title="textareaPlaceholder"
+      ></textarea>
       <div class="input-group-append">
         <button
           class="btn multi-media"
@@ -48,10 +53,10 @@ export default {
     }
   },
   props: {
-      uniqueName: {
-          type: Number,
-          required: true
-      }
+    uniqueName: {
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {
@@ -74,49 +79,75 @@ export default {
         headers: {
           "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
         },
-        renameFile: (file) => {
-            // Generate Unique Name
-            const newName = "rbzgo_" + moment().unix() + "_" + this.generateRandomString();
-            const type = file.type.split('/')[1];
-            return newName + '.' + type;
+        renameFile: file => {
+          // Generate Unique Name
+          const newName =
+            "rbzgo_" + moment().unix() + "_" + this.generateRandomString();
+          const type = file.type.split("/")[1];
+          return newName + "." + type;
         }
       }
     };
   },
   methods: {
+    savePost() {
+      //   Disable Button
+      this.disabled = true;
 
-      savePost() {
-          this.disabled = true;
-          console.log(this.postData.text, this.postData.files);
+      axios
+        .post(`${this.uniqueName}/posts/savePost`, {
+          text: this.postData.text,
+          attachedFiles: this.postData.files
+        })
+        .then(({ data }) => {
+          // emit event to posts component, to update posts with new post
+          this.$emit("update-posts", data.post);
 
-      },
+            // empty Post Data
+            this.postData.text = '';
+            this.postData.files = [];
+
+            // Reset Dopzone
+            this.$refs.myVueDropzone.removeAllFiles();
+
+            // Enable Button again
+          this.disabled = false;
+        });
+    },
 
     // Remove file from server when remove it from dropzone
     removedfile(file, error, xhr) {
-        const name = file.upload.filename;
+      const name = file.upload.filename;
 
       axios
         .post(`${this.uniqueName}/posts/deleteAttachment`, {
           filename: name
         })
         .then(({ data }) => {
-            // Remove file from post files array
-            _.pull(this.postData.files, name)
+          // Remove file from post files array
+          _.pull(this.postData.files, name);
         });
     },
 
     // After File has been uploaded successfully
     fileUploaded(file, response) {
-        // Get New name after Rename and Uploading Done
-        const name = file.upload.filename;
+      // Get New name after Rename and Uploading Done
+      const name = file.upload.filename;
 
-        // Push file that uploaded to post files array
-        this.postData.files.push(name);
+      // Push file that uploaded to post files array
+      this.postData.files.push(name);
     },
 
     // Generate Random String
     generateRandomString() {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      return (
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15)
+      );
     }
   }
 };

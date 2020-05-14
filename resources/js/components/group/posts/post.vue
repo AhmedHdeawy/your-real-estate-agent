@@ -10,7 +10,7 @@
                 <img alt="User Image" src="/images/user.png" />
                 <span> {{ post.user.name }} </span>
             </a>
-            <a href="#"> {{ dateForHuman }} </a>
+            <a href="#"> {{ post.created_at | dateFromNow }} </a>
             </div>
         </div>
         <!-- Post Edit -->
@@ -100,6 +100,9 @@ export default {
     },
     computed: {
         dateForHuman: function () {
+            var stillUtc = moment.utc(this.post.created_at).toDate();
+            var local = moment(stillUtc).local().fromNow();
+            return local;
             return moment(this.post.created_at).fromNow();
         }
     },

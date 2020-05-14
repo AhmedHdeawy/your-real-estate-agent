@@ -4,18 +4,53 @@ namespace App\Http\Controllers\Front;
 
 use App\User;
 use Validator;
-use App\Models\Group;
+use App\Models\Post;
 
-use App\Models\GroupMember;
-use App\Models\GroupRequest;
+use App\Models\Group;
 use Illuminate\Http\Request;
-use App\Models\GroupQuestion;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
+
+    /**
+     * Store images.
+     *
+     * @param  \Illuminate\Http\Response  $request
+     * @return void
+     */
+    public function savePost(Request $request)
+    {
+        $this->validate($request, [
+            'text'  =>  'required|min:2|string',
+            'attachedFiles' =>  'nullable|array'
+        ]);
+
+        $group = Group::whereUniqueName($request->name)->first();
+
+        // Load Group Posts
+        $post = $group->posts()->create([
+            'text'  =>  $request->text,
+            'user_id'   =>  Auth::id()
+        ]);
+
+        if ($request->attachedFiles) {
+            // loop through media, and save them
+            foreach ($request->attachedFiles as $file) {
+
+                $post->media()->create([
+                    'name'  =>  $file
+                ]);
+            }
+        }
+
+        $post = Post::find($post->id);
+
+        return response()->json(['post' => $post]);
+
+
+    }
 
     /**
      * Store images.
