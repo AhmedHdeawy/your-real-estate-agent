@@ -111,8 +111,6 @@ return [
     'contactUsMessage'  =>  'Send your Complaints or your Suggestion',
     'circles'   =>  'Circles',
     'circle'   =>  'Circle',
-    'posts' =>  'Posts',
-    'post' =>  'Post',
     'and'   =>  'and',
 
     /**
@@ -141,4 +139,23 @@ return [
     'questionTitle' =>  'Question title',
     'createTheGroup'   =>  'Create The Group',
 
+    /**
+     * Posts
+     */
+    'posts' =>  'Posts',
+    'post' =>  'Post',
+    'discussions'   =>  'Discussions',
+    'stories'   =>  'Stories',
+    'whatsInYourMind'   =>  "what's on your mind",
+    'attachFileOrImage'   =>  'Photo/Video',
+    'publish'   =>  'publish',
+    'likes'   =>  'Likes',
+    'like'   =>  'Like',
+    'likeMe'   =>  'Like',
+    'comments'   =>  'Comments',
+    'comment'   =>  'Comment',
+    'writeComment'   =>  'write a comment',
+    'noMorePosts'   =>  'No More Posts to show',
+    'dragFilesHere'    =>    'Drop files here or click to upload.',
+    'maxFileSize'    =>    'The file is too big, cannot upload it.',
 ];

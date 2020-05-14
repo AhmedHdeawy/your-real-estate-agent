@@ -1,6 +1,6 @@
 <template>
   <div class="stories">
-    <h5>الحالات</h5>
+    <h5> {{ translate('lang.stories') }} </h5>
     <div class="owl-carousel">
       <div class="add-story" data-target="#addStoryModal" data-toggle="modal">
         <a href="#">

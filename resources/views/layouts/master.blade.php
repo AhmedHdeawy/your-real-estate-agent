@@ -20,11 +20,17 @@
     <link rel="stylesheet" href="/css/custom.css">
     @yield('style')
 
+    @auth
+        <script>
+            window.authedUser = {!! json_encode(auth()->user()) !!};
+        </script>
+    @endauth
+
 
 </head>
 
 <!-- class="rtl" -->
-<body dir="{{ $currentLangDir == 'rtl' ? 'rtl' : ''  }}">
+<body dir="{{ $currentLangDir == 'rtl' ? 'rtl' : 'ltr'  }}">
 
     <div class='container'>
         <div class='app-con'>

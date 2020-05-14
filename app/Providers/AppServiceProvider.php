@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         // Get Langs from DB
         $languages = Language::active()->get();
 

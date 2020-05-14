@@ -18,6 +18,11 @@
                         <button class='nav-link logout-btn register-btn' type="submit">{{ __('lang.logout') }}</button>
                     </form>
                 </li>
+                <li class='nav-item'>
+                    <a class="nav-link register-btn" href="{{ str_replace( '/'.$localeLang.'/',  '/'.$localeLangInverse.'/', url()->full() ) }}">
+                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
+                    </a>
+                </li>
             </ul>
         @else
             <ul class='navbar-nav'>

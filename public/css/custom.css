@@ -23,3 +23,21 @@ body[dir='rtl'] .invalid-feedback {
     display: inline-block !important;
     font-weight: 400 !important;
 }
+
+.post_attachfile .dropzone {
+    border: none;
+    border-radius: 8px;
+    bottom: 0;
+    box-shadow: 0 7px 10px #36306266;
+}
+
+
+.post_attachfile .vue-dropzone>.dz-preview .dz-remove {
+    margin-right: 15px;
+    padding: 5px;
+    width: 80%;
+}
+
+.dropzone .dz-preview.dz-error:hover .dz-error-message span {
+    color: #fff;
+}

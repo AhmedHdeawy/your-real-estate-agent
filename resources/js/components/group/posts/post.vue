@@ -29,9 +29,7 @@
                 <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div aria-labelledby="dropdownMenuLink1" class="dropdown-menu">
-                <a class="dropdown-item" href="#">ذكر</a>
-                <a class="dropdown-item" href="#">انثي</a>
-                <a class="dropdown-item" href="#">تيست</a>
+                <a class="dropdown-item" href="#"> {{ translate('lang.edit') }} </a>
                 </div>
             </div>
             </div>
@@ -49,11 +47,11 @@
     <div class="post-interaction">
         <button class="btn like">
         <i class="far fa-thumbs-up"></i>
-        <span> {{ likesCount }} Likes </span>
+        <span> {{ likesCount }} {{ translate('lang.like') }} </span>
         </button>
         <button class="btn btn-comment">
         <i class="far fa-comment"></i>
-        <span> {{ commentsCount }} Comment </span>
+        <span> {{ commentsCount }} {{ translate('lang.comment') }} </span>
         </button>
     </div>
 
@@ -61,13 +59,13 @@
     <div class="post-comments">
         <h6>
             <i class="far fa-comments"></i>
-            <span>التعليقات</span>
+            <span> {{ translate('lang.comments') }} </span>
         </h6>
 
         <!-- Type Comment -->
         <div class="comment-input">
             <div class="form-group">
-                <input class="form-control" placeholder="أكتب تعليق" title="comment input" type="text" />
+                <input class="form-control" :placeholder="translate('lang.writeComment')" title="comment input" type="text" />
                 <div class="input-group-append">
                 <button class="btn">
                     <i class="far fa-paper-plane"></i>

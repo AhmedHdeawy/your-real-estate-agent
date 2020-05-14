@@ -14,7 +14,8 @@
         "intervention/image": "^2.5",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-permission": "^3.3"
+        "spatie/laravel-permission": "^3.3",
+        "tohidplus/laravel-vue-translation": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -29,7 +30,8 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "disable-tls": false
+        "disable-tls": false,
+        "secure-http": false
     },
     "extra": {
         "laravel": {

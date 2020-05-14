@@ -111,8 +111,6 @@ return [
     'contactUsMessage'  =>  'ارسل شكواك او مقترحاتك',
     'circles'   =>  'دوائر',
     'circle'   =>  'دائرة',
-    'posts' =>  'المنشورات',
-    'post' =>  'منشور',
     'and'   =>  'و',
 
     /**
@@ -141,5 +139,23 @@ return [
     'questionTitle' =>  'عنوان السؤال',
     'createTheGroup'   =>  'إنشاء المجموعة',
 
-
+    /**
+     * Posts
+     */
+    'posts' =>  'المنشورات',
+    'post' =>  'منشور',
+    'discussions'   =>  'المناقشات',
+    'stories'   =>  'الحالات',
+    'whatsInYourMind'   =>  'بم تفكر',
+    'attachFileOrImage'   =>  'صورة/فيديو',
+    'publish'   =>  'نشر',
+    'likes'   =>  'اعجابات',
+    'like'   =>  'اعجاب',
+    'likeMe'   =>  'اعجبني',
+    'comments'   =>  'التعليقات',
+    'comment'   =>  'تعليق',
+    'writeComment'   =>  'اكتب تعليقاً',
+    'noMorePosts'   =>  'لايوجد منشورات اخرى لعرضها',
+    'dragFilesHere'    =>    'اسحب الملفات هنا او اضغط لاختيار الملفات.',
+    'maxFileSize'    =>    'حجم الملف كبير جدا . لايمكن رفعه',
 ];

@@ -18,29 +18,15 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <!-- New Post -->
-        <div class="new-post">
-          <div class="form-group">
-            <textarea class="form-control" placeholder="ماذا الجديد لديك؟" title="Whats New"></textarea>
-            <div class="input-group-append">
-              <button class="btn multi-media">
-                <i class="fas fa-photo-video"></i>
-                <span>إرفاق صورة/فيديو</span>
-              </button>
-              <button class="btn btn-post">
-                <i class="far fa-paper-plane"></i>
-                <span>نشر</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <new-post :unique-name="group.unique_name"></new-post>
 
         <!-- Posts -->
         <div class="posts-con">
-          <h2>المناقشات</h2>
+          <h2> {{ translate('lang.discussions') }} </h2>
           <post v-for="post in posts.data" :key="post.id" :post="post"></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
-              <div slot="no-more">No more Posts</div>
+              <div slot="no-more"> {{ translate('lang.noMorePosts') }} </div>
           </infinite-loading>
         </div>
       </div>
@@ -51,20 +37,22 @@
 <script>
 import story from "./story";
 import post from "./posts/post";
+import NewPost from './posts/NewPost'
 import InfiniteLoading from "vue-infinite-loading";
 
 export default {
   components: {
     story,
     post,
-    InfiniteLoading
+    NewPost,
+    InfiniteLoading,
   },
   props: {
     group: {
       type: Object,
       require: true
     },
-    posts: {
+    groupPosts: {
       type: Object,
       require: true
     }
@@ -73,14 +61,16 @@ export default {
     return {
       id: this.group.id,
       name: this.group.name,
+      unique_name: this.group.unique_name,
       description: this.group.description,
       image: this.group.image,
       members: this.group.members,
-      posts: this.posts,
-      page: 2
+      posts: this.groupPosts,
+      page: 2,
     };
   },
   methods: {
+    //   Handle Infinte Scroll to Load more posts and append it to posts array
     infiniteHandler($state) {
       axios
         .get(`${this.group.unique_name}/posts`, {
@@ -97,7 +87,7 @@ export default {
             $state.complete();
           }
         });
-    }
+    },
   }
 };
 </script>
