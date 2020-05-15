@@ -51,6 +51,11 @@ class Group extends Model
         return $this->hasMany('App\Models\GroupRequest', 'group_id', 'id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id');
+    }
+
     public function members()
     {
         return $this->belongsToMany('App\User', 'group_members', 'group_id', 'user_id')->wherePivot('role', 'member');

@@ -23,7 +23,8 @@ class GroupsController extends Controller
      */
     public function show(Request $request)
     {
-        $group = Group::whereUniqueName($request->name)
+
+        $group = Group::whereUniqueName($request->group_permlink)
                     ->with(['requests', 'members'])
                     ->first();
 
@@ -41,8 +42,7 @@ class GroupsController extends Controller
      */
     public function posts(Request $request)
     {
-
-        $group = Group::whereUniqueName($request->name)->first();
+        $group = Group::whereUniqueName($request->group_permlink)->first();
 
         // Load Group Posts
         $posts = $group->posts()->latest()->paginate(2);
@@ -72,7 +72,7 @@ class GroupsController extends Controller
         $this->validate($request, [
             'name'  =>  'required|max:255|min:5|string',
             'description'  =>  'required|min:5|string',
-            'questions'  =>  'required|array|min:2|max:10',
+            'questions'  =>  'required|array|min:1|max:10',
         ]);
 
         $request['user_id'] = Auth::id();
@@ -86,7 +86,7 @@ class GroupsController extends Controller
         $group->save();
 
         // Create the Owner of the group
-        $group->members()->attach(Auth::id(), ['role' => 'owner']);
+        $group->users()->attach(Auth::id(), ['role' => 'owner']);
 
         // Insert the group questions
         foreach ($request->questions as $question) {

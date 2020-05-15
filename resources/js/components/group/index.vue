@@ -21,12 +21,12 @@
         <new-post :unique-name="group.unique_name" @update-posts="updatePosts"></new-post>
 
         <!-- Posts -->
-        <div class="posts-con">
-          <h2>{{ translate('lang.discussions') }}</h2>
+        <div class="posts-con mt-3">
           <post v-for="post in posts.data" :key="post.id" :post="post"></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
             <div slot="no-more">{{ translate('lang.noMorePosts') }}</div>
+            <div slot="no-results">{{ translate('lang.noPosts') }}</div>
           </infinite-loading>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default {
     //   Handle Infinte Scroll to Load more posts and append it to posts array
     infiniteHandler($state) {
       axios
-        .get(`${this.group.unique_name}/posts`, {
+        .get(`${this.unique_name}/posts`, {
           params: {
             page: this.page
           }

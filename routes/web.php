@@ -27,11 +27,11 @@ Route::group(['namespace' => 'Front' ], function(){
         // Actions inside the group, must be owner the group or member in it
         Route::group(['middleware' => 'userMemberInGroup'], function () {
 
-            Route::get('{name}', 'GroupsController@show')->name('show');
-            Route::get('{name}/posts', 'GroupsController@posts')->name('posts');
-            Route::post('{name}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
-            Route::post('{name}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');
-            Route::post('{name}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
+            Route::get('{group_permlink}', 'GroupsController@show')->name('show');
+            Route::get('{group_permlink}/posts', 'GroupsController@posts')->name('posts');
+            Route::post('{group_permlink}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
+            Route::post('{group_permlink}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');
+            Route::post('{group_permlink}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
         });
     });
 

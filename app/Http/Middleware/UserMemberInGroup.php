@@ -19,12 +19,11 @@ class UserMemberInGroup
     public function handle($request, Closure $next)
     {
 
-        $group = Group::whereUniqueName($request->name)->first();
-
+        $group = Group::whereUniqueName($request->group_permlink)->first();
         if (!$group) { abort(404); }
 
         // check that this user owner the group or Member in it
-        $usersInGroups = $group->members->pluck('pivot.user_id')->toArray();
+        $usersInGroups = $group->users->pluck('pivot.user_id')->toArray();
 
         if (!in_array(Auth::id(), $usersInGroups)) {
             abort(403, __('lang.permissionDenied'));

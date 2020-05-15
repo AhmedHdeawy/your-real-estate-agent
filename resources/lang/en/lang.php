@@ -155,7 +155,8 @@ return [
     'comments'   =>  'Comments',
     'comment'   =>  'Comment',
     'writeComment'   =>  'write a comment',
-    'noMorePosts'   =>  'No More Posts to show',
+    'noMorePosts'   =>  'There are no More Posts to show',
+    'noPosts'       =>  'There are no Posts to show',
     'dragFilesHere'    =>    'Drop files here or click to upload.',
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
 ];

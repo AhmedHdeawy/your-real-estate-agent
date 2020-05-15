@@ -32,9 +32,6 @@
                     <section class="tr">
                         <textarea class='form-control first is-invalid mt-3' placeholder='{{ __('lang.questionTitle') }}'
                             title='{{ __('lang.questionTitle') }}' name="questions[]"></textarea>
-
-                            <textarea class='form-control is-invalid mt-3' placeholder='{{ __('lang.questionTitle') }}'
-                                title='{{ __('lang.questionTitle') }}' name="questions[]"></textarea>
                     </section>
                     @if ($errors->first('questions'))
                     <div class="invalid-feedback">{{ $errors->first('questions') }}</div>

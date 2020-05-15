@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class PostsController extends Controller
 {
 
-    public static $imageTypes = ['jpg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd', 'jpeg', 'svg+xml'];
-
-    public static $videoTypes = ['webm', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'ogg', 'mp4', 'm4p', 'm4v', 'avi', 'wmv', 'mov', 'qt', 'flv', 'swf', 'avchd'];
-
-
     /**
      * Store images.
      *
@@ -33,7 +28,7 @@ class PostsController extends Controller
             'attachedFiles' =>  'nullable|array'
         ]);
 
-        $group = Group::whereUniqueName($request->name)->first();
+        $group = Group::whereUniqueName($request->group_permlink)->first();
 
         // Load Group Posts
         $post = $group->posts()->create([
@@ -120,7 +115,7 @@ class PostsController extends Controller
     public function posts(Request $request)
     {
 
-        $group = Group::whereUniqueName($request->name)->first();
+        $group = Group::whereUniqueName($request->group_permlink)->first();
 
         // Load Group Posts
         $posts = $group->posts()->paginate(2);
