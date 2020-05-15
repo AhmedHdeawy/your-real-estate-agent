@@ -18,6 +18,7 @@ try {
  * Get Locale Language from HTML attr
  */
 const localeLang = $('html').attr('lang');
+window.localeLang = localeLang;
 
 
 /**

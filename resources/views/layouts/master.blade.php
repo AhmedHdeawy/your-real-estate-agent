@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" href="{{ asset('front/images/logo-icon.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('images/logo-icon.png') }}" type="image/png" sizes="16x16">
 
     <title>{{ __('lang.websiteName') }}</title>
     <link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' rel='stylesheet' as='font'>

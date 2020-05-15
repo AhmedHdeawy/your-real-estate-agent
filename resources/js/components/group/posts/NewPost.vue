@@ -103,14 +103,14 @@ export default {
           // emit event to posts component, to update posts with new post
           this.$emit("update-posts", data.post);
 
-            // empty Post Data
-            this.postData.text = '';
-            this.postData.files = [];
+          // empty Post Data
+          this.postData.text = "";
+          this.postData.files = [];
 
-            // Reset Dopzone
+          // Reset Dopzone
             this.$refs.myVueDropzone.removeAllFiles();
 
-            // Enable Button again
+          // Enable Button again
           this.disabled = false;
         });
     },
@@ -119,14 +119,16 @@ export default {
     removedfile(file, error, xhr) {
       const name = file.upload.filename;
 
-      axios
-        .post(`${this.uniqueName}/posts/deleteAttachment`, {
-          filename: name
-        })
-        .then(({ data }) => {
-          // Remove file from post files array
-          _.pull(this.postData.files, name);
-        });
+      if (this.postData.files.length > 0) {
+        axios
+          .post(`${this.uniqueName}/posts/deleteAttachment`, {
+            filename: name
+          })
+          .then(({ data }) => {
+            // Remove file from post files array
+            _.remove(this.postData.files, el => el.name == name);
+          });
+      }
     },
 
     // After File has been uploaded successfully
@@ -135,7 +137,10 @@ export default {
       const name = file.upload.filename;
 
       // Push file that uploaded to post files array
-      this.postData.files.push(name);
+      this.postData.files.push({
+        name: response.name,
+        type: response.type
+      });
     },
 
     // Generate Random String

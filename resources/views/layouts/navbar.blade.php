@@ -10,12 +10,22 @@
         @if (auth()->check())
             <ul class='navbar-nav'>
                 <li class='nav-item mx-2'>
-                    <a class='nav-link register-btn' href='{{ route('register') }}'> {{ auth()->user()->name }} </a>
+                    <a class='nav-link register-btn' href='{{ route('groups.create') }}'>
+                        <i class="fas fa-user-friends text-white"></i>
+                    </a>
+                </li>
+
+                <li class='nav-item mx-2'>
+                    <a class='nav-link register-btn' href='{{ route('home') }}'>
+                        {{ auth()->user()->name }}
+                    </a>
                 </li>
                 <li class='nav-item'>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class='nav-link logout-btn register-btn' type="submit">{{ __('lang.logout') }}</button>
+                        <button class='nav-link logout-btn register-btn' type="submit">
+                            <i class="fas fa-sign-out-alt text-white"></i>
+                        </button>
                     </form>
                 </li>
                 <li class='nav-item'>

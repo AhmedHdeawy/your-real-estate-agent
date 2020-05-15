@@ -11,6 +11,19 @@ body[dir='rtl'] .invalid-feedback {
     background: transparent;
 }
 
+body .side-menu .side-menu-con .sections .section-con button {
+    border: 0;
+}
+body .side-menu .side-menu-con .sections .section-con button i {
+    color: #363062 !important;
+    font-size: 40px;
+    height: 40px;
+    -webkit-margin-end: 10px;
+    margin-inline-end: 10px;
+    vertical-align: middle;
+    width: 40px;
+}
+
 .btn-create-question {
     padding: .1rem .45rem !important;
     font-size: 1rem !important;
@@ -40,4 +53,33 @@ body[dir='rtl'] .invalid-feedback {
 
 .dropzone .dz-preview.dz-error:hover .dz-error-message span {
     color: #fff;
+}
+
+.post-imglist .image-link img {
+    height: 100px;
+    width: 100% !important;
+}
+
+.post-videolist img {
+    height: 100px !important;
+    width: 180px !important;
+}
+
+.post-filelist img {
+    height: 30px !important;
+    width: 50px !important;
+}
+
+
+.fancybox-button svg path,
+.fancybox-caption__body {
+    color: #FFF;
+}
+
+
+@media(max-width: 768px) {
+    .post-imglist .image-link img {
+        height: 100px;
+        width: 100px !important;
+    }
 }

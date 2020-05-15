@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 class PostsController extends Controller
 {
 
+    public static $imageTypes = ['jpg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd', 'jpeg', 'svg+xml'];
+
+    public static $videoTypes = ['webm', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'ogg', 'mp4', 'm4p', 'm4v', 'avi', 'wmv', 'mov', 'qt', 'flv', 'swf', 'avchd'];
+
+
     /**
      * Store images.
      *
@@ -22,6 +27,7 @@ class PostsController extends Controller
      */
     public function savePost(Request $request)
     {
+
         $this->validate($request, [
             'text'  =>  'required|min:2|string',
             'attachedFiles' =>  'nullable|array'
@@ -40,7 +46,8 @@ class PostsController extends Controller
             foreach ($request->attachedFiles as $file) {
 
                 $post->media()->create([
-                    'name'  =>  $file
+                    'name'  =>  $file['name'],
+                    'type'  =>  $file['type'],
                 ]);
             }
         }
@@ -78,8 +85,10 @@ class PostsController extends Controller
             // $file->storeAs('posts/', $fileName);
             $file->move(public_path("/uploads/posts/"), $fileName);
 
+            // Get file Type
+            $type = $this->getFileType($file);
 
-            return response()->json(['name'=>$fileName]);
+            return response()->json(['name'=>$fileName, 'type'  =>  $type]);
         }
 
 
@@ -125,164 +134,16 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function create()
+    private function getFileType($file)
     {
-        return view('front.groups.create');
-    }
+        $type = explode('/', $file->getClientMimeType())[0];
 
-
-    /**
-     * Save New Group.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name'  =>  'required|max:255|min:5|string',
-            'description'  =>  'required|min:5|string',
-            'questions'  =>  'required|array|min:2|max:10',
-        ]);
-
-        $request['user_id'] = Auth::id();
-
-        // Save Group in DB
-        $group = Group::create($request->all());
-
-        // Save Unique Name for the group
-        $uniqueName = $this->generateGroupUniqueNumber();
-        $group->unique_name = $uniqueName;
-        $group->save();
-
-        // Create the Owner of the group
-        $group->members()->attach(Auth::id(), ['role' => 'owner']);
-
-        // Insert the group questions
-        foreach ($request->questions as $question) {
-            $group->questions()->create(['title'  =>  $question]);
+        if ($type == 'application') {
+            return 'file';
         }
 
-        return redirect()->route('groups.show', ['name' => $group->unique_name ]);
-
+        return $type;
     }
 
-
-    /**
-     * Show the ContactUs page.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function contactus()
-    {
-        return view('front.contactus');
-    }
-
-
-    /**
-     * Post the ContactUs Form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function postContactUs(Request $request)
-    {
-        // Validate Form
-        $this->validateContactUs($request);
-
-        // Create New Row
-        ContactUs::create($request->all());
-
-        return redirect()->route('contactus')->with('status', __('lang.contactUsDone'));
-
-    }
-
-
-    /**
-     * Validate Form Request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validateContactUs(Request $request)
-    {
-        Validator::make($request->all(), [
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
-            'phone' => 'required|max:100',
-            'message' => 'required|string',
-        ])->validate();
-    }
-
-
-    /**
-     * Show the Profile page.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function profile(Request $request, $username)
-    {
-        return view('front.profile');
-    }
-
-
-    /**
-     * Post the Profile Form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function updateProfile(Request $request)
-    {
-        // Validate Form
-        $this->validateProfile($request);
-
-        $user = User::findOrFail(auth()->user()->id);
-
-        // Update User Profile
-        $user->update($request->all());
-
-        return redirect()->route('profile', auth()->user()->username)->with('status', __('lang.updatedSuccessfully'));
-
-    }
-
-
-    /**
-     * Validate Form Request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validateProfile(Request $request)
-    {
-        Validator::make($request->all(), [
-            'name'      => 'required|string|max:100|min:2',
-            'email'     => 'required|max:100|min:2|email|unique:users,email,'. auth()->user()->id .',id',
-            'phone'     => 'required|max:100|min:2',
-            'password'  => 'confirmed',
-            'avatar'    => 'nullable',
-
-        ])->validate();
-    }
-
-    /**
-     * Generate Unique Name for each Group
-     */
-    private function generateGroupUniqueNumber()
-    {
-        $number = mt_rand(1000000000, 9999999999); // better than rand()
-        // call the same function if the barcode exists already
-        if ($this->checkGroupUniqueNumberExists($number)) {
-            return $this->generateGroupUniqueNumber();
-        }
-        // otherwise, it's valid and can be used
-        return $number;
-    }
-
-    /**
-     * Check if tis unique name is exist in groups or not
-     * @param int $number
-     */
-    private function checkGroupUniqueNumberExists($number)
-    {
-        // query the database and return a boolean
-        // for instance, it might look like this in Laravel
-        return Group::whereUniqueName($number)->exists();
-    }
 
 }

@@ -17,6 +17,7 @@ class CreateMediaTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('title')->nullable();
+            $table->enum('type', ['image', 'video', 'audio', 'file'])->default('image');
             $table->morphs('mediable');
             $table->timestamps();
         });

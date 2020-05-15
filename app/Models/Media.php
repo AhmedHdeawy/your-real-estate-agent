@@ -6,13 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model
 {
+
+    /**
+     * Media Types
+     * ('image','video','audio','file')
+     */
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'title', 'mediable'
+        'name', 'title', 'type', 'mediable'
     ];
 
     /**

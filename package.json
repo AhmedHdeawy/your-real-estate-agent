@@ -23,7 +23,8 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "jquery": "^3.4.1",
+        "@fancyapps/fancybox": "^3.5.7",
+        "jquery": "^3.5.1",
         "moment": "^2.25.3",
         "vue-infinite-loading": "^2.4.5",
         "vue2-dropzone": "^3.6.0"

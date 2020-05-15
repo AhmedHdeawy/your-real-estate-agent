@@ -8,72 +8,63 @@
             </button>
         </div>
         <div class='logo'>
-            <img src='{{ asset('images/gotogather-logo.png') }}' alt='Go To Gather Logo' class='img-fluid'>
-            <h4 class='welcoming-head'>أهلا بك في لقايانا</h4>
+            <a href="/">
+                <img src='{{ asset('images/gotogather-logo.png') }}' alt='Go To Gather Logo' class='img-fluid'>
+            </a>
+            <h4 class='welcoming-head'></h4>
         </div>
         <ul class='sections'>
-            <li class='section-con'>
-                <a href='#'>تسجيل الدخول</a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>تسجيل مستخدم جديد</a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>
-                    <i class='fas fa-user-circle'></i>
-                    <span>محمد حسن</span>
-                </a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>
-                    <i class='fas fa-comment-alt'></i>
-                    <span>الرسائل</span>
-                </a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>
-                    <i class='fas fa-bell'></i>
-                    <span>الإشعارات</span>
-                </a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>
-                    <i class='fas fa-users'></i>
-                    <span>المجموعات</span>
-                </a>
-                <ul class='section-list'>
-                    <li class='clearfix'>
-                        <a href='#'>نادى الشمس</a>
-                        <button class='btn'>
-                            <i class='fas fa-sign-out-alt'></i>
-                            <span>مغادرة</span>
+
+            @auth
+                <li class='section-con'>
+                    <a href='#'>
+                        <i class='fas fa-user-circle'></i>
+                        <span> {{ auth()->user()->name }} </span>
+                    </a>
+                </li>
+                <li class='section-con'>
+                    <a href='{{ route('groups.create') }}'>
+                        <i class='fas fa-plus-circle'></i>
+                        <span> {{ __('lang.createGroup') }} </span>
+                    </a>
+                </li>
+                <li class='section-con'>
+                    <a href='#'>
+                        <i class='fas fa-users'></i>
+                        <span>المجموعات</span>
+                    </a>
+                </li>
+                <li class='section-con'>
+                    <a href='#'>
+                        <i class='fas fa-comment-alt'></i>
+                        <span>الرسائل</span>
+                    </a>
+                </li>
+                <li class='section-con'>
+                    <a href='#'>
+                        <i class='fas fa-bell'></i>
+                        <span>الإشعارات</span>
+                    </a>
+                </li>
+
+                <li class='section-con'>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class='nav-link p-0 bg-transparent' type="submit">
+                            <i class="fas fa-sign-out-alt text-white"></i>
+                            <span> {{ __('lang.logout') }} </span>
                         </button>
-                    </li>
-                    <li class='clearfix'>
-                        <a href='#'>نادى الشمس</a>
-                        <button class='btn'>
-                            <i class='fas fa-sign-out-alt'></i>
-                            <span>مغادرة</span>
-                        </button>
-                    </li>
-                    <li class='clearfix'>
-                        <a href='#'>نادى الشمس</a>
-                        <button class='btn'>
-                            <i class='fas fa-sign-out-alt'></i>
-                            <span>مغادرة</span>
-                        </button>
-                    </li>
-                    <li style='text-align: end;'>
-                        <a href='#'>المزيد</a>
-                    </li>
-                    <li style='text-align: center;'>
-                        <a href='#'>
-                            <i class='fas fa-plus'></i>
-                            <span>إنشاء مجموعة</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                    </form>
+                </li>
+
+            @else
+                <li class='section-con'>
+                    <a href='#'>تسجيل الدخول</a>
+                </li>
+                <li class='section-con'>
+                    <a href='#'>تسجيل مستخدم جديد</a>
+                </li>
+            @endauth
             <li class='section-con'>
                 <a href='#'>مركز المساعدة</a>
             </li>
