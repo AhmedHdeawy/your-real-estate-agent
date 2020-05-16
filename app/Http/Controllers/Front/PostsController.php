@@ -125,6 +125,33 @@ class PostsController extends Controller
 
 
     /**
+     * Delete the post.
+     *
+     * @param  \Illuminate\Http\Response  $request
+     * @return void
+     */
+    public function deletePost(Request $request)
+    {
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+        // Get Image name
+        $media = $post->media;
+
+        // Delete Record
+        $post->delete();
+
+        // Delete the Medi
+        foreach ($media as $file) {
+            // Delete Image
+            $this->deleteFile('posts/', $file);
+        }
+
+        return response()->json();
+    }
+
+    /**
      * Create New Group.
      *
      * @return \Illuminate\Contracts\Support\Renderable

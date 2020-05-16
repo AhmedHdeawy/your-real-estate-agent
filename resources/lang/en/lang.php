@@ -87,6 +87,13 @@ return [
     'daysTimesExist'    =>  'this day and this time are exist',
     'workers'   =>  'Workers Count',
     'permissionDenied'  =>  "you don't have permission to enter this page",
+    'areSure'   =>  'Are you sure?',
+    'deleteHint'   =>  "You won't be able to revert this!",
+    'yes'   =>  'Yes',
+    'no'   =>  'No',
+    'titleSucess'   =>  'Done Successfully',
+
+
 
     'createdSuccessfully'   =>  'Created Successfully',
     'updatedSuccessfully'   =>  'Updated Successfully',

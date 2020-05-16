@@ -8,6 +8,21 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+// Sweet Alert
+import Swal from 'sweetalert2'
+window.Swal = Swal;
+
+// handle sweet alert
+const toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.toast = toast;
+
+
 /**
  * Load translations file
  */

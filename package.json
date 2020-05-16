@@ -27,6 +27,7 @@
         "@saeris/vue-spinners": "^1.0.8",
         "jquery": "^3.5.1",
         "moment": "^2.25.3",
+        "sweetalert2": "^9.10.13",
         "vue-infinite-loading": "^2.4.5",
         "vue2-dropzone": "^3.6.0"
     }

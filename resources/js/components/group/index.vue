@@ -22,7 +22,7 @@
 
         <!-- Posts -->
         <div class="posts-con mt-3">
-          <post v-for="post in posts.data" :key="post.id" :post="post"></post>
+          <post v-for="post in posts.data" :key="post.id" :post="post" @delete-post="deletePost"></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
             <div slot="no-more">{{ translate('lang.noMorePosts') }}</div>
@@ -74,6 +74,27 @@ export default {
     updatePosts(post) {
       this.posts.data.unshift(post);
     },
+
+    // Delete the Post from the data
+    deletePost(post) {
+      axios
+        .post(`${this.unique_name}/posts/deletePost`, {
+          id: post.id
+        })
+        .then(data => {
+          //   console.log(data);
+          //   _.remove(this.posts.data, el => el.id == id);
+          this.posts.data.splice(this.posts.data.indexOf(post), 1);
+
+          // Show sweet alert
+          toast.fire({
+            icon: "success",
+            title: this.translate('lang.titleSucess')
+          });
+        })
+        .catch(error => {});
+    },
+
     //   Handle Infinte Scroll to Load more posts and append it to posts array
     infiniteHandler($state) {
       axios

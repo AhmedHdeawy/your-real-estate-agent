@@ -30,6 +30,11 @@
               </a>
               <div aria-labelledby="dropdownMenuLink1" class="dropdown-menu">
                 <a class="dropdown-item" href="#">{{ translate('lang.edit') }}</a>
+                <a
+                  class="dropdown-item text-danger"
+                  @click="deletePost"
+                  href="#"
+                >{{ translate('lang.delete') }}</a>
               </div>
             </div>
           </div>
@@ -143,10 +148,13 @@
 </template>
 
 <script>
-
 import comment from "./comment";
 import fancyapps from "@fancyapps/fancybox";
 import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
+
+/**
+ * v-confirm="{ok: deletePost, message: 'User will be given admin privileges. Make user an Admin?'}"
+ */
 
 export default {
   components: {
@@ -205,6 +213,31 @@ export default {
 
     mediaFile: function() {
       return this.post.media.filter(m => m.type == "file");
+    }
+  },
+
+  methods: {
+    deletePost(e) {
+        e.preventDefault();
+
+      Swal.fire({
+        title: this.translate('lang.areSure'),
+        text: this.translate('lang.deleteHint'),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: this.translate('lang.yes'),
+        cancelButtonText: this.translate('lang.no')
+      })
+        .then((result) => {
+          // If User accept
+          if (result.value) {
+            // emit event to posts component, to delete posts
+            this.$emit("delete-post", this.post);
+          }
+        })
+        .catch(() => {});
     }
   }
 };
