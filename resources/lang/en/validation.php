@@ -194,6 +194,17 @@ return [
         'permissions'   =>  'Permissions',
         'roles'     =>  'Roles',
 
+        /**
+         * Post
+         */
+
+        'text'                  =>  'Text',
+        'attachedFiles'         =>  'Attached files',
+
+        'en'    =>  [
+            'name'  =>  'Name',
+        ],
+
     ],
 
 ];

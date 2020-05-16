@@ -187,6 +187,11 @@ return [
         'permissions'   =>  'الصلاحيات',
         'roles'     =>  'الادوار',
 
+        /**
+         * Post
+         */
+        'text'                  =>  'النص',
+        'attachedFiles'         =>  'المرفقات',
 
         'ar' => [
             'name'                  => 'الاسم العربي',

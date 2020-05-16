@@ -70,7 +70,6 @@ export default {
     };
   },
   methods: {
-
     // Add New Post to the data
     updatePosts(post) {
       this.posts.data.unshift(post);

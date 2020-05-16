@@ -23,6 +23,7 @@ return [
     'edit'                    =>  'Edit',
     'update'                    =>  'Update',
     'delete'                    =>  'Delete',
+    'cancel'                    =>  'Cancel',
     'status'                    =>  'Status',
     'done'                      =>  'Done',
     'active'                    =>  'Active',
@@ -159,4 +160,5 @@ return [
     'noPosts'       =>  'There are no Posts to show',
     'dragFilesHere'    =>    'Drop files here or click to upload.',
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
+    'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
 ];
