@@ -28,7 +28,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $with = ['comments', 'user', 'media'];
+    protected $with = ['comments', 'user', 'media', 'group'];
 
     /**
      * The relationship counts that should be eager loaded on every query.

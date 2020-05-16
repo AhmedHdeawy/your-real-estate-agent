@@ -22,7 +22,7 @@
 
         <!-- Posts -->
         <div class="posts-con mt-3">
-          <post v-for="post in posts.data" :key="post.id" :post="post" @delete-post="deletePost"></post>
+          <post v-for="post in posts.data" :key="post.id" :post-data="post" @delete-post="deletePost"></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
             <div slot="no-more">{{ translate('lang.noMorePosts') }}</div>

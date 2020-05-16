@@ -15,9 +15,25 @@ class PostsController extends Controller
 {
 
     /**
-     * Store images.
+     * Load Posts Ajax.
      *
-     * @param  \Illuminate\Http\Response  $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function posts(Request $request)
+    {
+
+        $group = Group::whereUniqueName($request->group_permlink)->first();
+
+        // Load Group Posts
+        $posts = $group->posts()->paginate(2);
+
+        return response()->json($posts, 200);
+    }
+
+    /**
+     * Store new post.
+     *
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     public function savePost(Request $request)
@@ -55,9 +71,96 @@ class PostsController extends Controller
     }
 
     /**
+     * Update the equest
+     * @return void
+     */
+    public function updatePost(Request $request)
+    {
+
+        $this->validate($request, [
+            'id'    =>  'required|numeric',
+            'text'  =>  'required|min:2|string',
+            'attachedFiles' =>  'nullable|array'
+        ]);
+
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+        // Update Post data
+        $post->text = $request->text;
+        $post->save();
+
+        if ($request->attachedFiles) {
+            // loop through media, and save them
+            foreach ($request->attachedFiles as $file) {
+
+                $post->media()->create([
+                    'name'  =>  $file['name'],
+                    'type'  =>  $file['type'],
+                ]);
+            }
+        }
+
+        $post = Post::find($post->id);
+
+        return response()->json(['post' => $post]);
+    }
+
+    /**
+     * Delete the post.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    public function deletePost(Request $request)
+    {
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+        // Get Image name
+        $media = $post->media;
+
+        // Delete Record
+        $post->delete();
+
+        // Delete the Medi
+        foreach ($media as $file) {
+            // Delete Image
+            $this->deleteFile('posts/', $file);
+        }
+
+        return response()->json();
+    }
+
+    /**
      * Store images.
      *
-     * @param  \Illuminate\Http\Response  $request
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    public function deletePostAttachment(Request $request)
+    {
+        // Find the Post
+        $post = Post::findOrFail($request->post_id);
+
+        // Get Image name
+        $post->media()->where('name', $request->filename)->delete();
+
+        // Collect file info
+        $fileName = $request->filename;
+
+        // Delete Image
+        $this->deleteFile('posts/', $fileName);
+
+        return response()->json(['name' => $fileName]);
+    }
+
+    /**
+     * Store files.
+     *
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     public function uploadAttachment(Request $request)
@@ -90,9 +193,9 @@ class PostsController extends Controller
     }
 
     /**
-     * Store images.
+     * Delete files.
      *
-     * @param  \Illuminate\Http\Response  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     public function deleteAttachment(Request $request)
@@ -104,51 +207,6 @@ class PostsController extends Controller
         $this->deleteFile('posts/', $fileName);
 
         return response()->json(['name' => $fileName]);
-    }
-
-
-    /**
-     * Load Posts Ajax.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function posts(Request $request)
-    {
-
-        $group = Group::whereUniqueName($request->group_permlink)->first();
-
-        // Load Group Posts
-        $posts = $group->posts()->paginate(2);
-
-        return response()->json($posts, 200);
-    }
-
-
-    /**
-     * Delete the post.
-     *
-     * @param  \Illuminate\Http\Response  $request
-     * @return void
-     */
-    public function deletePost(Request $request)
-    {
-
-        // Find the Post
-        $post = Post::findOrFail($request->id);
-
-        // Get Image name
-        $media = $post->media;
-
-        // Delete Record
-        $post->delete();
-
-        // Delete the Medi
-        foreach ($media as $file) {
-            // Delete Image
-            $this->deleteFile('posts/', $file);
-        }
-
-        return response()->json();
     }
 
     /**
