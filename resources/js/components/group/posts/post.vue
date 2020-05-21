@@ -53,9 +53,9 @@
         <p>{{ post.text }}</p>
 
         <!-- Handle Post Medi -->
-        <section v-if="post.media">
+        <section v-if="post.media.length > 0">
           <!-- Show images -->
-          <div v-if="mediaImage" class="post-imglist row">
+          <div v-if="mediaImage.length > 0" class="post-imglist row">
             <a
               v-for="media in mediaImage"
               :key="media.id"
@@ -68,7 +68,7 @@
           </div>
 
           <!-- Show videos -->
-          <div v-if="mediaVideo" class="mt-4 row post-videolist">
+          <div v-if="mediaVideo.length > 0" class="mt-4 row post-videolist">
             <a
               v-for="media in mediaVideo"
               :key="media.id"
@@ -83,14 +83,14 @@
           </div>
 
           <!-- Show audios -->
-          <div v-if="mediaAudio" class="mt-4 row post-videolist">
+          <div v-if="mediaAudio.length > 0" class="mt-4 row post-videolist">
             <audio v-for="media in mediaAudio" :key="media.id" controls>
               <source :src="url + '/uploads/posts/' + media.name" />Your browser does not support the audio element.
             </audio>
           </div>
 
           <!-- Show files -->
-          <div v-if="mediaFile" class="mt-4 row post-filelist">
+          <div v-if="mediaFile.length > 0" class="mt-4 row post-filelist">
             <a
               v-for="media in mediaFile"
               :key="media.id"

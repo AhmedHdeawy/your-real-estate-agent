@@ -7,6 +7,7 @@ use Validator;
 use App\Models\Post;
 
 use App\Models\Group;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -152,6 +153,29 @@ class PostsController extends Controller
         $fileName = $request->filename;
 
         // Delete Image
+        $this->deleteFile('posts/', $fileName);
+
+        return response()->json(['name' => $fileName]);
+    }
+
+    /**
+     * Store images.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    public function deleteMedia(Request $request)
+    {
+        // Get Image name
+        $media = Media::findOrFail($request->mediaId);
+
+        // Collect file info
+        $fileName = $media->name;
+
+        // Delete Image from DB
+        $media->delete();
+
+        // Delete Image from Storage
         $this->deleteFile('posts/', $fileName);
 
         return response()->json(['name' => $fileName]);
