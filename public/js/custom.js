@@ -24,16 +24,16 @@ DomElements.sideMenuClose.addEventListener('click', menuClose);
 //	End Side Menu Settings
 
 //	Start Password Input Visible
-$('.input-group-append').on('click', function () {
-	if ($(this).siblings().attr('type') === 'password') {
-		$(this).siblings().prop('type', 'text');
-	} else if ($(this).siblings().attr('type') === 'text') {
-		$(this).siblings().prop('type', 'password');
-	}
-	$(this).find('i')
-		.toggleClass('fa-eye')
-		.toggleClass('fa-eye-slash');
-});
+// $('.input-group-append').on('click', function () {
+// 	if ($(this).siblings().attr('type') === 'password') {
+// 		$(this).siblings().prop('type', 'text');
+// 	} else if ($(this).siblings().attr('type') === 'text') {
+// 		$(this).siblings().prop('type', 'password');
+// 	}
+// 	$(this).find('i')
+// 		.toggleClass('fa-eye')
+// 		.toggleClass('fa-eye-slash');
+// });
 //	End Password Input Visible
 
 //	Start Bottom Navigation Active Page Color

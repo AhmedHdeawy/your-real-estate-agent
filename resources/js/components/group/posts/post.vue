@@ -13,7 +13,6 @@
                   alt="User Image"
                   src="/uploads/users/1587210878_business-man-1385050_19201.jpg"
                 />
-                <!-- <avatar :username="post.user.name" :src="'/uploads/users/' + post.user.avatar" :size="100"></avatar> -->
                 <avatar
                   v-else
                   :username="post.user.name"
@@ -135,31 +134,56 @@
       </div>
 
       <!-- Comments -->
+
       <div class="post-comments">
-        <h6>
+        <!-- <h6>
           <i class="far fa-comments"></i>
           <span>{{ translate('lang.comments') }}</span>
-        </h6>
+        </h6>-->
 
         <!-- Type Comment -->
-        <div class="comment-input">
+        <!-- <div class="comment-input">
           <div class="form-group">
             <input
               class="form-control"
               :placeholder="translate('lang.writeComment')"
               title="comment input"
               type="text"
+              v-model="commentText"
+              @keyup.enter="saveComment"
             />
             <div class="input-group-append">
-              <button class="btn">
+              <button class="btn" @click="saveComment">
                 <i class="far fa-paper-plane"></i>
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
+
+        <comments :post="post" @update-commentsCount="updatecommentsCount"></comments>
+<!--
+        <p v-if="!comments.length" class="mb-4" @click="fetchComments" style="cursor: pointer">
+          <span class="font-weight-bold">{{ translate('lang.viewComments') }}</span>
+        </p> -->
 
         <!-- Show  Comments -->
-        <!-- <comment v-for="comment in comments" :key="comment.id" :comment="comment"></comment> -->
+        <!-- <div v-if="comments.length > 0">
+          <comment v-for="comment in comments" :key="comment.id" :comment="comment"></comment>
+
+          <p v-if="commentsCount != comments.length" class="mb-4" @click="fetchComments" style="cursor: pointer">
+            <span class="font-weight-bold">{{ translate('lang.viewMore') }}</span>
+          </p>
+        </div>
+        <div class="row justify-content-center align-content-center my-3">
+          <clip-loader
+            class="custom-class"
+            :color="loader.color"
+            :loading="loadComments"
+            :size="loader.size"
+          ></clip-loader>
+        </div> -->
+
+
       </div>
     </section>
 
@@ -176,9 +200,11 @@
 <script>
 import EditPost from "./EditPost";
 import comment from "./comment";
+import comments from "./comments";
 import fancyapps from "@fancyapps/fancybox";
 import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
 import Avatar from "vue-avatar";
+import { ClipLoader } from "@saeris/vue-spinners";
 
 /**
  * v-confirm="{ok: deletePost, message: 'User will be given admin privileges. Make user an Admin?'}"
@@ -188,7 +214,9 @@ export default {
   components: {
     EditPost,
     comment,
-    Avatar
+    comments,
+    Avatar,
+    ClipLoader
   },
   props: {
     postData: {
@@ -201,10 +229,17 @@ export default {
       post: this.postData,
       unique_name: this.postData.group.unique_name,
       url: window.location.protocol + "//" + window.location.hostname,
-      comments: this.postData.comments,
       likesCount: this.postData.likes_count,
       liked: this.postData.is_like,
+      comments: [],
       commentsCount: this.postData.comments_count,
+      commentText: "",
+      commentPage: 1,
+      loadComments: false,
+      loader: {
+        color: "#6E67A0",
+        size: 50
+      },
       editPost: false,
       customStyle: {
         display: "inline-block",
@@ -271,6 +306,11 @@ export default {
       this.editPost = false;
     },
 
+    // Increment Coments Count
+    updatecommentsCount(count) {
+      this.commentsCount = count;
+    },
+
     // Delete Post from the server and from posts data
     deletePost(e) {
       e.preventDefault();
@@ -295,6 +335,43 @@ export default {
         .catch(() => {});
     },
 
+    fetchComments() {
+      this.loadComments = true;
+
+      // Call Serer
+      axios
+        .get(`${this.unique_name}/posts/fetchComments`, {
+          params: {
+            id: this.post.id,
+            page: this.commentPage
+          }
+        })
+        .then(({ data }) => {
+          this.comments.push(...data.data);
+          this.commentPage++;
+          this.loadComments = false;
+        })
+        .catch(error => {});
+    },
+
+    saveComment() {
+      this.commentsCount++;
+      const text = this.commentText;
+      this.commentText = "";
+
+      // Call Serer
+      axios
+        .post(`${this.unique_name}/posts/commentPost`, {
+          id: this.post.id,
+          text
+        })
+        .then(({ data }) => {
+          // this.post = data.post;
+          this.comments.unshift(data.comment);
+        })
+        .catch(error => {});
+    },
+
     toggleLike() {
       this.liked = !this.liked;
 
@@ -305,9 +382,8 @@ export default {
         .post(`${this.unique_name}/posts/likePost`, {
           id: this.post.id
         })
-        .then(({data}) => {
-            this.post = data.post;
-
+        .then(({ data }) => {
+          this.post = data.post;
         })
         .catch(error => {});
     }

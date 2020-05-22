@@ -92,6 +92,7 @@ return [
     'yes'   =>  'Yes',
     'no'   =>  'No',
     'titleSucess'   =>  'Done Successfully',
+    'viewMore'  =>  'View more',
 
 
 
@@ -163,6 +164,7 @@ return [
     'comments'   =>  'Comments',
     'comment'   =>  'Comment',
     'writeComment'   =>  'write a comment',
+    'viewComments'  =>  'View Comments',
     'noMorePosts'   =>  'There are no More Posts to show',
     'noPosts'       =>  'There are no Posts to show',
     'dragFilesHere'    =>    'Drop files here or click to upload.',

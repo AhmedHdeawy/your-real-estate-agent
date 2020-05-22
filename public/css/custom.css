@@ -88,6 +88,10 @@ body .side-menu .side-menu-con .sections .section-con button i {
     color: #FFF !important;
 }
 
+.comment-date {
+    font-size: .7rem;
+}
+
 
 @media(max-width: 768px) {
     .post-imglist .image-link img {

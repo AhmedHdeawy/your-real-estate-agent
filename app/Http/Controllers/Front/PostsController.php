@@ -10,6 +10,7 @@ use App\Models\Group;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,8 +69,6 @@ class PostsController extends Controller
         $post = Post::find($post->id);
 
         return response()->json(['post' => $post]);
-
-
     }
 
     /**
@@ -109,6 +108,7 @@ class PostsController extends Controller
         return response()->json(['post' => $post]);
     }
 
+
     /**
      * Delete the post.
      *
@@ -137,7 +137,26 @@ class PostsController extends Controller
     }
 
     /**
-     * Update the equest
+     * Get Post Comments
+     * @return void
+     */
+    public function fetchComments(Request $request)
+    {
+
+        $this->validate($request, [
+            'id'    =>  'required|numeric',
+        ]);
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+        $comments = $post->comments()->latest()->paginate(5);
+
+        return response()->json($comments, 200);
+    }
+
+    /**
+     * Like the equest
      * @return void
      */
     public function likePost(Request $request)
@@ -165,6 +184,32 @@ class PostsController extends Controller
         $post = Post::find($post->id);
 
         return response()->json(['post' => $post]);
+    }
+
+    /**
+     * Comment on the post
+     * @return void
+     */
+    public function commentPost(Request $request)
+    {
+
+        $this->validate($request, [
+            'id'    =>  'required|numeric',
+            'text'   =>  'required'
+        ]);
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+        $authId = Auth::id();
+
+        // Create New Comment
+        $comment = $post->comments()->create(['user_id'   =>  $authId, 'text'  =>  $request->text]);
+
+        $comment = Comment::find($comment->id);
+        $commentCount = Post::findOrFail($post->id)->comments->count();
+
+        return response()->json(['comment' => $comment, 'count' =>  $commentCount]);
     }
 
     /**
@@ -227,7 +272,7 @@ class PostsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()->first()], 422);
+            return response()->json(['error' => $validator->errors()->first()], 422);
         }
 
         if ($request->file('file')->isValid()) {
@@ -242,10 +287,8 @@ class PostsController extends Controller
             // Get file Type
             $type = $this->getFileType($file);
 
-            return response()->json(['name'=>$fileName, 'type'  =>  $type]);
+            return response()->json(['name' => $fileName, 'type'  =>  $type]);
         }
-
-
     }
 
     /**
@@ -280,6 +323,4 @@ class PostsController extends Controller
 
         return $type;
     }
-
-
 }
