@@ -77,6 +77,18 @@ body .side-menu .side-menu-con .sections .section-con button i {
 }
 
 
+.like-btn {
+    background-color: #363062;
+}
+.post-interaction button:focus {
+    box-shadow: none;
+}
+
+.like-btn * {
+    color: #FFF !important;
+}
+
+
 @media(max-width: 768px) {
     .post-imglist .image-link img {
         height: 100px;

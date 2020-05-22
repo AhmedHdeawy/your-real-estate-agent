@@ -55,7 +55,7 @@
           <div v-for="media in mediaImage" :key="media.id" class="col-4 col-md-3 px-1 m-md-0 mb-1">
             <img :src="'/uploads/posts/' + media.name" class="img-fluid" style="height: 100px" />
             <button class="btn btn-sm" @click="deleteMedia(media.id)">
-              <i class="fas fa-trash text-danger"></i>
+              <i class="far fa-trash-alt text-danger"></i>
             </button>
           </div>
         </div>
@@ -65,7 +65,7 @@
           <div v-for="media in mediaVideo" :key="media.id" class="col-4 col-md-3 px-1 m-md-0 mb-1">
             <img src="/images/video-overlay.jpg" class="img-fluid" />
             <button class="btn btn-sm" @click="deleteMedia(media.id)">
-              <i class="fas fa-trash text-danger"></i>
+              <i class="far fa-trash-alt text-danger"></i>
             </button>
           </div>
         </div>
@@ -77,7 +77,7 @@
               <source :src="url + '/uploads/posts/' + media.name" />Your browser does not support the audio element.
             </audio>
             <button class="btn btn-sm" @click="deleteMedia(media.id)">
-              <i class="fas fa-trash text-danger"></i>
+              <i class="far fa-trash-alt text-danger"></i>
             </button>
           </div>
         </div>
@@ -87,7 +87,7 @@
           <div v-for="media in mediaFile" :key="media.id" class="col-4 col-md-3 px-1 m-md-0 mb-1">
             <img src="/images/pdf-overlay.webp" class="img-fluid" />
             <button class="btn btn-sm" @click="deleteMedia(media.id)">
-              <i class="fas fa-trash text-danger"></i>
+              <i class="far fa-trash-alt text-danger"></i>
             </button>
           </div>
         </div>

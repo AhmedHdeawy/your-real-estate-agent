@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['is_like'];
 
     /**
      * The attributes that are not mass assigned.
@@ -37,6 +44,18 @@ class Post extends Model
      */
     protected $withCount = ['likes', 'comments'];
 
+    /**
+     * Get the the user that like the post.
+     */
+    public function getIsLikeAttribute()
+    {
+
+        $authId = Auth::id();
+
+        $isLike = in_array($authId, $this->likes()->get()->pluck('user_id')->toArray());
+
+        return $isLike ? true : false;
+    }
 
 
     /**

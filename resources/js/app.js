@@ -10,7 +10,7 @@ window.Vue = require('vue');
 
 
 // Sweet Alert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 window.Swal = Swal;
 
 // handle sweet alert

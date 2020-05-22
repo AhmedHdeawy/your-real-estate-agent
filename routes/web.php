@@ -33,8 +33,8 @@ Route::group(['namespace' => 'Front' ], function(){
 
             // Posts
             Route::post('{group_permlink}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
-            Route::post('{group_permlink}/posts/deletePost', 'PostsController@deletePost')->name('posts.deletePost');
             Route::post('{group_permlink}/posts/updatePost', 'PostsController@updatePost')->name('posts.updatePost');
+            Route::post('{group_permlink}/posts/deletePost', 'PostsController@deletePost')->name('posts.deletePost');
             Route::post('{group_permlink}/posts/likePost', 'PostsController@likePost')->name('posts.likePost');
             Route::post('{group_permlink}/posts/commentPost', 'PostsController@commentPost')->name('posts.commentPost');
             Route::post('{group_permlink}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');

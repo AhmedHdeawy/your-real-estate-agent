@@ -8,10 +8,22 @@
           <div class="col-auto">
             <div class="user-data">
               <a href="#">
-                <img alt="User Image" src="/images/user.png" />
+                <img
+                  v-if="post.user.avatar"
+                  alt="User Image"
+                  src="/uploads/users/1587210878_business-man-1385050_19201.jpg"
+                />
+                <!-- <avatar :username="post.user.name" :src="'/uploads/users/' + post.user.avatar" :size="100"></avatar> -->
+                <avatar
+                  v-else
+                  :username="post.user.name"
+                  :customStyle="customStyle"
+                  background-color="#7F78B4"
+                  color="#FFF"
+                ></avatar>
                 <span>{{ post.user.name }}</span>
               </a>
-              <a href="#">{{ post.created_at | dateFromNow }}</a>
+              <a class="pt-3" href="#">{{ post.created_at | dateFromNow }}</a>
             </div>
           </div>
           <!-- Post Edit -->
@@ -112,9 +124,9 @@
 
       <!-- Posts Likes and Comments Count -->
       <div class="post-interaction">
-        <button class="btn like">
-          <i class="far fa-thumbs-up"></i>
-          <span>{{ likesCount }} {{ translate('lang.like') }}</span>
+        <button class="btn like" @click="toggleLike">
+          <i :class="liked ? 'fas' : 'far'" class="fa-thumbs-up"></i>
+          <span :class="{'font-weight-bold': liked}">{{ likesCount }} {{ likeText }}</span>
         </button>
         <button class="btn btn-comment">
           <i class="far fa-comment"></i>
@@ -166,6 +178,7 @@ import EditPost from "./EditPost";
 import comment from "./comment";
 import fancyapps from "@fancyapps/fancybox";
 import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
+import Avatar from "vue-avatar";
 
 /**
  * v-confirm="{ok: deletePost, message: 'User will be given admin privileges. Make user an Admin?'}"
@@ -174,7 +187,8 @@ import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
 export default {
   components: {
     EditPost,
-    comment
+    comment,
+    Avatar
   },
   props: {
     postData: {
@@ -185,11 +199,17 @@ export default {
   data() {
     return {
       post: this.postData,
+      unique_name: this.postData.group.unique_name,
       url: window.location.protocol + "//" + window.location.hostname,
       comments: this.postData.comments,
       likesCount: this.postData.likes_count,
+      liked: this.postData.is_like,
       commentsCount: this.postData.comments_count,
-      editPost: false
+      editPost: false,
+      customStyle: {
+        display: "inline-block",
+        "text-align": "inherit"
+      }
     };
   },
   mounted() {
@@ -222,6 +242,11 @@ export default {
     });
   },
   computed: {
+    likeText: function() {
+      return this.liked
+        ? this.translate("lang.likeMe")
+        : this.translate("lang.like");
+    },
     mediaImage: function() {
       return this.post.media.filter(m => m.type == "image");
     },
@@ -268,6 +293,23 @@ export default {
           }
         })
         .catch(() => {});
+    },
+
+    toggleLike() {
+      this.liked = !this.liked;
+
+      this.liked ? this.likesCount++ : this.likesCount--;
+
+      // Call Serer
+      axios
+        .post(`${this.unique_name}/posts/likePost`, {
+          id: this.post.id
+        })
+        .then(({data}) => {
+            this.post = data.post;
+
+        })
+        .catch(error => {});
     }
   }
 };

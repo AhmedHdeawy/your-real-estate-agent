@@ -10,6 +10,7 @@ use App\Models\Group;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -133,6 +134,37 @@ class PostsController extends Controller
         }
 
         return response()->json();
+    }
+
+    /**
+     * Update the equest
+     * @return void
+     */
+    public function likePost(Request $request)
+    {
+
+        $this->validate($request, [
+            'id'    =>  'required|numeric',
+        ]);
+
+
+        // Find the Post
+        $post = Post::findOrFail($request->id);
+
+
+        $authId = Auth::id();
+        $likes = $post->likes()->get()->pluck('user_id')->toArray();
+
+        // if this User already Liked the Post, then Unlike the Post
+        if (in_array($authId, $likes)) {
+            Like::where('post_id', $post->id)->where('user_id', $authId)->first()->delete();
+        } else {
+            $post->likes()->create(['user_id'   =>  $authId]);
+        }
+
+        $post = Post::find($post->id);
+
+        return response()->json(['post' => $post]);
     }
 
     /**
