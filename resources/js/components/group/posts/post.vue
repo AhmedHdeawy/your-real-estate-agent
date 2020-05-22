@@ -136,54 +136,7 @@
       <!-- Comments -->
 
       <div class="post-comments">
-        <!-- <h6>
-          <i class="far fa-comments"></i>
-          <span>{{ translate('lang.comments') }}</span>
-        </h6>-->
-
-        <!-- Type Comment -->
-        <!-- <div class="comment-input">
-          <div class="form-group">
-            <input
-              class="form-control"
-              :placeholder="translate('lang.writeComment')"
-              title="comment input"
-              type="text"
-              v-model="commentText"
-              @keyup.enter="saveComment"
-            />
-            <div class="input-group-append">
-              <button class="btn" @click="saveComment">
-                <i class="far fa-paper-plane"></i>
-              </button>
-            </div>
-          </div>
-        </div> -->
-
         <comments :post="post" @update-commentsCount="updatecommentsCount"></comments>
-<!--
-        <p v-if="!comments.length" class="mb-4" @click="fetchComments" style="cursor: pointer">
-          <span class="font-weight-bold">{{ translate('lang.viewComments') }}</span>
-        </p> -->
-
-        <!-- Show  Comments -->
-        <!-- <div v-if="comments.length > 0">
-          <comment v-for="comment in comments" :key="comment.id" :comment="comment"></comment>
-
-          <p v-if="commentsCount != comments.length" class="mb-4" @click="fetchComments" style="cursor: pointer">
-            <span class="font-weight-bold">{{ translate('lang.viewMore') }}</span>
-          </p>
-        </div>
-        <div class="row justify-content-center align-content-center my-3">
-          <clip-loader
-            class="custom-class"
-            :color="loader.color"
-            :loading="loadComments"
-            :size="loader.size"
-          ></clip-loader>
-        </div> -->
-
-
       </div>
     </section>
 
@@ -199,7 +152,6 @@
 
 <script>
 import EditPost from "./EditPost";
-import comment from "./comment";
 import comments from "./comments";
 import fancyapps from "@fancyapps/fancybox";
 import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
@@ -213,7 +165,6 @@ import { ClipLoader } from "@saeris/vue-spinners";
 export default {
   components: {
     EditPost,
-    comment,
     comments,
     Avatar,
     ClipLoader
@@ -231,15 +182,7 @@ export default {
       url: window.location.protocol + "//" + window.location.hostname,
       likesCount: this.postData.likes_count,
       liked: this.postData.is_like,
-      comments: [],
       commentsCount: this.postData.comments_count,
-      commentText: "",
-      commentPage: 1,
-      loadComments: false,
-      loader: {
-        color: "#6E67A0",
-        size: 50
-      },
       editPost: false,
       customStyle: {
         display: "inline-block",
@@ -333,43 +276,6 @@ export default {
           }
         })
         .catch(() => {});
-    },
-
-    fetchComments() {
-      this.loadComments = true;
-
-      // Call Serer
-      axios
-        .get(`${this.unique_name}/posts/fetchComments`, {
-          params: {
-            id: this.post.id,
-            page: this.commentPage
-          }
-        })
-        .then(({ data }) => {
-          this.comments.push(...data.data);
-          this.commentPage++;
-          this.loadComments = false;
-        })
-        .catch(error => {});
-    },
-
-    saveComment() {
-      this.commentsCount++;
-      const text = this.commentText;
-      this.commentText = "";
-
-      // Call Serer
-      axios
-        .post(`${this.unique_name}/posts/commentPost`, {
-          id: this.post.id,
-          text
-        })
-        .then(({ data }) => {
-          // this.post = data.post;
-          this.comments.unshift(data.comment);
-        })
-        .catch(error => {});
     },
 
     toggleLike() {
