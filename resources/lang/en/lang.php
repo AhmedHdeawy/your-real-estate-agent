@@ -93,6 +93,8 @@ return [
     'no'   =>  'No',
     'titleSucess'   =>  'Done Successfully',
     'viewMore'  =>  'View more',
+    'close' =>  'Close',
+    'notifications' =>  'Notifications',
 
 
 
@@ -120,6 +122,8 @@ return [
     'contactUsMessage'  =>  'Send your Complaints or your Suggestion',
     'circles'   =>  'Circles',
     'circle'   =>  'Circle',
+    'groups'    =>  'Groups',
+    'group'    =>  'Group',
     'and'   =>  'and',
 
     /**
@@ -147,6 +151,9 @@ return [
     'groupJoinsQuestions' =>  'Group Join Questions',
     'questionTitle' =>  'Question title',
     'createTheGroup'   =>  'Create The Group',
+    'leave' =>  'Leave',
+    'areSureLeave'  =>  'Are you sure you want to leave the group?',
+    'leaveHint' =>  "After leaving the group, you cannot view the group's posts or contact the group's members",
 
     /**
      * Posts

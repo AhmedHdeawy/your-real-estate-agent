@@ -12,6 +12,13 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name_for_avatar'];
+
     protected $guarded = ['status'];
 
     /**
@@ -69,6 +76,13 @@ class User extends Authenticatable
     	}
     }
 
+    /**
+     * Get the the name for avatar.
+     */
+    public function getNameForAvatarAttribute()
+    {
+        return $this->nameForAvatar();
+    }
 
     /**
      * Scope a query to fetch Active data only.
@@ -96,6 +110,13 @@ class User extends Authenticatable
     public function requests()
     {
         return $this->hasMany('App\Models\GroupRequest', 'user_id', 'id');
+    }
+
+    public function nameForAvatar()
+    {
+        $name = explode(' ', $this->name);  // Example:  'ahmed mohamed ali taha'
+        $shortForvatar = implode(' ', [$name[0], $name[1] ?? null]);    // 'ahmed mohamed'
+        return $shortForvatar;
     }
 
 }

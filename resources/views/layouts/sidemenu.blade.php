@@ -4,7 +4,7 @@
         <div class='close-menu'>
             <button class='btn'>
                 <i class='fas fa-times'></i>
-                اغلاق القائمة
+                {{ __('lang.close') }}
             </button>
         </div>
         <div class='logo'>
@@ -17,7 +17,7 @@
 
             @auth
                 <li class='section-con'>
-                    <a href='#'>
+                    <a href='{{ route('profile') }}'>
                         <i class='fas fa-user-circle'></i>
                         <span> {{ auth()->user()->name }} </span>
                     </a>
@@ -29,21 +29,15 @@
                     </a>
                 </li>
                 <li class='section-con'>
-                    <a href='#'>
+                    <a href='{{ route('groups.index') }}'>
                         <i class='fas fa-users'></i>
-                        <span>المجموعات</span>
-                    </a>
-                </li>
-                <li class='section-con'>
-                    <a href='#'>
-                        <i class='fas fa-comment-alt'></i>
-                        <span>الرسائل</span>
+                        <span> {{ __('lang.groups') }} </span>
                     </a>
                 </li>
                 <li class='section-con'>
                     <a href='#'>
                         <i class='fas fa-bell'></i>
-                        <span>الإشعارات</span>
+                        <span> {{ __('lang.notifications') }} </span>
                     </a>
                 </li>
 
@@ -59,29 +53,20 @@
 
             @else
                 <li class='section-con'>
-                    <a href='#'>تسجيل الدخول</a>
+                    <a href='{{ route('login') }}'> {{ __('lang.login') }} </a>
                 </li>
                 <li class='section-con'>
-                    <a href='#'>تسجيل مستخدم جديد</a>
+                    <a href='{{ route('register') }}'> {{ __('lang.register') }} </a>
                 </li>
             @endauth
+
             <li class='section-con'>
-                <a href='#'>مركز المساعدة</a>
+                <a href='#'> {{ __('lang.conditionsTerms') }} </a>
             </li>
             <li class='section-con'>
-                <a href='#'>الشروط والأحكام</a>
-            </li>
-            <li class='section-con'>
-                <a href='#'>سياسة الخصوصية</a>
+                <a href='#'> {{ __('lang.privacyPolicy') }} </a>
             </li>
         </ul>
-        <div class='side-menu-footer'>
-            عند قيامك بإنشاء حساب فانك توافق على
-            <a href='#'>الشروط والأحكام</a>
-            و
-            <a href='#'>سياسه الخصوصية</a>
-            الخاصة بنا
-        </div>
     </div>
 </section>
 <!-- End Side Menu -->

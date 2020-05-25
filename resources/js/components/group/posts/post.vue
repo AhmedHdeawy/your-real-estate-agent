@@ -15,7 +15,7 @@
                 />
                 <avatar
                   v-else
-                  :username="post.user.name"
+                  :username="post.user.name_for_avatar"
                   :customStyle="customStyle"
                   background-color="#7F78B4"
                   color="#FFF"
@@ -155,7 +155,6 @@ import EditPost from "./EditPost";
 import comments from "./comments";
 import fancyapps from "@fancyapps/fancybox";
 import "@fancyapps/fancybox/dist/jquery.fancybox.min.css";
-import Avatar from "vue-avatar";
 import { ClipLoader } from "@saeris/vue-spinners";
 
 /**
@@ -166,7 +165,6 @@ export default {
   components: {
     EditPost,
     comments,
-    Avatar,
     ClipLoader
   },
   props: {

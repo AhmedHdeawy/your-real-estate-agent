@@ -47,6 +47,8 @@ Vue.filter('dateFromNow', function (date) {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('group', require('./components/group/index.vue').default);
+Vue.component('avatar', require('vue-avatar').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,5 +57,5 @@ Vue.component('group', require('./components/group/index.vue').default);
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#app'
 });

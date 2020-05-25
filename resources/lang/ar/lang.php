@@ -96,6 +96,8 @@ return [
     'no'   =>  'لا',
     'titleSucess'   =>  'تم بنجاح',
     'viewMore'  =>  'عرض المزيد',
+    'close' =>  'إغلاق',
+    'notifications' =>  'الاشعارات',
 
 
     'search'    =>  'بحث',
@@ -118,6 +120,8 @@ return [
     'contactUsMessage'  =>  'ارسل شكواك او مقترحاتك',
     'circles'   =>  'دوائر',
     'circle'   =>  'دائرة',
+    'groups'    =>  'المجموعات',
+    'group'    =>  'المجموعة',
     'and'   =>  'و',
 
     /**
@@ -145,6 +149,9 @@ return [
     'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
     'questionTitle' =>  'عنوان السؤال',
     'createTheGroup'   =>  'إنشاء المجموعة',
+    'leave' =>  'مغادرة',
+    'areSureLeave'  =>  'هل انت متأكد من مغادرة المجموعة',
+    'leaveHint' =>  'بعد مغادرة المجموعة لايمكنك مشاهدة منشورات المجموعة ولا مراسلة أعضاء المجموعة',
 
     /**
      * Posts

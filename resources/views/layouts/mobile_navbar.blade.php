@@ -5,16 +5,16 @@
             <a class='nav-link' href='/'>
                 <i class='fas fa-home'></i>
             </a>
-            <a class='nav-link active' href='{{ route('groups.create') }}'>
+            <a class='nav-link {{ request()->route()->getName() == 'groups.search' ? 'active' : '' }}' href='{{ route('groups.search') }}'>
                 <i class='fas fa-search'></i>
             </a>
-            <a class='nav-link' href='{{ route('groups.create') }}'>
+            <a class='nav-link {{ request()->route()->getName() == 'groups.create' ? 'active' : '' }}' href='{{ route('groups.create') }}'>
                 <i class='fas fa-plus'></i>
             </a>
-            <a class='nav-link' href='{{ route('groups.create') }}'>
+            <a class='nav-link {{ request()->route()->getName() == 'groups.index' ? 'active' : '' }}' href='{{ route('groups.index') }}'>
                 <i class='fas fa-users'></i>
             </a>
-            <a class='nav-link' href='{{ route('groups.create') }}'>
+            <a class='nav-link {{ request()->route()->getName() == 'profile' ? 'active' : '' }}' href='{{ route('profile') }}'>
                 <i class='fas fa-user'></i>
             </a>
         </nav>

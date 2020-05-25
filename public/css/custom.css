@@ -14,6 +14,7 @@ body[dir='rtl'] .invalid-feedback {
 body .side-menu .side-menu-con .sections .section-con button {
     border: 0;
 }
+
 body .side-menu .side-menu-con .sections .section-con button i {
     color: #363062 !important;
     font-size: 40px;
@@ -30,9 +31,9 @@ body .side-menu .side-menu-con .sections .section-con button i {
     line-height: 1.5 !important;
     border-radius: .25rem !important;
     transition: color .15s ease-in-out,
-    background-color .15s ease-in-out,
-    border-color .15s ease-in-out,
-    box-shadow .15s ease-in-out;
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
     display: inline-block !important;
     font-weight: 400 !important;
 }
@@ -80,6 +81,7 @@ body .side-menu .side-menu-con .sections .section-con button i {
 .like-btn {
     background-color: #363062;
 }
+
 .post-interaction button:focus {
     box-shadow: none;
 }
@@ -90,6 +92,25 @@ body .side-menu .side-menu-con .sections .section-con button i {
 
 .comment-date {
     font-size: .7rem;
+}
+
+
+/* Framework */
+
+.btn-rbzgo {
+    color: #fff;
+    background-color: #403a6e;
+    border-color: #403a6e;
+}
+
+.color-rbzgo {
+    color: #403a6e;
+}
+
+.img-avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 

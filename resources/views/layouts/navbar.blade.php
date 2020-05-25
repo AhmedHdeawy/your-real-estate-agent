@@ -7,10 +7,10 @@
     </button>
     <div class='collapse navbar-collapse' id='navbarSupportedContent'>
 
-        @if (auth()->check())
+        @auth
             <ul class='navbar-nav'>
                 <li class='nav-item mx-2'>
-                    <a class='nav-link register-btn' href='{{ route('groups.create') }}'>
+                    <a class='nav-link register-btn' href='{{ route('groups.index') }}'>
                         <i class="fas fa-user-friends text-white"></i>
                     </a>
                 </li>
@@ -43,6 +43,6 @@
                     <a class='nav-link register-btn' href='{{ route('register') }}'> {{ __('lang.register') }} </a>
                 </li>
             </ul>
-        @endif
+        @endauth
     </div>
 </nav>

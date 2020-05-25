@@ -17,6 +17,30 @@ class GroupsController extends Controller
 {
 
     /**
+     * Show User groups.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $groups = Auth::user()->inGroups()->withCount('users')->get();
+
+        return view('front.groups.index', compact('groups'));
+    }
+
+    /**
+     * Show User groups.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function search()
+    {
+        $groups = Auth::user()->inGroups()->withCount('users')->get();
+
+        return view('front.groups.index', compact('groups'));
+    }
+
+    /**
      * Show the application home.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -25,8 +49,8 @@ class GroupsController extends Controller
     {
 
         $group = Group::whereUniqueName($request->group_permlink)
-                    ->with(['requests', 'members'])
-                    ->first();
+            ->with(['requests', 'members'])
+            ->first();
 
         // Load Group Posts
         $posts = $group->posts()->latest()->paginate(2);
@@ -93,102 +117,24 @@ class GroupsController extends Controller
             $group->questions()->create(['title'  =>  $question]);
         }
 
-        return redirect()->route('groups.show', ['name' => $group->unique_name ]);
-
+        return redirect()->route('groups.show', ['name' => $group->unique_name]);
     }
 
 
     /**
-     * Show the ContactUs page.
+     * Show User groups.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function contactus()
+    public function leave(Request $request)
     {
-        return view('front.contactus');
-    }
+        // Get the group
+        $group = Group::whereUniqueName($request->group_permlink)->first();
 
+        // Get membership and delete it
+        GroupMember::where('group_id', $group->id)->where('user_id', Auth::id())->delete();
 
-    /**
-     * Post the ContactUs Form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function postContactUs(Request $request)
-    {
-        // Validate Form
-        $this->validateContactUs($request);
-
-        // Create New Row
-        ContactUs::create($request->all());
-
-        return redirect()->route('contactus')->with('status', __('lang.contactUsDone'));
-
-    }
-
-
-    /**
-     * Validate Form Request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validateContactUs(Request $request)
-    {
-        Validator::make($request->all(), [
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
-            'phone' => 'required|max:100',
-            'message' => 'required|string',
-        ])->validate();
-    }
-
-
-    /**
-     * Show the Profile page.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function profile(Request $request, $username)
-    {
-        return view('front.profile');
-    }
-
-
-    /**
-     * Post the Profile Form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function updateProfile(Request $request)
-    {
-        // Validate Form
-        $this->validateProfile($request);
-
-        $user = User::findOrFail(auth()->user()->id);
-
-        // Update User Profile
-        $user->update($request->all());
-
-        return redirect()->route('profile', auth()->user()->username)->with('status', __('lang.updatedSuccessfully'));
-
-    }
-
-
-    /**
-     * Validate Form Request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validateProfile(Request $request)
-    {
-        Validator::make($request->all(), [
-            'name'      => 'required|string|max:100|min:2',
-            'email'     => 'required|max:100|min:2|email|unique:users,email,'. auth()->user()->id .',id',
-            'phone'     => 'required|max:100|min:2',
-            'password'  => 'confirmed',
-            'avatar'    => 'nullable',
-
-        ])->validate();
+        return redirect()->route('groups.index');
     }
 
     /**
@@ -215,5 +161,4 @@ class GroupsController extends Controller
         // for instance, it might look like this in Laravel
         return Group::whereUniqueName($number)->exists();
     }
-
 }

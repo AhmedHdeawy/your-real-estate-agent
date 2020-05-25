@@ -12,7 +12,7 @@
               />
               <avatar
                 v-else
-                :username="comment.user.name"
+                :username="comment.user.name_for_avatar"
                 :customStyle="customStyle"
                 background-color="#7F78B4"
                 color="#FFF"
@@ -40,12 +40,8 @@
 </template>
 
 <script>
-import Avatar from "vue-avatar";
 
 export default {
-  components: {
-    Avatar
-  },
   props: ["comment"],
   data() {
     return {

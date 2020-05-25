@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name_for_avatar'];
 
     protected $guarded = ['status', 'unique_name'];
 
@@ -40,6 +46,15 @@ class Group extends Model
             }
         }
     }
+
+    /**
+     * Get the the name for avatar.
+     */
+    public function getNameForAvatarAttribute()
+    {
+        return $this->nameForAvatar();
+    }
+
 
     public function questions()
     {
@@ -80,4 +95,12 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Post', 'group_id', 'id');
     }
+
+    public function nameForAvatar()
+    {
+        $name = explode(' ', $this->name);  // Example:  'high school group in egypt'
+        $shortForvatar = implode(' ', [$name[0], $name[1] ?? null]);    // 'high school'
+        return $shortForvatar;
+    }
+
 }
