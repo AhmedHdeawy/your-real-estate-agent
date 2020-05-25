@@ -10,8 +10,9 @@
               <a href="#">
                 <img
                   v-if="post.user.avatar"
-                  alt="User Image"
-                  src="/uploads/users/1587210878_business-man-1385050_19201.jpg"
+                  :alt="post.user.name"
+                  class="img-avatar"
+                  :src="'/uploads/users/' + post.user.avatar"
                 />
                 <avatar
                   v-else
