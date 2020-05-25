@@ -97,7 +97,6 @@ return [
     'notifications' =>  'Notifications',
 
 
-
     'createdSuccessfully'   =>  'Created Successfully',
     'updatedSuccessfully'   =>  'Updated Successfully',
     'deletedSuccessfully'   =>  'Deleted Successfully',
@@ -154,6 +153,7 @@ return [
     'leave' =>  'Leave',
     'areSureLeave'  =>  'Are you sure you want to leave the group?',
     'leaveHint' =>  "After leaving the group, you cannot view the group's posts or contact the group's members",
+    'noJoinedGroups'    =>  'You are not subscribed to any group. Create your own group or search for a group',
 
     /**
      * Posts

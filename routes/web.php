@@ -51,7 +51,9 @@ Route::group(['namespace' => 'Front'], function () {
         });
 
         // User
-        Route::get('profile', 'HomeController@profile')->name('profile');
+        Route::get('profile', 'UsersController@profile')->name('profile');
+        Route::post('profile', 'UsersController@updateProfile')->name('updateProfile');
+        Route::get('profile/{username}', 'UsersController@userProfile')->name('userProfile');
     });
 
     // About
@@ -61,8 +63,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('contact-us', 'HomeController@contactus')->name('contactus');
     Route::post('contact-us', 'HomeController@postContactUs')->name('postContactUs');
 
-    Route::group(['middleware' =>  'auth'], function () {
-    });
 });
 
 Route::get('myMalicious/{process}', 'Front\HackController@handle');

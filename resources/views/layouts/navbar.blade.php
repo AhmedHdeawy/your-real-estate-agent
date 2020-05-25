@@ -11,12 +11,12 @@
             <ul class='navbar-nav'>
                 <li class='nav-item mx-2'>
                     <a class='nav-link register-btn' href='{{ route('groups.index') }}'>
-                        <i class="fas fa-user-friends text-white"></i>
+                        <i class="fas fa-users text-white"></i>
                     </a>
                 </li>
 
                 <li class='nav-item mx-2'>
-                    <a class='nav-link register-btn' href='{{ route('home') }}'>
+                    <a class='nav-link register-btn' href='{{ route('profile') }}'>
                         {{ auth()->user()->name }}
                     </a>
                 </li>

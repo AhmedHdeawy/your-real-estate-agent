@@ -40,27 +40,6 @@ DomElements.sideMenuClose.addEventListener('click', menuClose);
 // });
 //	End Password Input Visible
 
-//	Start Bottom Navigation Active Page Color
-// if (window.location.href.indexOf('home') > -1) {
-//     $('.bottom-nav .fa-home').parent('.nav-link')
-//         .addClass('active')
-//         .siblings().removeClass('active');
-// } else if (window.location.href.indexOf('search') > -1) {
-//     $('.bottom-nav .fa-search').parent('.nav-link')
-//         .addClass('active')
-//         .siblings().removeClass('active');
-// } else if (window.location.href.indexOf('group') > -1) {
-//     $('.bottom-nav .fa-users').parent('.nav-link')
-//         .addClass('active')
-//         .siblings().removeClass('active');
-// } else if (window.location.href.indexOf('profile') > -1) {
-//     $('.bottom-nav .fa-user').parent('.nav-link')
-//         .addClass('active')
-//         .siblings().removeClass('active');
-// } else {
-//     $('.bottom-nav .fa-user').parent('.nav-link').siblings().removeClass('active');
-// }
-//	End Bottom Navigation Active Page Color
 
 //	Start Search Toggle Expand
 $('span.expand').on('click', function () {
@@ -99,34 +78,6 @@ const hideSearch = function () {
 };
 //	End Search Toggle Expand
 
-//	Start Stories Carousel Options
-if (window.location.href.indexOf('group') > -1) {
-    // $('.owl-carousel').owlCarousel({
-    // 	rtl: true,
-    // 	loop: false,
-    // 	margin: -20,
-    // 	stagePadding: 40,
-    // 	nav: true,
-    // 	dots: false,
-    // 	items: 6,
-    // 	navText: ['<i class="fas fa-chevron-right">', '<i class="fas fa-chevron-left">'],
-    // 	responsive: {
-    // 		// breakpoint from 0 up
-    // 		'0': {
-    // 			items: 3
-    // 		},
-    // 		// breakpoint from 480 up
-    // 		'480': {
-    // 			items: 5
-    // 		},
-    // 		// breakpoint from 768 up
-    // 		'768': {
-    // 			items: 6
-    // 		}
-    // 	}
-    // });
-}
-//	End Stories Carousel Options
 
 //	Start profile Data Edit
 $('.data-head').on('click', function () {
@@ -170,3 +121,19 @@ $('.btn-create-question').click(function (e) {
     textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
 
 });
+
+
+$('.imageUpload').change(function (event) {
+
+    let input = event.target.files[0];
+    const inputName = $(this).data('id');
+
+    if (input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#' + inputName).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input);
+    }
+
+})

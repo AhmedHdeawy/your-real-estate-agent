@@ -23,7 +23,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->inGroups()->withCount('users')->get();
+        $groups = Auth::user()->inGroups()->withCount('users', 'posts')->get();
 
         return view('front.groups.index', compact('groups'));
     }
@@ -35,7 +35,7 @@ class GroupsController extends Controller
      */
     public function search()
     {
-        $groups = Auth::user()->inGroups()->withCount('users')->get();
+        $groups = Auth::user()->inGroups()->withCount('users', 'posts')->get();
 
         return view('front.groups.index', compact('groups'));
     }

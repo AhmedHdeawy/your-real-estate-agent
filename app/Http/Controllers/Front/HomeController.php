@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\User;
 use Validator;
-
 use App\Models\Info;
+
 use App\Models\Setting;
 use App\Models\ContactUs;
-use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -61,7 +62,6 @@ class HomeController extends Controller
         ContactUs::create($request->all());
 
         return redirect()->route('contactus')->with('status', __('lang.contactUsDone'));
-
     }
 
 
@@ -79,54 +79,4 @@ class HomeController extends Controller
             'message' => 'required|string',
         ])->validate();
     }
-
-
-    /**
-     * Show the Profile page.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function profile(Request $request, $username)
-    {
-        return view('front.profile');
-    }
-
-
-    /**
-     * Post the Profile Form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function updateProfile(Request $request)
-    {
-        // Validate Form
-        $this->validateProfile($request);
-
-        $user = User::findOrFail(auth()->user()->id);
-
-        // Update User Profile
-        $user->update($request->all());
-
-        return redirect()->route('profile', auth()->user()->username)->with('status', __('lang.updatedSuccessfully'));
-
-    }
-
-
-    /**
-     * Validate Form Request.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validateProfile(Request $request)
-    {
-        Validator::make($request->all(), [
-            'name'      => 'required|string|max:100|min:2',
-            'email'     => 'required|max:100|min:2|email|unique:users,email,'. auth()->user()->id .',id',
-            'phone'     => 'required|max:100|min:2',
-            'password'  => 'confirmed',
-            'avatar'    => 'nullable',
-
-        ])->validate();
-    }
-
 }

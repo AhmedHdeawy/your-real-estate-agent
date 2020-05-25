@@ -97,7 +97,8 @@ body .side-menu .side-menu-con .sections .section-con button i {
 
 /* Framework */
 
-.btn-rbzgo {
+.btn-rbzgo,
+.btn-rbzgo:hover {
     color: #fff;
     background-color: #403a6e;
     border-color: #403a6e;
@@ -105,6 +106,18 @@ body .side-menu .side-menu-con .sections .section-con button i {
 
 .color-rbzgo {
     color: #403a6e;
+}
+
+.bg-rbzgo {
+    background-color: #3d376a !important;
+}
+
+.bg-rbzgo * {
+    color: #FFF;
+}
+
+.border-rbzgo {
+    border-color: #3d376a !important;
 }
 
 .img-avatar {

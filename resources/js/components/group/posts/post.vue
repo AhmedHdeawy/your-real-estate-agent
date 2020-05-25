@@ -7,7 +7,7 @@
           <!-- User Data -->
           <div class="col-auto">
             <div class="user-data">
-              <a href="#">
+              <a :href="'/profile/' + post.user.username">
                 <img
                   v-if="post.user.avatar"
                   :alt="post.user.name"
@@ -23,7 +23,7 @@
                 ></avatar>
                 <span>{{ post.user.name }}</span>
               </a>
-              <a class="pt-3" href="#">{{ post.created_at | dateFromNow }}</a>
+              <a class="pt-3" :href="'/profile/' + post.user.username">{{ post.created_at | dateFromNow }}</a>
             </div>
           </div>
           <!-- Post Edit -->

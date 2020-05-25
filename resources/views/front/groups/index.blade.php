@@ -11,11 +11,11 @@
                     <li style='text-align: center;' class="mb-4">
                         <a href='{{ route('groups.create') }}' class="btn btn-rbzgo">
                             <i class='fas fa-plus text-white'></i>
-                            <span class="font-weight-bold text-white mx-1">إنشاء مجموعة</span>
+                            <span class="font-weight-bold text-white mx-1"> {{ __('lang.createGroup') }} </span>
                         </a>
                     </li>
 
-                    @foreach ($groups as $group)
+                    @forelse ($groups as $group)
                     <li class='clearfix mb-4'>
                         <a href='{{ route('groups.show', ['group_permlink'  => $group->unique_name]) }}'
                             class="font-weight-bold color-rbzgo">
@@ -26,12 +26,15 @@
 
                             <avatar
                                 class="img-avatar d-inline-block {{ $currentLangDir == 'rtl' ? 'float-right' : 'float-left' }}"
-                                :username="{{ json_encode($group->nameForAvatar()) }}" background-color="#7F78B4" color="#FFF">
+                                :username="{{ json_encode($group->nameForAvatar()) }}" background-color="#7F78B4"
+                                color="#FFF">
                             </avatar>
                             @endif
                             <span class="mx-3">
                                 {{ $group->name }}
-                                <span class="d-block text-secondary"> {{ $group->users_count }} {{ __('lang.member') }}
+                                <span class="d-block text-secondary">
+                                    {{ $group->users_count }} {{ __('lang.member') }} -
+                                    {{ $group->posts_count }} {{ __('lang.post') }}
                                 </span>
                             </span>
                         </a>
@@ -46,7 +49,15 @@
                         </form>
 
                     </li>
-                    @endforeach
+                    @empty
+                    <li style='text-align: center;' class="mb-4">
+                        <p> {{ __('lang.noJoinedGroups') }}
+                            <a href='{{ route('groups.create') }}' class="color-rbzgo font-weight-bold">
+                                {{ __('lang.search') }}
+                            </a>
+                        </p>
+                    </li>
+                    @endforelse
 
                 </ul>
             </div>

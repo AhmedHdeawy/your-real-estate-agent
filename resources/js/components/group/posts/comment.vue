@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-auto">
           <div class="user-data">
-            <a href="#">
+            <a :href="'/profile/' + comment.user.username">
               <img
                 v-if="comment.user.avatar"
                 :alt="comment.user.name"
