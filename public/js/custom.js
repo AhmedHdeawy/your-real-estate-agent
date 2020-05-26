@@ -131,7 +131,7 @@ $('.imageUpload').change(function (event) {
     if (input) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#' + inputName).attr('src', e.target.result);
+            $('#' + inputName).removeClass('d-none').attr('src', e.target.result);
         }
         reader.readAsDataURL(input);
     }

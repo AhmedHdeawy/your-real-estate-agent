@@ -98,6 +98,7 @@ return [
     'viewMore'  =>  'عرض المزيد',
     'close' =>  'إغلاق',
     'notifications' =>  'الاشعارات',
+    'selectPosition'    =>  'تحديد المكان',
 
 
     'search'    =>  'بحث',
@@ -149,11 +150,14 @@ return [
      * Groups
      */
     'createGroup'   =>  'إنشاء مجموعة',
+    'groupInfo' =>  'بيانات المجموعة',
+    'groupLocation' =>  'مكان المجموعة',
     'groupName' =>  'اسم المجموعة',
     'groupImage' =>  'صورة المجموعة',
     'groupDescription' =>  'وصف المجموعة',
     'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
     'questionTitle' =>  'عنوان السؤال',
+    'addQuestion'   =>  'إضافة سؤال',
     'createTheGroup'   =>  'إنشاء المجموعة',
     'leave' =>  'مغادرة',
     'areSureLeave'  =>  'هل انت متأكد من مغادرة المجموعة',

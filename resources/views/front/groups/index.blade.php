@@ -20,7 +20,7 @@
                         <a href='{{ route('groups.show', ['group_permlink'  => $group->unique_name]) }}'
                             class="font-weight-bold color-rbzgo">
                             @if ($group->image)
-                            <img src="{{ asset('images/' . $group->image) }}"
+                            <img src="{{ asset('uploads/groups/' . $group->image) }}"
                                 class="img-avatar {{ $currentLangDir == 'rtl' ? 'float-right' : 'float-left' }}">
                             @else
 

@@ -26,7 +26,7 @@ body .side-menu .side-menu-con .sections .section-con button i {
 }
 
 .btn-create-question {
-    padding: .1rem .45rem !important;
+    padding: .4rem .7rem !important;
     font-size: 1rem !important;
     line-height: 1.5 !important;
     border-radius: .25rem !important;
@@ -94,6 +94,48 @@ body .side-menu .side-menu-con .sections .section-con button i {
     font-size: .7rem;
 }
 
+
+.select2-container {
+    height: 45px;
+    width: 100% !important;
+}
+
+.select2-container .selection {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection {
+    height: 45px;
+    width: 100% !important;
+    border: 1px solid rgb(215, 216, 217);
+    border-radius: 4px;
+    background-color: #d7d8d9;
+}
+
+.select2-container .select2-selection .select2-selection__rendered {
+    line-height: 45px;
+}
+
+.select2-container .select2-selection .select2-selection__arrow {
+    top: 10px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #413b6e;
+
+}
+
+
+.field-set {
+    border: 1px solid #3d376a !important;
+    padding: 10px;
+}
+
+.field-set legend {
+    width: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+}
 
 /* Framework */
 

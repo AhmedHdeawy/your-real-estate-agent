@@ -19,6 +19,10 @@ Route::group(['namespace' => 'Front'], function () {
     // Home
     Route::get('/', 'HomeController@index')->name('home');
 
+    // Load Status
+    Route::get('fetchStatesByCountry/{country_id}', 'GroupsController@fetchStatesByCountry')->name('fetchStatesByCountry');
+
+
     Route::group(['middleware'    =>  'auth'], function () {
 
         // Groups

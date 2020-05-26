@@ -31,4 +31,16 @@ class Country extends Model implements TranslatableContract
     {
         return $this->hasMany('App\Models\State', 'country_id', 'id');
     }
+
+
+    /**
+     * Scope a query to get active data.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', '1')->orderBy('id');
+    }
 }

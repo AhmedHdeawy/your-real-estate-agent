@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\User;
 use Validator;
+use Faker\Generator;
 
 use App\Models\Group;
+use App\Models\State;
+use App\Models\Country;
 use App\Models\GroupMember;
-use App\Models\GroupQuestion;
 use App\Models\GroupRequest;
-use App\User;
+use Illuminate\Http\Request;
+use App\Models\GroupQuestion;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class GroupsController extends Controller
 {
@@ -82,7 +86,9 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        return view('front.groups.create');
+        $countries = Country::active()->get();
+
+        return view('front.groups.create', compact('countries'));
     }
 
 
@@ -97,6 +103,8 @@ class GroupsController extends Controller
             'name'  =>  'required|max:255|min:5|string',
             'description'  =>  'required|min:5|string',
             'questions'  =>  'required|array|min:1|max:10',
+            'country_id'  =>  'required|numeric',
+            'state_id'  =>  'required|numeric',
         ]);
 
         $request['user_id'] = Auth::id();
@@ -135,6 +143,18 @@ class GroupsController extends Controller
         GroupMember::where('group_id', $group->id)->where('user_id', Auth::id())->delete();
 
         return redirect()->route('groups.index');
+    }
+
+    /**
+     * Create New Group.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function fetchStatesByCountry(Request $request, $countryId)
+    {
+        $states = State::where('country_id', $countryId)->active()->get();
+
+        return response()->json($states, 200);
     }
 
     /**

@@ -95,6 +95,7 @@ return [
     'viewMore'  =>  'View more',
     'close' =>  'Close',
     'notifications' =>  'Notifications',
+    'selectPosition'    =>  'Select Place',
 
 
     'createdSuccessfully'   =>  'Created Successfully',
@@ -144,11 +145,14 @@ return [
      * Groups
      */
     'createGroup'   =>  'Create Group',
+    'groupInfo' =>  'Group Info',
+    'groupLocation' =>  'Group Location',
     'groupName' =>  'Group Name',
     'groupImage' =>  'Group image',
     'groupDescription' =>  'Group Description',
     'groupJoinsQuestions' =>  'Group Join Questions',
     'questionTitle' =>  'Question title',
+    'addQuestion'   =>  'Add Question',
     'createTheGroup'   =>  'Create The Group',
     'leave' =>  'Leave',
     'areSureLeave'  =>  'Are you sure you want to leave the group?',

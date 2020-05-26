@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Intervention\Image\Facades\Image;
 
 class Group extends Model
 {
@@ -21,7 +22,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'image', 'user_id',
+        'name', 'description', 'image', 'address', 'city', 'lat', 'lng', 'user_id', 'country_id', 'state_id'
     ];
 
     /**
@@ -32,7 +33,6 @@ class Group extends Model
     {
 
         if ($file) {
-
             if (is_string($file)) {
                 $this->attributes['image'] = $file;
             } else {
@@ -53,6 +53,16 @@ class Group extends Model
     public function getNameForAvatarAttribute()
     {
         return $this->nameForAvatar();
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id', 'id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo('App\Models\state', 'state_id', 'id');
     }
 
 
