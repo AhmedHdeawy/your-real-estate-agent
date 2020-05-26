@@ -14,6 +14,7 @@ $factory->define(Group::class, function (Faker $faker) {
 
     return [
         'name'  =>  $faker->realText(30),
+        'unique_name'  =>  $faker->randomNumber(8),
         'description'   =>  $faker->realText(200),
         'address'   =>  $faker->address,
         'city'   =>  $faker->city,
@@ -31,7 +32,7 @@ function generateCS()
     $country = \App\Models\Country::inRandomOrder()->first();
 
     if ($country->states->isEmpty()) {
-        return $this->generateCS();
+        return generateCS();
     }
 
     $state = \App\Models\State::where('country_id', $country->id)->inRandomOrder()->first();

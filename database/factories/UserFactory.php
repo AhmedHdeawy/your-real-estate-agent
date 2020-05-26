@@ -18,12 +18,13 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'full_name' => $faker->name,
+        'name' => $faker->name,
         'username'  =>  $faker->userName . $faker->randomNumber(4),
         'age'   =>  $faker->numberBetween(12, 120),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'phone' =>  $faker->phoneNumber,
+        'gender' =>  random_int(1, 1000) % 2 == 0 ? '1' : '0',
         'password' => 'password',
         'remember_token' => Str::random(10),
     ];

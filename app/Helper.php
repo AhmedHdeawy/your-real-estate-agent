@@ -92,7 +92,7 @@ function fillCountries()
         }
     }
 
-    dd('Done');
+    return true;
 }
 
 
@@ -118,7 +118,7 @@ function fillCities()
         }
     }
 
-    dd('Done');
+    return true;
 }
 
 

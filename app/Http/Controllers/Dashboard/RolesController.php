@@ -60,7 +60,6 @@ class RolesController extends Controller
      */
     public function store(RoleRequest $request)
     {
-
         $role = Role::create([
             'name' => $request->input('name'),
             'guard_name' => 'admin'

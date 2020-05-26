@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
         // Get Langs from DB
         $languages = Language::active()->get();
 
+        // check for Commands and Seeding
+        if ($languages->isEmpty()) {
+            return true;
+        }
+
         // Get locale code and Convert them Array
         $localesLangs = $languages->pluck('locale')->toArray();
 
