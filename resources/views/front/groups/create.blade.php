@@ -97,10 +97,10 @@
                     </div>
 
                     <div class='form-group'>
-                        <input class='form-control' name='address' type='hidden' value="">
-                        <input class='form-control' name='city' type='hidden' value="">
-                        <input class='form-control' name='lat' type='hidden' value="">
-                        <input class='form-control' name='lng' type='hidden' value="">
+                        <input class='form-control' name='address' type='hidden' value="{{ old('address') }}">
+                        <input class='form-control' name='city' type='hidden' value="{{ old('city') }}">
+                        <input class='form-control' name='lat' type='hidden' value="{{ old('lat') }}">
+                        <input class='form-control' name='lng' type='hidden' value="{{ old('lng') }}">
                     </div>
 
                     <div class="select-gps mt-4">
@@ -130,11 +130,13 @@
                             </div>
                         </div>
 
-                        {{-- <textarea class='form-control mt-2 addressInput' title='{{ __('lang.selectPosition') }}'
-                        readonly></textarea> --}}
                         <div class='form-group mt-3'>
-                            <textarea class='form-control addressInput d-none' title='{{ __('lang.selectPosition') }}'
-                                readonly></textarea>
+                            <textarea name="location"
+                                class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
+                                title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
+                            @if ($errors->first('location'))
+                            <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                            @endif
                         </div>
                     </div>
                 </fieldset>
@@ -191,28 +193,39 @@
 @section('script')
 <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language=ar&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language={{ app()->getLocale() }}&callback=initMap">
 </script>
 <script>
+    var map;
+    var marker;
     function initMap() {
         var myLatlng = {lat: 23.8859, lng: 45.0792};
         var geocoder = new google.maps.Geocoder();
-        var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: myLatlng});
+            map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 5, center: myLatlng});
+
+        addMarker(myLatlng);
+
 
         // Configure the click listener.
-        map.addListener('click', function(mapsMouseEvent) {
+        map.addListener('click', function(event) {
+
+            // Delete old Marker
+            deleteMarker();
+
+            // Add new Marker with nep Location
+            addMarker(event.latLng);
 
             // Get Lat and Long
-            var lat = mapsMouseEvent.latLng.lat();
-            var lng = mapsMouseEvent.latLng.lng();
+            var lat = event.latLng.lat();
+            var lng = event.latLng.lng();
 
             // Append values to form input
             $('#createGroupForm').find("input[name='lat']").val(lat);
             $('#createGroupForm').find("input[name='lng']").val(lng);
 
             // Get address and City
-            geocoder.geocode({'latLng': mapsMouseEvent.latLng}, function (results, status) {
+            geocoder.geocode({'latLng': event.latLng}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         // collect data
@@ -224,15 +237,40 @@
                         $('#createGroupForm').find("input[name='city']").val(city);
 
                         $('.addressInput').removeClass('d-none').val(address);
+
+                        // Add Window to Display this Location
+                        addInfoWidow(contentString(city, address));
                     }
                 }
             });
 
-
             // finally, hide the modal
-            $('#mapModal').modal('hide')
+            // $('#mapModal').modal('hide')
 
         });
+    }
+
+    function addMarker(location) {
+        marker = new google.maps.Marker({
+        position: location,
+        map: map
+        });
+    }
+
+    function deleteMarker() {
+        marker.setMap(null);
+    }
+
+    function addInfoWidow(content) {
+        var infowindow = new google.maps.InfoWindow({
+        content
+        });
+
+        infowindow.open(map, marker);
+    }
+
+    function contentString(title, address) {
+        return `<p class='font-weight-bold'>${title}</p><p>${address}</p>`;
     }
 
     /**

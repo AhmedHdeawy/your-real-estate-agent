@@ -179,6 +179,7 @@ return [
         'time_from'             =>  'وقت البداية',
         'time_to'               =>  'وقت النهاية',
         'questions'             => 'الاسئلة',
+        'location'              =>  'المكان',
 
 
         'infos_value' =>  'القيمة المدخلة',

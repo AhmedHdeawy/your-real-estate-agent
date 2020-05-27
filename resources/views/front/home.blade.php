@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class='btn-con'>
-                <a class='btn'> {{ __('lang.startWithUsNow') }} </a>
+                <a href="{{ route('register') }}" class='btn'> {{ __('lang.startWithUsNow') }} </a>
             </div>
         </section>
     </section>

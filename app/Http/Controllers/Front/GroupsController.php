@@ -105,6 +105,7 @@ class GroupsController extends Controller
             'questions'  =>  'required|array|min:1|max:10',
             'country_id'  =>  'required|numeric',
             'state_id'  =>  'required|numeric',
+            'location'  =>  'required',
         ]);
 
         $request['user_id'] = Auth::id();

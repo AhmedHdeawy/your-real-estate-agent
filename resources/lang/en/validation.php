@@ -186,6 +186,7 @@ return [
         'time_from'             =>  'Start Time',
         'time_to'               =>  'End Time',
         'questions'             => 'Questions',
+        'location'              =>  'Locations',
 
 
         'infos_value' =>  'Entered Value',

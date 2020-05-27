@@ -9,6 +9,19 @@
 
         @auth
             <ul class='navbar-nav'>
+
+                <li class='nav-item mx-2'>
+                    <a class='nav-link register-btn' href='{{ route('groups.search') }}'>
+                        <i class="fas fa-search text-white"></i>
+                    </a>
+                </li>
+
+                <li class='nav-item mx-2'>
+                    <a class='nav-link register-btn' href='{{ route('groups.create') }}'>
+                        <i class="fas fa-plus-circle text-white"></i>
+                    </a>
+                </li>
+
                 <li class='nav-item mx-2'>
                     <a class='nav-link register-btn' href='{{ route('groups.index') }}'>
                         <i class="fas fa-users text-white"></i>
