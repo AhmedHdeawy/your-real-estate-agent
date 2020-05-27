@@ -158,6 +158,14 @@ return [
     'areSureLeave'  =>  'Are you sure you want to leave the group?',
     'leaveHint' =>  "After leaving the group, you cannot view the group's posts or contact the group's members",
     'noJoinedGroups'    =>  'You are not subscribed to any group. Create your own group or search for a group',
+    'countries' =>  'Countries',
+    'country' =>  'Country',
+    'states' =>  'States',
+    'state' =>  'State',
+    'searchByAddress' =>  'Search by address',
+    'searchByName' =>  'Search by group name',
+    'searchByCity' =>  'Search by city',
+    'searchByLocation' =>  'Select Location on the Map and we will find nearest the groups in 50km',
 
     /**
      * Posts

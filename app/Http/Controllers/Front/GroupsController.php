@@ -39,9 +39,23 @@ class GroupsController extends Controller
      */
     public function search()
     {
-        $groups = Auth::user()->inGroups()->withCount('users', 'posts')->get();
+        $countries = Country::active()->get();
 
-        return view('front.groups.index', compact('groups'));
+        return view('front.groups.search', compact('countries'));
+    }
+
+
+    /**
+     * Get the result for search.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function searchResults(Request $request)
+    {
+        dd($request->all());
+        $countries = Country::active()->get();
+
+        return view('front.groups.search', compact('countries'));
     }
 
     /**
@@ -155,7 +169,7 @@ class GroupsController extends Controller
     {
         $states = State::where('country_id', $countryId)->active()->get();
 
-        return response()->json($states, 200);
+        return response()->json($states);
     }
 
     /**

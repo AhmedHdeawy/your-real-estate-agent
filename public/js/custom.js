@@ -122,7 +122,7 @@ $('.btn-create-question').click(function (e) {
 
 });
 
-
+// Show Uploaded image under file input
 $('.imageUpload').change(function (event) {
 
     let input = event.target.files[0];
@@ -136,4 +136,4 @@ $('.imageUpload').change(function (event) {
         reader.readAsDataURL(input);
     }
 
-})
+});

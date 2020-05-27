@@ -47,8 +47,20 @@ Vue.filter('dateFromNow', function (date) {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('group', require('./components/group/index.vue').default);
+Vue.component('search', require('./components/search/index.vue').default);
 Vue.component('avatar', require('vue-avatar').default);
 
+
+// Map
+import * as VueGoogleMaps from 'vue2-google-maps';
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs',
+        libraries: 'geometry',
+        language: localeLang,
+    },
+    installComponents: true
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

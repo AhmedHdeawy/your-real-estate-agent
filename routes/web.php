@@ -9,6 +9,9 @@
 |
 | ADMIN		=>	auth()->guard('admin')->user()
 \
+\   php artisan VueTranslation:generate --watch=1
+\
+\
 */
 
 Auth::routes();
@@ -22,13 +25,17 @@ Route::group(['namespace' => 'Front'], function () {
     // Load Status
     Route::get('fetchStatesByCountry/{country_id}', 'GroupsController@fetchStatesByCountry')->name('fetchStatesByCountry');
 
+    // Group Search
+    Route::get('groups/search', 'GroupsController@search')->name('groups.search');
+    Route::get('groups/searchResults', 'GroupsController@searchResults')->name('groups.searchResults');
 
     Route::group(['middleware'    =>  'auth'], function () {
 
         // Groups
         Route::group(['prefix' => 'groups', 'as'  =>  'groups.'], function () {
             Route::get('/', 'GroupsController@index')->name('index');
-            Route::get('search', 'GroupsController@search')->name('search');
+            // Route::get('search', 'GroupsController@search')->name('search');
+            // Route::post('searchResults', 'GroupsController@searchResults')->name('searchResults');
             Route::get('create', 'GroupsController@create')->name('create');
             Route::post('store', 'GroupsController@store')->name('store');
             Route::post('leave', 'GroupsController@leave')->name('leave');
