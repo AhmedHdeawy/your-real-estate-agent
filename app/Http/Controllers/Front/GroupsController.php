@@ -64,6 +64,7 @@ class GroupsController extends Controller
                 ')
             )->having('distance', '<', 50)
                 ->orderBy('distance')
+                ->with('questions')
                 ->withCount('users')
                 ->get();
 
@@ -176,14 +177,25 @@ class GroupsController extends Controller
      */
     public function requestJoin(Request $request)
     {
-        dd($request->all());
         // Get the group
-        $group = Group::whereUniqueName($request->group_permlink)->first();
+        $group = Group::find($request->groupId);
 
-        // Get membership and delete it
-        GroupMember::where('group_id', $group->id)->where('user_id', Auth::id())->delete();
+        $groupRequest = $group->requests()->create([
+            'user_id'   =>  Auth::id()
+        ]);
 
-        return redirect()->route('groups.index');
+        $answers = $request->answers;
+
+        foreach ($answers as $answer) {
+            if ($answer['answer']) {
+                $groupRequest->userAnswers()->create([
+                    'title' =>  $answer['title'],
+                    'answer' =>  $answer['answer'],
+                ]);
+            }
+        }
+
+        return response()->json(true, 200);
     }
 
 

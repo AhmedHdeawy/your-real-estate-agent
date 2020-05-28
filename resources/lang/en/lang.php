@@ -175,6 +175,7 @@ return [
     'answer'    =>  'Answer',
     'sendAnswerAndJoin'    =>  'Send Questions and Request Join',
     'answersSentAndDone'  =>  'Answers have been sent and request to join. We will notify you when you are approved to join the group',
+    'noResultsFound'    =>  'No Groups found for this search, please try again',
 
     /**
      * Posts

@@ -95,9 +95,11 @@ export default {
   },
   created() {
     this.fillQuestions();
+    console.log(this.url);
   },
   data() {
     return {
+      url: window.location.protocol + "//" + window.location.hostname,
       id: this.group.id,
       name: this.group.name,
       name_for_avatar: this.group.name_for_avatar,
@@ -122,21 +124,22 @@ export default {
   computed: {
     getLocaleLang: function() {
       return localeLang;
+    },
+    sendAnswersUrl: function() {
+      return this.url + "/" + this.getLocaleLang + "/groups/requestJoin";
     }
   },
   methods: {
     sendAnswers() {
-
-        // Run Spinnser
+      // Run Spinnser
       this.loader.load = true;
 
       axios
-        .post("/requestJoin", {
-          group: this.id,
+        .post(this.sendAnswersUrl, {
+          groupId: this.id,
           answers: this.answers
         })
         .then(data => {
-          console.log(data);
           this.answersSent = true;
         })
         .catch(() => {});
@@ -150,7 +153,7 @@ export default {
     fillQuestions() {
       this.questions.forEach(question => {
         this.answers.push({
-          questionID: question.id,
+          title: question.title,
           answer: ""
         });
       });

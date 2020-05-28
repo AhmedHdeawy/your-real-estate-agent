@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="row">No res fom</div>
+    <div v-if="resultFound" class="row"> {{ translate('lang.noResultsFound') }} </div>
   </div>
 </template>
 
@@ -34,12 +34,14 @@ export default {
   data() {
     return {
       groups: [],
-      page: 2
+      page: 2,
+      resultFound: false
     };
   },
   methods: {
     // Add New Post to the data
     updateResuts(groups) {
+        this.resultFound = groups.length > 0 ? false : true;
       this.groups = groups;
     },
 
