@@ -166,6 +166,15 @@ return [
     'searchByName' =>  'Search by group name',
     'searchByCity' =>  'Search by city',
     'searchByLocation' =>  'Select Location on the Map and we will find nearest the groups in 50km',
+    'searchByMap'   =>  'Search By Map',
+    'searchByInfo'   =>  'Search By Info',
+    'searching' =>  'Searching',
+    'searchResult'  =>  'Search Result',
+    'join'  =>  'Join',
+    'askeQuestionToJoin'    =>  'to join in this group you must answer these questions',
+    'answer'    =>  'Answer',
+    'sendAnswerAndJoin'    =>  'Send Questions and Request Join',
+    'answersSentAndDone'  =>  'Answers have been sent and request to join. We will notify you when you are approved to join the group',
 
     /**
      * Posts

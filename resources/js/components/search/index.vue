@@ -1,12 +1,16 @@
 <template>
   <div class="search-box">
-
     <searchForm :countries="countries" @update-results="updateResuts"></searchForm>
 
     <div v-if="groups">
-      <result v-for="group in groups" :key="group.id" :group="group"></result>
+      <div class="search-results">
+        <h2 class="my-4">{{ translate('lang.searchResult') }}</h2>
+        <div class="row">
+          <result v-for="group in groups" :key="group.id" :group="group"></result>
+        </div>
+      </div>
     </div>
-
+    <div v-else class="row">No res fom</div>
   </div>
 </template>
 
@@ -32,9 +36,6 @@ export default {
       groups: [],
       page: 2
     };
-  },
-  mounted() {
-    console.log("hii");
   },
   methods: {
     // Add New Post to the data

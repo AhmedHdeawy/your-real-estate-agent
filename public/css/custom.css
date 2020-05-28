@@ -182,4 +182,9 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
         height: 100px;
         width: 100px !important;
     }
+
+    body .add-story-modal.join-group-modal .modal-dialog,
+    body .join-group-modal.join-group-modal .modal-dialog {
+        max-width: 90%;
+    }
 }

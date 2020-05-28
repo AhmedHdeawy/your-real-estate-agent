@@ -34,10 +34,10 @@ Route::group(['namespace' => 'Front'], function () {
         // Groups
         Route::group(['prefix' => 'groups', 'as'  =>  'groups.'], function () {
             Route::get('/', 'GroupsController@index')->name('index');
-            // Route::get('search', 'GroupsController@search')->name('search');
-            // Route::post('searchResults', 'GroupsController@searchResults')->name('searchResults');
+
             Route::get('create', 'GroupsController@create')->name('create');
             Route::post('store', 'GroupsController@store')->name('store');
+            Route::post('requestJoin', 'GroupsController@requestJoin')->name('requestJoin');
             Route::post('leave', 'GroupsController@leave')->name('leave');
 
             // Actions inside the group, must be owner the group or member in it

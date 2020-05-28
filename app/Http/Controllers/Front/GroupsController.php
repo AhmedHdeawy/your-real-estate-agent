@@ -13,6 +13,7 @@ use App\Models\GroupMember;
 use App\Models\GroupRequest;
 use Illuminate\Http\Request;
 use App\Models\GroupQuestion;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -52,10 +53,34 @@ class GroupsController extends Controller
      */
     public function searchResults(Request $request)
     {
-        dd($request->all());
-        $countries = Country::active()->get();
 
-        return view('front.groups.search', compact('countries'));
+        if ($request->lat && $request->lng) {
+            $latitude = $request->lat;
+            $longitude = $request->lng;
+
+            $groups = Group::select(
+                DB::raw('
+                *, ( 6367 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') ) * sin( radians( lat ) ) ) ) AS distance
+                ')
+            )->having('distance', '<', 50)
+                ->orderBy('distance')
+                ->withCount('users')
+                ->get();
+
+            return response()->json($groups, 200);
+        }
+
+
+        $groups = Group::where('name',  $request->name)
+            ->orWhere('address', $request->address)
+            ->orWhere('city', $request->city)
+            ->orWhere('country_id', $request->country_id)
+            ->orWhere('state_id', $request->state_id)
+            ->with('questions')
+            ->withCount('users')
+            ->get();
+
+        return response()->json($groups, 200);
     }
 
     /**
@@ -141,6 +166,24 @@ class GroupsController extends Controller
         }
 
         return redirect()->route('groups.show', ['name' => $group->unique_name]);
+    }
+
+
+    /**
+     * Requets Join to the group.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function requestJoin(Request $request)
+    {
+        dd($request->all());
+        // Get the group
+        $group = Group::whereUniqueName($request->group_permlink)->first();
+
+        // Get membership and delete it
+        GroupMember::where('group_id', $group->id)->where('user_id', Auth::id())->delete();
+
+        return redirect()->route('groups.index');
     }
 
 
