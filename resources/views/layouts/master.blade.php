@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset='UTF-8'>
     <meta name='theme-color' content='#363062'>
@@ -20,16 +21,19 @@
     @yield('style')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
-    @auth
-        <script>
+    <script>
+        @auth
             window.authedUser = {!! json_encode(auth()->user()) !!};
-        </script>
-    @endauth
+        @else
+            window.authedUser = {!! json_encode(auth()->user()) !!};
+        @endauth
+    </script>
 
 
 </head>
 
 <!-- class="rtl" -->
+
 <body dir="{{ $currentLangDir == 'rtl' ? 'rtl' : 'ltr'  }}">
 
     <div class='container'>
@@ -62,10 +66,11 @@
 
 
 
-   <script src="{{ asset('js/app.js') }}"></script>
-   <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
     @yield('script')
 
 </body>
+
 </html>

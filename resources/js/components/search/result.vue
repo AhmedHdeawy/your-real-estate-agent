@@ -46,36 +46,51 @@
       tabindex="-1"
     >
       <div class="modal-dialog" role="document">
-        <div v-if="!answersSent" class="modal-content">
-          <h4 class="mb-4">{{ name }}</h4>
-          <h5 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h5>
-          <div v-for="(question, index) in questions" :key="question.id" class="form-group">
-            <label for>{{ question.title }}</label>
-            <textarea
-              v-model="answers[index].answer"
-              class="form-control"
-              :placeholder="translate('lang.answer')"
-            ></textarea>
+        <section v-if="getAuthedUser">
+          <div v-if="!answersSent" class="modal-content">
+            <h4 class="mb-4">{{ name }}</h4>
+            <h5 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h5>
+            <div v-for="(question, index) in questions" :key="question.id" class="form-group">
+              <label for>{{ question.title }}</label>
+              <textarea
+                v-model="answers[index].answer"
+                class="form-control"
+                :placeholder="translate('lang.answer')"
+              ></textarea>
+            </div>
+            <button :disabled="loader.load" class="btn" type="button" @click="sendAnswers">
+              <beat-loader
+                v-if="loader.load"
+                class="custom-class"
+                :color="loader.color"
+                :size="loader.size"
+              ></beat-loader>
+              <span class="text-white" v-else>{{ translate('lang.sendAnswerAndJoin') }}</span>
+            </button>
           </div>
-          <button :disabled="loader.load" class="btn" type="button" @click="sendAnswers">
-            <beat-loader
-              v-if="loader.load"
-              class="custom-class"
-              :color="loader.color"
-              :size="loader.size"
-            ></beat-loader>
-            <span class="text-white" v-else>{{ translate('lang.sendAnswerAndJoin') }}</span>
-          </button>
-        </div>
 
-        <div v-else class="modal-content">
-          <h4 class="mb-4">{{ name }}</h4>
-          <div class="text-center mb-4">
-            <i class="fas fa-check-circle text-success fa-8x mx-3" aria-hidden="true"></i>
+          <div v-else class="modal-content">
+            <h4 class="mb-4">{{ name }}</h4>
+            <div class="text-center mb-4">
+              <i class="fas fa-check-circle text-success fa-8x mx-3" aria-hidden="true"></i>
+            </div>
+            <h5 class="color-rbzgo mb-3">{{ translate('lang.answersSentAndDone') }}</h5>
+            <button class="btn" @click="closeModal" type="button">{{ translate('lang.close') }}</button>
           </div>
-          <h5 class="color-rbzgo mb-3">{{ translate('lang.answersSentAndDone') }}</h5>
-          <button class="btn" @click="closeModal" type="button">{{ translate('lang.close') }}</button>
-        </div>
+        </section>
+        <section v-else>
+          <div class="modal-content">
+            <h4 class="mb-4">{{ translate('lang.loginToJoin') }}</h4>
+            <a href="/login" class="btn">{{ translate('lang.login') }}</a>
+
+            <div class='login-now'>
+                    <a href='/register'>
+                        {{ translate('lang.hasNoUser') }}
+                        {{ translate('lang.register') }}
+                    </a>
+                </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -95,7 +110,6 @@ export default {
   },
   created() {
     this.fillQuestions();
-    console.log(this.url);
   },
   data() {
     return {
@@ -127,6 +141,9 @@ export default {
     },
     sendAnswersUrl: function() {
       return this.url + "/" + this.getLocaleLang + "/groups/requestJoin";
+    },
+    getAuthedUser: function() {
+      return authedUser;
     }
   },
   methods: {
