@@ -22,9 +22,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // dd(geoip()->getClientIP(), geoip()->getLocation(geoip()->getClientIP()), geoip('196.153.208.216'));
-        // // dd(geoip()->getLocation(\Request::ip()));
-        // dd(geoip()->getLocation('196.153.208.216'));
+        $ip = geoip()->getLocation(geoip()->getClientIP());
+        dd(geoip()->getClientIP(), $ip);
+
         return view('front.home');
     }
 
