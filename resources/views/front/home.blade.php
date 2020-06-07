@@ -15,6 +15,13 @@
                 </div>
             </div>
         </section>
+
+        @if (count($nearestGroups))
+        <div id="app">
+            <home-groups :groups="{{ json_encode($nearestGroups) }}"></home-groups>
+        </div>
+        @endif
+
         <!-- Statistics Section -->
         <section class='statistics text-center'>
             <div class='row'>
