@@ -145,6 +145,11 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     padding-left: 10px;
 }
 
+
+.messenger-page .messenger-con .contacts-con .contacts a p {
+    font-size: .7rem !important;
+}
+
 /* Framework */
 
 .btn-rbzgo,
@@ -171,9 +176,9 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 }
 
 .img-avatar {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
 }
 
 

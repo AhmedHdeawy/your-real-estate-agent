@@ -201,4 +201,10 @@ return [
     'dragFilesHere'    =>    'Drop files here or click to upload.',
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
     'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
+
+    /**
+     * Messenger
+     */
+    'friends'   =>  'Friends',
+    'typeMessage'  =>  'Type a message',
 ];

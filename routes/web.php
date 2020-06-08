@@ -61,6 +61,13 @@ Route::group(['namespace' => 'Front'], function () {
             });
         });
 
+        // Messenger
+        Route::group(['prefix' => 'messenger', 'as'  =>  'messenger.'], function () {
+
+            Route::get('/', 'MessengerController@index')->name('index');
+            Route::get('getChat/{friend_id}', 'MessengerController@getChat')->name('getChat');
+        });
+
         // User
         Route::get('profile', 'UsersController@profile')->name('profile');
         Route::post('profile', 'UsersController@updateProfile')->name('updateProfile');

@@ -112,6 +112,32 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\GroupRequest', 'user_id', 'id');
     }
 
+    public function friends()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'user_id', 'friend_id');
+        // return $this->firendsOfMine->merge($this->firendOf);
+    }
+
+    public function firendsOfMine()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'user_id', 'friend_id');
+    }
+
+    public function firendOf()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'friend_id', 'user_id');
+    }
+
+    /**
+     * A user can have many messages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages($receiver_id)
+    {
+        return $this->hasMany('App\Models\Message', 'sender_id', 'id')->where('receiver_id', $receiver_id);
+    }
+
     public function nameForAvatar()
     {
         $name = explode(' ', $this->name);  // Example:  'ahmed mohamed ali taha'

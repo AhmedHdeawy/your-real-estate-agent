@@ -14,6 +14,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "pusher/pusher-php-server": "^4.1",
         "spatie/laravel-permission": "^3.3",
         "tohidplus/laravel-vue-translation": "^2.0",
         "torann/geoip": "^1.1"
