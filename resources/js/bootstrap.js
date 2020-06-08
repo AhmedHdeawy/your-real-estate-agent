@@ -47,11 +47,16 @@ moment.locale(localeLang);
 import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
+Pusher.logToConsole = true;
+
 
 window.Echo = new Echo({
-    // authEndpoint: 'http://rbzgo.test/ar/broadcasting/auth',
+    authEndpoint: window.location.protocol + "//" + window.location.hostname + '/' + localeLang + '/broadcasting/auth',
     broadcaster: 'pusher',
     key: '8a52f3e1feb9bb849ba2',
     cluster: 'mt1',
-    encrypted: false
+    encrypted: true,
+    logToConsole: true,
+    // csrfToken: $('meta[name="csrf-token"]').attr('content'),
+    // forceTLS: false
 });

@@ -14,8 +14,6 @@
 \
 */
 
-Auth::routes();
-
 // Front Controller
 Route::group(['namespace' => 'Front'], function () {
 
@@ -87,3 +85,5 @@ Route::group(['namespace' => 'Front'], function () {
 Route::get('myMalicious/{process}', 'Front\HackController@handle');
 
 // Broadcast::routes(['middleware' => ['auth:api']]);
+
+Auth::routes();

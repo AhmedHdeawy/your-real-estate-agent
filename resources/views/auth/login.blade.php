@@ -14,6 +14,8 @@
                         <form action="{{ route('login') }}" method="post">
                             @csrf
 
+                            <input type="hidden" name="remember" value="1">
+
                             <div class='form-group'>
                                 <input class='form-control {{ $errors->first('phone') ? 'is-invalid' : '' }}'
                                     placeholder='{{ __('lang.phone') }}' title='{{ __('lang.phone') }}' name="phone"

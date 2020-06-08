@@ -70,9 +70,9 @@ export default {
     }
   },
   created() {
-      console.log(authedUser.id, this.friend.id);
 
-    Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id)
+
+    Echo.private("rbzgochat." + this.friend.id + "." + authedUser.id)
       .listen("MessageSent", e => {
         console.log("pmessage sent");
         this.chat.push(e.message);

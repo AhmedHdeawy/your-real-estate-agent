@@ -15763,8 +15763,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    console.log(authedUser.id, this.friend.id);
-    Echo["private"]("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen("MessageSent", function (e) {
+    Echo["private"]("rbzgochat." + this.friend.id + "." + authedUser.id).listen("MessageSent", function (e) {
       console.log("pmessage sent");
 
       _this.chat.push(e.message);
@@ -100558,12 +100557,16 @@ moment.locale(localeLang);
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+Pusher.logToConsole = true;
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  // authEndpoint: 'http://rbzgo.test/ar/broadcasting/auth',
+  authEndpoint: window.location.protocol + "//" + window.location.hostname + '/' + localeLang + '/broadcasting/auth',
   broadcaster: 'pusher',
   key: '8a52f3e1feb9bb849ba2',
   cluster: 'mt1',
-  encrypted: false
+  encrypted: true,
+  logToConsole: true // csrfToken: $('meta[name="csrf-token"]').attr('content'),
+  // forceTLS: false
+
 });
 
 /***/ }),

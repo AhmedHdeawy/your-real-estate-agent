@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\User;
-use Validator;
-
 use App\Models\Message;
 use App\Events\MessageSent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +19,7 @@ class MessengerController extends Controller
      */
     public function index()
     {
+
         $friends = Auth::user()->friends();
 
         return view('front.messenger')->withFriends($friends);

@@ -15,7 +15,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('rbzgo-chat.{sender_id}.{receiver_id}', function ($user, $sender_id, $receiver_id) {
+Broadcast::channel('rbzgochat.{sender_id}.{receiver_id}', function ($user, $sender_id, $receiver_id) {
     // return $user->id == $receiver_id;
     return true;
 });
