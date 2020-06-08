@@ -114,8 +114,7 @@ class User extends Authenticatable
 
     public function friends()
     {
-        return $this->belongsToMany('App\User', 'friends', 'user_id', 'friend_id');
-        // return $this->firendsOfMine->merge($this->firendOf);
+        return $this->firendsOfMine->merge($this->firendOf);
     }
 
     public function firendsOfMine()

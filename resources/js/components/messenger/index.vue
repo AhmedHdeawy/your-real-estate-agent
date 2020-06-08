@@ -12,12 +12,19 @@
                 </span>
               </h2>
               <div class="contacts">
-                <friend v-for="friend in friends" :key="friend.id" :friend="friend" @get-chat="getChat"></friend>
+                <div v-if='friends.length'>
+                    <friend v-for="friend in friends" :key="friend.id" :friend="friend" @get-chat="getChat"></friend>
+                </div>
+                <div v-else>
+                    <p class="text-center">
+                        {{ translate('lang.youhavenofriends') }}
+                    </p>
+                </div>
               </div>
             </div>
           </div>
           <div class="col-lg-9 col-md-8">
-            <chat :chat="chat" :friend="friend"></chat>
+            <chat v-if="chat" :chat="chat" :friend="friend"></chat>
           </div>
         </div>
       </div>
@@ -41,7 +48,10 @@ export default {
     }
   },
   created() {
-      this.fetchMessages(this.friend);
+      if (this.friend) {
+
+          this.fetchMessages(this.friend);
+      }
   },
   data() {
       return {

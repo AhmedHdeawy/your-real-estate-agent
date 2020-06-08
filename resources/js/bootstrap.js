@@ -49,8 +49,9 @@ import Echo from 'laravel-echo';
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
+    // authEndpoint: 'http://rbzgo.test/ar/broadcasting/auth',
     broadcaster: 'pusher',
     key: '8a52f3e1feb9bb849ba2',
     cluster: 'mt1',
-    encrypted: true
+    encrypted: false
 });

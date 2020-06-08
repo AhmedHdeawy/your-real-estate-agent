@@ -8,6 +8,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// Load Vue Chat Scroll
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+
 
 // Sweet Alert
 import Swal from 'sweetalert2';

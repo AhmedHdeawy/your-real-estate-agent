@@ -15739,6 +15739,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["chat", "friend"],
   data: function data() {
@@ -15754,15 +15758,31 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     getAuthedUser: function getAuthedUser() {
       return authedUser;
-    },
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    console.log(authedUser.id, this.friend.id);
+    Echo["private"]("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen("MessageSent", function (e) {
+      console.log("pmessage sent");
+
+      _this.chat.push(e.message);
+    });
+  },
+  methods: {
     saveMessage: function saveMessage() {
-      var data = {
-        sender_id: this.getAuthedUser,
-        receiver_id: this.friend.id,
-        text: this.message
-      };
-      this.message = '';
-      this.chat.push(data);
+      if (this.message != "") {
+        var data = {
+          sender_id: authedUser.id,
+          receiver_id: this.friend.id,
+          text: this.message
+        };
+        this.message = "";
+        this.chat.push(data); //   Send Request
+
+        axios.post("messenger/saveMessage", data).then(function (response) {});
+      }
     }
   }
 });
@@ -15861,6 +15881,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -15875,7 +15902,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.fetchMessages(this.friend);
+    if (this.friend) {
+      this.fetchMessages(this.friend);
+    }
   },
   data: function data() {
     return {
@@ -82809,6 +82838,100 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+}(this, (function () { 'use strict';
+
+  /**
+  * @name VueJS vChatScroll (vue-chat-scroll)
+  * @description Monitors an element and scrolls to the bottom if a new child is added
+  * @author Theodore Messinezis <theo@theomessin.com>
+  * @file v-chat-scroll  directive definition
+  */
+  var scrollToBottom = function scrollToBottom(el, smooth) {
+    if (typeof el.scroll === "function") {
+      el.scroll({
+        top: el.scrollHeight,
+        behavior: smooth ? 'smooth' : 'instant'
+      });
+    } else {
+      el.scrollTop = el.scrollHeight;
+    }
+  };
+
+  var vChatScroll = {
+    bind: function bind(el, binding) {
+      var scrolled = false;
+      el.addEventListener('scroll', function (e) {
+        scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
+
+        if (scrolled && el.scrollTop === 0) {
+          el.dispatchEvent(new Event("v-chat-scroll-top-reached"));
+        }
+      });
+      new MutationObserver(function (e) {
+        var config = binding.value || {};
+        if (config.enabled === false) return;
+        var pause = config.always === false && scrolled;
+        var addedNodes = e[e.length - 1].addedNodes.length;
+        var removedNodes = e[e.length - 1].removedNodes.length;
+
+        if (config.scrollonremoved) {
+          if (pause || addedNodes != 1 && removedNodes != 1) return;
+        } else {
+          if (pause || addedNodes != 1) return;
+        }
+
+        var smooth = config.smooth;
+        var loadingRemoved = !addedNodes && removedNodes === 1;
+
+        if (loadingRemoved && config.scrollonremoved && 'smoothonremoved' in config) {
+          smooth = config.smoothonremoved;
+        }
+
+        scrollToBottom(el, smooth);
+      }).observe(el, {
+        childList: true,
+        subtree: true
+      });
+    },
+    inserted: function inserted(el, binding) {
+      var config = binding.value || {};
+      scrollToBottom(el, config.notSmoothOnInit ? false : config.smooth);
+    }
+  };
+
+  /**
+  * @name VueJS vChatScroll (vue-chat-scroll)
+  * @description Monitors an element and scrolls to the bottom if a new child is added
+  * @author Theodore Messinezis <theo@theomessin.com>
+  * @file vue-chat-scroll plugin definition
+  */
+  var VueChatScroll = {
+    install: function install(Vue, options) {
+      Vue.directive('chat-scroll', vChatScroll);
+    }
+  };
+
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueChatScroll);
+  }
+
+  return VueChatScroll;
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js":
 /*!************************************************************************!*\
   !*** ./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js ***!
@@ -84453,73 +84576,118 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "messages-box" }, [
-      _c(
-        "div",
-        { staticClass: "messages" },
-        _vm._l(_vm.chat, function(message, index) {
-          return _c(
+      _vm.chat.length
+        ? _c(
             "div",
             {
-              key: index,
-              class:
-                _vm.getAuthedUser.id == message.sender_id ? "sent" : "received"
-            },
-            [_vm._v(_vm._s(message.text))]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "message-input" }, [
-        _c("form", [
-          _c("div", { staticClass: "form-group" }, [
-            _c("input", {
               directives: [
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.message,
-                  expression: "message"
+                  name: "chat-scroll",
+                  rawName: "v-chat-scroll",
+                  value: { smooth: true },
+                  expression: "{smooth: true}"
                 }
               ],
-              staticClass: "form-control",
-              attrs: {
-                placeholder: _vm.translate("lang.typeMessage"),
-                title: _vm.translate("lang.typeMessage"),
-                type: "text"
-              },
-              domProps: { value: _vm.message },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.message = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
+              staticClass: "messages"
+            },
+            _vm._l(_vm.chat, function(message, index) {
+              return _c(
+                "div",
                 {
-                  staticClass: "btn",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.saveMessage()
-                    }
-                  }
+                  key: index,
+                  class:
+                    _vm.getAuthedUser.id == message.sender_id
+                      ? "sent"
+                      : "received"
                 },
-                [
-                  _c("i", { staticClass: "far fa-paper-plane" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.translate("lang.send")))])
-                ]
+                [_vm._v(_vm._s(message.text))]
               )
+            }),
+            0
+          )
+        : _c(
+            "div",
+            {
+              staticClass:
+                "text-center align-items-center justify-content-center d-flex h-100"
+            },
+            [
+              _c("p", { staticClass: "font-weight-bold" }, [
+                _vm._v(_vm._s(_vm.translate("lang.youhavenoMessage")))
+              ])
+            ]
+          ),
+      _vm._v(" "),
+      _c("div", { staticClass: "message-input" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.message,
+                    expression: "message"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  placeholder: _vm.translate("lang.typeMessage"),
+                  title: _vm.translate("lang.typeMessage"),
+                  type: "text"
+                },
+                domProps: { value: _vm.message },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.saveMessage($event)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.message = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.saveMessage($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "far fa-paper-plane" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.translate("lang.send")))])
+                  ]
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ])
     ])
   ])
@@ -84635,25 +84803,40 @@ var render = function() {
                 _vm._m(0)
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "contacts" },
-                _vm._l(_vm.friends, function(friend) {
-                  return _c("friend", {
-                    key: friend.id,
-                    attrs: { friend: friend },
-                    on: { "get-chat": _vm.getChat }
-                  })
-                }),
-                1
-              )
+              _c("div", { staticClass: "contacts" }, [
+                _vm.friends.length
+                  ? _c(
+                      "div",
+                      _vm._l(_vm.friends, function(friend) {
+                        return _c("friend", {
+                          key: friend.id,
+                          attrs: { friend: friend },
+                          on: { "get-chat": _vm.getChat }
+                        })
+                      }),
+                      1
+                    )
+                  : _c("div", [
+                      _c("p", { staticClass: "text-center" }, [
+                        _vm._v(
+                          "\n                      " +
+                            _vm._s(_vm.translate("lang.youhavenofriends")) +
+                            "\n                  "
+                        )
+                      ])
+                    ])
+              ])
             ])
           ]),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "col-lg-9 col-md-8" },
-            [_c("chat", { attrs: { chat: _vm.chat, friend: _vm.friend } })],
+            [
+              _vm.chat
+                ? _c("chat", { attrs: { chat: _vm.chat, friend: _vm.friend } })
+                : _vm._e()
+            ],
             1
           )
         ])
@@ -100238,7 +100421,7 @@ var translations = __webpack_require__(/*! ./translations */ "./resources/js/Vue
 /*! exports provided: ar, en, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"ar\":{\"auth\":{\"failed\":\"بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.\",\"throttle\":\"عدد كبير جدا من محاولات الدخول. يرجى المحاولة مرة أخرى بعد :seconds ثانية.\"},\"dashboard\":{\"maintenanceMode\":\"عذراً الموقع متوقف حالياً\",\"welcomeDashboard\":\"مرحبا بك في لوحة تحكم الموقع\",\"websiteName\":\"اسم الموقع\",\"websiteStatistics\":\"احصائيات الموقع\",\"home\":\"الرئيسية\",\"dashboard\":\"لوحة التحكم\",\"contactWithUs\":\"تواصل معنا\",\"contactUs\":\"اتصل بنا\",\"ar\":\"عربى\",\"en\":\"إنجليزى\",\"he\":\"عبري\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"رجوع\",\"show\":\"عرض\",\"more\":\"المزيد\",\"create\":\"اضافة\",\"save\":\"حفظ\",\"view\":\"عرض\",\"edit\":\"تعديل\",\"update\":\"تعديل\",\"delete\":\"حذف\",\"status\":\"الحالة\",\"done\":\"تم\",\"active\":\"نشط\",\"stopped\":\"متوقف\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"enable\":\"تفعيل\",\"disable\":\"ايقاف\",\"actions\":\"الاجراءات\",\"noData\":\"لايوجد بيانات\",\"details\":\"التفاصيل\",\"name\":\"الاسم\",\"username\":\"اسم المستخدم\",\"email\":\"البريد الالكتروني\",\"phone\":\"الجوال\",\"age\":\"العمر\",\"text\":\"النص\",\"send\":\"ارسال\",\"address\":\"العنوان\",\"mobile\":\"الموبايل\",\"login\":\"تسجيل الدخول\",\"logout\":\"تسجيل الخروج\",\"loginDetails\":\"ادخل بيانات حسابك\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"اعادة كلمة المرور\",\"websiteAdminPanel\":\"لوحة تحكم الموقع\",\"websiteAdminPanelDetails\":\"للدخول الى لوحة تحكم الموقع. ادخل بيانات حسابك الصحيحة\",\"profile\":\"الملف الشخصي\",\"users\":\"المستخدمين\",\"admins\":\"المشرفين\",\"image\":\"الصوره\",\"data\":\"البيانات\",\"resetInputs\":\"تفريغ\",\"title\":\"العنوان\",\"staticData\":\"البيانات الاساسية\",\"arData\":\"البيانات العربي\",\"enData\":\"البيانات الانجليزي\",\"wrongData\":\"الايميل او كلمة المرور خطأ\",\"desc\":\"الوصف\",\"date\":\"التاريخ\",\"contactUsDone\":\"شكرا لك علي رسالتك. سيتم مراجعتها في اقرب وقت\",\"rememberMe\":\"تذكرني\",\"loginTitle\":\"تسجيل الدخول\",\"loginHint\":\"من فضلك ادخل بياناتك\",\"registerTitle\":\"تسجيل عضوية جديدة\",\"registerHint\":\"من فضلك ادخل بياناتك كاملة وبشكل صحيح\",\"bookingTitle\":\"احجز الان\",\"bookingHint\":\"من فضلك ادخل بياناتك صحيحة لنتواصل معك بسهولة\",\"day\":\"اليوم\",\"time\":\"الوقت\",\"notes\":\"ملاحظات\",\"hasNoUser\":\"ليس لديك حساب ؟\",\"hasUser\":\"هل انت عضو معنا ؟\",\"profileTitle\":\"تحديث بياناتك\",\"profileHint\":\"حدث بياناتك بكل سهوله. \",\"days\":\"الايام\",\"times\":\"الفترات\",\"daysTimes\":\"الايام والفترات\",\"daysTimesExist\":\"هذا اليوم وهذه الفتره موجوده من قبل\",\"workers\":\"عدد العاملات\",\"permissionDenied\":\"ليس لديك صلاحية الدخول لهذه الصفحة\",\"createdSuccessfully\":\"تمت الاضافة بنجاح\",\"updatedSuccessfully\":\"تم التحديث بنجاح\",\"deletedSuccessfully\":\"تم الحذف بنجاح\",\"search\":\"بحث\",\"reset\":\"تفريغ\",\"value\":\"القيمة\",\"id\":\"الكود\",\"lang\":\"اللغة\",\"writer\":\"الكاتب\",\"groups\":\"المجموعات\",\"group\":\"مجموعة\",\"posts\":\"المنشورات\",\"post\":\"منشور\",\"roles\":\"الادوار\",\"role\":\"الدور\",\"permissions\":\"الصلاحيات\",\"permission\":\"الصلاحية\",\"contactus\":\"رسائل الاتصال بنا\",\"suggestions\":\"الاقتراحات\",\"complaints\":\"الشكاوى\",\"suggestionsComplaints\":\"الاقتراحات والشكاوى\",\"settings\":\"الاعدادات\",\"facebook\":\"رابط الفيس بوك\",\"twitter\":\"رابط تويتر\",\"google\":\"رابط جوجل\",\"about\":\"نبذه عنا\",\"hour_price\":\"سعر الساعة\",\"infos\":\"البيانات\",\"message\":\"الرسالة\",\"mission\":\"المهمة\",\"vision\":\"الرؤية\",\"countries\":\"الدول\",\"country\":\"الدوله\",\"states\":\"المحافظات\",\"state\":\"المحافظة\"},\"lang\":{\"maintenanceMode\":\"عذراً الموقع متوقف حالياً\",\"welcomeDashboard\":\"مرحبا بك في لوحة تحكم الموقع\",\"websiteName\":\"اسم الموقع\",\"home\":\"الرئيسية\",\"dashboard\":\"لوحة التحكم\",\"contactWithUs\":\"تواصل معنا\",\"contactUs\":\"اتصل بنا\",\"ar\":\"عربى\",\"en\":\"إنجليزى\",\"he\":\"عبري\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"رجوع\",\"show\":\"عرض\",\"more\":\"المزيد\",\"create\":\"اضافة\",\"save\":\"حفظ\",\"view\":\"عرض\",\"edit\":\"تعديل\",\"update\":\"تعديل\",\"cancel\":\"الغاء\",\"delete\":\"حذف\",\"status\":\"الحالة\",\"done\":\"تم\",\"active\":\"نشط\",\"stopped\":\"متوقف\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"actions\":\"الاجراءات\",\"noData\":\"لايوجد بيانات\",\"details\":\"التفاصيل\",\"name\":\"الاسم\",\"username\":\"اسم المستخدم\",\"email\":\"البريد الالكتروني\",\"phone\":\"الجوال\",\"age\":\"العمر\",\"gender\":\"النوع\",\"male\":\"ذكر\",\"female\":\"انثى\",\"text\":\"الرسالة\",\"send\":\"ارسال\",\"address\":\"العنوان\",\"mobile\":\"الموبايل\",\"login\":\"تسجيل الدخول\",\"register\":\"انشاء حساب\",\"logout\":\"تسجيل الخروج\",\"loginDetails\":\"ادخل بيانات حسابك\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"اعادة كلمة المرور\",\"forgetPassword\":\"نسيت كلمة السر ؟\",\"websiteAdminPanel\":\"لوحة تحكم الموقع\",\"websiteAdminPanelDetails\":\"للدخول الى لوحة تحكم الموقع. ادخل بيانات حسابك الصحيحة\",\"profile\":\"الملف الشخصي\",\"users\":\"المستخدمين\",\"admins\":\"المشرفين\",\"image\":\"الصوره\",\"data\":\"البيانات\",\"resetInputs\":\"تفريغ\",\"title\":\"العنوان\",\"staticData\":\"البيانات الاساسية\",\"arData\":\"البيانات العربي\",\"enData\":\"البيانات الانجليزي\",\"wrongData\":\"الايميل او كلمة المرور خطأ\",\"desc\":\"الوصف\",\"date\":\"التاريخ\",\"contactUsDone\":\"شكرا لك علي رسالتك. سيتم مراجعتها في اقرب وقت\",\"rememberMe\":\"تذكرني\",\"loginTitle\":\"تسجيل الدخول\",\"loginHint\":\"من فضلك ادخل بياناتك\",\"registerTitle\":\"تسجيل مستخدم جديدة\",\"registerHint\":\"من فضلك ادخل بياناتك كاملة وبشكل صحيح\",\"bookingTitle\":\"احجز الان\",\"bookingHint\":\"من فضلك ادخل بياناتك صحيحة لنتواصل معك بسهولة\",\"day\":\"اليوم\",\"time\":\"الوقت\",\"notes\":\"ملاحظات\",\"hasNoUser\":\"ليس لديك حساب ؟\",\"hasUser\":\"هل انت عضو معنا ؟\",\"profileTitle\":\"تحديث بياناتك\",\"profileHint\":\"حدث بياناتك بكل سهوله. \",\"days\":\"الايام\",\"times\":\"الفترات\",\"daysTimes\":\"الايام والفترات\",\"daysTimesExist\":\"هذا اليوم وهذه الفتره موجوده من قبل\",\"workers\":\"عدد العاملات\",\"permissionDenied\":\"ليس لديك صلاحية الدخول لهذه الصفحة\",\"areSure\":\"هل انت متأكد من الحذف؟\",\"deleteHint\":\"بعد الموافقة لايمكنك التراجع عن هذا الحذف\",\"yes\":\"نعم\",\"no\":\"لا\",\"titleSucess\":\"تم بنجاح\",\"viewMore\":\"عرض المزيد\",\"close\":\"إغلاق\",\"notifications\":\"الاشعارات\",\"selectPosition\":\"تحديد المكان\",\"search\":\"بحث\",\"reset\":\"تفريغ\",\"value\":\"القيمة\",\"createdSuccessfully\":\"تمت الاضافة بنجاح\",\"updatedSuccessfully\":\"تم التحديث بنجاح\",\"deletedSuccessfully\":\"تم الحذف بنجاح\",\"id\":\"الكود\",\"lang\":\"اللغة\",\"copyRight\":\"جميع الحقوق محفوظه\",\"poweredBy\":\"تطوير بواسطة:\",\"whoWe\":\"من نحن\",\"contactUsTitle\":\"اتصل بنا\",\"contactUsMessage\":\"ارسل شكواك او مقترحاتك\",\"circles\":\"دوائر\",\"circle\":\"دائرة\",\"groups\":\"المجموعات\",\"group\":\"المجموعة\",\"and\":\"و\",\"welcomeSectionTitle\":\"سجل معنا واعثر على أصدقائك بكل سهولة\",\"stepsSectionTitle\":\"اعثر على أصدقائك بخطوات بسيطة\",\"moreThan\":\"اكثر من\",\"member\":\"عضو\",\"createNewAccount\":\"انشئ حساب جديد\",\"findYourGroup\":\"ابحث عن مجموعتك\",\"joinToYourGroup\":\"انضم إلى مجموعتك\",\"startWithUsNow\":\"ابدأ معنا الان\",\"footerText\":\"عند قيامك بإنشاء حساب فانك توافق على\",\"conditionsTerms\":\"الشروط والاحكام\",\"privacyPolicy\":\"سياسة الخصوصية\",\"createGroup\":\"إنشاء مجموعة\",\"groupInfo\":\"بيانات المجموعة\",\"groupLocation\":\"مكان المجموعة\",\"groupName\":\"اسم المجموعة\",\"groupImage\":\"صورة المجموعة\",\"groupDescription\":\"وصف المجموعة\",\"groupJoinsQuestions\":\"أسئلة الانضمام للمجموعة\",\"questionTitle\":\"عنوان السؤال\",\"addQuestion\":\"إضافة سؤال\",\"createTheGroup\":\"إنشاء المجموعة\",\"leave\":\"مغادرة\",\"areSureLeave\":\"هل انت متأكد من مغادرة المجموعة\",\"leaveHint\":\"بعد مغادرة المجموعة لايمكنك مشاهدة منشورات المجموعة ولا مراسلة أعضاء المجموعة\",\"noJoinedGroups\":\"انت غير مشترك في اي مجموعة. قم بانشاء مجموعتك الخاصه أو ابحث عن مجموعة\",\"countries\":\"الدول\",\"country\":\"الدولة\",\"states\":\"المحافظة\",\"searchByAddress\":\"ابحث بالعنوان\",\"searchByName\":\"ابحث باسم المجموعة\",\"searchByCity\":\"ابحث بالمدينة\",\"searchByLocation\":\"حدد الموقع على الخريطة وسنجد أقرب المجموعات على بعد 50 كم\",\"searchByMap\":\"بحث بالخرائط\",\"searchByInfo\":\"بحث بالبيانات\",\"searching\":\"جاري البحث\",\"searchResult\":\"نتيجة البحث\",\"join\":\"انضمام\",\"askeQuestionToJoin\":\"لكي تنضم الى المجموعة لابد أن تجيب على هذه الاسئلة\",\"answer\":\"الاجابة\",\"sendAnswerAndJoin\":\"ارسال الاجابات وطلب الانضمام\",\"answersSentAndDone\":\"تم ارسال الاجابات وطلب الانضمام. سوف نقوم باشعارك عندما يتم الموافقة على انضمامك للمجموعة\",\"noResultsFound\":\"لم يتم ايجاد اي مجموعات مطابقة لبحثك. حاول مره اخرى\",\"loginToJoin\":\"يجب عليك التسجيل لكي تنضم للمجموعة\",\"nearestGroups\":\"أقرب المجموعات\",\"posts\":\"المنشورات\",\"post\":\"منشور\",\"discussions\":\"المناقشات\",\"stories\":\"الحالات\",\"whatsInYourMind\":\"بم تفكر\",\"attachFileOrImage\":\"صورة/فيديو\",\"publish\":\"نشر\",\"likes\":\"اعجابات\",\"like\":\"اعجاب\",\"likeMe\":\"اعجبني\",\"comments\":\"التعليقات\",\"comment\":\"تعليق\",\"writeComment\":\"اكتب تعليقاً\",\"viewComments\":\"عرض التعليقات\",\"noMorePosts\":\"لايوجد منشورات اخرى لعرضها\",\"noPosts\":\"لايوجد منشورات لعرضها\",\"dragFilesHere\":\"اسحب الملفات هنا او اضغط لاختيار الملفات.\",\"maxFileSize\":\"حجم الملف كبير جدا . لايمكن رفعه\",\"invalid_filetype\":\"لا يمكن رفع هذا النوع من الملفات\",\"friends\":\"الاصدقاء\",\"typeMessage\":\"اكتب رسالتك\"},\"pagination\":{\"previous\":\"&laquo; السابق\",\"next\":\"التالي &raquo;\"},\"passwords\":{\"password\":\"يجب أن لا يقل طول كلمة المرور عن ستة أحرف، كما يجب أن تتطابق مع حقل التأكيد.\",\"reset\":\"تمت إعادة تعيين كلمة المرور!\",\"sent\":\"تم إرسال تفاصيل استعادة كلمة المرور الخاصة بك إلى بريدك الإلكتروني!\",\"token\":\"رمز استعادة كلمة المرور الذي أدخلته غير صحيح.\",\"user\":\"لم يتم العثور على أيّ حسابٍ بهذا العنوان الإلكتروني.\"},\"validation\":{\"accepted\":\"يجب قبول :attribute.\",\"active_url\":\":attribute لا يُمثّل رابطًا صحيحًا.\",\"after\":\"يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.\",\"after_or_equal\":\":attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.\",\"alpha\":\"يجب أن لا يحتوي :attribute سوى على حروف.\",\"alpha_dash\":\"يجب أن لا يحتوي :attribute سوى على حروف، أرقام ومطّات.\",\"alpha_num\":\"يجب أن يحتوي :attribute على حروفٍ وأرقامٍ فقط.\",\"array\":\"يجب أن يكون :attribute ًمصفوفة.\",\"before\":\"يجب على :attribute أن يكون تاريخًا سابقًا للتاريخ :date.\",\"before_or_equal\":\":attribute يجب أن يكون تاريخا سابقا أو مطابقا للتاريخ :date.\",\"between\":{\"numeric\":\"يجب أن تكون قيمة :attribute بين :min و :max.\",\"file\":\"يجب أن يكون حجم الملف :attribute بين :min و :max كيلوبايت.\",\"string\":\"يجب أن يكون عدد حروف النّص :attribute بين :min و :max.\",\"array\":\"يجب أن يحتوي :attribute على عدد من العناصر بين :min و :max.\"},\"boolean\":\"يجب أن تكون قيمة :attribute إما true أو false .\",\"confirmed\":\"حقل التأكيد غير مُطابق للحقل :attribute.\",\"date\":\":attribute ليس تاريخًا صحيحًا.\",\"date_equals\":\"يجب أن يكون :attribute مطابقاً للتاريخ :date.\",\"date_format\":\"لا يتوافق :attribute مع الشكل :format.\",\"different\":\"يجب أن يكون الحقلان :attribute و :other مُختلفين.\",\"digits\":\"يجب أن يحتوي :attribute على :digits رقمًا/أرقام.\",\"digits_between\":\"يجب أن يحتوي :attribute بين :min و :max رقمًا/أرقام .\",\"dimensions\":\"الـ :attribute يحتوي على أبعاد صورة غير صالحة.\",\"distinct\":\"للحقل :attribute قيمة مُكرّرة.\",\"email\":\"يجب أن يكون :attribute عنوان بريد إلكتروني صحيح البُنية.\",\"exists\":\"القيمة المحددة :attribute غير موجودة.\",\"file\":\"الـ :attribute يجب أن يكون ملفا.\",\"filled\":\":attribute إجباري.\",\"gt\":{\"numeric\":\"يجب أن تكون قيمة :attribute أكبر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute أكبر من :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النّص :attribute أكثر من :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على أكثر من :value عناصر/عنصر.\"},\"gte\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أكبر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute على الأقل :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النص :attribute على الأقل :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على الأقل على :value عُنصرًا/عناصر.\"},\"image\":\"يجب أن يكون :attribute صورةً.\",\"in\":\":attribute غير موجود.\",\"in_array\":\":attribute غير موجود في :other.\",\"integer\":\"يجب أن يكون :attribute عددًا صحيحًا.\",\"ip\":\"يجب أن يكون :attribute عنوان IP صحيحًا.\",\"ipv4\":\"يجب أن يكون :attribute عنوان IPv4 صحيحًا.\",\"ipv6\":\"يجب أن يكون :attribute عنوان IPv6 صحيحًا.\",\"json\":\"يجب أن يكون :attribute نصآ من نوع JSON.\",\"lt\":{\"numeric\":\"يجب أن تكون قيمة :attribute أصغر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute أصغر من :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النّص :attribute أقل من :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على أقل من :value عناصر/عنصر.\"},\"lte\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أصغر من :value.\",\"file\":\"يجب أن لا يتجاوز حجم الملف :attribute :value كيلوبايت.\",\"string\":\"يجب أن لا يتجاوز طول النّص :attribute :value حروفٍ/حرفًا.\",\"array\":\"يجب أن لا يحتوي :attribute على أكثر من :value عناصر/عنصر.\"},\"max\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أصغر من :max.\",\"file\":\"يجب أن لا يتجاوز حجم الملف :attribute :max كيلوبايت.\",\"string\":\"يجب أن لا يتجاوز طول النّص :attribute :max حروفٍ/حرفًا.\",\"array\":\"يجب أن لا يحتوي :attribute على أكثر من :max عناصر/عنصر.\"},\"mimes\":\"يجب أن يكون ملفًا من نوع : :values.\",\"mimetypes\":\"يجب أن يكون ملفًا من نوع : :values.\",\"min\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أكبر من :min.\",\"file\":\"يجب أن يكون حجم الملف :attribute على الأقل :min كيلوبايت.\",\"string\":\"يجب أن يكون طول النص :attribute على الأقل :min حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على الأقل على :min عُنصرًا/عناصر.\"},\"not_in\":\":attribute موجود.\",\"not_regex\":\"صيغة :attribute غير صحيحة.\",\"numeric\":\"يجب على :attribute أن يكون رقمًا.\",\"present\":\"يجب تقديم :attribute.\",\"regex\":\"صيغة :attribute .غير صحيحة.\",\"required\":\":attribute مطلوب.\",\"required_if\":\":attribute مطلوب في حال ما إذا كان :other يساوي :value.\",\"required_unless\":\":attribute مطلوب في حال ما لم يكن :other يساوي :values.\",\"required_with\":\":attribute مطلوب إذا توفّر :values.\",\"required_with_all\":\":attribute مطلوب إذا توفّر :values.\",\"required_without\":\":attribute مطلوب إذا لم يتوفّر :values.\",\"required_without_all\":\":attribute مطلوب إذا لم يتوفّر :values.\",\"same\":\"يجب أن يتطابق :attribute مع :other.\",\"size\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية لـ :size.\",\"file\":\"يجب أن يكون حجم الملف :attribute :size كيلوبايت.\",\"string\":\"يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالضبط.\",\"array\":\"يجب أن يحتوي :attribute على :size عنصرٍ/عناصر بالضبط.\"},\"starts_with\":\"يجب أن يبدأ :attribute بأحد القيم التالية: :values\",\"string\":\"يجب أن يكون :attribute نصًا.\",\"timezone\":\"يجب أن يكون :attribute نطاقًا زمنيًا صحيحًا.\",\"unique\":\"قيمة :attribute مُستخدمة من قبل.\",\"uploaded\":\"فشل في تحميل الـ :attribute.\",\"url\":\"صيغة الرابط :attribute غير صحيحة.\",\"uuid\":\":attribute يجب أن يكون بصيغة UUID سليمة.\",\"custom\":{\"attribute-name\":{\"rule-name\":\"custom-message\"}},\"attributes\":{\"name\":\"الاسم\",\"username\":\"اسم المُستخدم\",\"email\":\"البريد الالكتروني\",\"first_name\":\"الاسم الأول\",\"last_name\":\"اسم العائلة\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"تأكيد كلمة المرور\",\"city\":\"المدينة\",\"country\":\"الدولة\",\"address\":\"عنوان السكن\",\"phone\":\"الهاتف\",\"mobile\":\"الجوال\",\"age\":\"العمر\",\"sex\":\"الجنس\",\"gender\":\"النوع\",\"day\":\"اليوم\",\"month\":\"الشهر\",\"year\":\"السنة\",\"hour\":\"ساعة\",\"minute\":\"دقيقة\",\"second\":\"ثانية\",\"title\":\"العنوان\",\"content\":\"المُحتوى\",\"description\":\"الوصف\",\"excerpt\":\"المُلخص\",\"date\":\"التاريخ\",\"time\":\"الوقت\",\"available\":\"مُتاح\",\"size\":\"الحجم\",\"comment\":\"التعليق\",\"evaluation\":\"التقييم\",\"message\":\"الرسالة\",\"status\":\"الحالة\",\"avatar\":\"الصورة الشخصية\",\"building\":\"المبنى او الفيلا\",\"unit\":\"الوحدة\",\"street\":\"اسم الشارع\",\"notes\":\"ملاحظات\",\"time_from\":\"وقت البداية\",\"time_to\":\"وقت النهاية\",\"questions\":\"الاسئلة\",\"location\":\"المكان\",\"infos_value\":\"القيمة المدخلة\",\"settings_value\":\"القيمة المدخلة\",\"permissions\":\"الصلاحيات\",\"roles\":\"الادوار\",\"text\":\"النص\",\"attachedFiles\":\"المرفقات\",\"ar\":{\"name\":\"الاسم العربي\"}}}},\"en\":{\"auth\":{\"failed\":\"These credentials do not match our records.\",\"throttle\":\"Too many login attempts. Please try again in :seconds seconds.\"},\"dashboard\":{\"maintenanceMode\":\"Maintenance Mode\",\"welcomeDashboard\":\"Welcome to Website Dashboard\",\"websiteName\":\"Website Name\",\"websiteStatistics\":\"website Statistics\",\"home\":\"Home\",\"dashboard\":\"Dashboard\",\"contactWithUs\":\"Contact With Us\",\"contactUs\":\"Contact Us\",\"ar\":\"Arabic\",\"en\":\"English\",\"he\":\"Hebrew\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"Back\",\"show\":\"Show\",\"more\":\"More\",\"create\":\"Create\",\"save\":\"Save\",\"view\":\"View\",\"edit\":\"Edit\",\"update\":\"Update\",\"delete\":\"Delete\",\"status\":\"Status\",\"done\":\"Done\",\"active\":\"Active\",\"stopped\":\"Stopped\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"enable\":\"Enable\",\"disable\":\"Disable\",\"actions\":\"Actions\",\"noData\":\"No Data\",\"details\":\"Details\",\"name\":\"Name\",\"username\":\"User Name\",\"email\":\"Email\",\"phone\":\"Phone\",\"age\":\"Age\",\"text\":\"Text\",\"send\":\"Send\",\"address\":\"Address\",\"mobile\":\"Mobile\",\"login\":\"Login\",\"logout\":\"Logout\",\"loginDetails\":\"Login Details\",\"password\":\"Password\",\"password_confirmation\":\"password confirmation\",\"websiteAdminPanel\":\"Admin Panel\",\"websiteAdminPanelDetails\":\"To Enter Admin Panel, you should inser correct data\",\"profile\":\"Profile\",\"users\":\"Users\",\"admins\":\"Admins\",\"image\":\"Image\",\"data\":\"Data\",\"resetInputs\":\"Reset\",\"title\":\"Title\",\"staticData\":\"Basic Data\",\"arData\":\"Arabic Data\",\"enData\":\"English Data\",\"wrongData\":\"Email or Password wrong.\",\"desc\":\"Description\",\"date\":\"Date\",\"contactUsDone\":\"Thanks for your message, we will review it soon\",\"rememberMe\":\"Remeber Me\",\"loginTitle\":\"Sign In\",\"loginHint\":\"Please enter your details\",\"registerTitle\":\"Register a new membership\",\"registerHint\":\"Please enter your full details correctly\",\"bookingTitle\":\"Booking\",\"bookingHint\":\"Please enter your details correctly to contact you with ease\",\"day\":\"Day\",\"time\":\"Time\",\"notes\":\"Notes\",\"profileTitle\":\"Update Your Profile\",\"profileHint\":\"Update Your Profile Easly. \",\"hasNoUser\":\"Don't have account ?\",\"hasUser\":\"I have account\",\"daysTimesExist\":\"this day and this time are exist\",\"workers\":\"Workers Count\",\"permissionDenied\":\"you don't have permission to enter this page\",\"createdSuccessfully\":\"Created Successfully\",\"updatedSuccessfully\":\"Updated Successfully\",\"deletedSuccessfully\":\"Deleted Successfully\",\"search\":\"Search\",\"reset\":\"Reset\",\"value\":\"Value\",\"id\":\"ID\",\"lang\":\"Lang\",\"writer\":\"Writer\",\"groups\":\"Groups\",\"group\":\"Group\",\"posts\":\"Posts\",\"post\":\"Post\",\"roles\":\"Roles\",\"role\":\"Role\",\"permissions\":\"Permissions\",\"permission\":\"Permission\",\"contactus\":\"ContactUS Messages\",\"settings\":\"Settings\",\"facebook\":\"Facebook\",\"twitter\":\"Twitter\",\"google\":\"Google\",\"about\":\"About Us\",\"hour_price\":\"Hour Price\",\"infos\":\"Information\",\"message\":\"Message\",\"mission\":\"Mission\",\"vision\":\"Vision\",\"countries\":\"Countries\",\"country\":\"Country\",\"states\":\"States\",\"city\":\"State\"},\"lang\":{\"maintenanceMode\":\"Maintenance Mode\",\"welcomeDashboard\":\"Welcome to Website Dashboard\",\"websiteName\":\"Website Name\",\"home\":\"Home\",\"dashboard\":\"Dashboard\",\"contactWithUs\":\"Contact With Us\",\"contactUs\":\"Contact Us\",\"ar\":\"Arabic\",\"en\":\"English\",\"he\":\"Hebrew\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"Back\",\"show\":\"Show\",\"more\":\"More\",\"create\":\"Create\",\"save\":\"Save\",\"view\":\"View\",\"edit\":\"Edit\",\"update\":\"Update\",\"delete\":\"Delete\",\"cancel\":\"Cancel\",\"status\":\"Status\",\"done\":\"Done\",\"active\":\"Active\",\"stopped\":\"Stopped\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"actions\":\"Actions\",\"noData\":\"No Data\",\"details\":\"Details\",\"name\":\"Name\",\"username\":\"User Name\",\"email\":\"Email\",\"phone\":\"Phone\",\"age\":\"Age\",\"gender\":\"Gender\",\"male\":\"Male\",\"female\":\"Female\",\"text\":\"Text\",\"send\":\"Send\",\"address\":\"Address\",\"mobile\":\"Mobile\",\"login\":\"Login\",\"register\":\"Create account\",\"logout\":\"Logout\",\"loginDetails\":\"Login Details\",\"password\":\"Password\",\"password_confirmation\":\"password confirmation\",\"forgetPassword\":\"forget password ?\",\"websiteAdminPanel\":\"Admin Panel\",\"websiteAdminPanelDetails\":\"To Enter Admin Panel, you should inser correct data\",\"profile\":\"Profile\",\"users\":\"Users\",\"admins\":\"Admins\",\"image\":\"Image\",\"data\":\"Data\",\"resetInputs\":\"Reset\",\"title\":\"Title\",\"staticData\":\"Basic Data\",\"arData\":\"Arabic Data\",\"enData\":\"English Data\",\"wrongData\":\"Email or Password wrong.\",\"desc\":\"Description\",\"date\":\"Date\",\"contactUsDone\":\"Thanks for your message, we will review it soon\",\"rememberMe\":\"Remeber Me\",\"loginTitle\":\"Sign In\",\"loginHint\":\"Please enter your details\",\"registerTitle\":\"Register a new membership\",\"registerHint\":\"Please enter your full details correctly\",\"bookingTitle\":\"Booking\",\"bookingHint\":\"Please enter your details correctly to contact you with ease\",\"day\":\"Day\",\"time\":\"Time\",\"notes\":\"Notes\",\"profileTitle\":\"Update Your Profile\",\"profileHint\":\"Update Your Profile Easly. \",\"hasNoUser\":\"Don't have account ?\",\"hasUser\":\"I have account\",\"daysTimesExist\":\"this day and this time are exist\",\"workers\":\"Workers Count\",\"permissionDenied\":\"you don't have permission to enter this page\",\"areSure\":\"Are you sure?\",\"deleteHint\":\"You won't be able to revert this!\",\"yes\":\"Yes\",\"no\":\"No\",\"titleSucess\":\"Done Successfully\",\"viewMore\":\"View more\",\"close\":\"Close\",\"notifications\":\"Notifications\",\"selectPosition\":\"Select Place\",\"createdSuccessfully\":\"Created Successfully\",\"updatedSuccessfully\":\"Updated Successfully\",\"deletedSuccessfully\":\"Deleted Successfully\",\"search\":\"Search\",\"reset\":\"Reset\",\"value\":\"Value\",\"id\":\"ID\",\"lang\":\"Lang\",\"copyRight\":\"All Copyright Reserved to Widan\",\"poweredBy\":\"Powerd By:\",\"whoWe\":\"Who We Are\",\"contactUsTitle\":\"Contact Us\",\"contactUsMessage\":\"Send your Complaints or your Suggestion\",\"circles\":\"Circles\",\"circle\":\"Circle\",\"groups\":\"Groups\",\"group\":\"Group\",\"and\":\"and\",\"welcomeSectionTitle\":\"Register with us and find your friends easily\",\"stepsSectionTitle\":\"Find your friends in simple steps\",\"moreThan\":\"More Than\",\"member\":\"Member\",\"createNewAccount\":\"Create New Account\",\"findYourGroup\":\"Find Your Group\",\"joinToYourGroup\":\"Join To The Group\",\"startWithUsNow\":\"Start With Us\",\"footerText\":\"When you create an account, you agree to\",\"conditionsTerms\":\"Conditions & Terms\",\"privacyPolicy\":\"Privacy Policy\",\"createGroup\":\"Create Group\",\"groupInfo\":\"Group Info\",\"groupLocation\":\"Group Location\",\"groupName\":\"Group Name\",\"groupImage\":\"Group image\",\"groupDescription\":\"Group Description\",\"groupJoinsQuestions\":\"Group Join Questions\",\"questionTitle\":\"Question title\",\"addQuestion\":\"Add Question\",\"createTheGroup\":\"Create The Group\",\"leave\":\"Leave\",\"areSureLeave\":\"Are you sure you want to leave the group?\",\"leaveHint\":\"After leaving the group, you cannot view the group's posts or contact the group's members\",\"noJoinedGroups\":\"You are not subscribed to any group. Create your own group or search for a group\",\"countries\":\"Countries\",\"country\":\"Country\",\"states\":\"States\",\"state\":\"State\",\"searchByAddress\":\"Search by address\",\"searchByName\":\"Search by group name\",\"searchByCity\":\"Search by city\",\"searchByLocation\":\"Select Location on the Map and we will find nearest the groups in 50km\",\"searchByMap\":\"Search By Map\",\"searchByInfo\":\"Search By Info\",\"searching\":\"Searching\",\"searchResult\":\"Search Result\",\"join\":\"Join\",\"askeQuestionToJoin\":\"to join in this group you must answer these questions\",\"answer\":\"Answer\",\"sendAnswerAndJoin\":\"Send Questions and Request Join\",\"answersSentAndDone\":\"Answers have been sent and request to join. We will notify you when you are approved to join the group\",\"noResultsFound\":\"No Groups found for this search, please try again\",\"loginToJoin\":\"You must log in to request Join\",\"nearestGroups\":\"Nearest Groups\",\"posts\":\"Posts\",\"post\":\"Post\",\"discussions\":\"Discussions\",\"stories\":\"Stories\",\"whatsInYourMind\":\"what's on your mind\",\"attachFileOrImage\":\"Photo/Video\",\"publish\":\"publish\",\"likes\":\"Likes\",\"like\":\"Like\",\"likeMe\":\"Like\",\"comments\":\"Comments\",\"comment\":\"Comment\",\"writeComment\":\"write a comment\",\"viewComments\":\"View Comments\",\"noMorePosts\":\"There are no More Posts to show\",\"noPosts\":\"There are no Posts to show\",\"dragFilesHere\":\"Drop files here or click to upload.\",\"maxFileSize\":\"The file is too big, cannot upload it.\",\"invalid_filetype\":\"You Cannot Upload Files Of This Type.\",\"friends\":\"Friends\",\"typeMessage\":\"Type a message\"},\"pagination\":{\"previous\":\"&laquo; Previous\",\"next\":\"Next &raquo;\"},\"passwords\":{\"password\":\"Passwords must be at least six characters and match the confirmation.\",\"reset\":\"Your password has been reset!\",\"sent\":\"We have e-mailed your password reset link!\",\"token\":\"This password reset token is invalid.\",\"user\":\"We can't find a user with that e-mail address.\"},\"validation\":{\"accepted\":\"The :attribute must be accepted.\",\"active_url\":\"The :attribute is not a valid URL.\",\"after\":\"The :attribute must be a date after :date.\",\"after_or_equal\":\"The :attribute must be a date after or equal to :date.\",\"alpha\":\"The :attribute may only contain letters.\",\"alpha_dash\":\"The :attribute may only contain letters, numbers, dashes and underscores.\",\"alpha_num\":\"The :attribute may only contain letters and numbers.\",\"array\":\"The :attribute must be an array.\",\"before\":\"The :attribute must be a date before :date.\",\"before_or_equal\":\"The :attribute must be a date before or equal to :date.\",\"between\":{\"numeric\":\"The :attribute must be between :min and :max.\",\"file\":\"The :attribute must be between :min and :max kilobytes.\",\"string\":\"The :attribute must be between :min and :max characters.\",\"array\":\"The :attribute must have between :min and :max items.\"},\"boolean\":\"The :attribute field must be true or false.\",\"confirmed\":\"The :attribute confirmation does not match.\",\"date\":\"The :attribute is not a valid date.\",\"date_equals\":\"The :attribute must be a date equal to :date.\",\"date_format\":\"The :attribute does not match the format :format.\",\"different\":\"The :attribute and :other must be different.\",\"digits\":\"The :attribute must be :digits digits.\",\"digits_between\":\"The :attribute must be between :min and :max digits.\",\"dimensions\":\"The :attribute has invalid image dimensions.\",\"distinct\":\"The :attribute field has a duplicate value.\",\"email\":\"The :attribute must be a valid email address.\",\"exists\":\"The selected :attribute is invalid.\",\"file\":\"The :attribute must be a file.\",\"filled\":\"The :attribute field must have a value.\",\"gt\":{\"numeric\":\"The :attribute must be greater than :value.\",\"file\":\"The :attribute must be greater than :value kilobytes.\",\"string\":\"The :attribute must be greater than :value characters.\",\"array\":\"The :attribute must have more than :value items.\"},\"gte\":{\"numeric\":\"The :attribute must be greater than or equal :value.\",\"file\":\"The :attribute must be greater than or equal :value kilobytes.\",\"string\":\"The :attribute must be greater than or equal :value characters.\",\"array\":\"The :attribute must have :value items or more.\"},\"image\":\"The :attribute must be an image.\",\"in\":\"The selected :attribute is invalid.\",\"in_array\":\"The :attribute field does not exist in :other.\",\"integer\":\"The :attribute must be an integer.\",\"ip\":\"The :attribute must be a valid IP address.\",\"ipv4\":\"The :attribute must be a valid IPv4 address.\",\"ipv6\":\"The :attribute must be a valid IPv6 address.\",\"json\":\"The :attribute must be a valid JSON string.\",\"lt\":{\"numeric\":\"The :attribute must be less than :value.\",\"file\":\"The :attribute must be less than :value kilobytes.\",\"string\":\"The :attribute must be less than :value characters.\",\"array\":\"The :attribute must have less than :value items.\"},\"lte\":{\"numeric\":\"The :attribute must be less than or equal :value.\",\"file\":\"The :attribute must be less than or equal :value kilobytes.\",\"string\":\"The :attribute must be less than or equal :value characters.\",\"array\":\"The :attribute must not have more than :value items.\"},\"max\":{\"numeric\":\"The :attribute may not be greater than :max.\",\"file\":\"The :attribute may not be greater than :max kilobytes.\",\"string\":\"The :attribute may not be greater than :max characters.\",\"array\":\"The :attribute may not have more than :max items.\"},\"mimes\":\"The :attribute must be a file of type: :values.\",\"mimetypes\":\"The :attribute must be a file of type: :values.\",\"min\":{\"numeric\":\"The :attribute must be at least :min.\",\"file\":\"The :attribute must be at least :min kilobytes.\",\"string\":\"The :attribute must be at least :min characters.\",\"array\":\"The :attribute must have at least :min items.\"},\"not_in\":\"The selected :attribute is invalid.\",\"not_regex\":\"The :attribute format is invalid.\",\"numeric\":\"The :attribute must be a number.\",\"present\":\"The :attribute field must be present.\",\"regex\":\"The :attribute format is invalid.\",\"required\":\"The :attribute field is required.\",\"required_if\":\"The :attribute field is required when :other is :value.\",\"required_unless\":\"The :attribute field is required unless :other is in :values.\",\"required_with\":\"The :attribute field is required when :values is present.\",\"required_with_all\":\"The :attribute field is required when :values are present.\",\"required_without\":\"The :attribute field is required when :values is not present.\",\"required_without_all\":\"The :attribute field is required when none of :values are present.\",\"same\":\"The :attribute and :other must match.\",\"size\":{\"numeric\":\"The :attribute must be :size.\",\"file\":\"The :attribute must be :size kilobytes.\",\"string\":\"The :attribute must be :size characters.\",\"array\":\"The :attribute must contain :size items.\"},\"string\":\"The :attribute must be a string.\",\"timezone\":\"The :attribute must be a valid zone.\",\"unique\":\"The :attribute has already been taken.\",\"uploaded\":\"The :attribute failed to upload.\",\"url\":\"The :attribute format is invalid.\",\"uuid\":\"The :attribute must be a valid UUID.\",\"custom\":{\"attribute-name\":{\"rule-name\":\"custom-message\"}},\"attributes\":{\"name\":\"Name\",\"username\":\"Username\",\"email\":\"Email\",\"first_name\":\"First Name\",\"last_name\":\"Last Name\",\"password\":\"Password\",\"password_confirmation\":\"Password Confirmation\",\"city\":\"City\",\"country\":\"Country\",\"address\":\"Address\",\"phone\":\"Phone\",\"mobile\":\"Mobile\",\"age\":\"Age\",\"sex\":\"Sex\",\"gender\":\"Gender\",\"day\":\"Day\",\"month\":\"Month\",\"year\":\"Year\",\"hour\":\"Hour\",\"minute\":\"Minute\",\"second\":\"Second\",\"title\":\"Title\",\"content\":\"Content\",\"description\":\"Description\",\"excerpt\":\"Excerpt\",\"date\":\"Date\",\"time\":\"Time\",\"available\":\"Available\",\"size\":\"Size\",\"comment\":\"Comment\",\"evaluation\":\"Evaluation\",\"message\":\"Message\",\"status\":\"Status\",\"avatar\":\"Avatar\",\"building\":\"Building/Villa\",\"unit\":\"Unit\",\"street\":\"Street\",\"notes\":\"Notes\",\"time_from\":\"Start Time\",\"time_to\":\"End Time\",\"questions\":\"Questions\",\"location\":\"Locations\",\"infos_value\":\"Entered Value\",\"settings_value\":\"value entered\",\"permissions\":\"Permissions\",\"roles\":\"Roles\",\"text\":\"Text\",\"attachedFiles\":\"Attached files\",\"en\":{\"name\":\"Name\"}}}}}");
+module.exports = JSON.parse("{\"ar\":{\"auth\":{\"failed\":\"بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.\",\"throttle\":\"عدد كبير جدا من محاولات الدخول. يرجى المحاولة مرة أخرى بعد :seconds ثانية.\"},\"dashboard\":{\"maintenanceMode\":\"عذراً الموقع متوقف حالياً\",\"welcomeDashboard\":\"مرحبا بك في لوحة تحكم الموقع\",\"websiteName\":\"اسم الموقع\",\"websiteStatistics\":\"احصائيات الموقع\",\"home\":\"الرئيسية\",\"dashboard\":\"لوحة التحكم\",\"contactWithUs\":\"تواصل معنا\",\"contactUs\":\"اتصل بنا\",\"ar\":\"عربى\",\"en\":\"إنجليزى\",\"he\":\"عبري\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"رجوع\",\"show\":\"عرض\",\"more\":\"المزيد\",\"create\":\"اضافة\",\"save\":\"حفظ\",\"view\":\"عرض\",\"edit\":\"تعديل\",\"update\":\"تعديل\",\"delete\":\"حذف\",\"status\":\"الحالة\",\"done\":\"تم\",\"active\":\"نشط\",\"stopped\":\"متوقف\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"enable\":\"تفعيل\",\"disable\":\"ايقاف\",\"actions\":\"الاجراءات\",\"noData\":\"لايوجد بيانات\",\"details\":\"التفاصيل\",\"name\":\"الاسم\",\"username\":\"اسم المستخدم\",\"email\":\"البريد الالكتروني\",\"phone\":\"الجوال\",\"age\":\"العمر\",\"text\":\"النص\",\"send\":\"ارسال\",\"address\":\"العنوان\",\"mobile\":\"الموبايل\",\"login\":\"تسجيل الدخول\",\"logout\":\"تسجيل الخروج\",\"loginDetails\":\"ادخل بيانات حسابك\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"اعادة كلمة المرور\",\"websiteAdminPanel\":\"لوحة تحكم الموقع\",\"websiteAdminPanelDetails\":\"للدخول الى لوحة تحكم الموقع. ادخل بيانات حسابك الصحيحة\",\"profile\":\"الملف الشخصي\",\"users\":\"المستخدمين\",\"admins\":\"المشرفين\",\"image\":\"الصوره\",\"data\":\"البيانات\",\"resetInputs\":\"تفريغ\",\"title\":\"العنوان\",\"staticData\":\"البيانات الاساسية\",\"arData\":\"البيانات العربي\",\"enData\":\"البيانات الانجليزي\",\"wrongData\":\"الايميل او كلمة المرور خطأ\",\"desc\":\"الوصف\",\"date\":\"التاريخ\",\"contactUsDone\":\"شكرا لك علي رسالتك. سيتم مراجعتها في اقرب وقت\",\"rememberMe\":\"تذكرني\",\"loginTitle\":\"تسجيل الدخول\",\"loginHint\":\"من فضلك ادخل بياناتك\",\"registerTitle\":\"تسجيل عضوية جديدة\",\"registerHint\":\"من فضلك ادخل بياناتك كاملة وبشكل صحيح\",\"bookingTitle\":\"احجز الان\",\"bookingHint\":\"من فضلك ادخل بياناتك صحيحة لنتواصل معك بسهولة\",\"day\":\"اليوم\",\"time\":\"الوقت\",\"notes\":\"ملاحظات\",\"hasNoUser\":\"ليس لديك حساب ؟\",\"hasUser\":\"هل انت عضو معنا ؟\",\"profileTitle\":\"تحديث بياناتك\",\"profileHint\":\"حدث بياناتك بكل سهوله. \",\"days\":\"الايام\",\"times\":\"الفترات\",\"daysTimes\":\"الايام والفترات\",\"daysTimesExist\":\"هذا اليوم وهذه الفتره موجوده من قبل\",\"workers\":\"عدد العاملات\",\"permissionDenied\":\"ليس لديك صلاحية الدخول لهذه الصفحة\",\"createdSuccessfully\":\"تمت الاضافة بنجاح\",\"updatedSuccessfully\":\"تم التحديث بنجاح\",\"deletedSuccessfully\":\"تم الحذف بنجاح\",\"search\":\"بحث\",\"reset\":\"تفريغ\",\"value\":\"القيمة\",\"id\":\"الكود\",\"lang\":\"اللغة\",\"writer\":\"الكاتب\",\"groups\":\"المجموعات\",\"group\":\"مجموعة\",\"posts\":\"المنشورات\",\"post\":\"منشور\",\"roles\":\"الادوار\",\"role\":\"الدور\",\"permissions\":\"الصلاحيات\",\"permission\":\"الصلاحية\",\"contactus\":\"رسائل الاتصال بنا\",\"suggestions\":\"الاقتراحات\",\"complaints\":\"الشكاوى\",\"suggestionsComplaints\":\"الاقتراحات والشكاوى\",\"settings\":\"الاعدادات\",\"facebook\":\"رابط الفيس بوك\",\"twitter\":\"رابط تويتر\",\"google\":\"رابط جوجل\",\"about\":\"نبذه عنا\",\"hour_price\":\"سعر الساعة\",\"infos\":\"البيانات\",\"message\":\"الرسالة\",\"mission\":\"المهمة\",\"vision\":\"الرؤية\",\"countries\":\"الدول\",\"country\":\"الدوله\",\"states\":\"المحافظات\",\"state\":\"المحافظة\"},\"lang\":{\"maintenanceMode\":\"عذراً الموقع متوقف حالياً\",\"welcomeDashboard\":\"مرحبا بك في لوحة تحكم الموقع\",\"websiteName\":\"اسم الموقع\",\"home\":\"الرئيسية\",\"dashboard\":\"لوحة التحكم\",\"contactWithUs\":\"تواصل معنا\",\"contactUs\":\"اتصل بنا\",\"ar\":\"عربى\",\"en\":\"إنجليزى\",\"he\":\"عبري\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"رجوع\",\"show\":\"عرض\",\"more\":\"المزيد\",\"create\":\"اضافة\",\"save\":\"حفظ\",\"view\":\"عرض\",\"edit\":\"تعديل\",\"update\":\"تعديل\",\"cancel\":\"الغاء\",\"delete\":\"حذف\",\"status\":\"الحالة\",\"done\":\"تم\",\"active\":\"نشط\",\"stopped\":\"متوقف\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"actions\":\"الاجراءات\",\"noData\":\"لايوجد بيانات\",\"details\":\"التفاصيل\",\"name\":\"الاسم\",\"username\":\"اسم المستخدم\",\"email\":\"البريد الالكتروني\",\"phone\":\"الجوال\",\"age\":\"العمر\",\"gender\":\"النوع\",\"male\":\"ذكر\",\"female\":\"انثى\",\"text\":\"الرسالة\",\"send\":\"ارسال\",\"address\":\"العنوان\",\"mobile\":\"الموبايل\",\"login\":\"تسجيل الدخول\",\"register\":\"انشاء حساب\",\"logout\":\"تسجيل الخروج\",\"loginDetails\":\"ادخل بيانات حسابك\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"اعادة كلمة المرور\",\"forgetPassword\":\"نسيت كلمة السر ؟\",\"websiteAdminPanel\":\"لوحة تحكم الموقع\",\"websiteAdminPanelDetails\":\"للدخول الى لوحة تحكم الموقع. ادخل بيانات حسابك الصحيحة\",\"profile\":\"الملف الشخصي\",\"users\":\"المستخدمين\",\"admins\":\"المشرفين\",\"image\":\"الصوره\",\"data\":\"البيانات\",\"resetInputs\":\"تفريغ\",\"title\":\"العنوان\",\"staticData\":\"البيانات الاساسية\",\"arData\":\"البيانات العربي\",\"enData\":\"البيانات الانجليزي\",\"wrongData\":\"الايميل او كلمة المرور خطأ\",\"desc\":\"الوصف\",\"date\":\"التاريخ\",\"contactUsDone\":\"شكرا لك علي رسالتك. سيتم مراجعتها في اقرب وقت\",\"rememberMe\":\"تذكرني\",\"loginTitle\":\"تسجيل الدخول\",\"loginHint\":\"من فضلك ادخل بياناتك\",\"registerTitle\":\"تسجيل مستخدم جديدة\",\"registerHint\":\"من فضلك ادخل بياناتك كاملة وبشكل صحيح\",\"bookingTitle\":\"احجز الان\",\"bookingHint\":\"من فضلك ادخل بياناتك صحيحة لنتواصل معك بسهولة\",\"day\":\"اليوم\",\"time\":\"الوقت\",\"notes\":\"ملاحظات\",\"hasNoUser\":\"ليس لديك حساب ؟\",\"hasUser\":\"هل انت عضو معنا ؟\",\"profileTitle\":\"تحديث بياناتك\",\"profileHint\":\"حدث بياناتك بكل سهوله. \",\"days\":\"الايام\",\"times\":\"الفترات\",\"daysTimes\":\"الايام والفترات\",\"daysTimesExist\":\"هذا اليوم وهذه الفتره موجوده من قبل\",\"workers\":\"عدد العاملات\",\"permissionDenied\":\"ليس لديك صلاحية الدخول لهذه الصفحة\",\"areSure\":\"هل انت متأكد من الحذف؟\",\"deleteHint\":\"بعد الموافقة لايمكنك التراجع عن هذا الحذف\",\"yes\":\"نعم\",\"no\":\"لا\",\"titleSucess\":\"تم بنجاح\",\"viewMore\":\"عرض المزيد\",\"close\":\"إغلاق\",\"notifications\":\"الاشعارات\",\"selectPosition\":\"تحديد المكان\",\"search\":\"بحث\",\"reset\":\"تفريغ\",\"value\":\"القيمة\",\"createdSuccessfully\":\"تمت الاضافة بنجاح\",\"updatedSuccessfully\":\"تم التحديث بنجاح\",\"deletedSuccessfully\":\"تم الحذف بنجاح\",\"id\":\"الكود\",\"lang\":\"اللغة\",\"copyRight\":\"جميع الحقوق محفوظه\",\"poweredBy\":\"تطوير بواسطة:\",\"whoWe\":\"من نحن\",\"contactUsTitle\":\"اتصل بنا\",\"contactUsMessage\":\"ارسل شكواك او مقترحاتك\",\"circles\":\"دوائر\",\"circle\":\"دائرة\",\"groups\":\"المجموعات\",\"group\":\"المجموعة\",\"and\":\"و\",\"welcomeSectionTitle\":\"سجل معنا واعثر على أصدقائك بكل سهولة\",\"stepsSectionTitle\":\"اعثر على أصدقائك بخطوات بسيطة\",\"moreThan\":\"اكثر من\",\"member\":\"عضو\",\"createNewAccount\":\"انشئ حساب جديد\",\"findYourGroup\":\"ابحث عن مجموعتك\",\"joinToYourGroup\":\"انضم إلى مجموعتك\",\"startWithUsNow\":\"ابدأ معنا الان\",\"footerText\":\"عند قيامك بإنشاء حساب فانك توافق على\",\"conditionsTerms\":\"الشروط والاحكام\",\"privacyPolicy\":\"سياسة الخصوصية\",\"createGroup\":\"إنشاء مجموعة\",\"groupInfo\":\"بيانات المجموعة\",\"groupLocation\":\"مكان المجموعة\",\"groupName\":\"اسم المجموعة\",\"groupImage\":\"صورة المجموعة\",\"groupDescription\":\"وصف المجموعة\",\"groupJoinsQuestions\":\"أسئلة الانضمام للمجموعة\",\"questionTitle\":\"عنوان السؤال\",\"addQuestion\":\"إضافة سؤال\",\"createTheGroup\":\"إنشاء المجموعة\",\"leave\":\"مغادرة\",\"areSureLeave\":\"هل انت متأكد من مغادرة المجموعة\",\"leaveHint\":\"بعد مغادرة المجموعة لايمكنك مشاهدة منشورات المجموعة ولا مراسلة أعضاء المجموعة\",\"noJoinedGroups\":\"انت غير مشترك في اي مجموعة. قم بانشاء مجموعتك الخاصه أو ابحث عن مجموعة\",\"countries\":\"الدول\",\"country\":\"الدولة\",\"states\":\"المحافظة\",\"searchByAddress\":\"ابحث بالعنوان\",\"searchByName\":\"ابحث باسم المجموعة\",\"searchByCity\":\"ابحث بالمدينة\",\"searchByLocation\":\"حدد الموقع على الخريطة وسنجد أقرب المجموعات على بعد 50 كم\",\"searchByMap\":\"بحث بالخرائط\",\"searchByInfo\":\"بحث بالبيانات\",\"searching\":\"جاري البحث\",\"searchResult\":\"نتيجة البحث\",\"join\":\"انضمام\",\"askeQuestionToJoin\":\"لكي تنضم الى المجموعة لابد أن تجيب على هذه الاسئلة\",\"answer\":\"الاجابة\",\"sendAnswerAndJoin\":\"ارسال الاجابات وطلب الانضمام\",\"answersSentAndDone\":\"تم ارسال الاجابات وطلب الانضمام. سوف نقوم باشعارك عندما يتم الموافقة على انضمامك للمجموعة\",\"noResultsFound\":\"لم يتم ايجاد اي مجموعات مطابقة لبحثك. حاول مره اخرى\",\"loginToJoin\":\"يجب عليك التسجيل لكي تنضم للمجموعة\",\"nearestGroups\":\"أقرب المجموعات\",\"posts\":\"المنشورات\",\"post\":\"منشور\",\"discussions\":\"المناقشات\",\"stories\":\"الحالات\",\"whatsInYourMind\":\"بم تفكر\",\"attachFileOrImage\":\"صورة/فيديو\",\"publish\":\"نشر\",\"likes\":\"اعجابات\",\"like\":\"اعجاب\",\"likeMe\":\"اعجبني\",\"comments\":\"التعليقات\",\"comment\":\"تعليق\",\"writeComment\":\"اكتب تعليقاً\",\"viewComments\":\"عرض التعليقات\",\"noMorePosts\":\"لايوجد منشورات اخرى لعرضها\",\"noPosts\":\"لايوجد منشورات لعرضها\",\"dragFilesHere\":\"اسحب الملفات هنا او اضغط لاختيار الملفات.\",\"maxFileSize\":\"حجم الملف كبير جدا . لايمكن رفعه\",\"invalid_filetype\":\"لا يمكن رفع هذا النوع من الملفات\",\"friends\":\"الاصدقاء\",\"typeMessage\":\"اكتب رسالتك\",\"youhavenofriends\":\"ليس لديك أي اصدقاء حالياً\",\"youhavenoMessage\":\"لا يوجد رسائل بينكم الى الان\"},\"pagination\":{\"previous\":\"&laquo; السابق\",\"next\":\"التالي &raquo;\"},\"passwords\":{\"password\":\"يجب أن لا يقل طول كلمة المرور عن ستة أحرف، كما يجب أن تتطابق مع حقل التأكيد.\",\"reset\":\"تمت إعادة تعيين كلمة المرور!\",\"sent\":\"تم إرسال تفاصيل استعادة كلمة المرور الخاصة بك إلى بريدك الإلكتروني!\",\"token\":\"رمز استعادة كلمة المرور الذي أدخلته غير صحيح.\",\"user\":\"لم يتم العثور على أيّ حسابٍ بهذا العنوان الإلكتروني.\"},\"validation\":{\"accepted\":\"يجب قبول :attribute.\",\"active_url\":\":attribute لا يُمثّل رابطًا صحيحًا.\",\"after\":\"يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.\",\"after_or_equal\":\":attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.\",\"alpha\":\"يجب أن لا يحتوي :attribute سوى على حروف.\",\"alpha_dash\":\"يجب أن لا يحتوي :attribute سوى على حروف، أرقام ومطّات.\",\"alpha_num\":\"يجب أن يحتوي :attribute على حروفٍ وأرقامٍ فقط.\",\"array\":\"يجب أن يكون :attribute ًمصفوفة.\",\"before\":\"يجب على :attribute أن يكون تاريخًا سابقًا للتاريخ :date.\",\"before_or_equal\":\":attribute يجب أن يكون تاريخا سابقا أو مطابقا للتاريخ :date.\",\"between\":{\"numeric\":\"يجب أن تكون قيمة :attribute بين :min و :max.\",\"file\":\"يجب أن يكون حجم الملف :attribute بين :min و :max كيلوبايت.\",\"string\":\"يجب أن يكون عدد حروف النّص :attribute بين :min و :max.\",\"array\":\"يجب أن يحتوي :attribute على عدد من العناصر بين :min و :max.\"},\"boolean\":\"يجب أن تكون قيمة :attribute إما true أو false .\",\"confirmed\":\"حقل التأكيد غير مُطابق للحقل :attribute.\",\"date\":\":attribute ليس تاريخًا صحيحًا.\",\"date_equals\":\"يجب أن يكون :attribute مطابقاً للتاريخ :date.\",\"date_format\":\"لا يتوافق :attribute مع الشكل :format.\",\"different\":\"يجب أن يكون الحقلان :attribute و :other مُختلفين.\",\"digits\":\"يجب أن يحتوي :attribute على :digits رقمًا/أرقام.\",\"digits_between\":\"يجب أن يحتوي :attribute بين :min و :max رقمًا/أرقام .\",\"dimensions\":\"الـ :attribute يحتوي على أبعاد صورة غير صالحة.\",\"distinct\":\"للحقل :attribute قيمة مُكرّرة.\",\"email\":\"يجب أن يكون :attribute عنوان بريد إلكتروني صحيح البُنية.\",\"exists\":\"القيمة المحددة :attribute غير موجودة.\",\"file\":\"الـ :attribute يجب أن يكون ملفا.\",\"filled\":\":attribute إجباري.\",\"gt\":{\"numeric\":\"يجب أن تكون قيمة :attribute أكبر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute أكبر من :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النّص :attribute أكثر من :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على أكثر من :value عناصر/عنصر.\"},\"gte\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أكبر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute على الأقل :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النص :attribute على الأقل :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على الأقل على :value عُنصرًا/عناصر.\"},\"image\":\"يجب أن يكون :attribute صورةً.\",\"in\":\":attribute غير موجود.\",\"in_array\":\":attribute غير موجود في :other.\",\"integer\":\"يجب أن يكون :attribute عددًا صحيحًا.\",\"ip\":\"يجب أن يكون :attribute عنوان IP صحيحًا.\",\"ipv4\":\"يجب أن يكون :attribute عنوان IPv4 صحيحًا.\",\"ipv6\":\"يجب أن يكون :attribute عنوان IPv6 صحيحًا.\",\"json\":\"يجب أن يكون :attribute نصآ من نوع JSON.\",\"lt\":{\"numeric\":\"يجب أن تكون قيمة :attribute أصغر من :value.\",\"file\":\"يجب أن يكون حجم الملف :attribute أصغر من :value كيلوبايت.\",\"string\":\"يجب أن يكون طول النّص :attribute أقل من :value حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على أقل من :value عناصر/عنصر.\"},\"lte\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أصغر من :value.\",\"file\":\"يجب أن لا يتجاوز حجم الملف :attribute :value كيلوبايت.\",\"string\":\"يجب أن لا يتجاوز طول النّص :attribute :value حروفٍ/حرفًا.\",\"array\":\"يجب أن لا يحتوي :attribute على أكثر من :value عناصر/عنصر.\"},\"max\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أصغر من :max.\",\"file\":\"يجب أن لا يتجاوز حجم الملف :attribute :max كيلوبايت.\",\"string\":\"يجب أن لا يتجاوز طول النّص :attribute :max حروفٍ/حرفًا.\",\"array\":\"يجب أن لا يحتوي :attribute على أكثر من :max عناصر/عنصر.\"},\"mimes\":\"يجب أن يكون ملفًا من نوع : :values.\",\"mimetypes\":\"يجب أن يكون ملفًا من نوع : :values.\",\"min\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية أو أكبر من :min.\",\"file\":\"يجب أن يكون حجم الملف :attribute على الأقل :min كيلوبايت.\",\"string\":\"يجب أن يكون طول النص :attribute على الأقل :min حروفٍ/حرفًا.\",\"array\":\"يجب أن يحتوي :attribute على الأقل على :min عُنصرًا/عناصر.\"},\"not_in\":\":attribute موجود.\",\"not_regex\":\"صيغة :attribute غير صحيحة.\",\"numeric\":\"يجب على :attribute أن يكون رقمًا.\",\"present\":\"يجب تقديم :attribute.\",\"regex\":\"صيغة :attribute .غير صحيحة.\",\"required\":\":attribute مطلوب.\",\"required_if\":\":attribute مطلوب في حال ما إذا كان :other يساوي :value.\",\"required_unless\":\":attribute مطلوب في حال ما لم يكن :other يساوي :values.\",\"required_with\":\":attribute مطلوب إذا توفّر :values.\",\"required_with_all\":\":attribute مطلوب إذا توفّر :values.\",\"required_without\":\":attribute مطلوب إذا لم يتوفّر :values.\",\"required_without_all\":\":attribute مطلوب إذا لم يتوفّر :values.\",\"same\":\"يجب أن يتطابق :attribute مع :other.\",\"size\":{\"numeric\":\"يجب أن تكون قيمة :attribute مساوية لـ :size.\",\"file\":\"يجب أن يكون حجم الملف :attribute :size كيلوبايت.\",\"string\":\"يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالضبط.\",\"array\":\"يجب أن يحتوي :attribute على :size عنصرٍ/عناصر بالضبط.\"},\"starts_with\":\"يجب أن يبدأ :attribute بأحد القيم التالية: :values\",\"string\":\"يجب أن يكون :attribute نصًا.\",\"timezone\":\"يجب أن يكون :attribute نطاقًا زمنيًا صحيحًا.\",\"unique\":\"قيمة :attribute مُستخدمة من قبل.\",\"uploaded\":\"فشل في تحميل الـ :attribute.\",\"url\":\"صيغة الرابط :attribute غير صحيحة.\",\"uuid\":\":attribute يجب أن يكون بصيغة UUID سليمة.\",\"custom\":{\"attribute-name\":{\"rule-name\":\"custom-message\"}},\"attributes\":{\"name\":\"الاسم\",\"username\":\"اسم المُستخدم\",\"email\":\"البريد الالكتروني\",\"first_name\":\"الاسم الأول\",\"last_name\":\"اسم العائلة\",\"password\":\"كلمة المرور\",\"password_confirmation\":\"تأكيد كلمة المرور\",\"city\":\"المدينة\",\"country\":\"الدولة\",\"address\":\"عنوان السكن\",\"phone\":\"الهاتف\",\"mobile\":\"الجوال\",\"age\":\"العمر\",\"sex\":\"الجنس\",\"gender\":\"النوع\",\"day\":\"اليوم\",\"month\":\"الشهر\",\"year\":\"السنة\",\"hour\":\"ساعة\",\"minute\":\"دقيقة\",\"second\":\"ثانية\",\"title\":\"العنوان\",\"content\":\"المُحتوى\",\"description\":\"الوصف\",\"excerpt\":\"المُلخص\",\"date\":\"التاريخ\",\"time\":\"الوقت\",\"available\":\"مُتاح\",\"size\":\"الحجم\",\"comment\":\"التعليق\",\"evaluation\":\"التقييم\",\"message\":\"الرسالة\",\"status\":\"الحالة\",\"avatar\":\"الصورة الشخصية\",\"building\":\"المبنى او الفيلا\",\"unit\":\"الوحدة\",\"street\":\"اسم الشارع\",\"notes\":\"ملاحظات\",\"time_from\":\"وقت البداية\",\"time_to\":\"وقت النهاية\",\"questions\":\"الاسئلة\",\"location\":\"المكان\",\"infos_value\":\"القيمة المدخلة\",\"settings_value\":\"القيمة المدخلة\",\"permissions\":\"الصلاحيات\",\"roles\":\"الادوار\",\"text\":\"النص\",\"attachedFiles\":\"المرفقات\",\"ar\":{\"name\":\"الاسم العربي\"}}}},\"en\":{\"auth\":{\"failed\":\"These credentials do not match our records.\",\"throttle\":\"Too many login attempts. Please try again in :seconds seconds.\"},\"dashboard\":{\"maintenanceMode\":\"Maintenance Mode\",\"welcomeDashboard\":\"Welcome to Website Dashboard\",\"websiteName\":\"Website Name\",\"websiteStatistics\":\"website Statistics\",\"home\":\"Home\",\"dashboard\":\"Dashboard\",\"contactWithUs\":\"Contact With Us\",\"contactUs\":\"Contact Us\",\"ar\":\"Arabic\",\"en\":\"English\",\"he\":\"Hebrew\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"Back\",\"show\":\"Show\",\"more\":\"More\",\"create\":\"Create\",\"save\":\"Save\",\"view\":\"View\",\"edit\":\"Edit\",\"update\":\"Update\",\"delete\":\"Delete\",\"status\":\"Status\",\"done\":\"Done\",\"active\":\"Active\",\"stopped\":\"Stopped\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"enable\":\"Enable\",\"disable\":\"Disable\",\"actions\":\"Actions\",\"noData\":\"No Data\",\"details\":\"Details\",\"name\":\"Name\",\"username\":\"User Name\",\"email\":\"Email\",\"phone\":\"Phone\",\"age\":\"Age\",\"text\":\"Text\",\"send\":\"Send\",\"address\":\"Address\",\"mobile\":\"Mobile\",\"login\":\"Login\",\"logout\":\"Logout\",\"loginDetails\":\"Login Details\",\"password\":\"Password\",\"password_confirmation\":\"password confirmation\",\"websiteAdminPanel\":\"Admin Panel\",\"websiteAdminPanelDetails\":\"To Enter Admin Panel, you should inser correct data\",\"profile\":\"Profile\",\"users\":\"Users\",\"admins\":\"Admins\",\"image\":\"Image\",\"data\":\"Data\",\"resetInputs\":\"Reset\",\"title\":\"Title\",\"staticData\":\"Basic Data\",\"arData\":\"Arabic Data\",\"enData\":\"English Data\",\"wrongData\":\"Email or Password wrong.\",\"desc\":\"Description\",\"date\":\"Date\",\"contactUsDone\":\"Thanks for your message, we will review it soon\",\"rememberMe\":\"Remeber Me\",\"loginTitle\":\"Sign In\",\"loginHint\":\"Please enter your details\",\"registerTitle\":\"Register a new membership\",\"registerHint\":\"Please enter your full details correctly\",\"bookingTitle\":\"Booking\",\"bookingHint\":\"Please enter your details correctly to contact you with ease\",\"day\":\"Day\",\"time\":\"Time\",\"notes\":\"Notes\",\"profileTitle\":\"Update Your Profile\",\"profileHint\":\"Update Your Profile Easly. \",\"hasNoUser\":\"Don't have account ?\",\"hasUser\":\"I have account\",\"daysTimesExist\":\"this day and this time are exist\",\"workers\":\"Workers Count\",\"permissionDenied\":\"you don't have permission to enter this page\",\"createdSuccessfully\":\"Created Successfully\",\"updatedSuccessfully\":\"Updated Successfully\",\"deletedSuccessfully\":\"Deleted Successfully\",\"search\":\"Search\",\"reset\":\"Reset\",\"value\":\"Value\",\"id\":\"ID\",\"lang\":\"Lang\",\"writer\":\"Writer\",\"groups\":\"Groups\",\"group\":\"Group\",\"posts\":\"Posts\",\"post\":\"Post\",\"roles\":\"Roles\",\"role\":\"Role\",\"permissions\":\"Permissions\",\"permission\":\"Permission\",\"contactus\":\"ContactUS Messages\",\"settings\":\"Settings\",\"facebook\":\"Facebook\",\"twitter\":\"Twitter\",\"google\":\"Google\",\"about\":\"About Us\",\"hour_price\":\"Hour Price\",\"infos\":\"Information\",\"message\":\"Message\",\"mission\":\"Mission\",\"vision\":\"Vision\",\"countries\":\"Countries\",\"country\":\"Country\",\"states\":\"States\",\"city\":\"State\"},\"lang\":{\"maintenanceMode\":\"Maintenance Mode\",\"welcomeDashboard\":\"Welcome to Website Dashboard\",\"websiteName\":\"Website Name\",\"home\":\"Home\",\"dashboard\":\"Dashboard\",\"contactWithUs\":\"Contact With Us\",\"contactUs\":\"Contact Us\",\"ar\":\"Arabic\",\"en\":\"English\",\"he\":\"Hebrew\",\"ar.inverse\":\"ع\",\"en.inverse\":\"EN\",\"back\":\"Back\",\"show\":\"Show\",\"more\":\"More\",\"create\":\"Create\",\"save\":\"Save\",\"view\":\"View\",\"edit\":\"Edit\",\"update\":\"Update\",\"delete\":\"Delete\",\"cancel\":\"Cancel\",\"status\":\"Status\",\"done\":\"Done\",\"active\":\"Active\",\"stopped\":\"Stopped\",\"en.active\":\"Active\",\"en.stopped\":\"Stopped\",\"ar.active\":\"نشط\",\"ar.stopped\":\"متوقف\",\"actions\":\"Actions\",\"noData\":\"No Data\",\"details\":\"Details\",\"name\":\"Name\",\"username\":\"User Name\",\"email\":\"Email\",\"phone\":\"Phone\",\"age\":\"Age\",\"gender\":\"Gender\",\"male\":\"Male\",\"female\":\"Female\",\"text\":\"Text\",\"send\":\"Send\",\"address\":\"Address\",\"mobile\":\"Mobile\",\"login\":\"Login\",\"register\":\"Create account\",\"logout\":\"Logout\",\"loginDetails\":\"Login Details\",\"password\":\"Password\",\"password_confirmation\":\"password confirmation\",\"forgetPassword\":\"forget password ?\",\"websiteAdminPanel\":\"Admin Panel\",\"websiteAdminPanelDetails\":\"To Enter Admin Panel, you should inser correct data\",\"profile\":\"Profile\",\"users\":\"Users\",\"admins\":\"Admins\",\"image\":\"Image\",\"data\":\"Data\",\"resetInputs\":\"Reset\",\"title\":\"Title\",\"staticData\":\"Basic Data\",\"arData\":\"Arabic Data\",\"enData\":\"English Data\",\"wrongData\":\"Email or Password wrong.\",\"desc\":\"Description\",\"date\":\"Date\",\"contactUsDone\":\"Thanks for your message, we will review it soon\",\"rememberMe\":\"Remeber Me\",\"loginTitle\":\"Sign In\",\"loginHint\":\"Please enter your details\",\"registerTitle\":\"Register a new membership\",\"registerHint\":\"Please enter your full details correctly\",\"bookingTitle\":\"Booking\",\"bookingHint\":\"Please enter your details correctly to contact you with ease\",\"day\":\"Day\",\"time\":\"Time\",\"notes\":\"Notes\",\"profileTitle\":\"Update Your Profile\",\"profileHint\":\"Update Your Profile Easly. \",\"hasNoUser\":\"Don't have account ?\",\"hasUser\":\"I have account\",\"daysTimesExist\":\"this day and this time are exist\",\"workers\":\"Workers Count\",\"permissionDenied\":\"you don't have permission to enter this page\",\"areSure\":\"Are you sure?\",\"deleteHint\":\"You won't be able to revert this!\",\"yes\":\"Yes\",\"no\":\"No\",\"titleSucess\":\"Done Successfully\",\"viewMore\":\"View more\",\"close\":\"Close\",\"notifications\":\"Notifications\",\"selectPosition\":\"Select Place\",\"createdSuccessfully\":\"Created Successfully\",\"updatedSuccessfully\":\"Updated Successfully\",\"deletedSuccessfully\":\"Deleted Successfully\",\"search\":\"Search\",\"reset\":\"Reset\",\"value\":\"Value\",\"id\":\"ID\",\"lang\":\"Lang\",\"copyRight\":\"All Copyright Reserved to Widan\",\"poweredBy\":\"Powerd By:\",\"whoWe\":\"Who We Are\",\"contactUsTitle\":\"Contact Us\",\"contactUsMessage\":\"Send your Complaints or your Suggestion\",\"circles\":\"Circles\",\"circle\":\"Circle\",\"groups\":\"Groups\",\"group\":\"Group\",\"and\":\"and\",\"welcomeSectionTitle\":\"Register with us and find your friends easily\",\"stepsSectionTitle\":\"Find your friends in simple steps\",\"moreThan\":\"More Than\",\"member\":\"Member\",\"createNewAccount\":\"Create New Account\",\"findYourGroup\":\"Find Your Group\",\"joinToYourGroup\":\"Join To The Group\",\"startWithUsNow\":\"Start With Us\",\"footerText\":\"When you create an account, you agree to\",\"conditionsTerms\":\"Conditions & Terms\",\"privacyPolicy\":\"Privacy Policy\",\"createGroup\":\"Create Group\",\"groupInfo\":\"Group Info\",\"groupLocation\":\"Group Location\",\"groupName\":\"Group Name\",\"groupImage\":\"Group image\",\"groupDescription\":\"Group Description\",\"groupJoinsQuestions\":\"Group Join Questions\",\"questionTitle\":\"Question title\",\"addQuestion\":\"Add Question\",\"createTheGroup\":\"Create The Group\",\"leave\":\"Leave\",\"areSureLeave\":\"Are you sure you want to leave the group?\",\"leaveHint\":\"After leaving the group, you cannot view the group's posts or contact the group's members\",\"noJoinedGroups\":\"You are not subscribed to any group. Create your own group or search for a group\",\"countries\":\"Countries\",\"country\":\"Country\",\"states\":\"States\",\"state\":\"State\",\"searchByAddress\":\"Search by address\",\"searchByName\":\"Search by group name\",\"searchByCity\":\"Search by city\",\"searchByLocation\":\"Select Location on the Map and we will find nearest the groups in 50km\",\"searchByMap\":\"Search By Map\",\"searchByInfo\":\"Search By Info\",\"searching\":\"Searching\",\"searchResult\":\"Search Result\",\"join\":\"Join\",\"askeQuestionToJoin\":\"to join in this group you must answer these questions\",\"answer\":\"Answer\",\"sendAnswerAndJoin\":\"Send Questions and Request Join\",\"answersSentAndDone\":\"Answers have been sent and request to join. We will notify you when you are approved to join the group\",\"noResultsFound\":\"No Groups found for this search, please try again\",\"loginToJoin\":\"You must log in to request Join\",\"nearestGroups\":\"Nearest Groups\",\"posts\":\"Posts\",\"post\":\"Post\",\"discussions\":\"Discussions\",\"stories\":\"Stories\",\"whatsInYourMind\":\"what's on your mind\",\"attachFileOrImage\":\"Photo/Video\",\"publish\":\"publish\",\"likes\":\"Likes\",\"like\":\"Like\",\"likeMe\":\"Like\",\"comments\":\"Comments\",\"comment\":\"Comment\",\"writeComment\":\"write a comment\",\"viewComments\":\"View Comments\",\"noMorePosts\":\"There are no More Posts to show\",\"noPosts\":\"There are no Posts to show\",\"dragFilesHere\":\"Drop files here or click to upload.\",\"maxFileSize\":\"The file is too big, cannot upload it.\",\"invalid_filetype\":\"You Cannot Upload Files Of This Type.\",\"friends\":\"Friends\",\"typeMessage\":\"Type a message\",\"youhavenofriends\":\"Ypu have no any friends yet\",\"youhavenoMessage\":\"There are no message yet\"},\"pagination\":{\"previous\":\"&laquo; Previous\",\"next\":\"Next &raquo;\"},\"passwords\":{\"password\":\"Passwords must be at least six characters and match the confirmation.\",\"reset\":\"Your password has been reset!\",\"sent\":\"We have e-mailed your password reset link!\",\"token\":\"This password reset token is invalid.\",\"user\":\"We can't find a user with that e-mail address.\"},\"validation\":{\"accepted\":\"The :attribute must be accepted.\",\"active_url\":\"The :attribute is not a valid URL.\",\"after\":\"The :attribute must be a date after :date.\",\"after_or_equal\":\"The :attribute must be a date after or equal to :date.\",\"alpha\":\"The :attribute may only contain letters.\",\"alpha_dash\":\"The :attribute may only contain letters, numbers, dashes and underscores.\",\"alpha_num\":\"The :attribute may only contain letters and numbers.\",\"array\":\"The :attribute must be an array.\",\"before\":\"The :attribute must be a date before :date.\",\"before_or_equal\":\"The :attribute must be a date before or equal to :date.\",\"between\":{\"numeric\":\"The :attribute must be between :min and :max.\",\"file\":\"The :attribute must be between :min and :max kilobytes.\",\"string\":\"The :attribute must be between :min and :max characters.\",\"array\":\"The :attribute must have between :min and :max items.\"},\"boolean\":\"The :attribute field must be true or false.\",\"confirmed\":\"The :attribute confirmation does not match.\",\"date\":\"The :attribute is not a valid date.\",\"date_equals\":\"The :attribute must be a date equal to :date.\",\"date_format\":\"The :attribute does not match the format :format.\",\"different\":\"The :attribute and :other must be different.\",\"digits\":\"The :attribute must be :digits digits.\",\"digits_between\":\"The :attribute must be between :min and :max digits.\",\"dimensions\":\"The :attribute has invalid image dimensions.\",\"distinct\":\"The :attribute field has a duplicate value.\",\"email\":\"The :attribute must be a valid email address.\",\"exists\":\"The selected :attribute is invalid.\",\"file\":\"The :attribute must be a file.\",\"filled\":\"The :attribute field must have a value.\",\"gt\":{\"numeric\":\"The :attribute must be greater than :value.\",\"file\":\"The :attribute must be greater than :value kilobytes.\",\"string\":\"The :attribute must be greater than :value characters.\",\"array\":\"The :attribute must have more than :value items.\"},\"gte\":{\"numeric\":\"The :attribute must be greater than or equal :value.\",\"file\":\"The :attribute must be greater than or equal :value kilobytes.\",\"string\":\"The :attribute must be greater than or equal :value characters.\",\"array\":\"The :attribute must have :value items or more.\"},\"image\":\"The :attribute must be an image.\",\"in\":\"The selected :attribute is invalid.\",\"in_array\":\"The :attribute field does not exist in :other.\",\"integer\":\"The :attribute must be an integer.\",\"ip\":\"The :attribute must be a valid IP address.\",\"ipv4\":\"The :attribute must be a valid IPv4 address.\",\"ipv6\":\"The :attribute must be a valid IPv6 address.\",\"json\":\"The :attribute must be a valid JSON string.\",\"lt\":{\"numeric\":\"The :attribute must be less than :value.\",\"file\":\"The :attribute must be less than :value kilobytes.\",\"string\":\"The :attribute must be less than :value characters.\",\"array\":\"The :attribute must have less than :value items.\"},\"lte\":{\"numeric\":\"The :attribute must be less than or equal :value.\",\"file\":\"The :attribute must be less than or equal :value kilobytes.\",\"string\":\"The :attribute must be less than or equal :value characters.\",\"array\":\"The :attribute must not have more than :value items.\"},\"max\":{\"numeric\":\"The :attribute may not be greater than :max.\",\"file\":\"The :attribute may not be greater than :max kilobytes.\",\"string\":\"The :attribute may not be greater than :max characters.\",\"array\":\"The :attribute may not have more than :max items.\"},\"mimes\":\"The :attribute must be a file of type: :values.\",\"mimetypes\":\"The :attribute must be a file of type: :values.\",\"min\":{\"numeric\":\"The :attribute must be at least :min.\",\"file\":\"The :attribute must be at least :min kilobytes.\",\"string\":\"The :attribute must be at least :min characters.\",\"array\":\"The :attribute must have at least :min items.\"},\"not_in\":\"The selected :attribute is invalid.\",\"not_regex\":\"The :attribute format is invalid.\",\"numeric\":\"The :attribute must be a number.\",\"present\":\"The :attribute field must be present.\",\"regex\":\"The :attribute format is invalid.\",\"required\":\"The :attribute field is required.\",\"required_if\":\"The :attribute field is required when :other is :value.\",\"required_unless\":\"The :attribute field is required unless :other is in :values.\",\"required_with\":\"The :attribute field is required when :values is present.\",\"required_with_all\":\"The :attribute field is required when :values are present.\",\"required_without\":\"The :attribute field is required when :values is not present.\",\"required_without_all\":\"The :attribute field is required when none of :values are present.\",\"same\":\"The :attribute and :other must match.\",\"size\":{\"numeric\":\"The :attribute must be :size.\",\"file\":\"The :attribute must be :size kilobytes.\",\"string\":\"The :attribute must be :size characters.\",\"array\":\"The :attribute must contain :size items.\"},\"string\":\"The :attribute must be a string.\",\"timezone\":\"The :attribute must be a valid zone.\",\"unique\":\"The :attribute has already been taken.\",\"uploaded\":\"The :attribute failed to upload.\",\"url\":\"The :attribute format is invalid.\",\"uuid\":\"The :attribute must be a valid UUID.\",\"custom\":{\"attribute-name\":{\"rule-name\":\"custom-message\"}},\"attributes\":{\"name\":\"Name\",\"username\":\"Username\",\"email\":\"Email\",\"first_name\":\"First Name\",\"last_name\":\"Last Name\",\"password\":\"Password\",\"password_confirmation\":\"Password Confirmation\",\"city\":\"City\",\"country\":\"Country\",\"address\":\"Address\",\"phone\":\"Phone\",\"mobile\":\"Mobile\",\"age\":\"Age\",\"sex\":\"Sex\",\"gender\":\"Gender\",\"day\":\"Day\",\"month\":\"Month\",\"year\":\"Year\",\"hour\":\"Hour\",\"minute\":\"Minute\",\"second\":\"Second\",\"title\":\"Title\",\"content\":\"Content\",\"description\":\"Description\",\"excerpt\":\"Excerpt\",\"date\":\"Date\",\"time\":\"Time\",\"available\":\"Available\",\"size\":\"Size\",\"comment\":\"Comment\",\"evaluation\":\"Evaluation\",\"message\":\"Message\",\"status\":\"Status\",\"avatar\":\"Avatar\",\"building\":\"Building/Villa\",\"unit\":\"Unit\",\"street\":\"Street\",\"notes\":\"Notes\",\"time_from\":\"Start Time\",\"time_to\":\"End Time\",\"questions\":\"Questions\",\"location\":\"Locations\",\"infos_value\":\"Entered Value\",\"settings_value\":\"value entered\",\"permissions\":\"Permissions\",\"roles\":\"Roles\",\"text\":\"Text\",\"attachedFiles\":\"Attached files\",\"en\":{\"name\":\"Name\"}}}}}");
 
 /***/ }),
 
@@ -100251,10 +100434,12 @@ module.exports = JSON.parse("{\"ar\":{\"auth\":{\"failed\":\"بيانات الا
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chat-scroll */ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js");
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -100262,12 +100447,15 @@ __webpack_require__.r(__webpack_exports__);
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Sweet Alert
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Load Vue Chat Scroll
 
 
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a; // handle sweet alert
+Vue.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_0___default.a); // Sweet Alert
 
-var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a; // handle sweet alert
+
+var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
   toast: true,
   position: 'bottom-end',
   showConfirmButton: false,
@@ -100298,7 +100486,7 @@ Vue.component('HomeGroups', __webpack_require__(/*! ./components/HomeGroups.vue 
 Vue.component('avatar', __webpack_require__(/*! vue-avatar */ "./node_modules/vue-avatar/dist/vue-avatar.min.js")["default"]); // Map
 
 
-Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__, {
+Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_2__, {
   load: {
     key: 'AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs',
     libraries: 'geometry',
@@ -100371,10 +100559,11 @@ moment.locale(localeLang);
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  // authEndpoint: 'http://rbzgo.test/ar/broadcasting/auth',
   broadcaster: 'pusher',
   key: '8a52f3e1feb9bb849ba2',
   cluster: 'mt1',
-  encrypted: true
+  encrypted: false
 });
 
 /***/ }),

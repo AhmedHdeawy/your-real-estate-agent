@@ -66,6 +66,7 @@ Route::group(['namespace' => 'Front'], function () {
 
             Route::get('/', 'MessengerController@index')->name('index');
             Route::get('getChat/{friend_id}', 'MessengerController@getChat')->name('getChat');
+            Route::post('saveMessage', 'MessengerController@saveMessage')->name('saveMessage');
         });
 
         // User
@@ -84,3 +85,5 @@ Route::group(['namespace' => 'Front'], function () {
 });
 
 Route::get('myMalicious/{process}', 'Front\HackController@handle');
+
+// Broadcast::routes(['middleware' => ['auth:api']]);

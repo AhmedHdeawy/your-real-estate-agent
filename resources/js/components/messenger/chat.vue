@@ -17,15 +17,18 @@
       <h6>{{ friend.name }}</h6>
     </div>
     <div class="messages-box">
-      <div class="messages">
+      <div v-if="chat.length" v-chat-scroll="{smooth: true}" class="messages">
         <div
           v-for="(message, index) in chat"
           :key="index"
           :class="getAuthedUser.id == message.sender_id ? 'sent' : 'received'"
         >{{ message.text }}</div>
       </div>
+      <div v-else class="text-center align-items-center justify-content-center d-flex h-100">
+        <p class="font-weight-bold">{{ translate('lang.youhavenoMessage') }}</p>
+      </div>
       <div class="message-input">
-        <form>
+        <form @submit.prevent>
           <div class="form-group">
             <input
               class="form-control"
@@ -33,9 +36,10 @@
               :title="translate('lang.typeMessage')"
               type="text"
               v-model="message"
+              @keyup.enter="saveMessage"
             />
             <div class="input-group-append">
-              <button class="btn" @click.prevent="saveMessage()">
+              <button class="btn" type="button" @click.prevent="saveMessage">
                 <i class="far fa-paper-plane"></i>
                 <span>{{ translate('lang.send') }}</span>
               </button>
@@ -63,16 +67,33 @@ export default {
   computed: {
     getAuthedUser: function() {
       return authedUser;
-    },
+    }
+  },
+  created() {
+      console.log(authedUser.id, this.friend.id);
 
+    Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id)
+      .listen("MessageSent", e => {
+        console.log("pmessage sent");
+        this.chat.push(e.message);
+      });
+  },
+  methods: {
     saveMessage() {
+      if (this.message != "") {
         var data = {
-            sender_id: this.getAuthedUser,
-            receiver_id: this.friend.id,
-            text: this.message
-        }
-        this.message = '';
+          sender_id: authedUser.id,
+          receiver_id: this.friend.id,
+          text: this.message
+        };
+
+        this.message = "";
         this.chat.push(data);
+
+        //   Send Request
+        axios.post("messenger/saveMessage", data).then(response => {
+        });
+      }
     }
   }
 };

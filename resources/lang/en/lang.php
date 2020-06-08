@@ -207,4 +207,6 @@ return [
      */
     'friends'   =>  'Friends',
     'typeMessage'  =>  'Type a message',
+    'youhavenofriends'  =>  'Ypu have no any friends yet',
+    'youhavenoMessage'  =>  'There are no message yet',
 ];
