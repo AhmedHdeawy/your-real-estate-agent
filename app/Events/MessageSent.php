@@ -34,6 +34,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('rbzgochat.' . $this->message->sender_id . '.' . $this->message->receiver_id);
+        return new PrivateChannel('rbzgo-chat.' . $this->message->sender_id . '.' . $this->message->receiver_id);
     }
 }

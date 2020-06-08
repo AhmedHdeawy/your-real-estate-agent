@@ -56,7 +56,5 @@ window.Echo = new Echo({
     key: '8a52f3e1feb9bb849ba2',
     cluster: 'mt1',
     encrypted: true,
-    logToConsole: true,
-    // csrfToken: $('meta[name="csrf-token"]').attr('content'),
-    // forceTLS: false
+    logToConsole: true
 });

@@ -15763,7 +15763,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    Echo["private"]("rbzgochat." + this.friend.id + "." + authedUser.id).listen("MessageSent", function (e) {
+    Echo["private"]("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen("MessageSent", function (e) {
       console.log("pmessage sent");
 
       _this.chat.push(e.message);
@@ -100564,9 +100564,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: '8a52f3e1feb9bb849ba2',
   cluster: 'mt1',
   encrypted: true,
-  logToConsole: true // csrfToken: $('meta[name="csrf-token"]').attr('content'),
-  // forceTLS: false
-
+  logToConsole: true
 });
 
 /***/ }),
