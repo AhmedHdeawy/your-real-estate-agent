@@ -148,6 +148,22 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 
 .messenger-page .messenger-con .contacts-con .contacts a p {
     font-size: .7rem !important;
+    width: max-content;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+}
+
+.message-con .messages-box .messages .sent .message-date {
+    font-size: .7rem;
+}
+.message-con .messages-box .messages .received .message-date {
+    font-size: .7rem;
+    color: #FFF;
+}
+
+.contacts-con .contacts .contact.active-friend {
+    background-color: rgba(0, 0, 0, .05);
+    border-radius: 5px;
 }
 
 /* Framework */

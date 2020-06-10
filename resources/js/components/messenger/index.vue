@@ -12,13 +12,17 @@
                 </span>
               </h2>
               <div class="contacts">
-                <div v-if='friends.length'>
-                    <friend v-for="friend in friends" :key="friend.id" :friend="friend" @get-chat="getChat"></friend>
+                <div v-if="friends.length">
+                  <friend
+                    v-for="friend in friends"
+                    :key="friend.id"
+                    :friend="friend"
+                    :online="isOnline(friend)"
+                    @get-chat="getChat"
+                  ></friend>
                 </div>
                 <div v-else>
-                    <p class="text-center">
-                        {{ translate('lang.youhavenofriends') }}
-                    </p>
+                  <p class="text-center">{{ translate('lang.youhavenofriends') }}</p>
                 </div>
               </div>
             </div>
@@ -33,13 +37,13 @@
 </template>
 
 <script>
-import friend from './friend';
-import chat from './chat';
+import friend from "./friend";
+import chat from "./chat";
 
 export default {
-  components:{
-      friend,
-      chat
+  components: {
+    friend,
+    chat
   },
   props: {
     friends: {
@@ -48,31 +52,46 @@ export default {
     }
   },
   created() {
-      if (this.friend) {
+    if (this.friend) {
+      this.fetchMessages(this.friend);
+    }
 
-          this.fetchMessages(this.friend);
-      }
+    // Load Online Friends
+    Echo.join("online")
+      .here(friends => {
+        this.onlineFriends = friends;
+      })
+      .joining(friend => {
+        this.onlineFriends.push(friend);
+      })
+      .leaving(friend => {
+        this.onlineFriends.splice(this.onlineFriends.indexOf(friend), 1);
+      });
   },
   data() {
-      return {
-          friend: this.friends[0],
-          chat: '',
-      }
+    return {
+      friend: this.friends[0],
+      onlineFriends: [],
+      chat: ""
+    };
   },
   methods: {
-      fetchMessages(friend) {
-          axios.get('/messenger/getChat/' + friend.id).then((response)    => {
-        //   axios.get('/messenger/getChat/' + 50).then((response)    => {
-              this.friend = friend;
-              this.chat = response.data;
+    fetchMessages(friend) {
+      axios.get("/messenger/getChat/" + friend.id).then(response => {
+        this.friend = friend;
+        this.chat = response.data;
+      });
+    },
 
-          })
-      },
+    getChat(friend) {
+      this.fetchMessages(friend);
+    },
 
-      getChat(friend) {
-
-          this.fetchMessages(friend);
-      }
-  },
+    isOnline(friend) {
+      return this.onlineFriends.find(
+        onlineFriend => onlineFriend.id === friend.id
+      );
+    }
+  }
 };
 </script>

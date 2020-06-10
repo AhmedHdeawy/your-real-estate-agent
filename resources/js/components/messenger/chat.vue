@@ -17,12 +17,15 @@
       <h6>{{ friend.name }}</h6>
     </div>
     <div class="messages-box">
-      <div v-if="chat.length" v-chat-scroll="{smooth: true}" class="messages">
+      <div v-if="chat.length" v-chat-scroll class="messages">
         <div
           v-for="(message, index) in chat"
           :key="index"
           :class="getAuthedUser.id == message.sender_id ? 'sent' : 'received'"
-        >{{ message.text }}</div>
+        >
+          {{ message.text }}
+          <p class="message-date mb-0">{{ showDateInFormat(message.created_at) }}</p>
+        </div>
       </div>
       <div v-else class="text-center align-items-center justify-content-center d-flex h-100">
         <p class="font-weight-bold">{{ translate('lang.youhavenoMessage') }}</p>
@@ -70,13 +73,13 @@ export default {
     }
   },
   created() {
-
-
-    Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id)
-      .listen("MessageSent", e => {
-        console.log("pmessage sent");
+    //   Listen for new message
+    Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen(
+      "MessageSent",
+      e => {
         this.chat.push(e.message);
-      });
+      }
+    );
   },
   methods: {
     saveMessage() {
@@ -84,16 +87,25 @@ export default {
         var data = {
           sender_id: authedUser.id,
           receiver_id: this.friend.id,
-          text: this.message
+          text: this.message,
+          created_at: moment()
         };
 
         this.message = "";
         this.chat.push(data);
 
         //   Send Request
-        axios.post("messenger/saveMessage", data).then(response => {
-        });
+        axios.post("messenger/saveMessage", data).then(response => {});
       }
+    },
+    showDateInFormat(date) {
+      // Get Date in UTC
+      var stillUtc = moment.utc(date).toDate();
+      // Convert it to Locale timezone 'Africa/Cairo'
+
+      var local = moment(stillUtc).local();
+
+      return local.format("h:m a");
     }
   }
 };

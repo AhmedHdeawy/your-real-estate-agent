@@ -162,6 +162,7 @@ return [
     'country' =>  'Country',
     'states' =>  'States',
     'state' =>  'State',
+    'findGroup'   =>  'Find Group',
     'searchByAddress' =>  'Search by address',
     'searchByName' =>  'Search by group name',
     'searchByCity' =>  'Search by city',
@@ -205,6 +206,7 @@ return [
     /**
      * Messenger
      */
+    'chat' =>  'Chat',
     'friends'   =>  'Friends',
     'typeMessage'  =>  'Type a message',
     'youhavenofriends'  =>  'Ypu have no any friends yet',

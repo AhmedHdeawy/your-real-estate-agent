@@ -29,6 +29,12 @@
                 </li>
 
                 <li class='nav-item mx-2'>
+                    <a class='nav-link register-btn' href='{{ route('messenger.index') }}'>
+                        <i class="fab fa-facebook-messenger text-white"></i>
+                    </a>
+                </li>
+
+                <li class='nav-item mx-2'>
                     <a class='nav-link register-btn' href='{{ route('profile') }}'>
                         {{ auth()->user()->name }}
                     </a>

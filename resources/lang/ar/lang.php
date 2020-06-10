@@ -167,6 +167,7 @@ return [
     'country' =>  'الدولة',
     'states' =>  'المحافظات',
     'states' =>  'المحافظة',
+    'findGroup'   =>  'ايجاد مجموعة',
     'searchByAddress' =>  'ابحث بالعنوان',
     'searchByName' =>  'ابحث باسم المجموعة',
     'searchByCity' =>  'ابحث بالمدينة',
@@ -210,6 +211,7 @@ return [
     /**
      * Messenger
      */
+    'chat' =>  'الدردشة',
     'friends'   =>  'الاصدقاء',
     'typeMessage'  =>  'اكتب رسالتك',
     'youhavenofriends'  =>  'ليس لديك أي اصدقاء حالياً',
