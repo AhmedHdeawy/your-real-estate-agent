@@ -32,7 +32,7 @@ class PostsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $posts = $searchQuery->paginate(config('loqyana.perPage'));
+      $posts = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.posts.index', compact('posts'));
     }

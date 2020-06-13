@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="col-lg-9 col-md-8">
-            <chat v-if="chat" :chat="chat" :friend="friend"></chat>
+            <chat :chat="chat" :friend="friend"></chat>
           </div>
         </div>
       </div>
@@ -52,6 +52,8 @@ export default {
     }
   },
   created() {
+      console.log(window.mobileCheck);
+
     if (this.friend) {
       this.fetchMessages(this.friend);
     }
@@ -79,7 +81,7 @@ export default {
     fetchMessages(friend) {
       axios.get("/messenger/getChat/" + friend.id).then(response => {
         this.friend = friend;
-        this.chat = response.data;
+        this.chat = response.data.data;
       });
     },
 

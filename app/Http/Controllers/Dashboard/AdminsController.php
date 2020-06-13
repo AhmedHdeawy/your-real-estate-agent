@@ -34,7 +34,7 @@ class AdminsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $admins = $searchQuery->paginate(config('loqyana.perPage'));
+      $admins = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.admins.index', compact('admins'));
     }

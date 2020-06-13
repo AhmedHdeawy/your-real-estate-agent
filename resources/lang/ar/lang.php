@@ -215,6 +215,7 @@ return [
     'friends'   =>  'الاصدقاء',
     'typeMessage'  =>  'اكتب رسالتك',
     'youhavenofriends'  =>  'ليس لديك أي اصدقاء حالياً',
-    'youhavenoMessage'  =>  'لا يوجد رسائل بينكم الى الان',
+    'youhavenoMessage'  =>  'لا يوجد رسائل بينكم حتى الان',
+    'loadingChat'   =>  'جاري تحميل الدردشة',
 
 ];

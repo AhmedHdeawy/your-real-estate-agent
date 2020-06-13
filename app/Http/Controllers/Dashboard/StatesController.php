@@ -34,7 +34,7 @@ class StatesController extends Controller
 
         $searchQuery = $this->handleSearch($query, $inputsArray);
 
-        $states = $searchQuery->paginate(config('loqyana.perPage'));
+        $states = $searchQuery->paginate(config('rbzgo.perPage'));
 
         $countries = Cache::rememberForever('countries', function () {
             return Country::all();

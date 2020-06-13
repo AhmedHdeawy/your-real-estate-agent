@@ -33,7 +33,7 @@ class InfosController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $infos = $searchQuery->paginate(config('loqyana.perPage'));
+      $infos = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.infos.index', compact('infos'));
     }

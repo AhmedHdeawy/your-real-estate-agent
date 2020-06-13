@@ -16,7 +16,7 @@
         />
         <avatar v-else :username="friend.name_for_avatar" background-color="#7F78B4" color="#FFF"></avatar>
       </div>
-      <div class="col">
+      <div class="col d-flex align-items-center">
         <h6>{{ friend.name }}</h6>
         <p v-if="online">
           <i class="text-success fa fa-circle"></i>

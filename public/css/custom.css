@@ -161,9 +161,11 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     color: #FFF;
 }
 
+.contacts-con .contacts .contact:hover,
 .contacts-con .contacts .contact.active-friend {
     background-color: rgba(0, 0, 0, .05);
     border-radius: 5px;
+    opacity: 1;
 }
 
 /* Framework */

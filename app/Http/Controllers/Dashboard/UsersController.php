@@ -34,7 +34,7 @@ class UsersController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $users = $searchQuery->paginate(config('loqyana.perPage'));
+      $users = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.users.index', compact('users'));
     }

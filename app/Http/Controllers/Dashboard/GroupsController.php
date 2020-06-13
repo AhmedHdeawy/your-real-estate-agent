@@ -31,7 +31,7 @@ class GroupsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $groups = $searchQuery->paginate(config('loqyana.perPage'));
+      $groups = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.groups.index', compact('groups'));
     }

@@ -33,7 +33,7 @@ class SlidersController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $sliders = $searchQuery->paginate(config('loqyana.perPage'));
+      $sliders = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.sliders.index', compact('sliders'));
     }

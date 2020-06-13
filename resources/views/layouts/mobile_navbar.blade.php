@@ -11,8 +11,8 @@
             <a class='nav-link {{ request()->route()->getName() == 'groups.create' ? 'active' : '' }}' href='{{ route('groups.create') }}'>
                 <i class='fas fa-plus'></i>
             </a>
-            <a class='nav-link {{ request()->route()->getName() == 'groups.index' ? 'active' : '' }}' href='{{ route('groups.index') }}'>
-                <i class='fas fa-users'></i>
+            <a class='nav-link {{ request()->route()->getName() == 'messenger.index' ? 'active' : '' }}' href='{{ route('messenger.index') }}'>
+                <i class='fab fa-facebook-messenger'></i>
             </a>
             <a class='nav-link {{ request()->route()->getName() == 'profile' ? 'active' : '' }}' href='{{ route('profile') }}'>
                 <i class='fas fa-user'></i>

@@ -211,4 +211,5 @@ return [
     'typeMessage'  =>  'Type a message',
     'youhavenofriends'  =>  'Ypu have no any friends yet',
     'youhavenoMessage'  =>  'There are no message yet',
+    'loadingChat'   =>  'Loading Chat',
 ];

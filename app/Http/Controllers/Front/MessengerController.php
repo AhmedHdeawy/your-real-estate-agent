@@ -33,7 +33,6 @@ class MessengerController extends Controller
      */
     public function getChat($friend_id)
     {
-        // $messages = Message::where('sender_id', Auth::id())->where('receiver_id', $friend_id)->get();
 
         $messages = Message::where(function ($query) use ($friend_id) {
             $query->where('sender_id', Auth::id())->where('receiver_id', $friend_id);
@@ -42,7 +41,8 @@ class MessengerController extends Controller
             $query->where('sender_id', $friend_id)->where('receiver_id', Auth::id());
         })
         ->orderBy('created_at')
-        ->get();
+        ->latest()
+        ->paginate(config('rbzgo.chatPerPage'));
 
         return $messages;
     }

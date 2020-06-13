@@ -16,8 +16,13 @@
       ></avatar>
       <h6>{{ friend.name }}</h6>
     </div>
-    <div class="messages-box">
-      <div v-if="chat.length" v-chat-scroll class="messages">
+    <div v-if="chat" class="messages-box">
+      <div v-if="chat.length" v-chat-scroll="{always: false, smooth: true, smoothonremoved: false}" class="messages">
+        <infinite-loading direction="top" @infinite="infiniteHandler" spinner="circles">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
+
         <div
           v-for="(message, index) in chat"
           :key="index"
@@ -51,19 +56,34 @@
         </form>
       </div>
     </div>
+
+    <div v-else class="row justify-content-center align-content-center h-100">
+      <fade-loader class="custom-class" :color="loader.color"></fade-loader>
+      <p class="text-center w-100 mt-2">{{ translate('lang.loadingChat') }}</p>
+    </div>
   </div>
 </template>
 
 <script>
+import { FadeLoader } from "@saeris/vue-spinners";
+import InfiniteLoading from "vue-infinite-loading";
 export default {
+  components: {
+    FadeLoader,
+    InfiniteLoading
+  },
   props: ["chat", "friend"],
   data() {
     return {
       message: "",
+      page: 2,
       customStyle: {
         display: "inline-block",
         "-webkit-margin-end": "10px",
         "margin-inline-end": "10px"
+      },
+      loader: {
+        color: "#6E67A0"
       }
     };
   },
@@ -98,6 +118,26 @@ export default {
         axios.post("messenger/saveMessage", data).then(response => {});
       }
     },
+
+    //   Handle Infinte Scroll to Load more posts and append it to posts array
+    infiniteHandler($state) {
+      axios
+        .get("/messenger/getChat/" + this.friend.id, {
+          params: {
+            page: this.page
+          }
+        })
+        .then(({ data }) => {
+          if (data.data.length) {
+            this.page += 1;
+            this.chat.unshift(...data.data);
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        });
+    },
+
     showDateInFormat(date) {
       // Get Date in UTC
       var stillUtc = moment.utc(date).toDate();

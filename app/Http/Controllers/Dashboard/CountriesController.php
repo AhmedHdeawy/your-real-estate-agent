@@ -34,7 +34,7 @@ class CountriesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $countries = $searchQuery->paginate(config('loqyana.perPage'));
+      $countries = $searchQuery->paginate(config('rbzgo.perPage'));
 
       return view('dashboard.countries.index', compact('countries'));
     }
