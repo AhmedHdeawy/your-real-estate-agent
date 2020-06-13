@@ -202,6 +202,8 @@ return [
     'dragFilesHere'    =>    'Drop files here or click to upload.',
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
     'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
+    'seeMore'   =>  'See More',
+    'seeLess'   =>  'See Less',
 
     /**
      * Messenger

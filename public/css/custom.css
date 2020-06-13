@@ -156,6 +156,7 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 .message-con .messages-box .messages .sent .message-date {
     font-size: .7rem;
 }
+
 .message-con .messages-box .messages .received .message-date {
     font-size: .7rem;
     color: #FFF;
@@ -191,6 +192,14 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 
 .border-rbzgo {
     border-color: #3d376a !important;
+}
+
+.no-btn {
+    background-color: transparent;
+    border: 0;
+}
+.no-btn:focus {
+    outline: none;
 }
 
 .img-avatar {

@@ -56,6 +56,7 @@ Route::group(['namespace' => 'Front'], function () {
                 Route::post('{group_permlink}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
                 Route::post('{group_permlink}/posts/deletePostAttachment', 'PostsController@deletePostAttachment')->name('posts.deletePostAttachment');
                 Route::post('{group_permlink}/posts/deleteMedia', 'PostsController@deleteMedia')->name('posts.deleteMedia');
+                Route::get('{group_permlink}/posts/{post_permlink}', 'PostsController@show')->name('show');
             });
         });
 

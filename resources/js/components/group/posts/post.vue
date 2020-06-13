@@ -23,7 +23,7 @@
                 ></avatar>
                 <span>{{ post.user.name }}</span>
               </a>
-              <a class="pt-3" :href="'/profile/' + post.user.username">{{ post.created_at | dateFromNow }}</a>
+              <a class="pt-3" href="#">{{ post.created_at | dateFromNow }}</a>
             </div>
           </div>
           <!-- Post Edit -->
@@ -62,7 +62,34 @@
       <!-- Post Text -->
       <div class="post-content">
         <!-- Show Post Text -->
-        <p>{{ post.text }}</p>
+        <div v-if="!viewFullText">
+          <p v-if="handlePostText() == 's'">{{ post.text }}</p>
+          <p v-else-if="handlePostText() == 'm'">
+            {{ post.text | cutText(0, 300) }}
+            <button
+              @click="toggleFullText"
+              role="link"
+              class="no-btn color-rbzgo font-weight-bold"
+            >{{ translate('lang.seeMore') }}</button>
+          </p>
+          <p v-else>
+            {{ post.text | cutText(0, 300) }}
+            <a
+              :href="unique_name + '/posts/' + post.unique_id"
+              class="color-rbzgo font-weight-bold"
+            >{{ translate('lang.seeMore') }}</a>
+          </p>
+        </div>
+        <div v-else>
+          <p>
+            {{ post.text }}
+            <button
+              @click="toggleFullText"
+              role="link"
+              class="no-btn color-rbzgo font-weight-bold"
+            >{{ translate('lang.seeLess') }}</button>
+          </p>
+        </div>
 
         <!-- Handle Post Medi -->
         <section v-if="post.media.length > 0">
@@ -183,6 +210,7 @@ export default {
       liked: this.postData.is_like,
       commentsCount: this.postData.comments_count,
       editPost: false,
+      viewFullText: false,
       customStyle: {
         display: "inline-block",
         "text-align": "inherit"
@@ -291,6 +319,19 @@ export default {
           this.post = data.post;
         })
         .catch(error => {});
+    },
+    handlePostText() {
+      var txtLength = this.post.text.length;
+      if (txtLength < 800) {
+        return "s";
+      } else if (txtLength < 2000) {
+        return "m";
+      } else {
+        return "l";
+      }
+    },
+    toggleFullText() {
+      this.viewFullText = !this.viewFullText;
     }
   }
 };

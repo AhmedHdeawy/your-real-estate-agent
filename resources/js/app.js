@@ -47,6 +47,11 @@ Vue.filter('dateFromNow', function (date) {
     return fromNow;
 });
 
+Vue.filter('cutText', function (txt, start = 0, length) {
+
+    return txt.substr(start, length);
+});
+
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 

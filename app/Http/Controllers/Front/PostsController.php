@@ -34,6 +34,25 @@ class PostsController extends Controller
     }
 
     /**
+     * Show the Post.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function show(Request $request)
+    {
+        foreach (Post::all() as $post) {
+            $uniqueID = $this->generatePostUniqueID();
+            $post->unique_id = $uniqueID;
+            $post->save();
+        }
+        // Find the Post
+        $post = Post::whereUniqueId($request->post_permlink)->first();
+dd($post);
+        return view('front.groups.post', compact('post'));
+
+    }
+
+    /**
      * Store new post.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,6 +73,11 @@ class PostsController extends Controller
             'text'  =>  $request->text,
             'user_id'   =>  Auth::id()
         ]);
+
+        // Save Unique Id for the post
+        $uniqueID = $this->generatePostUniqueID();
+        $post->unique_id = $uniqueID;
+        $post->save();
 
         if ($request->attachedFiles) {
             // loop through media, and save them
@@ -323,4 +347,19 @@ class PostsController extends Controller
 
         return $type;
     }
+
+    /**
+     * Generate Unique Name for each Post
+     */
+    private function generatePostUniqueID()
+    {
+        $number = mt_rand(1000000000, 9999999999); // better than rand()
+        // call the same function if the unique_id exists already
+        if (Post::whereUniqueId($number)->exists()) {
+            return $this->generatePostUniqueID();
+        }
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+
 }

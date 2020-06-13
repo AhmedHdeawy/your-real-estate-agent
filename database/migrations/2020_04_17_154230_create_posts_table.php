@@ -15,6 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('unique_id')->unique();
             $table->longText('text');
             $table->integer('likes')->unsigned()->default(0);
             $table->enum('has_media', [0, 1])->default(0);
