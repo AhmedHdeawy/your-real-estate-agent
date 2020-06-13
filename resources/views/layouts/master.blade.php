@@ -64,8 +64,6 @@
     @include('layouts.mobile_navbar')
     {{-- Mobile Navbar / End --}}
 
-
-
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 

@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-lg-3 col-md-4">
             <div class="contacts-con">
-              <h2 id="listToggle">
+              <h2 id="listToggle" class="bg-rbzgo text-white">
                 {{ translate('lang.friends') }}
                 <span>
                   <i class="fas fa-angle-double-down"></i>
@@ -52,8 +52,6 @@ export default {
     }
   },
   created() {
-      console.log(window.mobileCheck);
-
     if (this.friend) {
       this.fetchMessages(this.friend);
     }
