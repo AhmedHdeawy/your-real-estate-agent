@@ -116,7 +116,7 @@
               <GmapMap
                 ref="mapRef"
                 :center="position"
-                :zoom="5"
+                :zoom="8"
                 :options="{
                     zoomControl: false,
                     mapTypeControl: false,
