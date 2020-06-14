@@ -196,13 +196,10 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language={{ app()->getLocale() }}&callback=initMap">
 </script>
 <script>
-    console.log(currentLatLng);
-
-
     var map;
     var marker;
     function initMap() {
-        var myLatlng = currentLatLng ? currentLatLng : {lat: 23.8859, lng: 45.0792};
+        var myLatlng = {lat: 23.8859, lng: 45.0792};
         var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(
         document.getElementById('map'), {
@@ -215,6 +212,28 @@
         });
 
         addMarker(myLatlng);
+
+        // Displaying User or Device Position on Maps
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                // Override init Position by User Location
+                map.setCenter(pos);
+
+            }, function() {
+                handleLocationError();
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError();
+        }
+
+        function handleLocationError() {
+            alert('Your browser doesn\'t support geolocation. please Update your browser, now we will use custom location to show on the map')
+        }
 
 
         // Configure the click listener.

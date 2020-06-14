@@ -114,6 +114,7 @@
               <label class="mb-3">{{ translate('lang.searchByLocation') }}</label>
 
               <GmapMap
+                ref="mapRef"
                 :center="position"
                 :zoom="5"
                 :options="{
@@ -170,12 +171,10 @@ export default {
         country_id: "",
         state_id: ""
       },
-      position: currentLatLng
-        ? currentLatLng
-        : {
-            lat: 23.8859,
-            lng: 45.0792
-          },
+      position: {
+        lat: 23.8859,
+        lng: 45.0792
+      },
       states: [],
       searchByMap: false,
       result: false,
@@ -186,8 +185,7 @@ export default {
     };
   },
   created() {
-      console.log(currentLatLng);
-
+    this.handelUserLocation();
   },
   computed: {
     getLocaleLang: function() {
@@ -244,6 +242,32 @@ export default {
           this.states = data;
         })
         .catch(error => {});
+    },
+    handelUserLocation() {
+      // Get Local Component Variable
+      var self = this;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(pos) {
+            var userLocation = {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude
+            };
+            // Override init Position by User Location
+            self.position = userLocation;
+          },
+          function() {
+            alert(
+              "Your browser doesn't support geolocation. please Update your browser, now we will use custom location to show on the map"
+            );
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        alert(
+          "Your browser doesn't support geolocation. please Update your browser, now we will use custom location to show on the map"
+        );
+      }
     }
   }
 };

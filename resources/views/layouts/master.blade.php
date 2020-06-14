@@ -25,24 +25,9 @@
         @auth
             window.authedUser = {!! json_encode(auth()->user()) !!};
         @else
-            window.authedUser = {!! json_encode(auth()->user()) !!};
+            window.authedUser = null;
         @endauth
-
-        window.currentLatLng = null;
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                    window.currentLatLng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                    }
-                }, function(err) {
-                    window.currentLatLng = null
-                }
-            );
-        }
     </script>
-
 
 </head>
 
