@@ -223,16 +223,14 @@
                 // Override init Position by User Location
                 map.setCenter(pos);
 
-            }, function() {
-                handleLocationError();
-            });
+            }, function() {});
         } else {
             // Browser doesn't support Geolocation
             handleLocationError();
         }
 
-        function handleLocationError() {
-            alert('Your browser doesn\'t support geolocation. please Update your browser, now we will use custom location to show on the map')
+        function handleLocationError(browserHasGeolocation) {
+            alert('{{ __('lang.doesnotSupportGeolocation') }}');
         }
 
 

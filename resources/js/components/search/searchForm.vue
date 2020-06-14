@@ -256,17 +256,11 @@ export default {
             // Override init Position by User Location
             self.position = userLocation;
           },
-          function() {
-            alert(
-              "Your browser doesn't support geolocation. please Update your browser, now we will use custom location to show on the map"
-            );
-          }
+          function() {}
         );
       } else {
         // Browser doesn't support Geolocation
-        alert(
-          "Your browser doesn't support geolocation. please Update your browser, now we will use custom location to show on the map"
-        );
+        alert(self.translate('lang.doesnotSupportGeolocation'));
       }
     }
   }

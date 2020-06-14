@@ -125,6 +125,7 @@ return [
     'groups'    =>  'Groups',
     'group'    =>  'Group',
     'and'   =>  'and',
+    'doesnotSupportGeolocation'    =>  "Your browser doesn't support geolocation. please Update your browser",
 
     /**
      * Home Page
