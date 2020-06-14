@@ -185,6 +185,10 @@ export default {
       }
     };
   },
+  created() {
+      console.log(currentLatLng);
+
+  },
   computed: {
     getLocaleLang: function() {
       return localeLang;

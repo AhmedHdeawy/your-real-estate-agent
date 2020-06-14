@@ -196,6 +196,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language={{ app()->getLocale() }}&callback=initMap">
 </script>
 <script>
+    console.log(currentLatLng);
 
 
     var map;
