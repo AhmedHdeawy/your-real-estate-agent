@@ -222,6 +222,7 @@
                 };
                 // Override init Position by User Location
                 map.setCenter(pos);
+                addMarker(pos);
 
             }, function() {});
         } else {
