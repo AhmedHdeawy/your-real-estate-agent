@@ -172,8 +172,8 @@ export default {
         state_id: ""
       },
       position: {
-        lat: 23.8859,
-        lng: 45.0792
+        lat: 24.715869226220885,
+        lng: 46.66797131445571
       },
       states: [],
       searchByMap: false,

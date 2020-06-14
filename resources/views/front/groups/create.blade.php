@@ -199,7 +199,7 @@
     var map;
     var marker;
     function initMap() {
-        var myLatlng = {lat: 23.8859, lng: 45.0792};
+        var myLatlng = {lat: 24.715869226220885, lng: 46.66797131445571};
         var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(
         document.getElementById('map'), {
