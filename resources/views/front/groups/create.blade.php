@@ -196,13 +196,22 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language={{ app()->getLocale() }}&callback=initMap">
 </script>
 <script>
+
+
     var map;
     var marker;
     function initMap() {
-        var myLatlng = {lat: 23.8859, lng: 45.0792};
+        var myLatlng = currentLatLng ? currentLatLng : {lat: 23.8859, lng: 45.0792};
         var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 5, center: myLatlng});
+        document.getElementById('map'), {
+            zoom: 5,
+            center: myLatlng,
+            zoomControl: false,
+            streetViewControl: false,
+            mapTypeControl: false,
+            gestureHandling: 'greedy'
+        });
 
         addMarker(myLatlng);
 

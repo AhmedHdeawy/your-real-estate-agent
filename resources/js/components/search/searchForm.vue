@@ -113,7 +113,18 @@
             <div class="form-group">
               <label class="mb-3">{{ translate('lang.searchByLocation') }}</label>
 
-              <GmapMap :center="position" :zoom="5" style="height: 400px" @click="getLatLng">
+              <GmapMap
+                :center="position"
+                :zoom="5"
+                :options="{
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                    gestureHandling: 'greedy'
+                }"
+                style="height: 400px"
+                @click="getLatLng"
+              >
                 <GmapMarker :animation="2" :position="position" />
               </GmapMap>
             </div>
@@ -130,9 +141,7 @@
 
     <div v-else class="row justify-content-center align-content-center my-3">
       <bounce-loader class="custom-class" :color="loader.color" :size="loader.size"></bounce-loader>
-      <div class="col-12 text-center">
-          {{ translate('lang.searching') }} ...
-      </div>
+      <div class="col-12 text-center">{{ translate('lang.searching') }} ...</div>
     </div>
   </section>
 </template>
@@ -161,10 +170,12 @@ export default {
         country_id: "",
         state_id: ""
       },
-      position: {
-        lat: 23.8859,
-        lng: 45.0792
-      },
+      position: currentLatLng
+        ? currentLatLng
+        : {
+            lat: 23.8859,
+            lng: 45.0792
+          },
       states: [],
       searchByMap: false,
       result: false,
@@ -190,7 +201,7 @@ export default {
     },
     // Search for groups with searchData
     search() {
-        this.result = true;
+      this.result = true;
       axios
         .get("/groups/searchResults", {
           params: {

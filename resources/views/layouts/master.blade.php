@@ -64,6 +64,20 @@
     @include('layouts.mobile_navbar')
     {{-- Mobile Navbar / End --}}
 
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                    window.currentLatLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }
+                }, function(err) {
+                    window.currentLatLng = null
+                }
+            );
+        }
+
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 
