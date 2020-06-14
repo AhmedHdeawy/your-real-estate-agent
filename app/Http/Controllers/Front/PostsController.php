@@ -40,14 +40,9 @@ class PostsController extends Controller
      */
     public function show(Request $request)
     {
-        foreach (Post::all() as $post) {
-            $uniqueID = $this->generatePostUniqueID();
-            $post->unique_id = $uniqueID;
-            $post->save();
-        }
         // Find the Post
         $post = Post::whereUniqueId($request->post_permlink)->first();
-dd($post);
+
         return view('front.groups.post', compact('post'));
 
     }

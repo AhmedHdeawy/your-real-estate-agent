@@ -64,7 +64,7 @@
         <!-- Show Post Text -->
         <div v-if="!viewFullText">
           <p v-if="handlePostText() == 's'">{{ post.text }}</p>
-          <p v-else-if="handlePostText() == 'm'">
+          <p v-else-if="handlePostText() == 'm' || handlePostText() == 'l'">
             {{ post.text | cutText(0, 300) }}
             <button
               @click="toggleFullText"
@@ -84,6 +84,7 @@
           <p>
             {{ post.text }}
             <button
+              v-if="showLessText"
               @click="toggleFullText"
               role="link"
               class="no-btn color-rbzgo font-weight-bold"
@@ -199,6 +200,16 @@ export default {
     postData: {
       type: Object,
       required: true
+    },
+    showText: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showLessText: {
+      type: Boolean,
+      required: false,
+      default: true,
     }
   },
   data() {
@@ -210,7 +221,7 @@ export default {
       liked: this.postData.is_like,
       commentsCount: this.postData.comments_count,
       editPost: false,
-      viewFullText: false,
+      viewFullText: this.showText ? this.showText : false,
       customStyle: {
         display: "inline-block",
         "text-align": "inherit"
