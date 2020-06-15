@@ -12,7 +12,7 @@ class Group extends Model
      *
      * @var array
      */
-    protected $appends = ['name_for_avatar'];
+    protected $appends = ['name_for_avatar', 'distance_for_user'];
 
     protected $guarded = ['status', 'unique_name'];
 
@@ -53,6 +53,20 @@ class Group extends Model
     public function getNameForAvatarAttribute()
     {
         return $this->nameForAvatar();
+    }
+
+    /**
+     * Get the the name for avatar.
+     */
+    public function getDistanceForUserAttribute()
+    {
+        $visitorDetails = geoip()->getLocation(geoip()->getClientIP());
+        $latFrom = $visitorDetails->latitude;
+        $longFrom = $visitorDetails->longitude;
+
+        $distance = distanceBetweenCoordinates($latFrom, $longFrom, $this->lat, $this->lng, 'K');
+
+        return $distance ? round($distance) : null;
     }
 
     public function country()

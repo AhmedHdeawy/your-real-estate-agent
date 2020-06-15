@@ -185,6 +185,7 @@ return [
     'noResultsFound'    =>  'لم يتم ايجاد اي مجموعات مطابقة لبحثك. حاول مره اخرى',
     'loginToJoin'       =>  'يجب عليك التسجيل لكي تنضم للمجموعة',
     'nearestGroups'     =>  'أقرب المجموعات',
+    'distanceFromHere'  =>  'تبعد :km كيلو متر',
 
     /**
      * Posts

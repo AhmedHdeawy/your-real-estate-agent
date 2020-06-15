@@ -7,7 +7,7 @@
         </div>
 
         <div class="row mt-4">
-          <group v-for="group in groups" :key="group.id" :group="group"></group>
+          <group v-bind:for-home="true" v-for="group in groups" :key="group.id" :group="group"></group>
         </div>
       </div>
     </div>

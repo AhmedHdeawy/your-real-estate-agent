@@ -11,8 +11,17 @@
           color="#FFF"
         ></avatar>
       </div>
-      <h6 style="font-size: .9rem; height: 40px;">{{ name }}</h6>
-      <div :class="getLocaleLang == 'ar' ? 'text-right' : 'text-left'">
+      <h6
+        :data-target="'#joinGroupModal' + unique_name"
+        data-toggle="modal"
+        style="cursor: pointer"
+      >{{ name }}</h6>
+      <p v-if="forHome">
+        {{ translate('lang.distanceFromHere', {
+            km: group.distance_for_user
+        }) }}
+      </p>
+      <div v-if="!forHome" :class="getLocaleLang == 'ar' ? 'text-right' : 'text-left'">
         <p>
           <i class="fas fa-users"></i>
           {{ users_count }} {{ translate('lang.member') }}
@@ -29,7 +38,7 @@
         </p>
       </div>
 
-      <div class="btn-con">
+      <div v-if="!forHome" class="btn-con">
         <button class="btn" :data-target="'#joinGroupModal' + unique_name" data-toggle="modal">
           <i class="fas fa-plus-circle"></i>
           {{ translate('lang.join') }}
@@ -83,12 +92,12 @@
             <h4 class="mb-4">{{ translate('lang.loginToJoin') }}</h4>
             <a href="/login" class="btn">{{ translate('lang.login') }}</a>
 
-            <div class='login-now'>
-                    <a href='/register'>
-                        {{ translate('lang.hasNoUser') }}
-                        {{ translate('lang.register') }}
-                    </a>
-                </div>
+            <div class="login-now">
+              <a href="/register">
+                {{ translate('lang.hasNoUser') }}
+                {{ translate('lang.register') }}
+              </a>
+            </div>
           </div>
         </section>
       </div>
@@ -105,7 +114,12 @@ export default {
   props: {
     group: {
       type: Object,
-      require: true
+      required: true
+    },
+    forHome: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   created() {
