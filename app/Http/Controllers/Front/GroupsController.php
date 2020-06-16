@@ -163,7 +163,9 @@ class GroupsController extends Controller
 
         // Insert the group questions
         foreach ($request->questions as $question) {
-            $group->questions()->create(['title'  =>  $question]);
+            if ($question) {
+                $group->questions()->create(['title'  =>  $question]);
+            }
         }
 
         return redirect()->route('groups.show', ['name' => $group->unique_name]);

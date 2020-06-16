@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section id="app" class='home-page'>
+<section class='home-page'>
     <show-post :post="{{ json_encode($post) }}"></show-post>
 </section>
 

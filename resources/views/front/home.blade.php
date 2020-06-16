@@ -17,7 +17,7 @@
         </section>
 
         @if (count($nearestGroups))
-        <div id="app">
+        <div>
             <home-groups :groups="{{ json_encode($nearestGroups) }}"></home-groups>
         </div>
         @endif

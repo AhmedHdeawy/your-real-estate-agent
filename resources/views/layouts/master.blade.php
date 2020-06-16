@@ -17,7 +17,7 @@
     <title>{{ __('lang.websiteName') }}</title>
     <link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' rel='stylesheet' as='font'>
     <script crossorigin='anonymous' src='https://kit.fontawesome.com/9a07467a57.js' async></script>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{  mix('css/app.css') }}">
     @yield('style')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
@@ -36,7 +36,7 @@
 <body dir="{{ $currentLangDir == 'rtl' ? 'rtl' : 'ltr'  }}">
 
     <div class='container'>
-        <div class='app-con'>
+        <div class='app-con' id="app">
 
             {{-- App Navbar --}}
             @include('layouts.navbar')
@@ -63,7 +63,7 @@
     @include('layouts.mobile_navbar')
     {{-- Mobile Navbar / End --}}
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 
     @yield('script')

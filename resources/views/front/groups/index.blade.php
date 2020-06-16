@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class='profile-page' id="app">
+<section class='profile-page'>
     <div class='row'>
         <div class='col-lg-6 col-md-10 mx-auto'>
             <div class='groups'>

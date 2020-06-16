@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body p-3">
 
-                    <section class='profile-page' id="app">
+                    <section class='profile-page'>
                         <div class='row'>
                             <div class='col-lg-8 col-md-10 mx-auto'>
                                 <div class='groups'>

@@ -147,16 +147,15 @@
                     </legend>
 
                     {{-- <h5 class="text-primary mt-5">{{ __('lang.groupJoinsQuestions') }}</h5> --}}
-
-                    <div class='form-group questions-container'>
-                        <section class="tr">
+                    <div class='questions-container'>
+                        <section class="tr form-group">
                             <textarea class='form-control first is-invalid mt-3'
                                 placeholder='{{ __('lang.questionTitle') }}' title='{{ __('lang.questionTitle') }}'
                                 name="questions[]"></textarea>
+                                @if ($errors->first('questions'))
+                                <div class="invalid-feedback">{{ $errors->first('questions') }}</div>
+                                @endif
                         </section>
-                        @if ($errors->first('questions'))
-                        <div class="invalid-feedback">{{ $errors->first('questions') }}</div>
-                        @endif
                         <button type="button" class='mt-2 btn btn-create-question'>
                             <i class="fa fa-plus-circle text-white mx-2"></i>
                             {{ __('lang.addQuestion') }}

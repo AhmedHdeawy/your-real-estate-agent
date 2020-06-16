@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section id="app" class='home-page'>
+<section class='home-page'>
     <group :group="{{ json_encode($group) }}" :group-posts="{{ json_encode($posts) }}"></group>
 </section>
 

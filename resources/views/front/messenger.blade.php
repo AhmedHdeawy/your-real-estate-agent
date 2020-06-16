@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section id="app" class="messenger-page">
+<section class="messenger-page">
 
     <messenger :friends="{{ json_encode($friends) }}"></messenger>
 </section>

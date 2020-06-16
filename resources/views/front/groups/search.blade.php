@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section id="app" class='home-page'>
+<section class='home-page'>
     <search :countries="{{ json_encode($countries) }}"></search>
 </section>
 
