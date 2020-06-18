@@ -42,11 +42,11 @@
                   <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div aria-labelledby="dropdownMenuLink1" class="dropdown-menu">
-                  <a
+                  <!-- <a
                     class="dropdown-item"
                     @click.prevent="editPost = true"
                     href="#"
-                  >{{ translate('lang.edit') }}</a>
+                  >{{ translate('lang.edit') }}</a> -->
                   <a
                     class="dropdown-item text-danger"
                     @click="deletePost"
@@ -64,8 +64,8 @@
         <!-- Show Post Text -->
         <div v-if="!viewFullText">
           <p v-if="handlePostText() == 's'">{{ post.text }}</p>
-          <p v-else-if="handlePostText() == 'm' || handlePostText() == 'l'">
-            {{ post.text | cutText(0, 300) }}
+          <p v-else-if="handlePostText() == 'm'">
+            {{ post.text | cutText(0, 300) }} ...
             <button
               @click="toggleFullText"
               role="link"
@@ -73,9 +73,10 @@
             >{{ translate('lang.seeMore') }}</button>
           </p>
           <p v-else>
-            {{ post.text | cutText(0, 300) }}
+            {{ post.text | cutText(0, 300) }} ...
             <a
-              :href="unique_name + '/posts/' + post.unique_id"
+                target="_blank"
+              :href="showPostLink"
               class="color-rbzgo font-weight-bold"
             >{{ translate('lang.seeMore') }}</a>
           </p>
@@ -222,6 +223,7 @@ export default {
       commentsCount: this.postData.comments_count,
       editPost: false,
       viewFullText: this.showText ? this.showText : false,
+      showPostLink: BASE_URL + '/posts/' + this.postData.unique_id,
       customStyle: {
         display: "inline-block",
         "text-align": "inherit"

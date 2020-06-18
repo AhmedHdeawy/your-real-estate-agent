@@ -74,7 +74,7 @@
         <div v-if="mediaAudio" class="mt-4 row post-videolist">
           <div class="row col-12 mx-1" v-for="media in mediaAudio" :key="media.id">
             <audio controls>
-              <source :src="url + '/uploads/posts/' + media.name" />Your browser does not support the audio element.
+              <source :src="'/uploads/posts/' + media.name" />Your browser does not support the audio element.
             </audio>
             <button class="btn btn-sm" @click="deleteMedia(media.id)">
               <i class="far fa-trash-alt text-danger"></i>
@@ -160,7 +160,6 @@ export default {
   },
   data() {
     return {
-      url: window.location.protocol + "//" + window.location.hostname,
       loader: {
         loading: false,
         color: "#6E67A0",
@@ -173,7 +172,7 @@ export default {
       errors: "",
       disabled: false,
       dropzoneOptions: {
-        url: `${this.uniqueName}/posts/uploadAttachment`,
+        url: `${BASE_URL}/posts/uploadAttachment`,
         thumbnailWidth: 150,
         maxFilesize: 50,
         acceptedFiles: "image/*,application/pdf,audio/*,video/*",
@@ -206,8 +205,8 @@ export default {
       this.loader.loading = true;
 
       axios
-        .post(`${this.uniqueName}/posts/updatePost`, {
-          id: this.post.id,
+        .post(`${BASE_URL}/posts/updatePost`, {
+          id: this.post.unique_id,
           text: this.postData.text,
           attachedFiles: this.postData.files
         })
@@ -238,7 +237,7 @@ export default {
 
       if (this.postData.files.length > 0) {
         axios
-          .post(`${this.uniqueName}/posts/deleteAttachment`, {
+          .post(`${BASE_URL}/posts/deleteAttachment`, {
             filename: name
           })
           .then(({ data }) => {
@@ -261,7 +260,7 @@ export default {
       this.post.media = this.post.media.filter(el => el.id !== id);
 
       axios
-        .post(`${this.uniqueName}/posts/deleteMedia`, {
+        .post(`${BASE_URL}/posts/deleteMedia`, {
           mediaId: id
         })
         .then(({ data }) => {});

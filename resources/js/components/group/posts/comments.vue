@@ -95,9 +95,9 @@ export default {
 
       // Call Serer
       axios
-        .get(`${this.unique_name}/posts/fetchComments`, {
+        .get(`${BASE_URL}/posts/fetchComments`, {
           params: {
-            id: this.post.id,
+            id: this.post.unique_id,
             page: this.commentPage
           }
         })
@@ -120,10 +120,10 @@ export default {
       const text = this.commentText;
       this.commentText = "";
 
-      // Call Serer
+      // Call Server
       axios
-        .post(`${this.unique_name}/posts/commentPost`, {
-          id: this.post.id,
+        .post(`${BASE_URL}/posts/commentPost`, {
+          id: this.post.unique_id,
           text
         })
         .then(({ data }) => {

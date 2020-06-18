@@ -31,7 +31,7 @@ export default {
     // Delete the Post from the data
     deletePost(post) {
       axios
-        .post(`${this.unique_name}/posts/deletePost`, {
+        .post(`${BASE_URL}/posts/deletePost`, {
           id: post.id
         })
         .then(data => {

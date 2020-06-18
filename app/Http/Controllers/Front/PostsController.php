@@ -103,9 +103,8 @@ class PostsController extends Controller
             'attachedFiles' =>  'nullable|array'
         ]);
 
-
         // Find the Post
-        $post = Post::findOrFail($request->id);
+        $post = Post::whereUniqueId($request->id)->firstOrFail();
 
         // Update Post data
         $post->text = $request->text;
@@ -138,7 +137,7 @@ class PostsController extends Controller
     {
 
         // Find the Post
-        $post = Post::findOrFail($request->id);
+        $post = Post::whereUniqueId($request->id)->firstOrFail();
 
         // Get Image name
         $media = $post->media;
@@ -167,11 +166,38 @@ class PostsController extends Controller
         ]);
 
         // Find the Post
-        $post = Post::findOrFail($request->id);
+        $post = Post::whereUniqueId($request->id)->firstOrFail();
 
         $comments = $post->comments()->latest()->paginate(5);
 
         return response()->json($comments, 200);
+    }
+
+    /**
+     * Comment on the post
+     * @return void
+     */
+    public function commentPost(Request $request)
+    {
+
+        $this->validate($request, [
+            'id'    =>  'required|numeric',
+            'text'   =>  'required'
+        ]);
+
+        // Find the Post
+        $post = Post::whereUniqueId($request->id)->firstOrFail();
+
+
+        $authId = Auth::id();
+
+        // Create New Comment
+        $comment = $post->comments()->create(['user_id'   =>  $authId, 'text'  =>  $request->text]);
+
+        $comment = Comment::find($comment->id);
+        $commentCount = Post::findOrFail($post->id)->comments->count();
+
+        return response()->json(['comment' => $comment, 'count' =>  $commentCount]);
     }
 
     /**
@@ -205,31 +231,7 @@ class PostsController extends Controller
         return response()->json(['post' => $post]);
     }
 
-    /**
-     * Comment on the post
-     * @return void
-     */
-    public function commentPost(Request $request)
-    {
 
-        $this->validate($request, [
-            'id'    =>  'required|numeric',
-            'text'   =>  'required'
-        ]);
-
-        // Find the Post
-        $post = Post::findOrFail($request->id);
-
-        $authId = Auth::id();
-
-        // Create New Comment
-        $comment = $post->comments()->create(['user_id'   =>  $authId, 'text'  =>  $request->text]);
-
-        $comment = Comment::find($comment->id);
-        $commentCount = Post::findOrFail($post->id)->comments->count();
-
-        return response()->json(['comment' => $comment, 'count' =>  $commentCount]);
-    }
 
     /**
      * Store images.
