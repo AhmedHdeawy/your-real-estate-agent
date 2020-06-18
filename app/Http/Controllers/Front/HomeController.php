@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\User;
 use Validator;
-use App\Models\Info;
 
 use App\Models\Group;
-use App\Models\Setting;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,20 +21,43 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $nearestGroups = $this->fetchNearestGroups();
+        if (auth()->check()) {
+            return $this->homeForAuthedUser();
+        }
 
-        return view('front.home', compact('nearestGroups'));
+        return $this->homeForNonAuthedUser();
+    }
+
+    /**
+     * Show the application home for authed User
+     *
+     * * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function homeForAuthedUser()
+    {
+        return view('front.timeline');
+    }
+
+    /**
+     * Show the application home for Non authed User
+     *
+     * * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function homeForNonAuthedUser()
+    {
+        return view('front.home');
     }
 
     /**
      * Fetch Nearest Groups for the visitor in 100km
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Collection
      */
-    private function fetchNearestGroups()
+    public function fetchNearestGroups(Request $request)
     {
-        // $visitorDetails = geoip()->getLocation('41.233.37.222');
-        $visitorDetails = geoip()->getLocation(geoip()->getClientIP());
-        $latitude = $visitorDetails->latitude;
-        $longitude = $visitorDetails->longitude;
+        $latitude = $request->lat;
+        $longitude = $request->lng;
 
         $nearestGroups = [];
         if ($latitude && $longitude) {
@@ -46,7 +65,7 @@ class HomeController extends Controller
                 DB::raw('
                     *, ( 6367 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') ) * sin( radians( lat ) ) ) ) AS distance
                     ')
-            )->having('distance', '<', 100)
+            )->having('distance', '<', 50)
                 ->orderBy('distance')
                 ->limit(8)
                 ->with('questions')

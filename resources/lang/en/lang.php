@@ -181,6 +181,7 @@ return [
     'noResultsFound'    =>  'No Groups found for this search, please try again',
     'loginToJoin'       =>  'You must log in to request Join',
     'nearestGroups'     =>  'Nearest Groups',
+    'nearestGroupsSearching'     =>  'Searching for the closest groups to you',
     'distanceFromHere'  =>  'It is :km km away',
 
     /**

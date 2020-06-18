@@ -83,7 +83,7 @@
 
           <div class="col-12">
             <div class="btn-con mt-3" :class="getLocaleLang == 'ar' ? 'text-right' : 'text-left'">
-              <button class="btn btn-danger" @click="toggleSearchForm" type="button">
+              <button class="btn" @click="toggleSearchForm" type="button">
                 <i class="fas fa-map-marker-alt"></i>
                 {{ translate('lang.searchByMap') }}
               </button>

@@ -20,6 +20,9 @@ Route::group(['namespace' => 'Front'], function () {
     // Home
     Route::get('/', 'HomeController@index')->name('home');
 
+    // Get Nearest Groups
+    Route::get('groups/fetchNearestGroups', 'HomeController@fetchNearestGroups')->name('groups.fetchNearestGroups');
+
     // Load Status
     Route::get('fetchStatesByCountry/{country_id}', 'GroupsController@fetchStatesByCountry')->name('fetchStatesByCountry');
 

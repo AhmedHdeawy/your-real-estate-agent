@@ -49,7 +49,6 @@ Vue.filter('dateFromNow', function (date) {
 });
 
 Vue.filter('cutText', function (txt, start = 0, length) {
-
     return txt.substr(start, length);
 });
 
