@@ -198,6 +198,7 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     background-color: transparent;
     border: 0;
 }
+
 .no-btn:focus {
     outline: none;
 }

@@ -44,7 +44,6 @@ class PostsController extends Controller
         $post = Post::whereUniqueId($request->post_permlink)->first();
 
         return view('front.groups.post', compact('post'));
-
     }
 
     /**
@@ -57,11 +56,12 @@ class PostsController extends Controller
     {
 
         $this->validate($request, [
+            'groupID'   =>  'nullable|numeric',
             'text'  =>  'required|min:2|string',
             'attachedFiles' =>  'nullable|array'
         ]);
 
-        $group = Group::whereUniqueName($request->group_permlink)->first();
+        $group = Group::whereUniqueName($request->groupID)->first();
 
         // Load Group Posts
         $post = $group->posts()->create([
@@ -356,5 +356,4 @@ class PostsController extends Controller
         // otherwise, it's valid and can be used
         return $number;
     }
-
 }

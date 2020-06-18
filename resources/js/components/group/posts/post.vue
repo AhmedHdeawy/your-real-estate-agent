@@ -99,7 +99,7 @@
             <a
               v-for="media in mediaImage"
               :key="media.id"
-              :href="url + '/uploads/posts/' + media.name"
+              :href="'/uploads/posts/' + media.name"
               :data-fancybox="post.id"
               class="fancy-element image-link col-4 col-md-3 px-1 m-md-0 mb-1"
             >
@@ -112,7 +112,7 @@
             <a
               v-for="media in mediaVideo"
               :key="media.id"
-              :href="url + '/uploads/posts/' + media.name"
+              :href="'/uploads/posts/' + media.name"
               data-width="640"
               data-height="360"
               :data-fancybox="post.id"
@@ -125,7 +125,7 @@
           <!-- Show audios -->
           <div v-if="mediaAudio.length > 0" class="mt-4 row post-videolist">
             <audio v-for="media in mediaAudio" :key="media.id" controls>
-              <source :src="url + '/uploads/posts/' + media.name" />Your browser does not support the audio element.
+              <source :src="'/uploads/posts/' + media.name" />Your browser does not support the audio element.
             </audio>
           </div>
 
@@ -136,7 +136,7 @@
               :key="media.id"
               data-fancybox
               data-type="iframe"
-              :data-src="url + '/uploads/posts/' + media.name"
+              :data-src="'/uploads/posts/' + media.name"
               href="javascript:;"
               class="fancy-element image-link col-4 col-md-3 px-1 m-md-0 mb-1"
             >
@@ -216,7 +216,7 @@ export default {
     return {
       post: this.postData,
       unique_name: this.postData.group.unique_name,
-      url: window.location.protocol + "//" + window.location.hostname,
+      mediaBasPath: window.location.protocol + "//" + window.location.hostname,
       likesCount: this.postData.likes_count,
       liked: this.postData.is_like,
       commentsCount: this.postData.comments_count,
@@ -323,7 +323,7 @@ export default {
 
       // Call Serer
       axios
-        .post(`${this.unique_name}/posts/likePost`, {
+        .post(`${BASE_URL}/posts/likePost`, {
           id: this.post.id
         })
         .then(({ data }) => {

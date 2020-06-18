@@ -14,9 +14,11 @@
     <!-- New Post -->
     <div v-show="!loader.loading" class="new-post mb-4">
       <ul v-if="validationErrors" class="list-group mb-2 px-0">
-        <li v-for="(err, index) in validationErrors" :key="index" class="list-group-item list-group-item-danger">
-            {{ err }}
-        </li>
+        <li
+          v-for="(err, index) in validationErrors"
+          :key="index"
+          class="list-group-item list-group-item-danger"
+        >{{ err }}</li>
       </ul>
       <div class="form-group">
         <textarea
@@ -95,10 +97,10 @@ export default {
         text: "",
         files: []
       },
-      errors: '',
+      errors: "",
       disabled: false,
       dropzoneOptions: {
-        url: `${this.uniqueName}/posts/uploadAttachment`,
+        url: `${BASE_URL}/posts/uploadAttachment`,
         thumbnailWidth: 150,
         maxFilesize: 50,
         acceptedFiles: "image/*,application/pdf,audio/*,video/*",
@@ -126,12 +128,12 @@ export default {
   methods: {
     savePost() {
       //   Disable Button
-      this.errors = '',
-      this.disabled = true;
+      (this.errors = ""), (this.disabled = true);
       this.loader.loading = true;
 
       axios
-        .post(`${this.uniqueName}/posts/savePost`, {
+        .post(BASE_URL + '/posts/savePost', {
+          groupID: this.uniqueName,
           text: this.postData.text,
           attachedFiles: this.postData.files
         })
@@ -168,7 +170,7 @@ export default {
 
       if (this.postData.files.length > 0) {
         axios
-          .post(`${this.uniqueName}/posts/deleteAttachment`, {
+          .post(`${BASE_URL}/posts/deleteAttachment`, {
             filename: name
           })
           .then(({ data }) => {

@@ -46,18 +46,34 @@ Route::group(['namespace' => 'Front'], function () {
                 Route::get('{group_permlink}/posts', 'GroupsController@posts')->name('posts');
 
                 // Posts
-                Route::post('{group_permlink}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
-                Route::post('{group_permlink}/posts/updatePost', 'PostsController@updatePost')->name('posts.updatePost');
-                Route::post('{group_permlink}/posts/deletePost', 'PostsController@deletePost')->name('posts.deletePost');
-                Route::post('{group_permlink}/posts/likePost', 'PostsController@likePost')->name('posts.likePost');
-                Route::post('{group_permlink}/posts/commentPost', 'PostsController@commentPost')->name('posts.commentPost');
-                Route::get('{group_permlink}/posts/fetchComments', 'PostsController@fetchComments')->name('posts.fetchComments');
-                Route::post('{group_permlink}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');
-                Route::post('{group_permlink}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
-                Route::post('{group_permlink}/posts/deletePostAttachment', 'PostsController@deletePostAttachment')->name('posts.deletePostAttachment');
-                Route::post('{group_permlink}/posts/deleteMedia', 'PostsController@deleteMedia')->name('posts.deleteMedia');
-                Route::get('{group_permlink}/posts/{post_permlink}', 'PostsController@show')->name('posts.show');
+                // Route::post('{group_permlink}/posts/savePost', 'PostsController@savePost')->name('posts.savePost');
+                // Route::post('{group_permlink}/posts/updatePost', 'PostsController@updatePost')->name('posts.updatePost');
+                // Route::post('{group_permlink}/posts/deletePost', 'PostsController@deletePost')->name('posts.deletePost');
+                // Route::post('{group_permlink}/posts/likePost', 'PostsController@likePost')->name('posts.likePost');
+                // Route::post('{group_permlink}/posts/commentPost', 'PostsController@commentPost')->name('posts.commentPost');
+                // Route::get('{group_permlink}/posts/fetchComments', 'PostsController@fetchComments')->name('posts.fetchComments');
+                // Route::post('{group_permlink}/posts/uploadAttachment', 'PostsController@uploadAttachment')->name('posts.uploadAttachment');
+                // Route::post('{group_permlink}/posts/deleteAttachment', 'PostsController@deleteAttachment')->name('posts.deleteAttachment');
+                // Route::post('{group_permlink}/posts/deletePostAttachment', 'PostsController@deletePostAttachment')->name('posts.deletePostAttachment');
+                // Route::post('{group_permlink}/posts/deleteMedia', 'PostsController@deleteMedia')->name('posts.deleteMedia');
+                // Route::get('{group_permlink}/posts/{post_permlink}', 'PostsController@show')->name('posts.show');
             });
+        });
+
+        // Posts
+        Route::group(['prefix' => 'posts', 'as'  =>  'posts.'], function () {
+
+            Route::post('savePost', 'PostsController@savePost')->name('savePost');
+            Route::post('updatePost', 'PostsController@updatePost')->name('updatePost');
+            Route::post('deletePost', 'PostsController@deletePost')->name('deletePost');
+            Route::post('likePost', 'PostsController@likePost')->name('likePost');
+            Route::post('commentPost', 'PostsController@commentPost')->name('commentPost');
+            Route::get('fetchComments', 'PostsController@fetchComments')->name('fetchComments');
+            Route::post('uploadAttachment', 'PostsController@uploadAttachment')->name('uploadAttachment');
+            Route::post('deleteAttachment', 'PostsController@deleteAttachment')->name('deleteAttachment');
+            Route::post('deletePostAttachment', 'PostsController@deletePostAttachment')->name('deletePostAttachment');
+            Route::post('deleteMedia', 'PostsController@deleteMedia')->name('deleteMedia');
+            Route::get('{post_permlink}', 'PostsController@show')->name('show');
         });
 
         // Messenger

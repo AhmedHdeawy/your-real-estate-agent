@@ -20,6 +20,9 @@ try {
 const localeLang = $('html').attr('lang');
 window.localeLang = localeLang;
 
+// Configure BaseURL
+window.BASE_URL = window.location.protocol + "//" + window.location.hostname + '/' + localeLang;
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -51,7 +54,7 @@ window.Pusher = require('pusher-js');
 
 
 window.Echo = new Echo({
-    authEndpoint: window.location.protocol + "//" + window.location.hostname + '/' + localeLang + '/broadcasting/auth',
+    authEndpoint: BASE_URL + '/broadcasting/auth',
     broadcaster: 'pusher',
     key: '8a52f3e1feb9bb849ba2',
     cluster: 'mt1',

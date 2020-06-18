@@ -19,7 +19,7 @@
     <script crossorigin='anonymous' src='https://kit.fontawesome.com/9a07467a57.js' async></script>
     <link rel="stylesheet" href="{{  mix('css/app.css') }}">
     @yield('style')
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/all.css') }}">
 
     <script>
         @auth
@@ -64,7 +64,7 @@
     {{-- Mobile Navbar / End --}}
 
     <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ mix('js/all.js') }}"></script>
 
     @yield('script')
 
