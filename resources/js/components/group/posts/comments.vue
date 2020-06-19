@@ -7,6 +7,7 @@
       <div class="comment-input">
         <div class="form-group">
           <input
+            :id="'comment_' + post.unique_id"
             class="form-control"
             :placeholder="translate('lang.writeComment')"
             title="comment input"

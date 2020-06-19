@@ -9,6 +9,8 @@ use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -19,10 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->check()) {
-            return $this->homeForAuthedUser();
+            return $this->homeForAuthedUser($request);
         }
 
         return $this->homeForNonAuthedUser();
@@ -33,9 +35,11 @@ class HomeController extends Controller
      *
      * * @return \Illuminate\Contracts\Support\Renderable
      */
-    private function homeForAuthedUser()
+    private function homeForAuthedUser(Request $request)
     {
-        return view('front.timeline');
+        $posts = $this->homePosts($request);
+
+        return view('front.timeline', compact('posts'));
     }
 
     /**
@@ -46,6 +50,21 @@ class HomeController extends Controller
     private function homeForNonAuthedUser()
     {
         return view('front.home');
+    }
+
+    /**
+     * Get Posts from groups that this user belong to it
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Collection
+     */
+    public function homePosts(Request $request)
+    {
+        $userGroupsIDs = Auth::user()->inGroups->pluck('id')->toArray();
+
+        $posts = Post::whereIn('group_id', $userGroupsIDs)->latest()->paginate(config('rbzgo')['homePostsPerPage']);
+
+        return $posts;
     }
 
     /**

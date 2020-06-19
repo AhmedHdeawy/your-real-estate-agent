@@ -157,7 +157,7 @@
           <i :class="liked ? 'fas' : 'far'" class="fa-thumbs-up"></i>
           <span :class="{'font-weight-bold': liked}">{{ likesCount }} {{ likeText }}</span>
         </button>
-        <button class="btn btn-comment">
+        <button class="btn btn-comment" @click="foncusOnCommentInput">
           <i class="far fa-comment"></i>
           <span>{{ commentsCount }} {{ translate('lang.comment') }}</span>
         </button>
@@ -345,6 +345,10 @@ export default {
     },
     toggleFullText() {
       this.viewFullText = !this.viewFullText;
+    },
+
+    foncusOnCommentInput(){
+        $('#comment_' + this.post.unique_id).focus()
     }
   }
 };

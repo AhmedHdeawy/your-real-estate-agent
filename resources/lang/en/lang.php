@@ -96,6 +96,7 @@ return [
     'close' =>  'Close',
     'notifications' =>  'Notifications',
     'selectPosition'    =>  'Select Place',
+    'selectOnMap'   =>  'Select on the map',
     '404Error'  =>  'Uh oh! Somthing wromg happens. Go back to the homepage!',
 
 

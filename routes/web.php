@@ -32,6 +32,8 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware'    =>  'auth'], function () {
 
+        Route::get('posts/homePosts', 'HomeController@homePosts')->name('posts.homePosts');
+
         // Groups
         Route::group(['prefix' => 'groups', 'as'  =>  'groups.'], function () {
             Route::get('/', 'GroupsController@index')->name('index');

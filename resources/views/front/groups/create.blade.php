@@ -24,150 +24,128 @@
             <form action="{{ route('groups.store') }}" method="post" id="createGroupForm" enctype="multipart/form-data">
                 @csrf
 
-                <fieldset class="field-set mt-4">
-                    <legend>
-                        <h5 class="text-primary">{{ __('lang.groupInfo') }}</h5>
-                    </legend>
 
-                    <div class='form-group'>
-                        <input class='form-control is-invalid' placeholder='{{ __('lang.groupName') }}'
-                            title='{{ __('lang.groupName') }}' name='name' type='text' value="{{ old('name') }}">
-                        @if ($errors->first('name'))
-                        <div class="invalid-feedback">{{ $errors->first('name') }}</div>
-                        @endif
-                    </div>
+                <div class='form-group'>
+                    <input class='form-control is-invalid' placeholder='{{ __('lang.groupName') }}'
+                        title='{{ __('lang.groupName') }}' name='name' type='text' value="{{ old('name') }}">
+                    @if ($errors->first('name'))
+                    <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                    @endif
+                </div>
 
-                    <div class='form-group'>
-                        <textarea class='form-control is-invalid' placeholder='{{ __('lang.groupDescription') }}'
-                            title='{{ __('lang.groupDescription') }}'
-                            name="description">{{ old('description') }}</textarea>
-                        @if ($errors->first('description'))
-                        <div class="invalid-feedback">{{ $errors->first('description') }}</div>
-                        @endif
-                    </div>
-                </fieldset>
+                <div class='form-group'>
+                    <textarea class='form-control is-invalid' placeholder='{{ __('lang.groupDescription') }}'
+                        title='{{ __('lang.groupDescription') }}' name="description">{{ old('description') }}</textarea>
+                    @if ($errors->first('description'))
+                    <div class="invalid-feedback">{{ $errors->first('description') }}</div>
+                    @endif
+                </div>
 
-                <fieldset class="field-set mt-4">
-                    <legend>
-                        <h5 class="text-primary">{{ __('lang.groupLocation') }}</h5>
-                    </legend>
-
-                    <div class='form-group'>
+                <div class='form-group'>
+                    @php
+                    $states = null;
+                    @endphp
+                    <select name="country_id" id="country_id" class="form-control is-invalid select2 country-select">
+                        @foreach ($countries as $country)
+                        <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                            {{ $country->name }}
+                        </option>
                         @php
-                        $states = null;
+                        // Load States for this country only if old country Exist [ validation error happens ]
+                        if(old('country_id') == $country->id ) {
+                        $states = $country->states;
+                        }
                         @endphp
-                        <select name="country_id" id="country_id"
-                            class="form-control is-invalid select2 country-select">
-                            @foreach ($countries as $country)
-                            <option value="{{ $country->id }}"
-                                {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                {{ $country->name }}
-                            </option>
-                            @php
-                            // Load States for this country only if old country Exist [ validation error happens ]
-                            if(old('country_id') == $country->id ) {
-                            $states = $country->states;
-                            }
-                            @endphp
-                            @endforeach
-                        </select>
-                        @if ($errors->first('country_id'))
-                        <div class="invalid-feedback">{{ $errors->first('country_id') }}</div>
-                        @endif
-                    </div>
+                        @endforeach
+                    </select>
+                    @if ($errors->first('country_id'))
+                    <div class="invalid-feedback">{{ $errors->first('country_id') }}</div>
+                    @endif
+                </div>
 
-                    <div class='form-group mt-4'>
+                <div class='form-group mt-4'>
 
-                        @php
-                        // if old('contry_id') load states for this country only, else load first country states
-                        $states = $states ?? $countries[0]->states;
-                        @endphp
+                    @php
+                    // if old('contry_id') load states for this country only, else load first country states
+                    $states = $states ?? $countries[0]->states;
+                    @endphp
 
-                        <select name="state_id" id="state_id" class="form-control is-invalid select2 states-select">
-                            @foreach ($states as $state)
-                            <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : '' }}>
-                                {{ $state->name }}
-                            </option>
-                            @endforeach
+                    <select name="state_id" id="state_id" class="form-control is-invalid select2 states-select">
+                        @foreach ($states as $state)
+                        <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : '' }}>
+                            {{ $state->name }}
+                        </option>
+                        @endforeach
 
-                        </select>
-                        @if ($errors->first('state_id'))
-                        <div class="invalid-feedback">{{ $errors->first('state_id') }}</div>
-                        @endif
-                    </div>
+                    </select>
+                    @if ($errors->first('state_id'))
+                    <div class="invalid-feedback">{{ $errors->first('state_id') }}</div>
+                    @endif
+                </div>
 
-                    <div class='form-group'>
-                        <input class='form-control' name='address' type='hidden' value="{{ old('address') }}">
-                        <input class='form-control' name='city' type='hidden' value="{{ old('city') }}">
-                        <input class='form-control' name='lat' type='hidden' value="{{ old('lat') }}">
-                        <input class='form-control' name='lng' type='hidden' value="{{ old('lng') }}">
-                    </div>
+                <div class='form-group'>
+                    <input class='form-control' name='address' type='hidden' value="{{ old('address') }}">
+                    <input class='form-control' name='city' type='hidden' value="{{ old('city') }}">
+                    <input class='form-control' name='lat' type='hidden' value="{{ old('lat') }}">
+                    <input class='form-control' name='lng' type='hidden' value="{{ old('lng') }}">
+                </div>
 
-                    <div class="select-gps mt-4">
+                <div class="select-gps mt-4">
 
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-create-question btn-rbzgo border-rbzgo d-inline-block"
-                            data-toggle="modal" data-target="#mapModal">
-                            <i class="fas fa-map-marker-alt mx-2 text-white"></i>
-                            {{ __('lang.selectPosition') }}
-                        </button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-create-question btn-rbzgo border-rbzgo d-inline-block"
+                        data-toggle="modal" data-target="#mapModal">
+                        <i class="fas fa-map-marker-alt mx-2 text-white"></i>
+                        {{ __('lang.selectOnMap') }}
+                    </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog"
-                            aria-labelledby="mapModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class='map-container'>
-                                            <div id="map"></div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-rbzgo border-rbzgo" data-dismiss="modal">
-                                            {{ __('lang.close') }} </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class='map-container'>
+                                        <div id="map"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class='form-group mt-3'>
-                            <textarea name="location"
-                                class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
-                                title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
-                            @if ($errors->first('location'))
-                            <div class="invalid-feedback">{{ $errors->first('location') }}</div>
-                            @endif
+                                {{-- <div class="modal-footer">
+                                        <button type="button" class="btn btn-rbzgo border-rbzgo" data-dismiss="modal">
+                                            {{ __('lang.close') }} </button>
+                            </div> --}}
                         </div>
                     </div>
-                </fieldset>
+                </div>
 
-                <fieldset class="field-set mt-4">
-                    <legend>
-                        <h5 class="text-primary">{{ __('lang.groupJoinsQuestions') }}</h5>
-                    </legend>
+                <div class='form-group mt-3'>
+                    <textarea name="location"
+                        class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
+                        title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
+                    @if ($errors->first('location'))
+                    <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                    @endif
+                </div>
+        </div>
 
-                    {{-- <h5 class="text-primary mt-5">{{ __('lang.groupJoinsQuestions') }}</h5> --}}
-                    <div class='questions-container'>
-                        <section class="tr form-group">
-                            <textarea class='form-control first is-invalid mt-3'
-                                placeholder='{{ __('lang.questionTitle') }}' title='{{ __('lang.questionTitle') }}'
-                                name="questions[]"></textarea>
-                                @if ($errors->first('questions'))
-                                <div class="invalid-feedback">{{ $errors->first('questions') }}</div>
-                                @endif
-                        </section>
-                        <button type="button" class='mt-2 btn btn-create-question'>
-                            <i class="fa fa-plus-circle text-white mx-2"></i>
-                            {{ __('lang.addQuestion') }}
-                        </button>
-                    </div>
-                </fieldset>
-                {{-- Group Image --}}
-                <div class="form-group mt-5">
+        {{-- <h5 class="text-primary mt-5">{{ __('lang.groupJoinsQuestions') }}</h5> --}}
+        <div class='questions-container'>
+            <section class="tr form-group">
+                <textarea class='form-control first is-invalid mt-3' placeholder='{{ __('lang.questionTitle') }}'
+                    title='{{ __('lang.questionTitle') }}' name="questions[]"></textarea>
+                @if ($errors->first('questions'))
+                <div class="invalid-feedback">{{ $errors->first('questions') }}</div>
+                @endif
+            </section>
+            <button type="button" class='mt-2 btn btn-create-question'>
+                <i class="fa fa-plus-circle text-white mx-2"></i>
+                {{ __('lang.addQuestion') }}
+            </button>
+        </div>
+
+
+        {{-- Group Image --}}
+        {{-- <div class="form-group mt-5">
                     <div class="input-group mb-2">
-                        {{-- <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="fa fa-lock color-rbzgo"></i></div>
-                                                </div> --}}
                         @include('front.includes.uploadImage',[
                         'name' => 'image',
                         'value' => null,
@@ -176,14 +154,15 @@
                         ])
 
                         @if ($errors->first('image'))
-                        <div class="invalid-feedback">{{ $errors->first('image') }}</div>
-                        @endif
-                    </div>
-                </div>
+                        <div class="invalid-feedback">{{ $errors->first('image') }}
+    </div>
+    @endif
+    </div>
+    </div> --}}
 
-                <button type="submit" class='btn mt-5'> {{ __('lang.createTheGroup') }} </button>
-            </form>
-        </div>
+    <button type="submit" class='btn mt-5'> {{ __('lang.createTheGroup') }} </button>
+    </form>
+    </div>
     </div>
 </section>
 
@@ -272,7 +251,9 @@
             });
 
             // finally, hide the modal
-            // $('#mapModal').modal('hide')
+            setTimeout(() => {
+                $('#mapModal').modal('hide');
+            }, 1500);
 
         });
     }

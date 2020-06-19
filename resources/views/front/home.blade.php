@@ -16,7 +16,7 @@
             </div>
         </section>
 
-        <div>
+        <div class="my-5">
             <home-groups></home-groups>
         </div>
 

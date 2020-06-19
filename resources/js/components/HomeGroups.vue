@@ -1,10 +1,10 @@
 <template>
-  <div v-if="!loading" class="home-page mt-5">
+  <div v-if="!loading" class="home-page">
     <div class="container search-box">
       <div class="search-results">
-        <!-- <div class="row justify-content-start">
-          <h2 class="mt-5 mb-2">{{ translate('lang.nearestGroups') }}</h2>
-        </div> -->
+        <div class="row justify-content-start">
+          <h2 class="mb-2">{{ translate('lang.nearestGroups') }}</h2>
+        </div>
         <div class="row mt-4">
           <group v-bind:for-home="true" v-for="group in groups" :key="group.id" :group="group"></group>
         </div>

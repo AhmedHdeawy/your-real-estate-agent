@@ -1,31 +1,22 @@
 <template>
   <div>
-    <!-- Description and Stories -->
-    <div class="row">
-      <!-- Group Description -->
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="group-description">
-          <h2>{{ name }}</h2>
-          <p>{{ description }}</p>
-        </div>
-      </div>
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <!-- <story></story> -->
-      </div>
+    <div class="row justify-content-center">
+      <h5 class="mb-2 color-rbzgo mb-3">{{ translate('lang.posts') }}</h5>
     </div>
-
     <!-- Posts and Create post -->
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <!-- New Post -->
-        <new-post :unique-name="group.unique_name" @update-posts="updatePosts"></new-post>
-
         <!-- Posts -->
         <div class="posts-con mt-3">
-          <post v-for="post in posts.data" :key="post.id" :post-data="post" @delete-post="deletePost"></post>
+          <post
+            v-for="post in posts.data"
+            :key="post.id"
+            :post-data="post"
+            @delete-post="deletePost"
+          ></post>
 
           <infinite-loading @infinite="infiniteHandler" spinner="circles">
-            <div slot="no-more">{{ translate('lang.noMorePosts') }}</div>
+            <div slot="no-more"></div>
             <div slot="no-results"></div>
           </infinite-loading>
         </div>
@@ -35,37 +26,23 @@
 </template>
 
 <script>
-import story from "./story";
-import post from "./posts/post";
-import NewPost from "./posts/NewPost";
+import post from "./group/posts/post";
 import InfiniteLoading from "vue-infinite-loading";
 
 export default {
   components: {
-    story,
     post,
-    NewPost,
     InfiniteLoading
   },
   props: {
-    group: {
-      type: Object,
-      require: true
-    },
-    groupPosts: {
+    postsData: {
       type: Object,
       require: true
     }
   },
   data() {
     return {
-      id: this.group.id,
-      name: this.group.name,
-      unique_name: this.group.unique_name,
-      description: this.group.description,
-      image: this.group.image,
-      members: this.group.members,
-      posts: this.groupPosts,
+      posts: this.postsData,
       page: 2
     };
   },
@@ -89,7 +66,7 @@ export default {
           // Show sweet alert
           toast.fire({
             icon: "success",
-            title: this.translate('lang.titleSucess')
+            title: this.translate("lang.titleSucess")
           });
         })
         .catch(error => {});
@@ -98,7 +75,7 @@ export default {
     //   Handle Infinte Scroll to Load more posts and append it to posts array
     infiniteHandler($state) {
       axios
-        .get(`${this.unique_name}/posts`, {
+        .get(`${BASE_URL}/posts/homePosts`, {
           params: {
             page: this.page
           }

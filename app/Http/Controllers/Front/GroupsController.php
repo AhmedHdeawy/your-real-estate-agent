@@ -97,7 +97,7 @@ class GroupsController extends Controller
             ->first();
 
         // Load Group Posts
-        $posts = $group->posts()->latest()->paginate(2);
+        $posts = $group->posts()->latest()->paginate(config('rbzgo')['groupPostsPerPage']);
 
         return view('front.groups.show', compact('group', 'posts'));
     }
@@ -113,7 +113,7 @@ class GroupsController extends Controller
         $group = Group::whereUniqueName($request->group_permlink)->first();
 
         // Load Group Posts
-        $posts = $group->posts()->latest()->paginate(2);
+        $posts = $group->posts()->latest()->paginate(config('rbzgo')['groupPostsPerPage']);
 
         return response()->json($posts, 200);
     }
