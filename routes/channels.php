@@ -19,9 +19,12 @@ Broadcast::channel('rbzgo-chat.{sender_id}.{receiver_id}', function ($user, $sen
     return $user->id == $receiver_id;
 });
 
-
 Broadcast::channel('online', function ($user) {
     if (auth()->check()) {
         return $user;
     }
+});
+
+Broadcast::channel('group-request.{user_id}', function ($user, $user_id) {
+    return true;
 });

@@ -169,6 +169,25 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     opacity: 1;
 }
 
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-count {
+    position: absolute;
+    right: -8px;
+    top: -9px;
+    display: inline-block;
+    min-width: 25px;
+    height: 25px;
+    background-color: #f02849;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 25px;
+    text-align: center;
+    font-size: .95rem;
+}
+
 /* Framework */
 
 .btn-rbzgo,

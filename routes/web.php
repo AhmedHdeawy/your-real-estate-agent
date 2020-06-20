@@ -32,7 +32,11 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware'    =>  'auth'], function () {
 
+        // Load TimeLine Posts
         Route::get('posts/homePosts', 'HomeController@homePosts')->name('posts.homePosts');
+
+        // Get User Group Requests Join
+        Route::get('groups-join-requests', 'GroupsController@groupsJoinRequests')->name('groupsJoinRequests');
 
         // Groups
         Route::group(['prefix' => 'groups', 'as'  =>  'groups.'], function () {

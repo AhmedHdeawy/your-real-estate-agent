@@ -10,6 +10,15 @@
         @auth
             <ul class='navbar-nav'>
 
+                <li class='nav-item mx-2 notification-wrapper'>
+                    <a class='nav-link register-btn' href='{{ route('groupsJoinRequests') }}'>
+                        <i class="fas fa-bell text-white"></i>
+                        @if (getUserGroupRequestsJoin())
+                            <span class="notification-count">{{ getUserGroupRequestsJoin() }}</span>
+                        @endif
+                    </a>
+                </li>
+
                 <li class='nav-item mx-2'>
                     <a class='nav-link register-btn' href='{{ route('groups.search') }}'>
                         <i class="fas fa-search text-white"></i>

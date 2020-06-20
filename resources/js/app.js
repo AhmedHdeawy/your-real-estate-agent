@@ -82,5 +82,16 @@ Vue.use(VueGoogleMaps, {
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    created() {
+
+        //   Listen for new notification
+        Echo.private("group-request." + authedUser.id).listen(
+            "RequestJoin",
+            e => {
+                $('.notification-count').text(parseInt($('.notification-count').text()) + 1);
+                document.getElementById('notificationAudio').play();
+            }
+        );
+    }
 });

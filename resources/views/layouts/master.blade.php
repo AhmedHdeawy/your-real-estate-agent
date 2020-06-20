@@ -63,6 +63,12 @@
     @include('layouts.mobile_navbar')
     {{-- Mobile Navbar / End --}}
 
+    <div id="sound">
+        <audio id="notificationAudio">
+            <source src="{{ asset('uploads/swiftly.mp3') }}">
+        </audio>
+    </div>
+
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/all.js') }}"></script>
 

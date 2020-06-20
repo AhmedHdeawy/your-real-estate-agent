@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Events\RequestJoin;
 use App\User;
 use Validator;
 use Faker\Generator;
@@ -197,7 +198,21 @@ class GroupsController extends Controller
             }
         }
 
+        broadcast(new RequestJoin($group->user_id, $group));
+
         return response()->json(true, 200);
+    }
+
+    /**
+     * Get User Group Requests Join.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function groupsJoinRequests(Request $request)
+    {
+        $groupsRequest = auth()->user()->myGroups()->with('requests')->get();
+
+        return view('front.groups.requests', compact('groupsRequest'));
     }
 
 

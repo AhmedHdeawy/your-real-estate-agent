@@ -1,1 +1,233 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=1)}({1:function(e,t,n){e.exports=n("yYZQ")},yYZQ:function(e,t){var n={navBarBtn:document.querySelector(".navbar-toggler"),sideMenuClose:document.querySelector(".side-menu .close-menu button")};n.navBarBtn.addEventListener("click",(function(){$("#sideMenu").css("display","block").animate({right:"0"},400),$("body").css("overflow","hidden")})),n.sideMenuClose.addEventListener("click",(function(){$(".side-menu").animate({right:"-100vw"},400).delay(400).queue((function(e){$(".side-menu").css("display","none"),$("body").css("overflow","auto"),e()}))})),$("span.expand").on("click",(function(){$(".search-form").hasClass("small-search")?r():o()}));var r=function(){$(".search-form").removeClass("small-search").css({overflow:"visible"}).animate({height:"440px"}).children("span").css({transform:"rotateX(180deg)"})},o=function(){$(".search-form").addClass("small-search").css({overflow:"hidden"}).animate({height:"174px"}).children("span").css({transform:"rotateX(0)"})};$(".data-head").on("click",(function(){$(".data-edit").slideToggle(400)})),$("#listToggle").on("click",(function(){a()}));var a=function(){$(".contacts").slideToggle(400),$("#listToggle").toggleClass("opened",400),$("#listToggle").hasClass("opened")?$("#listToggle span").css({transform:"rotateX(180deg)"}):$("#listToggle span").css({transform:"rotateX(0)"})};$(".btn-create-question").click((function(e){e.preventDefault();var t=$(this).parent().find("section"),n=t.find("textarea.first:first");t.find("textarea").length,n.clone().insertAfter(t.find("textarea:last")).val("")})),$(".imageUpload").change((function(e){var t=e.target.files[0],n=$(this).data("id");if(t){var r=new FileReader;r.onload=function(e){$("#"+n).removeClass("d-none").attr("src",e.target.result)},r.readAsDataURL(t)}}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/custom.js":
+/*!************************************!*\
+  !*** ./resources/assets/custom.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//	Start Side Menu Settings
+var DomElements = {
+  navBarBtn: document.querySelector('.navbar-toggler'),
+  sideMenuClose: document.querySelector('.side-menu .close-menu button')
+};
+
+function menuOpen() {
+  $('#sideMenu').css('display', 'block').animate({
+    right: '0'
+  }, 400);
+  $('body').css('overflow', 'hidden');
+}
+
+function menuClose() {
+  $('.side-menu').animate({
+    right: '-100vw'
+  }, 400).delay(400).queue(function (next) {
+    $('.side-menu').css('display', 'none');
+    $('body').css('overflow', 'auto');
+    next();
+  });
+}
+
+DomElements.navBarBtn.addEventListener('click', menuOpen);
+DomElements.sideMenuClose.addEventListener('click', menuClose); //	End Side Menu Settings
+//	Start Password Input Visible
+// $('.input-group-append').on('click', function () {
+// 	if ($(this).siblings().attr('type') === 'password') {
+// 		$(this).siblings().prop('type', 'text');
+// 	} else if ($(this).siblings().attr('type') === 'text') {
+// 		$(this).siblings().prop('type', 'password');
+// 	}
+// 	$(this).find('i')
+// 		.toggleClass('fa-eye')
+// 		.toggleClass('fa-eye-slash');
+// });
+//	End Password Input Visible
+//	Start Search Toggle Expand
+
+$('span.expand').on('click', function () {
+  if ($('.search-form').hasClass('small-search')) {
+    showSearch();
+  } else {
+    hideSearch();
+  }
+});
+
+var showSearch = function showSearch() {
+  $('.search-form').removeClass('small-search').css({
+    overflow: 'visible'
+  }).animate({
+    height: '440px'
+  }).children('span').css({
+    transform: 'rotateX(180deg)'
+  });
+};
+
+var hideSearch = function hideSearch() {
+  $('.search-form').addClass('small-search').css({
+    overflow: 'hidden'
+  }).animate({
+    height: '174px'
+  }).children('span').css({
+    transform: 'rotateX(0)'
+  });
+}; //	End Search Toggle Expand
+//	Start profile Data Edit
+
+
+$('.data-head').on('click', function () {
+  $('.data-edit').slideToggle(400);
+}); //	End profile Data Edit
+//	Start Friends List Hide / Show
+
+$('#listToggle').on('click', function () {
+  friendsShow();
+});
+
+var friendsShow = function friendsShow() {
+  $('.contacts').slideToggle(400);
+  $('#listToggle').toggleClass('opened', 400);
+
+  if ($('#listToggle').hasClass('opened')) {
+    $('#listToggle span').css({
+      transform: 'rotateX(180deg)'
+    });
+  } else {
+    $('#listToggle span').css({
+      transform: 'rotateX(0)'
+    });
+  }
+}; //	End Friends List Hide / Show
+// Add another Question when create the group
+
+
+$('.btn-create-question').click(function (e) {
+  e.preventDefault(); // Get Teaxtarea Container
+
+  var textAreaSection = $(this).parent().find('section'); // Get the first textarea
+
+  var textArea = textAreaSection.find('textarea.first:first');
+
+  if (textAreaSection.find('textarea').length > 2) {} // Clone it, and insert it in the last
+
+
+  textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
+}); // Show Uploaded image under file input
+
+$('.imageUpload').change(function (event) {
+  var input = event.target.files[0];
+  var inputName = $(this).data('id');
+
+  if (input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#' + inputName).removeClass('d-none').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input);
+  }
+});
+
+/***/ }),
+
+/***/ 1:
+/*!******************************************!*\
+  !*** multi ./resources/assets/custom.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /var/www/rbzgo/resources/assets/custom.js */"./resources/assets/custom.js");
+
+
+/***/ })
+
+/******/ });
