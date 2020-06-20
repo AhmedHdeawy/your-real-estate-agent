@@ -184,6 +184,7 @@ return [
     'nearestGroups'     =>  'Nearest Groups',
     'nearestGroupsSearching'     =>  'Searching for the closest groups to you',
     'distanceFromHere'  =>  'It is :km km away',
+    'youMustAnswerOneQuestions'   =>  'You must answer one question at least',
 
     /**
      * Posts

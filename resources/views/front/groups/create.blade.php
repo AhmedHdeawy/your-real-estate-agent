@@ -19,16 +19,16 @@
 <section class='create-group-page'>
     <div class='row'>
 
-        <div class='col-lg-10 col-md-10 mx-auto'>
+        <div class='col-lg-6 col-md-10 mx-auto'>
             <h2 class="mb-5"> {{ __('lang.createGroup') }} </h2>
             <form action="{{ route('groups.store') }}" method="post" id="createGroupForm" enctype="multipart/form-data">
                 @csrf
-
+                {{--
                 <div class='map-container'>
                     <div id="map"></div>
-                </div>
+                </div> --}}
 
-                <div id="after-map" class="mt-5 d-none">
+                <div id="after-map" class="mt-5">
                     <div class='form-group'>
                         <input class='form-control is-invalid' placeholder='{{ __('lang.groupName') }}'
                             title='{{ __('lang.groupName') }}' name='name' type='text' value="{{ old('name') }}">
@@ -210,6 +210,9 @@
                 };
                 // Override init Position by User Location
                 map.setCenter(pos);
+                // Delete old Marker
+                deleteMarker();
+                // Add new Marker with new Location
                 addMarker(pos);
 
             }, function() {});
@@ -229,7 +232,7 @@
             // Delete old Marker
             deleteMarker();
 
-            // Add new Marker with nep Location
+            // Add new Marker with new Location
             addMarker(event.latLng);
 
             // Get Lat and Long
@@ -258,17 +261,17 @@
                         $('.addressInput').removeClass('d-none').val(address);
 
                         // Add Window to Display this Location
-                        // addInfoWidow(contentString(city, address));
-                        addInfoWidow(contentString(city, [
-                        (results[0].address_components[0] && results[0].address_components[0].short_name || ''),
-                        (results[0].address_components[1] && results[0].address_components[1].short_name || ''),
-                        (results[0].address_components[2] && results[0].address_components[2].short_name || '')
-                        ].join(' ')));
+                        addInfoWidow(contentString(city, address));
+                        // addInfoWidow(contentString(city, [
+                        // (results[0].address_components[0] && results[0].address_components[0].short_name || ''),
+                        // (results[0].address_components[1] && results[0].address_components[1].short_name || ''),
+                        // (results[0].address_components[2] && results[0].address_components[2].short_name || '')
+                        // ].join(' ')));
                     }
                 }
             });
 
-            $('#after-map').removeClass('d-none');
+            // $('#after-map').removeClass('d-none');
 
             // finally, hide the modal
             setTimeout(() => {

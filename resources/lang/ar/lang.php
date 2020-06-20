@@ -189,6 +189,7 @@ return [
     'nearestGroups'     =>  'أقرب المجموعات',
     'nearestGroupsSearching'     =>  'جاري البحث عن أقرب المجموعات اليك',
     'distanceFromHere'  =>  'تبعد :km كيلو متر',
+    'youMustAnswerOneQuestions'   =>  'يجب عليك الاجابة على سؤال واحد على الاقل',
 
     /**
      * Posts

@@ -58,6 +58,23 @@
         <section v-if="getAuthedUser">
           <div v-if="!answersSent" class="modal-content">
             <h4 class="mb-4">{{ name }}</h4>
+
+            <div
+              v-if="!existAnswer"
+              class="alert alert-danger alert-dismissible fade show"
+              role="alert"
+            >
+              {{ translate('lang.youMustAnswerOneQuestions') }}
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
             <h5 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h5>
             <div v-for="(question, index) in questions" :key="question.id" class="form-group">
               <label for>{{ question.title }}</label>
@@ -143,6 +160,7 @@ export default {
       groups: [],
       page: 2,
       answersSent: false,
+      existAnswer: true,
       answers: [],
       userLat: null,
       userLng: null,
@@ -166,18 +184,33 @@ export default {
   },
   methods: {
     sendAnswers() {
-      // Run Spinnser
-      this.loader.load = true;
+      if (!this.checkAnswerIsEmpty()) {
+        this.existAnswer = false;
+        this.answersSent = false;
+      } else {
+        // Run Spinnser
+        this.loader.load = true;
+        axios
+          .post(this.sendAnswersUrl, {
+            groupId: this.id,
+            answers: this.answers
+          })
+          .then(data => {
+            this.answersSent = true;
+          })
+          .catch(() => {});
+      }
+    },
 
-      axios
-        .post(this.sendAnswersUrl, {
-          groupId: this.id,
-          answers: this.answers
-        })
-        .then(data => {
-          this.answersSent = true;
-        })
-        .catch(() => {});
+    checkAnswerIsEmpty() {
+      let check = false;
+      for (let i = 0; i < this.answers.length; i++) {
+        if (this.answers[i].answer) {
+          check = true;
+          break;
+        }
+      }
+      return check;
     },
 
     closeModal() {
