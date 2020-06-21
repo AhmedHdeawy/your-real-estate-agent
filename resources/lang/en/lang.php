@@ -186,6 +186,14 @@ return [
     'nearestGroupsSearching'     =>  'Searching for the closest groups to you',
     'distanceFromHere'  =>  'It is :km km away',
     'youMustAnswerOneQuestions'   =>  'You must answer one question at least',
+    'userRequestJoinToGroup'    =>  ':user Request Join to :group',
+    'requestJoining'    =>  'Requests to join',
+    'youHaveNoRequestJoining'   =>  'You do not have any requests to join at this time',
+    'reviewAnswers' =>  'Review answers',
+    'accept'    =>  'Accept',
+    'denied'    =>  'Denied',
+    'acceptedSuccessfully'  =>  'Accepted Succefully',
+    'deniedSuccessfully'  =>  'Denied Succefully',
 
     /**
      * Posts

@@ -13,9 +13,7 @@
                 <li class='nav-item mx-2 notification-wrapper'>
                     <a class='nav-link register-btn' href='{{ route('groupsJoinRequests') }}'>
                         <i class="fas fa-bell text-white"></i>
-                        @if (getUserGroupRequestsJoin())
-                            <span class="notification-count">{{ getUserGroupRequestsJoin() }}</span>
-                        @endif
+                        <span class="notification-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
                     </a>
                 </li>
 

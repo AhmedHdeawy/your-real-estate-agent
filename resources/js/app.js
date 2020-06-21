@@ -85,11 +85,20 @@ const app = new Vue({
     el: '#app',
     created() {
 
+
         //   Listen for new notification
         Echo.private("group-request." + authedUser.id).listen(
             "RequestJoin",
             e => {
-                $('.notification-count').text(parseInt($('.notification-count').text()) + 1);
+
+                if (parseInt($('.notification-count').text()) == 0) {
+
+                    $('.notification-count').removeClass('d-none').text(1);
+                } else {
+
+                    $('.notification-count').text(parseInt($('.notification-count').text()) + 1);
+                }
+
                 document.getElementById('notificationAudio').play();
             }
         );

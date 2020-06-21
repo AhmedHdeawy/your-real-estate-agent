@@ -191,6 +191,14 @@ return [
     'nearestGroupsSearching'     =>  'جاري البحث عن أقرب المجموعات اليك',
     'distanceFromHere'  =>  'تبعد :km كيلو متر',
     'youMustAnswerOneQuestions'   =>  'يجب عليك الاجابة على سؤال واحد على الاقل',
+    'userRequestJoinToGroup'    =>  ':user طلب الانضمام الى ربز :group',
+    'requestJoining'    =>  'طلبات الانضمام',
+    'youHaveNoRequestJoining'   =>  'ليس لديك اي طلبات انضمام في الوقت الحالي',
+    'reviewAnswers' =>  'مراجعة الاجابات',
+    'accept'    =>  'قبول',
+    'denied'    =>  'رفض',
+    'acceptedSuccessfully'  =>  'تم القبول بنجاح',
+    'deniedSuccessfully'  =>  'تم الرفض بنجاح',
 
     /**
      * Posts

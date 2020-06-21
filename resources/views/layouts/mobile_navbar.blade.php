@@ -14,8 +14,10 @@
             <a class='nav-link {{ request()->route()->getName() == 'messenger.index' ? 'active' : '' }}' href='{{ route('messenger.index') }}'>
                 <i class='fab fa-facebook-messenger'></i>
             </a>
-            <a class='nav-link {{ request()->route()->getName() == 'profile' ? 'active' : '' }}' href='{{ route('profile') }}'>
-                <i class='fas fa-user'></i>
+            <a class='nav-link position-relative {{ request()->route()->getName() == 'groupsJoinRequests' ? 'active' : '' }}' href='{{ route('groupsJoinRequests') }}'>
+                <i class='fas fa-bell'></i>
+                <span
+                    class="notification-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
             </a>
         </nav>
     </div>

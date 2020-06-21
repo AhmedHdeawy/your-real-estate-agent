@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Front'], function () {
 
         // Get User Group Requests Join
         Route::get('groups-join-requests', 'GroupsController@groupsJoinRequests')->name('groupsJoinRequests');
+        Route::post('handel-join-request', 'GroupsController@handelJoinRequests')->name('handelJoinRequests');
 
         // Groups
         Route::group(['prefix' => 'groups', 'as'  =>  'groups.'], function () {

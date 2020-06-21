@@ -196,7 +196,8 @@ class GroupsController extends Controller
             }
         }
 
-        broadcast(new RequestJoin($group->user_id, $group));
+        // Fire Event
+        broadcast(new RequestJoin($group->user_id));
 
         return response()->json(true, 200);
     }
@@ -208,9 +209,53 @@ class GroupsController extends Controller
      */
     public function groupsJoinRequests(Request $request)
     {
-        $groupsRequest = auth()->user()->myGroups()->with('requests')->get();
+        $groupsRequest = GroupRequest::whereIn('group_id', auth()->user()->myGroups->pluck('id'))->with(['user:id,name,avatar', 'group:id,name,image', 'userAnswers'])->get();
 
         return view('front.groups.requests', compact('groupsRequest'));
+    }
+
+
+    /**
+     * Handle Request Join Accept or Denied.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function handelJoinRequests(Request $request)
+    {
+
+        if ($request->status == 'accept') {
+
+            // Get the group, user and group members
+            $group = Group::find($request->group_id);
+            $user = User::find($request->user_id);
+            $groupUsers = $group->users->pluck('id')->toArray();
+
+            // Add this user to group members
+            $group->users()->attach($request->user_id, ['role' => 'member']);
+
+            // Add Group Members to this User Friends
+            $recentFriends = $user->friends()->pluck('id')->toArray();
+
+            // Filter Friends to ignore exist friend
+            $newFriends = array_filter($groupUsers, function ($arr) use ($recentFriends) {
+                return !in_array($arr, $recentFriends);
+            });
+
+            // attach new friends to this user
+            $user->firendsOfMine()->attach($newFriends);
+
+            // Finally,  Remove Request
+            GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
+
+            return back()->with('msg_success', __('lang.acceptedSuccessfully'));
+
+        } else {
+
+            GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
+
+            return back()->with('msg_danger', __('lang.deniedSuccessfully'));
+        }
+
     }
 
 

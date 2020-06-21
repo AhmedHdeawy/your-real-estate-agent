@@ -16,17 +16,15 @@ class RequestJoin implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $userID;
-    public $group;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($userID, Group $group)
+    public function __construct($userID)
     {
         $this->userID = $userID;
-        $this->group = $group;
     }
 
     /**
