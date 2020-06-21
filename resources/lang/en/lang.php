@@ -166,6 +166,7 @@ return [
     'states' =>  'States',
     'state' =>  'State',
     'findGroup'   =>  'Find Group',
+    'searchPlaceholder' =>  'Search by country, city, address, group',
     'searchByAddress' =>  'Search by address',
     'searchByName' =>  'Search by group name',
     'searchByCity' =>  'Search by city',

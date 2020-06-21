@@ -171,6 +171,7 @@ return [
     'states' =>  'المحافظات',
     'states' =>  'المحافظة',
     'findGroup'   =>  'ايجاد مجموعة',
+    'searchPlaceholder' =>  'ابحث باسم الدولة, المدينة, العنوان, المجموعة',
     'searchByAddress' =>  'ابحث بالعنوان',
     'searchByName' =>  'ابحث باسم المجموعة',
     'searchByCity' =>  'ابحث بالمدينة',

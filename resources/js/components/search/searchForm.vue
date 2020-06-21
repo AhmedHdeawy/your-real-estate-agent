@@ -4,91 +4,127 @@
       <!-- <h2>ابحث عن مجموعتك الان</h2> -->
       <section v-if="!searchByMap" class="search-form">
         <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="country">{{ translate('lang.country') }}</label>
-              <select
-                class="form-control select2"
-                id="country"
-                :title="translate('lang.country')"
-                v-model="searchData.country_id"
-                @change="fetchStatesByCountry"
-              >
-                <option disabled selected value>{{ translate('lang.country') }}</option>
-                <option
-                  v-for="country in countries"
-                  :key="country.id"
-                  :value="country.id"
-                >{{ country.name }}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="state">{{ translate('lang.states') }}</label>
-              <select
-                class="form-control"
-                id="state"
-                :title="translate('lang.states')"
-                v-model="searchData.state_id"
-              >
-                <option disabled selected value>{{ translate('lang.states') }}</option>
-                <option v-for="state in states" :key="state.id" :value="state.id">{{ state.name }}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="address">{{ translate('lang.searchByAddress') }}</label>
-              <input
-                v-model="searchData.address"
-                class="form-control"
-                id="address"
-                :placeholder="translate('lang.searchByAddress')"
-                title="search input"
-                type="text"
-              />
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="city">{{ translate('lang.searchByCity') }}</label>
-              <input
-                v-model="searchData.city"
-                class="form-control"
-                id="city"
-                :placeholder="translate('lang.searchByCity')"
-                title="search input"
-                type="text"
-              />
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="name">{{ translate('lang.searchByName') }}</label>
-              <input
-                v-model="searchData.name"
-                class="form-control"
-                id="name"
-                :placeholder="translate('lang.searchByName')"
-                title="search input"
-                type="text"
-              />
-            </div>
-          </div>
-
           <div class="col-12">
+            <div class="form-group">
+              <label for="text">{{ translate('lang.search') }}</label>
+              <input
+                v-model="searchData.text"
+                class="form-control"
+                id="text"
+                :placeholder="translate('lang.searchPlaceholder')"
+                title="search input"
+                type="text"
+              />
+            </div>
+
+            <div class="col-md-12 my-5">
+              <div class="form-group">
+                <label class="mb-3">{{ translate('lang.searchByLocation') }}</label>
+
+                <GmapMap
+                  ref="mapRef"
+                  :center="position"
+                  :zoom="8"
+                  :options="{
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                    gestureHandling: 'greedy'
+                }"
+                  style="height: 400px"
+                  @click="getLatLng"
+                >
+                  <GmapMarker :animation="2" :position="position" />
+                </GmapMap>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-4">
+                <div class="form-group">
+                <label for="country">{{ translate('lang.country') }}</label>
+                <select
+                    class="form-control select2"
+                    id="country"
+                    :title="translate('lang.country')"
+                    v-model="searchData.country_id"
+                    @change="fetchStatesByCountry"
+                >
+                    <option disabled selected value>{{ translate('lang.country') }}</option>
+                    <option
+                    v-for="country in countries"
+                    :key="country.id"
+                    :value="country.id"
+                    >{{ country.name }}</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                <label for="state">{{ translate('lang.states') }}</label>
+                <select
+                    class="form-control"
+                    id="state"
+                    :title="translate('lang.states')"
+                    v-model="searchData.state_id"
+                >
+                    <option disabled selected value>{{ translate('lang.states') }}</option>
+                    <option v-for="state in states" :key="state.id" :value="state.id">{{ state.name }}</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                <label for="address">{{ translate('lang.searchByAddress') }}</label>
+                <input
+                    v-model="searchData.address"
+                    class="form-control"
+                    id="address"
+                    :placeholder="translate('lang.searchByAddress')"
+                    title="search input"
+                    type="text"
+                />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                <label for="city">{{ translate('lang.searchByCity') }}</label>
+                <input
+                    v-model="searchData.city"
+                    class="form-control"
+                    id="city"
+                    :placeholder="translate('lang.searchByCity')"
+                    title="search input"
+                    type="text"
+                />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                <label for="name">{{ translate('lang.searchByName') }}</label>
+                <input
+                    v-model="searchData.name"
+                    class="form-control"
+                    id="name"
+                    :placeholder="translate('lang.searchByName')"
+                    title="search input"
+                    type="text"
+                />
+                </div>
+          </div>-->
+
+          <!-- <div class="col-12">
             <div class="btn-con mt-3" :class="getLocaleLang == 'ar' ? 'text-right' : 'text-left'">
               <button class="btn" @click="toggleSearchForm" type="button">
                 <i class="fas fa-map-marker-alt"></i>
                 {{ translate('lang.searchByMap') }}
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="btn-con mt-3">
           <button class="btn" @click.prevent="search()" type="button">
@@ -163,6 +199,7 @@ export default {
   data() {
     return {
       searchData: {
+        text: "",
         name: "",
         address: "",
         city: "",
@@ -207,6 +244,7 @@ export default {
       axios
         .get("/groups/searchResults", {
           params: {
+            text: this.searchData.text,
             name: this.searchData.name,
             address: this.searchData.address,
             city: this.searchData.city,
@@ -260,7 +298,7 @@ export default {
         );
       } else {
         // Browser doesn't support Geolocation
-        alert(self.translate('lang.doesnotSupportGeolocation'));
+        alert(self.translate("lang.doesnotSupportGeolocation"));
       }
     }
   }

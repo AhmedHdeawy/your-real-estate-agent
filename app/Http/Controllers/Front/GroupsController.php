@@ -54,31 +54,31 @@ class GroupsController extends Controller
      */
     public function searchResults(Request $request)
     {
+        $query = Group::latest();
 
         if ($request->lat && $request->lng) {
             $latitude = $request->lat;
             $longitude = $request->lng;
 
-            $groups = Group::select(
+            $query = $query->select(
                 DB::raw('
                 *, ( 6367 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') ) * sin( radians( lat ) ) ) ) AS distance
                 ')
             )->having('distance', '<', 50)
-                ->orderBy('distance')
-                ->with('questions')
-                ->withCount('users')
-                ->get();
-
-            return response()->json($groups, 200);
+                ->orderBy('distance');
         }
 
+        if ($request->text) {
 
-        $groups = Group::where('name',  $request->name)
-            ->orWhere('address', $request->address)
-            ->orWhere('city', $request->city)
-            ->orWhere('country_id', $request->country_id)
-            ->orWhere('state_id', $request->state_id)
-            ->with('questions')
+            $query = $query->where('name', 'like', '%' . $request->text . '%')
+                ->orWhere('address', 'like', '%' . $request->text . '%')
+                ->orWhere('city', 'like', '%' . $request->text . '%')
+                ->orWhere('country_id', 'like', '%' . $request->text . '%')
+                ->orWhere('state_id', 'like', '%' . $request->text . '%');
+        }
+
+        // $groups = $groupsByLatLng->merge($groupsByText);
+        $groups = $query->with('questions')
             ->withCount('users')
             ->get();
 
