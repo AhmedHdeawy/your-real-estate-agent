@@ -19,14 +19,21 @@
 <section class='create-group-page'>
     <div class='row'>
 
-        <div class='col-lg-6 col-md-10 mx-auto'>
+        <div class='col-md-10 mx-auto'>
             <h2 class="mb-5"> {{ __('lang.createGroup') }} </h2>
             <form action="{{ route('groups.store') }}" method="post" id="createGroupForm" enctype="multipart/form-data">
                 @csrf
-                {{--
+
                 <div class='map-container'>
                     <div id="map"></div>
-                </div> --}}
+                </div>
+                        <div class='form-group mt-3'>
+                            <textarea name="location" class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
+                                title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
+                            @if ($errors->first('location'))
+                            <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                            @endif
+                        </div>
 
                 <div id="after-map" class="mt-5">
                     <div class='form-group'>
@@ -47,94 +54,15 @@
                     </div>
 
                     <div class='form-group'>
-                        @php
-                        $states = null;
-                        @endphp
-                        <select name="country_id" id="country_id"
-                            class="form-control is-invalid select2 country-select">
-                            @foreach ($countries as $country)
-                            <option value="{{ $country->id }}"
-                                {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                {{ $country->name }}
-                            </option>
-                            @php
-                            // Load States for this country only if old country Exist [ validation error happens ]
-                            if(old('country_id') == $country->id ) {
-                            $states = $country->states;
-                            }
-                            @endphp
-                            @endforeach
-                        </select>
-                        @if ($errors->first('country_id'))
-                        <div class="invalid-feedback">{{ $errors->first('country_id') }}</div>
-                        @endif
-                    </div>
-
-                    <div class='form-group mt-4'>
-
-                        @php
-                        // if old('contry_id') load states for this country only, else load first country states
-                        $states = $states ?? $countries[0]->states;
-                        @endphp
-
-                        <select name="state_id" id="state_id" class="form-control is-invalid select2 states-select">
-                            @foreach ($states as $state)
-                            <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : '' }}>
-                                {{ $state->name }}
-                            </option>
-                            @endforeach
-
-                        </select>
-                        @if ($errors->first('state_id'))
-                        <div class="invalid-feedback">{{ $errors->first('state_id') }}</div>
-                        @endif
-                    </div>
-
-                    <div class='form-group'>
-                        <input class='form-control' name='address' type='hidden' value="{{ old('address') }}">
+                        <input class='form-control' name='country' type='hidden' value="{{ old('country') }}">
+                        <input class='form-control' name='state' type='hidden' value="{{ old('state') }}">
                         <input class='form-control' name='city' type='hidden' value="{{ old('city') }}">
+                        <input class='form-control' name='address' type='hidden' value="{{ old('address') }}">
                         <input class='form-control' name='lat' type='hidden' value="{{ old('lat') }}">
                         <input class='form-control' name='lng' type='hidden' value="{{ old('lng') }}">
                     </div>
 
-                    <div class="select-gps mt-4">
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-create-question btn-rbzgo border-rbzgo d-inline-block"
-                            data-toggle="modal" data-target="#mapModal">
-                            <i class="fas fa-map-marker-alt mx-2 text-white"></i>
-                            {{ __('lang.selectOnMap') }}
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog"
-                            aria-labelledby="mapModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class='map-container'>
-                                            <div id="map"></div>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-rbzgo border-rbzgo" data-dismiss="modal">
-                                                {{ __('lang.close') }} </button>
-                                </div> --}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class='form-group mt-3'>
-                            <textarea name="location"
-                                class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
-                                title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
-                            @if ($errors->first('location'))
-                            <div class="invalid-feedback">{{ $errors->first('location') }}</div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <h5 class="text-primary mt-5">{{ __('lang.groupJoinsQuestions') }}</h5>
+                    <h5 class="text-primary mt-5 text-{{ $currentLangDir == 'rtl' ? 'right' : 'left' }}">{{ __('lang.groupJoinsQuestions') }}</h5>
                     <div class='questions-container'>
                         <section class="tr form-group">
                             <textarea class='form-control first is-invalid mt-3'
@@ -150,25 +78,6 @@
                         </button>
                     </div>
                 </div>
-
-
-
-                    {{-- Group Image --}}
-                    {{-- <div class="form-group mt-5">
-                                <div class="input-group mb-2">
-                                    @include('front.includes.uploadImage',[
-                                    'name' => 'image',
-                                    'value' => null,
-                                    'path' => 'uploads/users/',
-                                    'labelTitle' => __('lang.groupImage')
-                                    ])
-
-                                    @if ($errors->first('image'))
-                                    <div class="invalid-feedback">{{ $errors->first('image') }}
-                </div>
-                @endif
-                </div>
-                </div> --}}
 
                 <button type="submit" class='btn mt-5'> {{ __('lang.createTheGroup') }} </button>
             </form>
@@ -191,7 +100,7 @@
         var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(
         document.getElementById('map'), {
-            zoom: 8,
+            zoom: 13,
             center: myLatlng,
             zoomControl: false,
             streetViewControl: false,
@@ -200,6 +109,9 @@
         });
 
         addMarker(myLatlng);
+
+        // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+        handleGeocoder(geocoder, myLatlng);
 
         // Displaying User or Device Position on Maps
         if (navigator.geolocation) {
@@ -214,6 +126,9 @@
                 deleteMarker();
                 // Add new Marker with new Location
                 addMarker(pos);
+
+                // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+                handleGeocoder(geocoder, pos);
 
             }, function() {});
         } else {
@@ -235,43 +150,8 @@
             // Add new Marker with new Location
             addMarker(event.latLng);
 
-            // Get Lat and Long
-            var lat = event.latLng.lat();
-            var lng = event.latLng.lng();
-
-            // Append values to form input
-            $('#createGroupForm').find("input[name='lat']").val(lat);
-            $('#createGroupForm').find("input[name='lng']").val(lng);
-
-            // Get address and City
-            geocoder.geocode({'latLng': event.latLng}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-
-
-
-                        // collect data
-                        var address = results[0].formatted_address;
-                        var city = getCity(results[0].address_components);
-
-                        // Append values to form input
-                        $('#createGroupForm').find("input[name='address']").val(address);
-                        $('#createGroupForm').find("input[name='city']").val(city);
-
-                        $('.addressInput').removeClass('d-none').val(address);
-
-                        // Add Window to Display this Location
-                        addInfoWidow(contentString(city, address));
-                        // addInfoWidow(contentString(city, [
-                        // (results[0].address_components[0] && results[0].address_components[0].short_name || ''),
-                        // (results[0].address_components[1] && results[0].address_components[1].short_name || ''),
-                        // (results[0].address_components[2] && results[0].address_components[2].short_name || '')
-                        // ].join(' ')));
-                    }
-                }
-            });
-
-            // $('#after-map').removeClass('d-none');
+            // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+            handleGeocoder(geocoder, event.latLng);
 
             // finally, hide the modal
             setTimeout(() => {
@@ -322,6 +202,81 @@
 
         return city;
 
+    }
+
+    /**
+    * Get state from latLong
+    *
+    */
+    function getState(address_components) {
+
+        var state = '';
+
+        address_components.forEach(element => {
+            element.types.forEach(type => {
+
+            if(type == 'administrative_area_level_1') {
+                state = element.long_name;
+            }
+            });
+        });
+
+        return state;
+
+    }
+
+    /**
+    * Get country from latLong
+    *
+    */
+    function getCountry(address_components) {
+
+        var country = '';
+
+        address_components.forEach(element => {
+            element.types.forEach(type => {
+
+                if(type == 'country') {
+                    country = element.long_name;
+                }
+            });
+        });
+
+        return country;
+
+    }
+
+
+    function handleGeocoder(geocoder, latLong) {
+
+        // Append values to form input
+        $('#createGroupForm').find("input[name='lat']").val(latLong.lat);
+        $('#createGroupForm').find("input[name='lng']").val(latLong.lng);
+
+        // Get address and City
+        geocoder.geocode({'latLng': latLong}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+
+                    // collect data
+                    var country = getCountry(results[0].address_components);
+                    var state = getState(results[0].address_components);
+                    var city = getCity(results[0].address_components);
+                    var address = results[0].formatted_address;
+
+                    // Append values to form input
+                    $('#createGroupForm').find("input[name='country']").val(country);
+                    $('#createGroupForm').find("input[name='state']").val(state);
+                    $('#createGroupForm').find("input[name='city']").val(city);
+                    $('#createGroupForm').find("input[name='address']").val(address);
+
+                    $('.addressInput').val(address);
+
+                    // Add Window to Display this Location
+                    addInfoWidow(contentString(city, address));
+                }
+            }
+        });
     }
 
     // Run Select Search

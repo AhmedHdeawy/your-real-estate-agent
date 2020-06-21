@@ -22,7 +22,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'image', 'address', 'city', 'lat', 'lng', 'user_id', 'country_id', 'state_id'
+        'name', 'description', 'image', 'country', 'state', 'city', 'address', 'lat', 'lng', 'user_id', 'country_id', 'state_id'
     ];
 
     /**

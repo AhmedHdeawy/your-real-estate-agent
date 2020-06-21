@@ -144,8 +144,6 @@ class GroupsController extends Controller
             'name'  =>  'required|max:255|min:5|string',
             'description'  =>  'required|min:5|string',
             'questions'  =>  'required|array|min:1|max:10',
-            'country_id'  =>  'required|numeric',
-            'state_id'  =>  'required|numeric',
             'location'  =>  'required',
         ]);
 

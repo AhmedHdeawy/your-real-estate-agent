@@ -147,12 +147,12 @@ return [
     /**
      * Groups
      */
-    'createGroup'   =>  'Create Group',
+    'createGroup'   =>  'Open New Rbz',
     'groupInfo' =>  'Group Info',
     'groupLocation' =>  'Group Location',
-    'groupName' =>  'Group Name',
+    'groupName' =>  'Write any accounts, places, numbers, and groups',
     'groupImage' =>  'Group image',
-    'groupDescription' =>  'Group Description',
+    'groupDescription' =>  'Hint',
     'groupJoinsQuestions' =>  'Group Join Questions',
     'questionTitle' =>  'Question title',
     'addQuestion'   =>  'Add Question',

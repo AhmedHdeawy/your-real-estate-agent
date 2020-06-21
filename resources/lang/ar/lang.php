@@ -152,12 +152,12 @@ return [
     /**
      * Groups
      */
-    'createGroup'   =>  'إنشاء مجموعة',
+    'createGroup'   =>  'فتح ربز جماعي',
     'groupInfo' =>  'بيانات المجموعة',
     'groupLocation' =>  'مكان المجموعة',
-    'groupName' =>  'اسم المجموعة',
+    'groupName' =>  'اكتب اي حسابات, اماكن, ارقام, مجموعات',
     'groupImage' =>  'صورة المجموعة',
-    'groupDescription' =>  'وصف المجموعة',
+    'groupDescription' =>  'تلميح',
     'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
     'questionTitle' =>  'عنوان السؤال',
     'addQuestion'   =>  'إضافة سؤال',
