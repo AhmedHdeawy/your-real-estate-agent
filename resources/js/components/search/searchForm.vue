@@ -14,6 +14,7 @@
                 :placeholder="translate('lang.searchPlaceholder')"
                 title="search input"
                 type="text"
+                @keyup.enter="search"
               />
             </div>
 

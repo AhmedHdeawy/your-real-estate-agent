@@ -156,6 +156,7 @@ return [
     'groupJoinsQuestions' =>  'Group Join Questions',
     'questionTitle' =>  'Question title',
     'addQuestion'   =>  'Add Question',
+    'deleteQuestion'    =>  'Delete Question',
     'createTheGroup'   =>  'Create The Group',
     'leave' =>  'Leave',
     'areSureLeave'  =>  'Are you sure you want to leave the group?',
@@ -194,6 +195,7 @@ return [
     'denied'    =>  'Denied',
     'acceptedSuccessfully'  =>  'Accepted Succefully',
     'deniedSuccessfully'  =>  'Denied Succefully',
+    'youCannotLeaveYourGroup'   =>  'You cannot leave the group that you own',
 
     /**
      * Posts

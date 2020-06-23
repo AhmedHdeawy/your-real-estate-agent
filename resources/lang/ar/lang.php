@@ -161,6 +161,7 @@ return [
     'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
     'questionTitle' =>  'عنوان السؤال',
     'addQuestion'   =>  'إضافة سؤال',
+    'deleteQuestion'    =>  'حذف السؤال',
     'createTheGroup'   =>  'إنشاء المجموعة',
     'leave' =>  'مغادرة',
     'areSureLeave'  =>  'هل انت متأكد من مغادرة المجموعة',
@@ -199,6 +200,7 @@ return [
     'denied'    =>  'رفض',
     'acceptedSuccessfully'  =>  'تم القبول بنجاح',
     'deniedSuccessfully'  =>  'تم الرفض بنجاح',
+    'youCannotLeaveYourGroup'   =>  'لا يمكنك مغادرة المجموعة التي انت تملكها',
 
     /**
      * Posts

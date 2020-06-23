@@ -7,6 +7,8 @@
         <div class='col-lg-6 col-md-10 mx-auto'>
             <div class='groups'>
 
+                @include('dashboard.includes.status')
+
                 <ul class='groups-body'>
                     <li style='text-align: center;' class="mb-4">
                         <a href='{{ route('groups.create') }}' class="btn btn-rbzgo">

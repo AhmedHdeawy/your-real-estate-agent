@@ -80,6 +80,7 @@ class GroupsController extends Controller
         // $groups = $groupsByLatLng->merge($groupsByText);
         $groups = $query->with('questions')
             ->withCount('users')
+            ->availableForUser()
             ->get();
 
         return response()->json($groups, 200);
@@ -248,14 +249,12 @@ class GroupsController extends Controller
             GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
 
             return back()->with('msg_success', __('lang.acceptedSuccessfully'));
-
         } else {
 
             GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
 
             return back()->with('msg_danger', __('lang.deniedSuccessfully'));
         }
-
     }
 
 
@@ -266,11 +265,41 @@ class GroupsController extends Controller
      */
     public function leave(Request $request)
     {
+
         // Get the group
         $group = Group::whereUniqueName($request->group_permlink)->first();
 
-        // Get membership and delete it
+        // if this user owner the group
+        if ($group->user_id == Auth::id()) {
+            return back()->with('msg_danger', __('lang.youCannotLeaveYourGroup'));
+        }
+
+        // First Delete User membership
         GroupMember::where('group_id', $group->id)->where('user_id', Auth::id())->delete();
+
+        // Then, Remove this group firends from the user friends
+
+        // Get Groups that the User exist in it except this Group
+        $groupsUserExceptThisGroup = auth()->user()->inGroups()->where('groups.id', '!=', $group->id)->with('users')->get();
+
+        // Get All Users in these groups
+        $allMembersInUserGroups = [];
+        foreach ($groupsUserExceptThisGroup as $groupUsers) {
+            $allMembersInUserGroups = array_merge($allMembersInUserGroups, $groupUsers->users->pluck('id')->toArray());
+        }
+        // Ignore Duplicated Users
+        $allMembersInUserGroups = array_unique($allMembersInUserGroups);
+
+        // Get User Friends
+        $leavingGroupUsers = $group->users->pluck('id')->toArray();
+
+        // Filter User Friends, to delete this (leave request ) group users that isn't exist in another user group
+        $wellDeleted = array_filter($leavingGroupUsers, function ($arr) use ($allMembersInUserGroups) {
+            return !in_array($arr, $allMembersInUserGroups);
+        });
+
+        // Delete Group Members from User Friends
+        auth()->user()->firendsOfMine()->detach($wellDeleted);
 
         return redirect()->route('groups.index');
     }

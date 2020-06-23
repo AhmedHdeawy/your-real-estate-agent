@@ -27,6 +27,7 @@ class Group extends Model
 
     /**
      * Set Group image
+     *
      *  @param string $file
      */
     public function setImageAttribute($file)
@@ -53,6 +54,32 @@ class Group extends Model
     public function getNameForAvatarAttribute()
     {
         return $this->nameForAvatar();
+    }
+
+    /**
+     * Scope a query to only include groups that not belongs to this user or requested to join.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvailableForUser($query)
+    {
+
+        if (auth()->check()) {
+            // Get Group that user request to join in them
+            $userRequestsToJoining = auth()->user()->requests->pluck('id')->toArray();
+            // Get User Groups
+            $userGroups = auth()->user()->myGroups->pluck('id')->toArray();
+
+            $userInGroups = auth()->user()->inGroups->pluck('id')->toArray();
+
+            $mixedGroups = array_merge($userRequestsToJoining, $userGroups, $userInGroups);
+
+            return $query->whereNotIn('id', $mixedGroups);
+        }
+
+        return $query;
     }
 
 

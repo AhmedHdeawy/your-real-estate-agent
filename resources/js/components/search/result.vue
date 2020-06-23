@@ -57,7 +57,7 @@
       <div class="modal-dialog" role="document">
         <section v-if="getAuthedUser">
           <div v-if="!answersSent" class="modal-content">
-            <h4 class="mb-4">{{ name }}</h4>
+            <h5 class="text-center color-rbzgo mb-4">{{ name }}</h5>
 
             <div
               v-if="!existAnswer"
@@ -75,7 +75,7 @@
               </button>
             </div>
 
-            <h5 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h5>
+            <h6 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h6>
             <div v-for="(question, index) in questions" :key="question.id" class="form-group">
               <label for>{{ question.title }}</label>
               <textarea

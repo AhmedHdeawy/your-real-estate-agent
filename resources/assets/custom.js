@@ -116,9 +116,12 @@ $('.btn-create-question').click(function (e) {
     // Get the first textarea
     const textArea = textAreaSection.find('textarea.first:first');
 
-    if (textAreaSection.find('textarea').length > 2) {}
+    if (textAreaSection.find('textarea').length > 3) {
+        return;
+    }
     // Clone it, and insert it in the last
-    textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
+    var tx = textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
+
 
 });
 

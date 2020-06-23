@@ -68,9 +68,10 @@
                             <textarea class='form-control first is-invalid mt-3'
                                 placeholder='{{ __('lang.questionTitle') }}' title='{{ __('lang.questionTitle') }}'
                             name="questions[]"></textarea>
-                            @if ($errors->first('questions'))
-                            <div class="invalid-feedback">{{ $errors->first('questions') }}</div>
-                            @endif
+                            {{-- <button type="button" class='mt-2 btn btn-create-question'>
+                                <i class="fa fa-minus-circle text-white mx-2"></i>
+                                {{ __('lang.deleteQuestion') }}
+                            </button> --}}
                         </section>
                         <button type="button" class='mt-2 btn btn-create-question'>
                             <i class="fa fa-plus-circle text-white mx-2"></i>
