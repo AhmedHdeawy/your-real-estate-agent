@@ -15,13 +15,17 @@
             <a class='nav-link {{ request()->route()->getName() == 'messenger.index' ? 'active' : '' }}' href='{{ route('messenger.index') }}'>
                 <i class='fab fa-facebook-messenger'></i>
             </a>
+
             <a class='nav-link position-relative {{ request()->route()->getName() == 'notifications' ? 'active' : '' }}'
                 href='{{ route('notifications') }}'>
                 <i class='fas fa-bell'></i>
-                <span class="notification-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
-                    {{ count(auth()->user()->unreadNotifications) }}
-                </span>
+                @auth
+                    <span class="notification-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
+                        {{ count(auth()->user()->unreadNotifications) }}
+                    </span>
+                @endauth
             </a>
+
             <a class='nav-link position-relative {{ request()->route()->getName() == 'groupsJoinRequests' ? 'active' : '' }}' href='{{ route('groupsJoinRequests') }}'>
                 <i class='fas fa-user-check'></i>
                 <span
