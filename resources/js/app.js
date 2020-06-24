@@ -21,7 +21,7 @@ window.Swal = Swal;
 // handle sweet alert
 const toast = Swal.mixin({
     toast: true,
-    position: 'bottom-end',
+    position: 'top-end',
     showConfirmButton: false,
     timer: 3000
 });
@@ -84,7 +84,6 @@ Vue.use(VueGoogleMaps, {
 const app = new Vue({
     el: '#app',
     created() {
-
 
         //   Listen for new notification
         Echo.private("group-request." + authedUser.id).listen(

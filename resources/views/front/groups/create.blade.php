@@ -11,6 +11,21 @@
     #map {
         height: 100%;
     }
+
+    #pac-input {
+        background-color: #fff;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+        margin-top: 20px;
+    }
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+    }
 </style>
 @endsection
 
@@ -25,15 +40,17 @@
                 @csrf
 
                 <div class='map-container'>
+                    <input id="pac-input" class="form-control" type="text" placeholder="{{ __('lang.search') }}">
                     <div id="map"></div>
                 </div>
-                        <div class='form-group mt-3'>
-                            <textarea name="location" class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
-                                title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
-                            @if ($errors->first('location'))
-                            <div class="invalid-feedback">{{ $errors->first('location') }}</div>
-                            @endif
-                        </div>
+                <div class='form-group mt-3'>
+                    <textarea name="location"
+                        class='form-control addressInput {{ old('location') ? '' : 'd-none' }} is-invalid'
+                        title='{{ __('lang.selectPosition') }}' readonly>{{ old('location') }}</textarea>
+                    @if ($errors->first('location'))
+                    <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                    @endif
+                </div>
 
                 <div id="after-map" class="mt-5">
                     <div class='form-group'>
@@ -62,12 +79,13 @@
                         <input class='form-control' name='lng' type='hidden' value="{{ old('lng') }}">
                     </div>
 
-                    <h5 class="text-primary mt-5 text-{{ $currentLangDir == 'rtl' ? 'right' : 'left' }}">{{ __('lang.groupJoinsQuestions') }}</h5>
+                    <h5 class="text-primary mt-5 text-{{ $currentLangDir == 'rtl' ? 'right' : 'left' }}">
+                        {{ __('lang.groupJoinsQuestions') }}</h5>
                     <div class='questions-container'>
                         <section class="tr form-group">
                             <textarea class='form-control first is-invalid mt-3'
                                 placeholder='{{ __('lang.questionTitle') }}' title='{{ __('lang.questionTitle') }}'
-                            name="questions[]"></textarea>
+                                name="questions[]"></textarea>
                             {{-- <button type="button" class='mt-2 btn btn-create-question'>
                                 <i class="fa fa-minus-circle text-white mx-2"></i>
                                 {{ __('lang.deleteQuestion') }}
@@ -82,7 +100,7 @@
 
                 <button type="submit" class='btn mt-5'> {{ __('lang.createTheGroup') }} </button>
             </form>
-    </div>
+        </div>
     </div>
 </section>
 
@@ -91,7 +109,7 @@
 @section('script')
 <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&language={{ app()->getLocale() }}&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHS6Ghc-UD_SU9QSeZZzH4VJ6toFiaBs&libraries=places&language={{ app()->getLocale() }}&callback=initMap">
 </script>
 <script>
     var map;
@@ -99,9 +117,9 @@
     function initMap() {
         var myLatlng = {lat: 24.715869226220885, lng: 46.66797131445571};
         var geocoder = new google.maps.Geocoder();
-            map = new google.maps.Map(
+        map = new google.maps.Map(
         document.getElementById('map'), {
-            zoom: 13,
+            zoom: 17,
             center: myLatlng,
             zoomControl: false,
             streetViewControl: false,
@@ -109,38 +127,17 @@
             gestureHandling: 'greedy'
         });
 
+        // Add Basic Marker
         addMarker(myLatlng);
 
-        // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+        // Get Basic Place and Filll Form Inputs with initial place details
         handleGeocoder(geocoder, myLatlng);
 
         // Displaying User or Device Position on Maps
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                // Override init Position by User Location
-                map.setCenter(pos);
-                // Delete old Marker
-                deleteMarker();
-                // Add new Marker with new Location
-                addMarker(pos);
+        handleNavigatorGeolocation();
 
-                // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
-                handleGeocoder(geocoder, pos);
-
-            }, function() {});
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError();
-        }
-
-        function handleLocationError(browserHasGeolocation) {
-            alert('{{ __('lang.doesnotSupportGeolocation') }}');
-        }
-
+        // Hadnle Search AutoComplete
+        habdleAutocomplete();
 
         // Configure the click listener.
         map.addListener('click', function(event) {
@@ -151,17 +148,167 @@
             // Add new Marker with new Location
             addMarker(event.latLng);
 
-            // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
-            handleGeocoder(geocoder, event.latLng);
-
-            // finally, hide the modal
-            setTimeout(() => {
-                $('#mapModal').modal('hide');
-            }, 1500);
+            // Get Place Details and Fill Inputs with new details
+            if (event.placeId) {
+                getPlaceDetails(event.placeId);
+            } else {
+                handleGeocoder(geocoder, event.latLng)
+            }
 
         });
     }
 
+
+    // Handle Navigation and Get Current position for the visitor
+    function handleNavigatorGeolocation(params) {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+            // Override init Position by User Location
+            map.setCenter(pos);
+            // Delete old Marker
+            deleteMarker();
+            // Add new Marker with new Location
+            addMarker(pos);
+
+            // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+            handleGeocoder(geocoder, pos);
+
+
+        }, function() {});
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError();
+        }
+
+        function handleLocationError(browserHasGeolocation) {
+            alert('{{ __('lang.doesnotSupportGeolocation') }}');
+        }
+    }
+
+    // Get Place Details using Google Map Place Library
+    function getPlaceDetails(placeID) {
+
+        // Prepare Request
+        var request = {
+            placeId: placeID,
+            fields: ['name', 'address_components', 'formatted_address', 'geometry']
+        };
+
+        // Call Places Service
+        service = new google.maps.places.PlacesService(map);
+        service.getDetails(request, fillFormInputs);
+    }
+
+    // Fill form inputs with place details
+    function fillFormInputs(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+            // Append values to form input
+            $('#createGroupForm').find("input[name='lat']").val(place.geometry.location.lat());
+            $('#createGroupForm').find("input[name='lng']").val(place.geometry.location.lng());
+
+            // collect place data
+            var country = getCountry(place.address_components);
+            var state = getState(place.address_components);
+            var city = getCity(place.address_components);
+            var address = place.formatted_address;
+
+            // Append values to form input
+            $('#createGroupForm').find("input[name='country']").val(country);
+            $('#createGroupForm').find("input[name='state']").val(state);
+            $('#createGroupForm').find("input[name='city']").val(city);
+            $('#createGroupForm').find("input[name='address']").val(address);
+            $('.addressInput').val(address);
+            $('input[name=name]').val(place.name);
+        }
+    }
+
+    // Get Place details from LatLng
+    function handleGeocoder(geocoder, latLong) {
+
+        // Get Place Details from LatLng
+        geocoder.geocode({'latLng': latLong}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                // Call Function to Get Place Details and Fill Inputs
+                getPlaceDetails(results[0].place_id);
+            }
+        }
+        });
+    }
+
+    // Handle Search Autocomplete
+    function habdleAutocomplete() {
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+
+        // Append Input to the Map
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+        // Get Autocomplete Service
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.bindTo('bounds', map);
+
+        // Set the data fields to return when the user selects a place.
+        autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+        autocomplete.addListener('place_changed', function() {
+
+            // Get Place Selected
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17); // Why 17? Because it looks good.
+            }
+
+            // Delete old Marker
+            deleteMarker();
+
+            // Add new Marker with new Location
+            addMarker(place.geometry.location);
+
+            // collect data
+            var country = getCountry(place.address_components);
+            var state = getState(place.address_components);
+            var city = getCity(place.address_components);
+            var address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+
+            // Append values to form input
+            $('#createGroupForm').find("input[name='country']").val(country);
+            $('#createGroupForm').find("input[name='state']").val(state);
+            $('#createGroupForm').find("input[name='city']").val(city);
+            $('#createGroupForm').find("input[name='address']").val(address);
+            $('.addressInput').val(address);
+            $('input[name=name]').val(place.name);
+
+            // Add Window to Display this Location
+            addInfoWidow(contentString(place.name, address));
+
+        });
+
+    }
+
+    // Add new Marker to Map
     function addMarker(location) {
         marker = new google.maps.Marker({
         position: location,
@@ -169,10 +316,12 @@
         });
     }
 
+    // Delete old Marker
     function deleteMarker() {
         marker.setMap(null);
     }
 
+    // Add Info Window on the marker
     function addInfoWidow(content) {
         var infowindow = new google.maps.InfoWindow({
         content
@@ -182,7 +331,7 @@
     }
 
     function contentString(title, address) {
-        return `<p class='font-weight-bold'>${title}</p><p>${address}</p>`;
+        return `<p class='font-weight-bold mb-0'>${title}</p><p class='mb-0'>${address}</p>`;
     }
 
     /**
@@ -248,37 +397,6 @@
     }
 
 
-    function handleGeocoder(geocoder, latLong) {
-
-        // Append values to form input
-        $('#createGroupForm').find("input[name='lat']").val(latLong.lat);
-        $('#createGroupForm').find("input[name='lng']").val(latLong.lng);
-
-        // Get address and City
-        geocoder.geocode({'latLng': latLong}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-
-                    // collect data
-                    var country = getCountry(results[0].address_components);
-                    var state = getState(results[0].address_components);
-                    var city = getCity(results[0].address_components);
-                    var address = results[0].formatted_address;
-
-                    // Append values to form input
-                    $('#createGroupForm').find("input[name='country']").val(country);
-                    $('#createGroupForm').find("input[name='state']").val(state);
-                    $('#createGroupForm').find("input[name='city']").val(city);
-                    $('#createGroupForm').find("input[name='address']").val(address);
-
-                    $('.addressInput').val(address);
-
-                    // Add Window to Display this Location
-                    addInfoWidow(contentString(city, address));
-                }
-            }
-        });
-    }
 
     // Run Select Search
     var select2 = $('.select2');

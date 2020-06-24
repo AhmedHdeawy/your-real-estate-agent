@@ -93,11 +93,17 @@ export default {
     }
   },
   created() {
+      console.log(BASE_URL);
+
     //   Listen for new message
     Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen(
       "MessageSent",
       e => {
         this.chat.push(e.message);
+        toast.fire({
+            icon: "success",
+            title: this.translate('lang.titleSucess')
+        });
       }
     );
   },

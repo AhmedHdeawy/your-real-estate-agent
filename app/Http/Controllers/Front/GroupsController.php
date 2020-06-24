@@ -128,6 +128,7 @@ class GroupsController extends Controller
      */
     public function create()
     {
+
         $countries = Country::active()->get();
 
         return view('front.groups.create', compact('countries'));
