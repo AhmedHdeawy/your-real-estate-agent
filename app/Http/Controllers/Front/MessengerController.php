@@ -6,6 +6,8 @@ use App\Models\Message;
 use App\Events\MessageSent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewMessage;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class MessengerController extends Controller
@@ -62,7 +64,25 @@ class MessengerController extends Controller
             'text'  =>  $request->text
         ]);
 
+        // Fire Event to Others
         broadcast(new MessageSent($message))->toOthers();
+
+        // Get Receiver
+        $receiver = User::find($request->receiver_id);
+
+        // First, to avoid duplicate the same notification from the same User, check that there is an unread notification by this User
+        $check = true;
+        foreach ($receiver->unreadNotifications as $notification) {
+            if ($notification->type == 'App\Notifications\NewMessage' && $notification->data['user_id'] == Auth::id()) {
+                $check = false;
+            }
+        }
+
+        // if there is no notification, then Add it
+        if ($check) {
+            // Notify The User
+            $receiver->notify(new NewMessage(Auth::user()));
+        }
 
         return $message;
     }

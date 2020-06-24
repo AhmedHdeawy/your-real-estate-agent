@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\GroupQuestion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Notifications\RequestJoinStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -249,10 +250,19 @@ class GroupsController extends Controller
             // Finally,  Remove Request
             GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
 
+            // Notify User With Accept
+            $user->notify(new RequestJoinStatus($group, 'accept'));
+
             return back()->with('msg_success', __('lang.acceptedSuccessfully'));
         } else {
 
+            $group = Group::find($request->group_id);
+            $user = User::find($request->user_id);
+
             GroupRequest::where('group_id', $request->group_id)->where('user_id', $request->user_id)->first()->delete();
+
+            // Notify User With Accept
+            $user->notify(new RequestJoinStatus($group, 'denied'));
 
             return back()->with('msg_danger', __('lang.deniedSuccessfully'));
         }

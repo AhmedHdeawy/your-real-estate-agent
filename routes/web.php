@@ -32,6 +32,8 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware'    =>  'auth'], function () {
 
+        Route::get('notifications', 'HomeController@notifications')->name('notifications');
+
         // Load TimeLine Posts
         Route::get('posts/homePosts', 'HomeController@homePosts')->name('posts.homePosts');
 

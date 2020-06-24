@@ -196,6 +196,9 @@ return [
     'acceptedSuccessfully'  =>  'Accepted Succefully',
     'deniedSuccessfully'  =>  'Denied Succefully',
     'youCannotLeaveYourGroup'   =>  'You cannot leave the group that you own',
+    'requestJoiningAccepted'  =>  'A request to join a Rbz :group was accepted',
+    'requestJoiningRejected'  =>  'A request to join a Rbz :group was rejected',
+    'youHaveNoNotifications'    =>  'You do not have any unread notifications',
 
     /**
      * Posts
@@ -228,7 +231,8 @@ return [
     'chat' =>  'Chat',
     'friends'   =>  'Friends',
     'typeMessage'  =>  'Type a message',
-    'youhavenofriends'  =>  'Ypu have no any friends yet',
+    'youhavenofriends'  =>  'You have no any friends yet',
     'youhavenoMessage'  =>  'There are no message yet',
     'loadingChat'   =>  'Loading Chat',
+    'youHaveNewMessage' =>  'You have a new message from :user',
 ];

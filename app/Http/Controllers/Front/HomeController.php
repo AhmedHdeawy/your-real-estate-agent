@@ -97,6 +97,20 @@ class HomeController extends Controller
 
 
     /**
+     * Show User Notifications
+     *
+     * * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function notifications()
+    {
+        return view('front.notifications', [
+            'notifications' =>  tap(auth()->user()->unreadNotifications)->markAsRead()
+            // 'notifications' =>  auth()->user()->unreadNotifications
+        ]);
+    }
+
+
+    /**
      * Show the about page.
      *
      * @return \Illuminate\Contracts\Support\Renderable

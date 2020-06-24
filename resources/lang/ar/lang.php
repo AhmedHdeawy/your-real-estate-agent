@@ -201,6 +201,9 @@ return [
     'acceptedSuccessfully'  =>  'تم القبول بنجاح',
     'deniedSuccessfully'  =>  'تم الرفض بنجاح',
     'youCannotLeaveYourGroup'   =>  'لا يمكنك مغادرة المجموعة التي انت تملكها',
+    'requestJoiningAccepted'  =>  'تم قبول طلب الانضمام الى ربز :group',
+    'requestJoiningRejected'  =>  'تم رفض طلب الانضمام الى ربز :group',
+    'youHaveNoNotifications'    =>  'ليس لديك اي اشعارات غير مقرؤة',
 
     /**
      * Posts
@@ -236,5 +239,6 @@ return [
     'youhavenofriends'  =>  'ليس لديك أي اصدقاء حالياً',
     'youhavenoMessage'  =>  'لا يوجد رسائل بينكم حتى الان',
     'loadingChat'   =>  'جاري تحميل الدردشة',
+    'youHaveNewMessage' =>  'لديك رسالة جديدة من :user',
 
 ];

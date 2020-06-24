@@ -93,8 +93,6 @@ export default {
     }
   },
   created() {
-      console.log(BASE_URL);
-
     //   Listen for new message
     Echo.private("rbzgo-chat." + this.friend.id + "." + authedUser.id).listen(
       "MessageSent",
