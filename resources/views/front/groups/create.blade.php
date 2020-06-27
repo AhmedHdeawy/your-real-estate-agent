@@ -8,11 +8,11 @@
         height: 400px;
     }
 
-    #map {
+    .map-container #map {
         height: 100%;
     }
 
-    #pac-input {
+    .map-container #pac-input {
         background-color: #fff;
         font-size: 15px;
         font-weight: 300;
@@ -23,8 +23,15 @@
         margin-top: 20px;
     }
 
-    #pac-input:focus {
+    .map-container #pac-input:focus {
         border-color: #4d90fe;
+    }
+
+    @media(max-width: 768px) {
+        .map-container #pac-input {
+            width: 250px;
+            margin-top: 60px;
+        }
     }
 </style>
 @endsection

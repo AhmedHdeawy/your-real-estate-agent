@@ -186,6 +186,8 @@ return [
     'nearestGroups'     =>  'Nearest Groups',
     'nearestGroupsSearching'     =>  'Searching for the closest groups to you',
     'distanceFromHere'  =>  'It is :km km away',
+    'here'      =>  'Here',
+    'veryClose'      =>  'Very close',
     'youMustAnswerOneQuestions'   =>  'You must answer one question at least',
     'userRequestJoinToGroup'    =>  ':user Request Join to :group',
     'requestJoining'    =>  'Requests to join',

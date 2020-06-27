@@ -23,7 +23,7 @@
 
                         <li class='clearfix'>
 
-                            <div class="row">
+                            <div class="row" style="cursor: pointer" data-target="#reviewAnswers_{{ $item->id }}" data-toggle="modal">
                                 <div class="col-12 col-md-10">
                                     @if ($item->user->avatar)
                                         <img src="{{ asset('uploads/users/' . $item->user->avatar) }}"
@@ -45,9 +45,9 @@
                                 <div class="col-12 col-md-2">
 
                                     <div class='btns'>
-                                        <button class='btn btn-rbzgo' data-target="#reviewAnswers_{{ $item->id }}" data-toggle="modal">
+                                        {{-- <button class='btn btn-rbzgo' data-target="#reviewAnswers_{{ $item->id }}" data-toggle="modal">
                                             {{ __('lang.reviewAnswers') }}
-                                        </button>
+                                        </button> --}}
 
                                         <!-- Modal -->
                                         <div class="modal fade" id="reviewAnswers_{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="reviewAnswers_{{ $item->id }}Label"

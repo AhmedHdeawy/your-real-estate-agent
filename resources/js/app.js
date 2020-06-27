@@ -90,16 +90,24 @@ const app = new Vue({
             "RequestJoin",
             e => {
 
-                if (parseInt($('.notification-count').text()) == 0) {
-
-                    $('.notification-count').removeClass('d-none').text(1);
-                } else {
-
-                    $('.notification-count').text(parseInt($('.notification-count').text()) + 1);
-                }
+                this.incrementNotification('.notif-count');
+                this.incrementNotification('.mob-notif-count');
 
                 document.getElementById('notificationAudio').play();
             }
         );
-    }
+    },
+    methods: {
+        incrementNotification(element){
+
+            if (parseInt($(element).text()) == 0) {
+
+                $(element).removeClass('d-none').text(1);
+            } else {
+
+                $(element).text(parseInt($(element).text()) + 1);
+            }
+
+        }
+    },
 });

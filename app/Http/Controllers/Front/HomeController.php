@@ -89,6 +89,7 @@ class HomeController extends Controller
                 ->limit(8)
                 ->with('questions')
                 ->withCount('users')
+                ->availableForUser()
                 ->get();
         }
 
@@ -104,8 +105,7 @@ class HomeController extends Controller
     public function notifications()
     {
         return view('front.notifications', [
-            'notifications' =>  tap(auth()->user()->unreadNotifications)->markAsRead()
-            // 'notifications' =>  auth()->user()->unreadNotifications
+            'notifications' =>  tap(auth()->user()->notifications)->markAsRead()
         ]);
     }
 

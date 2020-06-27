@@ -17,9 +17,7 @@
         style="cursor: pointer"
       >{{ name }}</h6>
       <p v-if="forHome">
-        {{ translate('lang.distanceFromHere', {
-        km: distanceBetweenCoordinates(group.lat, group.lng, userLat, userLng)
-        }) }}
+        {{ distanceBetween }}
       </p>
       <div v-if="!forHome" :class="getLocaleLang == 'ar' ? 'text-right' : 'text-left'">
         <p>
@@ -75,7 +73,7 @@
               </button>
             </div>
 
-            <h6 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h6>
+            <!-- <h6 class="color-rbzgo mb-3">{{ translate('lang.askeQuestionToJoin') }}</h6> -->
             <div v-for="(question, index) in questions" :key="question.id" class="form-group">
               <label for>{{ question.title }}</label>
               <textarea
@@ -91,7 +89,7 @@
                 :color="loader.color"
                 :size="loader.size"
               ></beat-loader>
-              <span class="text-white" v-else>{{ translate('lang.sendAnswerAndJoin') }}</span>
+              <span class="text-white" v-else>{{ translate('lang.send') }}</span>
             </button>
           </div>
 
@@ -162,8 +160,8 @@ export default {
       answersSent: false,
       existAnswer: true,
       answers: [],
-      userLat: null,
-      userLng: null,
+      userLat: 28.8136932,
+      userLng: 30.907292799999997,
       loader: {
         color: "#FFF",
         size: 15,
@@ -180,6 +178,33 @@ export default {
     },
     getAuthedUser: function() {
       return authedUser;
+    },
+    distanceBetween: function() {
+      if (this.forHome) {
+        //   Calclate Distance
+        let dis = this.distanceBetweenCoordinates(
+          this.group.lat,
+          this.group.lng,
+          this.userLat,
+          this.userLng,
+          "K"
+        );
+        // text that will be show
+        var translateText = "";
+        // check
+        if (dis == 0) {
+          translateText = this.translate("lang.here");
+        } else if (dis <= 2) {
+          translateText = this.translate("lang.veryClose");
+        } else {
+          translateText = this.translate("lang.distanceFromHere", {
+            km: dis
+          });
+        }
+
+        return translateText;
+      }
+      return null;
     }
   },
   methods: {

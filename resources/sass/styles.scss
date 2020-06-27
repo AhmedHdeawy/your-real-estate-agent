@@ -1536,18 +1536,18 @@ body {
 								margin-top : 10px;
 							}
 
-							&:not(:last-child) {
-								margin-bottom : 10px;
-								position      : relative;
+							// &:not(:last-child) {
+							// 	margin-bottom : 10px;
+							// 	position      : relative;
 
-								&:after {
-									border-bottom : 1px solid $shadowColor;
-									content       : '';
-									margin        : auto;
-									padding-top   : 20px;
-									width         : 80%;
-								}
-							}
+							// 	&:after {
+							// 		border-bottom : 1px solid $shadowColor;
+							// 		content       : '';
+							// 		margin        : auto;
+							// 		padding-top   : 20px;
+							// 		width         : 80%;
+							// 	}
+							// }
 
 							&:last-child {
 								a {

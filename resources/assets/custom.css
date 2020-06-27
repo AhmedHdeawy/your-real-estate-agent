@@ -174,7 +174,7 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     position: relative;
 }
 
-.notification-count {
+.notification-icon {
     position: absolute;
     right: -8px;
     top: -9px;
@@ -188,6 +188,7 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     text-align: center;
     font-size: .95rem;
 }
+
 
 /* Framework */
 

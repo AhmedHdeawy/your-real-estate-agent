@@ -13,18 +13,18 @@
                     <a class='nav-link register-btn' href='{{ route('notifications') }}'>
                         <i class="fas fa-bell text-white"></i>
                         <span
-                            class="notification-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
+                            class="notification-icon notif-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
                                 {{ count(auth()->user()->unreadNotifications) }}
                         </span>
                     </a>
                 </li>
-
+{{--
                 <li class='nav-item mx-2 notification-wrapper'>
                     <a class='nav-link register-btn' href='{{ route('groupsJoinRequests') }}'>
                         <i class="fas fa-user-check text-white"></i>
-                        <span class="notification-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
+                        <span class="notification-icon reqs-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class='nav-item mx-2'>
                     <a class='nav-link register-btn' href='{{ route('groups.search') }}'>
@@ -47,7 +47,7 @@
                 <li class='nav-item mx-2 notification-wrapper'>
                     <a class='nav-link register-btn' href='{{ route('messenger.index') }}'>
                         <i class="fab fa-facebook-messenger text-white"></i>
-                        <span class="notification-count {{ count(auth()->user()->unreadNotifications()->where('type', 'App\Notifications\NewMessage')->get()) <= 0 ? 'd-none' : '' }}">
+                        <span class="notification-icon msgs-count {{ count(auth()->user()->unreadNotifications()->where('type', 'App\Notifications\NewMessage')->get()) <= 0 ? 'd-none' : '' }}">
                             {{ count(auth()->user()->unreadNotifications()->where('type', 'App\Notifications\NewMessage')->get()) }}
                         </span>
                     </a>

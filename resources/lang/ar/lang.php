@@ -44,7 +44,7 @@ return [
     'male'                    =>  'ذكر',
     'female'                    =>  'انثى',
     'text'                      =>  'الرسالة',
-    'send'                      =>  'ارسال',
+    'send'                      =>  'ارسل',
     'address'                   =>  'العنوان',
     'mobile'                    =>  'الموبايل',
     'login'                     =>  'تسجيل الدخول',
@@ -191,6 +191,8 @@ return [
     'nearestGroups'     =>  'أقرب المجموعات',
     'nearestGroupsSearching'     =>  'جاري البحث عن أقرب المجموعات اليك',
     'distanceFromHere'  =>  'تبعد :km كيلو متر',
+    'here'      =>  'هنا',
+    'veryClose'      =>  'قريب جدا',
     'youMustAnswerOneQuestions'   =>  'يجب عليك الاجابة على سؤال واحد على الاقل',
     'userRequestJoinToGroup'    =>  ':user طلب الانضمام الى ربز :group',
     'requestJoining'    =>  'طلبات الانضمام',
@@ -204,6 +206,7 @@ return [
     'requestJoiningAccepted'  =>  'تم قبول طلب الانضمام الى ربز :group',
     'requestJoiningRejected'  =>  'تم رفض طلب الانضمام الى ربز :group',
     'youHaveNoNotifications'    =>  'ليس لديك اي اشعارات غير مقرؤة',
+
 
     /**
      * Posts

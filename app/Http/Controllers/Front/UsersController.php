@@ -21,7 +21,7 @@ class UsersController extends Controller
     {
         $groups = Auth::user()->inGroups()->withCount('users', 'posts')->get();
 
-        return view('front.userProfile', compact('groups'));
+        return view('front.profile', compact('groups'));
     }
 
 
@@ -40,7 +40,7 @@ class UsersController extends Controller
             return view('front.profile', compact('groups'));
         }
 
-        return view('front.userProfile', compact('groups'));
+        return view('front.userProfile', compact('groups', 'user'));
     }
 
 

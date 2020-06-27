@@ -17,6 +17,7 @@ use App\Models\GroupQuestion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Notifications\RequestJoinStatus;
+use App\Notifications\UserRequestJoin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -202,6 +203,10 @@ class GroupsController extends Controller
         // Fire Event
         broadcast(new RequestJoin($group->user_id));
 
+        // Notify Group Owner With Request
+        $groupOwner = $group->owner;
+        $groupOwner->notify(new UserRequestJoin($group, Auth::user(), $groupRequest));
+
         return response()->json(true, 200);
     }
 
@@ -253,6 +258,9 @@ class GroupsController extends Controller
             // Notify User With Accept
             $user->notify(new RequestJoinStatus($group, 'accept'));
 
+            // Delete Notification
+            Auth::user()->notifications()->where('id', $request->notify_id)->first()->delete();
+
             return back()->with('msg_success', __('lang.acceptedSuccessfully'));
         } else {
 
@@ -263,6 +271,8 @@ class GroupsController extends Controller
 
             // Notify User With Accept
             $user->notify(new RequestJoinStatus($group, 'denied'));
+            // Delete Notification
+            Auth::user()->notifications()->where('id', $request->notify_id)->first()->delete();
 
             return back()->with('msg_danger', __('lang.deniedSuccessfully'));
         }

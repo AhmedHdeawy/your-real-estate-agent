@@ -9,9 +9,9 @@
             <a class='nav-link {{ request()->route()->getName() == 'groups.search' ? 'active' : '' }}' href='{{ route('groups.search') }}'>
                 <i class='fas fa-search'></i>
             </a>
-            {{-- <a class='nav-link {{ request()->route()->getName() == 'groups.create' ? 'active' : '' }}' href='{{ route('groups.create') }}'>
+            <a class='nav-link {{ request()->route()->getName() == 'groups.create' ? 'active' : '' }}' href='{{ route('groups.create') }}'>
                 <i class='fas fa-plus'></i>
-            </a> --}}
+            </a>
             <a class='nav-link {{ request()->route()->getName() == 'messenger.index' ? 'active' : '' }}' href='{{ route('messenger.index') }}'>
                 <i class='fab fa-facebook-messenger'></i>
             </a>
@@ -20,17 +20,17 @@
                 href='{{ route('notifications') }}'>
                 <i class='fas fa-bell'></i>
                 @auth
-                    <span class="notification-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
+                    <span class="notification-icon mob-notif-count {{ count(auth()->user()->unreadNotifications) <= 0 ? 'd-none' : '' }}">
                         {{ count(auth()->user()->unreadNotifications) }}
                     </span>
                 @endauth
             </a>
 
-            <a class='nav-link position-relative {{ request()->route()->getName() == 'groupsJoinRequests' ? 'active' : '' }}' href='{{ route('groupsJoinRequests') }}'>
+            {{-- <a class='nav-link position-relative {{ request()->route()->getName() == 'groupsJoinRequests' ? 'active' : '' }}' href='{{ route('groupsJoinRequests') }}'>
                 <i class='fas fa-user-check'></i>
                 <span
-                    class="notification-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
-            </a>
+                    class="notification-icon mobile-reqs-count {{ getUserGroupRequestsJoin() <= 0 ? 'd-none' : '' }}">{{ getUserGroupRequestsJoin() }}</span>
+            </a> --}}
         </nav>
     </div>
 </section>
