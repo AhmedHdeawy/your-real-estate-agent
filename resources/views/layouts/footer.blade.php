@@ -5,10 +5,13 @@
         </a>
         <ul class='navbar-nav'>
             <li class='nav-item'>
-                {{ __('lang.footerText') }}
+                {{-- {{ __('lang.footerText') }} --}}
                 <a href='#'> {{ __('lang.conditionsTerms') }} </a>
-                {{ __('lang.and') }}
+                <b class="text-white">-</b>
                 <a href='#'> {{ __('lang.privacyPolicy') }} </a>
+                <b class="text-white">-</b>
+                {{ __('lang.poweredBy') }} :
+                <a href="#">404Coders</a>
             </li>
         </ul>
     </nav>

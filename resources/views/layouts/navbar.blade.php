@@ -66,8 +66,8 @@
                         </button>
                     </form>
                 </li>
-                <li class='nav-item'>
-                    <a class="nav-link register-btn" href="{{ str_replace( '/'.$localeLang.'/',  '/'.$localeLangInverse.'/', url()->full() ) }}">
+                <li class='nav-item mx-2'>
+                    <a class="nav-link register-btn" href="{{ str_replace( request()->segment(1),  $localeLangInverse, url()->full() ) }}">
                         {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
                     </a>
                 </li>
@@ -79,6 +79,17 @@
                 </li>
                 <li class='nav-item'>
                     <a class='nav-link register-btn' href='{{ route('register') }}'> {{ __('lang.register') }} </a>
+                </li>
+                <li class='nav-item'>
+
+                    <a class="nav-link register-btn"
+                        href="{{ str_replace( request()->segment(1),  $localeLangInverse, url()->full() ) }}">
+                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
+                    </a>
+                    {{-- <a class="nav-link register-btn"
+                        href="{{ str_replace( '/'.$localeLang.'/',  '/'.$localeLangInverse.'/', url()->full() ) }}">
+                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
+                    </a> --}}
                 </li>
             </ul>
         @endauth

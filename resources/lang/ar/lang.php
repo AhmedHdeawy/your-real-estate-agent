@@ -101,6 +101,9 @@ return [
     'selectPosition'    =>  'تحديد المكان',
     'selectOnMap'   =>  'تحديد على الخريطة',
     '404Error'  =>  'لقد حدث خطأ ما. يمكنك الذهاب الى الرئيسية مره اخري',
+    'resetPassword'    =>  'إعادة تعيين كلمة المرور',
+    'sendPasswordResetLink'  =>  'ارسال رابط لتعيين كلمة المرور',
+    'saveNewPassword'   =>  'حفظ كلمة المرور الجديدة',
 
 
     'search'    =>  'بحث',
@@ -123,7 +126,7 @@ return [
      * Front
      */
     'copyRight' =>  'جميع الحقوق محفوظه',
-    'poweredBy' =>  'تطوير بواسطة:',
+    'poweredBy' =>  'تنفيذ بواسطة:',
     'whoWe' =>  'من نحن',
     'contactUsTitle'  =>  'اتصل بنا',
     'contactUsMessage'  =>  'ارسل شكواك او مقترحاتك',

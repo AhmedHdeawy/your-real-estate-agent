@@ -98,6 +98,9 @@ return [
     'selectPosition'    =>  'Select Place',
     'selectOnMap'   =>  'Select on the map',
     '404Error'  =>  'Uh oh! Somthing wromg happens. Go back to the homepage!',
+    'resetPassword'    =>  'Reset Password',
+    'sendPasswordResetLink'  =>  'Send Password Reset Link',
+    'saveNewPassword'   =>  'Save New Password',
 
 
     'createdSuccessfully'   =>  'Created Successfully',

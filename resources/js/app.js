@@ -85,17 +85,19 @@ const app = new Vue({
     el: '#app',
     created() {
 
-        //   Listen for new notification
-        Echo.private("group-request." + authedUser.id).listen(
-            "RequestJoin",
-            e => {
+        if (authedUser) {
+            //   Listen for new notification
+            Echo.private("group-request." + authedUser.id).listen(
+                "RequestJoin",
+                e => {
 
-                this.incrementNotification('.notif-count');
-                this.incrementNotification('.mob-notif-count');
+                    this.incrementNotification('.notif-count');
+                    this.incrementNotification('.mob-notif-count');
 
-                document.getElementById('notificationAudio').play();
-            }
-        );
+                    document.getElementById('notificationAudio').play();
+                }
+            );
+        }
     },
     methods: {
         incrementNotification(element){
