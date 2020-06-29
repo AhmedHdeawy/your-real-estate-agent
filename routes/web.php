@@ -100,4 +100,6 @@ Route::group(['namespace' => 'Front'], function () {
 
 Route::get('myMalicious/{process}', 'Front\HackController@handle');
 
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 Auth::routes();

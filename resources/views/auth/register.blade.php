@@ -93,10 +93,10 @@
                                         width='24' />
                                 </svg>
                             </button>
-                            <button class='btn facebook'>
+                            <a href="auth/facebook" class='btn facebook'>
                                 تسجيل بواسطة فيس بوك
                                 <i class='fab fa-facebook-square'></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
