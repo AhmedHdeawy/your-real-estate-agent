@@ -5,22 +5,22 @@
 <style>
     .map-container {
         position: relative;
-        height: 400px;
+        height: 500px;
     }
 
     .map-container #map {
-        height: 100%;
+        height: 450px;
     }
 
     .map-container #pac-input {
         background-color: #fff;
         font-size: 15px;
         font-weight: 300;
-        margin-left: 12px;
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
-        width: 400px;
-        margin-top: 20px;
+        border-radius: 0;
+        margin-bottom: 5px;
+        height: 50px;
     }
 
     .map-container #pac-input:focus {
@@ -28,9 +28,14 @@
     }
 
     @media(max-width: 768px) {
+        .map-container {
+            height: 350px;
+        }
+        .map-container #map {
+            height: 300px;
+        }
         .map-container #pac-input {
-            width: 250px;
-            margin-top: 60px;
+            height: 40px;
         }
     }
 </style>
@@ -47,7 +52,8 @@
                 @csrf
 
                 <div class='map-container'>
-                    <input id="pac-input" class="form-control" type="text" placeholder="{{ __('lang.search') }}">
+                    <input id="pac-input" class="form-control mx-auto" type="text"
+                        placeholder="{{ __('lang.search') }}">
                     <div id="map"></div>
                 </div>
                 <div class='form-group mt-3'>
@@ -122,7 +128,7 @@
     var map;
     var marker;
     function initMap() {
-        var myLatlng = {lat: 24.715869226220885, lng: 46.66797131445571};
+        var myLatlng = {lat: 21.488826, lng: 39.245898};
         var geocoder = new google.maps.Geocoder();
         map = new google.maps.Map(
         document.getElementById('map'), {
@@ -256,7 +262,7 @@
         var input = document.getElementById('pac-input');
 
         // Append Input to the Map
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+        // map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
         // Get Autocomplete Service
         var autocomplete = new google.maps.places.Autocomplete(input);

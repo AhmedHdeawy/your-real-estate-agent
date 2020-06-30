@@ -33,7 +33,7 @@
 
 <!-- class="rtl" -->
 
-<body dir="{{ $currentLangDir == 'rtl' ? 'rtl' : 'ltr'  }}">
+<body dir="{{ $currentLangDir}}">
 
     <div class='container'>
         <div class='app-con' id="app">

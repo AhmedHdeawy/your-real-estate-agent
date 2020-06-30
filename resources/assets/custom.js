@@ -4,23 +4,45 @@ const DomElements = {
     sideMenuClose: document.querySelector('.side-menu .close-menu button')
 };
 
+var URL = window.location.href;
+var lang = URL.split('/')[3];
+
 function menuOpen() {
-    $('#sideMenu')
-        .css('display', 'block')
-        .animate({
-            right: '0'
-        }, 400);
+    if (lang == 'ar') {
+        $('#sideMenu')
+            .css('display', 'block')
+            .animate({
+                right: '0'
+            }, 400);
+    } else {
+        $('#sideMenu')
+            .css('display', 'block')
+            .animate({
+                left: '0'
+            }, 400);
+    }
     $('body').css('overflow', 'hidden');
 }
 
 function menuClose() {
-    $('.side-menu').animate({
-        right: '-100vw'
-    }, 400).delay(400).queue(function (next) {
-        $('.side-menu').css('display', 'none');
-        $('body').css('overflow', 'auto');
-        next();
-    });
+    if (lang == 'ar') {
+
+        $('.side-menu').animate({
+            right: '-100vw'
+        }, 400).delay(400).queue(function (next) {
+            $('.side-menu').css('display', 'none');
+            $('body').css('overflow', 'auto');
+            next();
+        });
+    } else {
+        $('.side-menu').animate({
+            left: '-100vw'
+        }, 400).delay(400).queue(function (next) {
+            $('.side-menu').css('display', 'none');
+            $('body').css('overflow', 'auto');
+            next();
+        });
+    }
 }
 
 DomElements.navBarBtn.addEventListener('click', menuOpen);

@@ -1,5 +1,5 @@
 <!-- Start Side Menu -->
-<section class='side-menu' id='sideMenu' dir='rtl'>
+<section class='side-menu' id='sideMenu' dir='{{ $currentLangDir }}'>
     <div class='side-menu-con' style='opacity: 1;'>
         <div class='close-menu'>
             <button class='btn'>
