@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Story;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -39,7 +40,12 @@ class HomeController extends Controller
     {
         $posts = $this->homePosts($request);
 
-        return view('front.timeline', compact('posts'));
+        $userFreindsIDs = auth()->user()->friends()->pluck('id')->toArray();
+        $userFreindsIDs[] = auth()->id();
+
+        $stories = Story::with('items', 'user')->whereHas('items')->whereIn('user_id', $userFreindsIDs)->get();
+
+        return view('front.timeline', compact('posts', 'stories'));
     }
 
     /**

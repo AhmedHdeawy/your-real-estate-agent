@@ -36,6 +36,7 @@
         "vue-chat-scroll": "^1.4.0",
         "vue-infinite-loading": "^2.4.5",
         "vue2-dropzone": "^3.6.0",
-        "vue2-google-maps": "^0.10.7"
+        "vue2-google-maps": "^0.10.7",
+        "zuck.js": "^1.6.0"
     }
 }

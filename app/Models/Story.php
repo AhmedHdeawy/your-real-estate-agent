@@ -19,7 +19,7 @@ class Story extends Model
      * @var array
      */
     protected $fillable = [
-        'text', 'media', 'user_id', 'group_id'
+        'user_id'
     ];
 
     /**
@@ -31,19 +31,11 @@ class Story extends Model
     }
 
     /**
-     * Group that has the Post
+     * Items that belongs to this story
      */
-    public function group()
+    public function items()
     {
-        return $this->belongsTo('App\Models\Group', 'group_id', 'id');
-    }
-
-    /**
-     * Get all of the story's media.
-     */
-    public function media()
-    {
-        return $this->morphMany('App\Models\Media', 'mediable');
+        return $this->hasMany('App\Models\StoryItem', 'story_id', 'id');
     }
 
 }
