@@ -23,12 +23,6 @@ class StoryItem extends Model
         'length', 'type', 'text', 'media', 'story_id'
     ];
 
-    public function getUpdatedAtAttribute()
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', '2018-01-30 07:11:21', 'America/Chicago')->timestamp;
-    }
-
-
     /**
      * User who owner the Post
      */

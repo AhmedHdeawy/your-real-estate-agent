@@ -247,4 +247,21 @@ return [
     'loadingChat'   =>  'جاري تحميل الدردشة',
     'youHaveNewMessage' =>  'لديك رسالة جديدة من :user',
 
+    /**
+     * Stories
+     */
+    'unmute'    =>  'تشغيل الصوت',
+    'keyboardTip'    =>  'اضغط مسطرة للتالى',
+    'visitLink'    =>  'زيارة الرابط',
+    'ago'    =>  'منذ',
+    'hour'    =>  'ساعة',
+    'hours'    =>  'ساعات',
+    'minute'    =>  'دقيقة',
+    'minutes'    =>  'دقائق',
+    'fromnow'    =>  'من الان',
+    'seconds'    =>  'ثوان',
+    'yesterday'    =>  'أمس',
+    'tomorrow'    =>  'غدا',
+    'days'    =>  'ايام',
+
 ];

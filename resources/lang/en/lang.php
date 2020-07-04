@@ -5,12 +5,12 @@ return [
     'maintenanceMode'           =>  'Maintenance Mode',
     'welcomeDashboard'          =>  'Welcome to Website Dashboard',
     'websiteName'               =>  'Website Name',
-    'home'	                    =>	'Home',
+    'home'                        =>    'Home',
     'dashboard'                 =>  'Dashboard',
     'contactWithUs'             =>  'Contact With Us',
     'contactUs'                 =>  'Contact Us',
     'ar'                        => 'Arabic',
-	'en'                        => 'English',
+    'en'                        => 'English',
     'he'                        => 'Hebrew',
     'ar.inverse'                => 'ع',
     'en.inverse'                => 'EN',
@@ -240,4 +240,21 @@ return [
     'youhavenoMessage'  =>  'There are no message yet',
     'loadingChat'   =>  'Loading Chat',
     'youHaveNewMessage' =>  'You have a new message from :user',
+
+    /**
+     * Stories
+     */
+    'unmute'    =>  'unmute',
+    'keyboardTip'    =>  'Press space to see next',
+    'visitLink'    =>  'Visit link',
+    'ago'    =>  'ago',
+    'hour'    =>  'hour',
+    'hours'    =>  'hours',
+    'minute'    =>  'minute',
+    'minutes'    =>  'minutes',
+    'fromnow'    =>  'from now',
+    'seconds'    =>  'seconds',
+    'yesterday'    =>  'yesterday',
+    'tomorrow'    =>  'tomorrow',
+    'days'    =>  'days',
 ];
