@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use Validator;
+use Image;
+use Johntaa\Arabic\I18N_Arabic;
 
 use App\Models\Group;
 use App\Models\ContactUs;
@@ -43,7 +45,11 @@ class HomeController extends Controller
         $userFreindsIDs = auth()->user()->friends()->pluck('id')->toArray();
         $userFreindsIDs[] = auth()->id();
 
-        $stories = Story::with('items', 'user')->whereHas('items')->whereIn('user_id', $userFreindsIDs)->get();
+        $stories = Story::with('items', 'user')
+            ->whereHas('items')
+            ->whereIn('user_id', $userFreindsIDs)
+            ->where('created_at', '>=', now()->subHours(24))
+            ->get();
 
         return view('front.timeline', compact('posts', 'stories'));
     }
