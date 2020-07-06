@@ -1,13 +1,7 @@
 @section('style')
 <style>
     .stories.list .story>.item-link {
-        text-align: {
-                {
-                $currentLangDir=='rtl'? 'right': 'left'
-            }
-        }
-
-         !important
+        text-align: {{ $currentLangDir=='rtl'? 'right': 'left' }} !important
     }
 
     .stories.facesnap .story {
@@ -65,23 +59,11 @@
     }
 
     #zuck-modal-content .story-viewer .head .left {
-        float: {
-                {
-                $currentLangDir=='rtl'? 'right': 'left'
-            }
-        }
-
-         !important;
+        float: {{ $currentLangDir=='rtl'? 'right': 'left' }} !important;
     }
 
     #zuck-modal-content .story-viewer .head .right {
-        float: {
-                {
-                $currentLangDir=='rtl'? 'left': 'right'
-            }
-        }
-
-         !important;
+        float: {{ $currentLangDir=='rtl'? 'left': 'right' }} !important;
     }
 
     .add_new_story_container {
@@ -91,14 +73,7 @@
         background-color: #f5f5f5;
         padding: 6px;
         border-radius: 15px;
-
-        text-align: {
-                {
-                $currentLangDir=='rtl'? 'right': 'left'
-            }
-        }
-
-        ;
+        text-align: {{ $currentLangDir=='rtl'? 'right': 'left' }};
     }
 
     .add_new_story_container .user-avatar {
@@ -132,12 +107,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         vertical-align: top;
-
-        text-align: {
-                {
-                $currentLangDir=='rtl'? 'right': 'left'
-            }
-        }
+        text-align: {{ $currentLangDir=='rtl'? 'right': 'left' }}
     }
 
     .add_new_story_container .status_types {
@@ -145,12 +115,7 @@
         line-height: 3.6em;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        float: {
-                {
-                $currentLangDir=='rtl'? 'left': 'right'
-            }
-        }
+        float: {{ $currentLangDir=='rtl'? 'left': 'right' }}
     }
 
     .add_new_story_container .status_types i {
@@ -160,23 +125,11 @@
     @media(max-width: 1024px) {
 
         #zuck-modal-content .story-viewer .head .left {
-            float: {
-                    {
-                    $currentLangDir=='rtl'? 'right': 'left'
-                }
-            }
-
-             !important;
+            float: {{ $currentLangDir=='rtl'? 'right': 'left' }} !important;
         }
 
         #zuck-modal-content .story-viewer .head .right {
-            float: {
-                    {
-                    $currentLangDir=='rtl'? 'left': 'right'
-                }
-            }
-
-             !important;
+            float: {{ $currentLangDir=='rtl'? 'left': 'right' }} !important;
         }
 
         #zuck-modal-content .story-viewer .head .left {
