@@ -23,6 +23,14 @@ class Story extends Model
     ];
 
     /**
+     * Return Created At as ForHumen
+     */
+    public function createdForHuman()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    /**
      * User who owner the Post
      */
     public function user()

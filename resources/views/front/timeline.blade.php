@@ -4,7 +4,7 @@
 
 <div class='container'>
 
-    @include('front.stories', ['stories'    =>  $stories]);
+    @include('front.stories', ['stories'    =>  $stories])
 
     <section class='landing-page'>
         <div>
@@ -19,3 +19,4 @@
 </div>
 
 @endsection
+
