@@ -26,23 +26,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $txt = 'بسم الله الرحمن الرحيم . قل هو الله احمد الله الصمد لم يلد ولم يولد ولم يكن له كفوا أحد. قل أعوذ برب الفلق من شر ماخلق';
-
-
-        $Arabic = new I18N_Arabic('Glyphs');
-
-        $txt = $Arabic->utf8Glyphs($txt);
-
-        Image::canvas(500, 500, '#635D92')
-            ->text($txt, 250, 100, function ($font) {
-                $font->file('vendors/fonts/arial/ArialUnicodeMS.ttf');
-                $font->size(20);
-                $font->color('#ffffff');
-                $font->align('center');
-                $font->valign('middle');
-            })
-            ->save('uploads/' . 'my.jpg');
-
         if (auth()->check()) {
             return $this->homeForAuthedUser($request);
         }
