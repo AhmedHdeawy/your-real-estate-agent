@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Image;
+use Johntaa\Arabic\I18N_Arabic;
 
 class Story extends Model
 {
@@ -34,15 +35,15 @@ class Story extends Model
 
         $txt = $Arabic->utf8Glyphs($txt);
 
-        Image::canvas(1500, 1500, '#635D92')
-            ->text($txt, 750, 300, function ($font) {
-                $font->file('vendors/fonts/Cairo/Cairo-Regular.ttf');
-                $font->size(70);
+        Image::canvas(500, 500, '#635D92')
+            ->text($txt, 250, 100, function ($font) {
+                $font->file('vendors/fonts/arial/ArialUnicodeMS.ttf');
+                $font->size(20);
                 $font->color('#ffffff');
                 $font->align('center');
                 $font->valign('middle');
             })
-            ->save('uploads/' . 'my.png');
+            ->save('uploads/' . 'my.jpg');
     }
 
     /**

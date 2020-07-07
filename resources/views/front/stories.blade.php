@@ -175,7 +175,6 @@
 @section('script')
 
 <script src="{{ asset('vendors/zuck/zuck.js') }}"></script>
-
 <script>
     function timestamp(){
         var timeIndex=0;
@@ -299,54 +298,6 @@
     //         }
 
     //     },
-
-    //     viewerItem (storyData, currentStoryItem) {
-    //         console.log(storyData);
-    //         return '';
-
-    //         return `<div class="story-viewer">
-    //             <div class="head">
-    //                 <div class="left">
-    //                     <a class="back">&lsaquo;</a>
-    //                     <span class="item-preview">
-    //                         <img lazy="eager" class="profilePhoto" src="${storyData.photo}" />
-    //                     </span>
-
-    //                     <div class="info">
-    //                         <strong class="name">${storyData.name}</strong>
-    //                         <span class="time">${storyData.timeAgo}</span>
-    //                     </div>
-    //                 </div>
-
-    //                 <div class="right">
-    //                     <span class="time">${currentStoryItem.timeAgo}</span>
-    //                     <span class="loading"></span>
-    //                     <a class="close" tabIndex="2">&times;</a>
-    //                 </div>
-    //             </div>
-
-    //             <div class="slides-pointers">
-    //                 <div class="wrap"></div>
-    //             </div>
-
-    //     </div>`;
-    //     },
-
-    //     viewerItemPointer (index, currentIndex, item) {
-    //         return '';
-    //         return `<span class="${currentIndex === index ? 'active' : ''} ${item.seen === true ? 'seen' : ''}"
-    //             data-index="${index}" data-item-id="${item.id}">
-    //             <b style="animation-duration:${item.length === '' ? '3' : get(item, 'length')}s"></b>
-    //         </span>`;
-    //     },
-
-    //     viewerItemBody (index, currentIndex, item) {
-    //         return '';
-    //             return `<div class="item ${item.seen === true ? 'seen' : ''} ${currentIndex === index ? 'active' : ''}"
-    //                 data-time="${item.time}" data-type="${item.type}" data-index="${index}"
-    //                 data-item-id="${item.id}">
-    //             </div>`;
-    //     }
     // },
     });
 
