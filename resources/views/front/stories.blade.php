@@ -163,12 +163,39 @@
                 </span>
                 <span class="status_types mx-1">
                     <i class="fas fa-camera mx-2 color-rbzgo add_story_image"></i>
-                    <i class="fas fa-pen mx-2 color-rbzgo add_story_text"></i>
+                    <i class="fas fa-pen mx-2 color-rbzgo add_story_text" data-toggle="modal" data-target="#exampleModal"></i>
                 </span>
 
             </div>
         </div>
 
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form>
+                    <div class='form-group mt-3'>
+                        <textarea maxlength="120" rows="10" name="text" class='form-control story_text'></textarea>
+                        <small class="text-secondary">
+                            <span class="text_count"> 120 </span> {{ __('lang.character') }}
+                        </small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    {{ __('lang.close') }}
+                </button>
+                <button type="button" class="btn btn-rbzgo save_story_text">
+                    {{ __('lang.save') }}
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -223,82 +250,79 @@
     }
 
     var stories = new Zuck('stories', {
-    backNative: true,
-    previousTap: true,
-    skin: "FaceSnap",
-    autoFullScreen: true,
-    avatars: true,
-    list: true,
-    cubeEffect: true,
-    localStorage: false,
-    rtl: {{ $currentLangDir == 'rtl' ? 'true' : 'false' }},
-    stories: buildStoryItems(Zuck),
-    language: {
-        unmute: '{{ __('lang.unmute') }}',
-        keyboardTip: '{{ __('lang.keyboardTip') }}',
-        visitLink: '{{ __('lang.visitLink') }}',
-            time: {
-            ago:'{{ __('lang.ago') }}',
-            hour:'{{ __('lang.hour') }}',
-            hours:'{{ __('lang.hours') }}',
-            minute:'{{ __('lang.minute') }}',
-            minutes:'{{ __('lang.minutes') }}',
-            fromnow: '{{ __('lang.fromnow') }}',
-            seconds:'{{ __('lang.seconds') }}',
-            yesterday: '{{ __('lang.yesterday') }}',
-            tomorrow: '{{ __('lang.tomorrow') }}',
-            days:'{{ __('lang.days') }}',
-        }
-    },
-    // template: {
-    //     timelineItem (itemData) {
-    //         itemData.items.forEach(item => {
-    //             if (item.type == 'text') {
-    //                 return `
-    //                 <div class="story">
-    //                     <a class="item-link" href="${itemData.link}">
-    //                         <span class="item-preview">
-    //                             <img lazy="eager" src="${itemData.phoot}" />
-    //                         </span>
-    //                         <span class="info" itemProp="author" itemScope itemType="http://schema.org/Person">
-    //                             <strong class="name" itemProp="name">${itemData.name}</strong>
-    //                             <span class="time">${itemData.lastUpdated}</span>
-    //                         </span>
-    //                     </a>
+        backNative: true,
+        previousTap: true,
+        skin: "FaceSnap",
+        autoFullScreen: true,
+        avatars: true,
+        list: true,
+        cubeEffect: true,
+        localStorage: false,
+        rtl: {{ $currentLangDir == 'rtl' ? 'true' : 'false' }},
+        stories: buildStoryItems(Zuck),
+        language: {
+            unmute: '{{ __('lang.unmute') }}',
+            keyboardTip: '{{ __('lang.keyboardTip') }}',
+            visitLink: '{{ __('lang.visitLink') }}',
+                time: {
+                ago:'{{ __('lang.ago') }}',
+                hour:'{{ __('lang.hour') }}',
+                hours:'{{ __('lang.hours') }}',
+                minute:'{{ __('lang.minute') }}',
+                minutes:'{{ __('lang.minutes') }}',
+                fromnow: '{{ __('lang.fromnow') }}',
+                seconds:'{{ __('lang.seconds') }}',
+                yesterday: '{{ __('lang.yesterday') }}',
+                tomorrow: '{{ __('lang.tomorrow') }}',
+                days:'{{ __('lang.days') }}',
+            }
+        },
+    });
 
-    //                     <ul class="items"></ul>
-    //                 </div>`;
-    //             }
-    //         });
-    //     },
+    $(document).ready(function() {
+        var max = 120;
+        $('textarea.story_text').keyup(function(e) {
 
-    //     timelineStoryItem (itemData) {
+            $('.text_count').text(max - $(this).val().length);
 
-    //         if (itemData.type === 'text') {
+            if (e.which < 0x20) { return; }
+            if ($(this).val().length == max) {
+                e.preventDefault();
 
-    //             const reserved = ['id', 'seen', 'src', 'link', 'linkText', 'time', 'type', 'length', 'preview'];
-    //             let attributes = `
-    //             href="${itemData.src}"
-    //             data-link="${itemData.link}"
-    //             data-linkText="${itemData.linkText}"
-    //             data-time="${itemData.time}"
-    //             data-type="${itemData.type}"
-    //             data-length="${itemData.length}"
-    //             `;
+            } else if ($(this).val().length > max) {
+                // Maximum exceeded
+                $(this).val($(this).value.substring(0, max));
+            }
+        });
 
-    //             for (const dataKey in itemData) {
-    //                 if (reserved.indexOf(dataKey) === -1) {
-    //                     attributes += ` data-${dataKey}="${itemData[dataKey]}"`;
-    //                 }
-    //             }
+        $('.save_story_text').click(function (e) {
+            e.preventDefault();
+            var thisBtn = $(this);
+            var storyText = $('.story_text').val();
 
-    //             return `<a ${attributes}>
-    //                         <img loading="auto" src="${itemData.preview}" />
-    //                     </a>`;
-    //         }
+            $.ajax({
+                type: "POST",
+                url: "{{ route('storeStory') }}",
+                dataType: "json",
+                data: {
+                    storyText
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function(){
+                    // hide select
+                    $('.story_text').attr('readonly', 'readonly');
+                    thisBtn.attr('disabled', 'disabled');
+                },
+                success: function (response) {
+                    console.log(response.x_x);
+                }
+            });
 
-    //     },
-    // },
+
+        });
+
     });
 
 </script>

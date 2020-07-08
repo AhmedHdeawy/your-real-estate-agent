@@ -263,5 +263,6 @@ return [
     'yesterday'    =>  'أمس',
     'tomorrow'    =>  'غدا',
     'days'    =>  'ايام',
+    'character' =>  'حرف',
 
 ];

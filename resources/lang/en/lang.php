@@ -257,4 +257,5 @@ return [
     'yesterday'    =>  'yesterday',
     'tomorrow'    =>  'tomorrow',
     'days'    =>  'days',
+    'character' =>  'Character',
 ];

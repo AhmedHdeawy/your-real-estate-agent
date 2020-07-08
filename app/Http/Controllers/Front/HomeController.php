@@ -108,6 +108,23 @@ class HomeController extends Controller
         return $nearestGroups;
     }
 
+    /**
+     * Store Story.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function storeStory(Request $request)
+    {
+        return response()->json(['x_x' => 'Hi again']);
+        dd($request->storyText);
+        // Validate Form
+        $this->validateContactUs($request);
+
+        Story::create($request->all());
+
+        return redirect()->route('contactus')->with('status', __('lang.contactUsDone'));
+    }
+
 
     /**
      * Show User Notifications

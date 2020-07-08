@@ -32,6 +32,10 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware'    =>  'auth'], function () {
 
+        // Save Story
+        Route::post('save-new-story', 'HomeController@storeStory')->name('storeStory');
+
+        // Get User Notification
         Route::get('notifications', 'HomeController@notifications')->name('notifications');
 
         // Load TimeLine Posts
