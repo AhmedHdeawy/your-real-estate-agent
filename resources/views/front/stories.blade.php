@@ -8,6 +8,7 @@
     .stories.facesnap .story {
         margin-left: .25rem !important;
         margin-right: .25rem !important;
+        padding: 6px !important;
     }
 
     .stories.facesnap .story>.item-link {
@@ -87,7 +88,6 @@
         box-sizing: border-box;
         font-size: 0;
         overflow: hidden;
-        margin-left: 12px;
         padding: 2px;
         border-radius: 50%;
     }
