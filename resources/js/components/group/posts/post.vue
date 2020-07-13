@@ -7,7 +7,7 @@
           <!-- User Data -->
           <div class="col-auto">
             <div class="user-data">
-              <a :href="'/profile/' + post.user.username">
+              <a :href="showPostOwnerProfile">
                 <img
                   v-if="post.user.avatar"
                   :alt="post.user.name"
@@ -224,6 +224,7 @@ export default {
       editPost: false,
       viewFullText: this.showText ? this.showText : false,
       showPostLink: BASE_URL + '/posts/' + this.postData.unique_id,
+      showPostOwnerProfile: BASE_URL + '/profile/' + this.postData.user.username,
       customStyle: {
         display: "inline-block",
         "text-align": "inherit"

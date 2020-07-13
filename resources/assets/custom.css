@@ -42,6 +42,10 @@ body[dir='ltr'] .btn-create-question {
     float: left;
 }
 
+body[dir='ltr'] .app-con .page-content .view-profile-page {
+    text-align: left !important;
+}
+
 
 .post_attachfile .dropzone {
     border: none;
