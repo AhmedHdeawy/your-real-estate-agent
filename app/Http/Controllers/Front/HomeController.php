@@ -130,17 +130,13 @@ class HomeController extends Controller
                 'storyText' => 'required|string|max:120',
             ])->validate();
 
+            // Save Text Image and Get image Name
             $name = $this->saveTextStory($request->storyText);
 
-            $story = Story::with(['items' => function ($query) {
-                            $query->where('created_at', '>=', now()->subDay());
-                        }, 'user'])
-                        ->whereHas('items', function (Builder $query) {
-                            $query->where('created_at', '>=', now()->subDay());
-                        })
-                        ->where('user_id', auth()->id())
-                        ->first();
+            // Check if there are old story for this user
+            $story = Story::where('user_id', auth()->id())->first();
 
+            // Create Story if not exist
             if (!$story) {
                 $story = Story::create(['user_id'   =>  auth()->id()]);
             }
@@ -160,34 +156,27 @@ class HomeController extends Controller
                 'storyMedia' => 'required|max:5000',
             ])->validate();
 
+            // Save Text Image and Get image file details
             $file = $this->saveMediaStory($request);
 
             $name = $file['name'];
             $type = $file['type'];
 
-            $story = Story::with(['items' => function ($query) {
-                        $query->where('created_at', '>=', now()->subDay());
-                    }, 'user'])
-                    ->whereHas('items', function (Builder $query) {
-                        $query->where('created_at', '>=', now()->subDay());
-                    })
-                    ->where('user_id', auth()->id())
-                    ->first();
-
+            // Check if there are old story for this user
+            $story = Story::where('user_id', auth()->id())->first();
 
             // Create Story if not exist
             if (!$story) {
                 $story = Story::create(['user_id'   =>  auth()->id()]);
             }
 
-            // Create Items
+            // Create Item
             $story->items()->create([
                 'length'    =>  $type == 'photo' ? 4 : 0,
                 'type'      =>  $type,
                 'media'     =>  $name,
             ]);
         }
-        // return redirect()->route('home')->with('status', __('lang.contactUsDone'));
 
         return response()->json(['story'   => $story->load('items', 'user')]);
     }

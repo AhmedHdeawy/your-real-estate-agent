@@ -29,7 +29,6 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             // Delete Stories that expired
             DB::table('story_items')->where('created_at', '<=', Carbon::now()->subDay())->delete();
-
         })->everyMinute();
     }
 
