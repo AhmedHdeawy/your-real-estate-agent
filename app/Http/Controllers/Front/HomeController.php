@@ -50,10 +50,10 @@ class HomeController extends Controller
 
         // Get Stories that has Items and each item has valid date
         $stories = Story::with(['items' => function ($query) {
-            $query->where('created_at', '>=', now()->subHours(24));
+            $query->where('created_at', '>=', now()->subDay());
         }, 'user'])
             ->whereHas('items', function (Builder $query) {
-                $query->where('created_at', '>=', now()->subHours(24));
+                $query->where('created_at', '>=', now()->subDay());
             })
             ->whereIn('user_id', $userFreindsIDs)
             ->get();
@@ -133,10 +133,10 @@ class HomeController extends Controller
             $name = $this->saveTextStory($request->storyText);
 
             $story = Story::with(['items' => function ($query) {
-                            $query->where('created_at', '>=', now()->subHours(24));
+                            $query->where('created_at', '>=', now()->subDay());
                         }, 'user'])
                         ->whereHas('items', function (Builder $query) {
-                            $query->where('created_at', '>=', now()->subHours(24));
+                            $query->where('created_at', '>=', now()->subDay());
                         })
                         ->where('user_id', auth()->id())
                         ->first();
@@ -166,10 +166,10 @@ class HomeController extends Controller
             $type = $file['type'];
 
             $story = Story::with(['items' => function ($query) {
-                        $query->where('created_at', '>=', now()->subHours(24));
+                        $query->where('created_at', '>=', now()->subDay());
                     }, 'user'])
                     ->whereHas('items', function (Builder $query) {
-                        $query->where('created_at', '>=', now()->subHours(24));
+                        $query->where('created_at', '>=', now()->subDay());
                     })
                     ->where('user_id', auth()->id())
                     ->first();
