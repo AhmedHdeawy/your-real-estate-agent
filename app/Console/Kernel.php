@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -28,10 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-
-            Log::info('working');
-
+            // Delete Stories that expired
             DB::table('story_items')->where('created_at', '<=', Carbon::now()->subDay())->delete();
+
         })->everyMinute();
     }
 
