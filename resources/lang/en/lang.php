@@ -244,6 +244,8 @@ return [
     /**
      * Stories
      */
+    'myStories' =>  'My Story',
+    'addStory' =>  'Add Story',
     'unmute'    =>  'unmute',
     'keyboardTip'    =>  'Press space to see next',
     'visitLink'    =>  'Visit link',

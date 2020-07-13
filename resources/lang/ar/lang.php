@@ -250,6 +250,8 @@ return [
     /**
      * Stories
      */
+    'myStories' =>  'حالتى',
+    'addStory' =>  'إضافة حالة',
     'unmute'    =>  'تشغيل الصوت',
     'keyboardTip'    =>  'اضغط مسطرة للتالى',
     'visitLink'    =>  'زيارة الرابط',

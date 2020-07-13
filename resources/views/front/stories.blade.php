@@ -155,12 +155,15 @@
         <div id="stories" class="storiesWrapper">
             <div class="add_new_story_container">
                 <span class="user-avatar">
-                    <img class="rounded-circle img-fluid"
-                        src="/uploads/users/1590435030_business-man-1385050_19201.jpg">
+                    @if (auth()->user()->avatar)
+                        <img src="{{  asset('uploads/users/' . auth()->user()->avatar) }}" class="rounded-circle img-fluid">
+                    @else
+                        <img src="{{  asset('uploads/no-img.png') }}" class="rounded-circle img-fluid">
+                    @endif
                 </span>
                 <span class="info mx-1">
-                    <strong class="name d-block font-weight-bold" itemprop="name">حالتي</strong>
-                    <span class="time d-inline-block">إضافة حالة</span>
+                    <strong class="name d-block font-weight-bold" itemprop="name"> {{ __('lang.myStories') }} </strong>
+                    <span class="time d-inline-block"> {{ __('lang.addStory') }} </span>
                 </span>
                 <span class="status_types mx-1">
                     <i class="fas fa-camera mx-2 color-rbzgo add_story_image" data-toggle="modal" data-target="#mediaModal"></i>
@@ -207,17 +210,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="error_message"></div>
+                <div class="error_media_message"></div>
                 <form action="{{ route('storeStory') }}" method="POST" class="dropzone" id="storyMedia"></form>
-                {{-- <div id="storyMedia"></div> --}}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">
-                    {{ __('lang.close') }}
-                </button>
-                <button type="button" class="btn btn-rbzgo save_story_media">
-                    {{ __('lang.save') }}
-                </button>
             </div>
         </div>
     </div>
@@ -312,6 +306,7 @@
         $("#storyMedia").dropzone({
             paramName: 'storyMedia',
             uploadMultiple: false,
+            maxFiles: 1,
             maxFilesize: 5,
             acceptedFiles: "image/*,video/*",
             dictDefaultMessage: "<i class='fas fa-cloud-upload-alt mx-2'></i> {{ __('lang.storyImagesVideos') }} ",
@@ -392,13 +387,6 @@
             });
 
 
-        });
-
-        // Save New Story from Uploaded image from the User
-        $('.save_story_media').click(function (e) {
-            e.preventDefault();
-            $('#storyMedia').submit();
-            return;
         });
 
     });
