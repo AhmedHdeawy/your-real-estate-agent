@@ -194,6 +194,8 @@ return [
         'text'                  =>  'النص',
         'attachedFiles'         =>  'المرفقات',
 
+        'storyText' =>  'النص',
+
         'ar' => [
             'name'                  => 'الاسم العربي',
         ],

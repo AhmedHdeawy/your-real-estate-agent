@@ -330,7 +330,7 @@ class PostsController extends Controller
     }
 
     /**
-     * Create New Group.
+     * Get File type.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

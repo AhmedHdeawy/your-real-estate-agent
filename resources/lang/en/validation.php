@@ -202,6 +202,8 @@ return [
         'text'                  =>  'Text',
         'attachedFiles'         =>  'Attached files',
 
+        'storyText' =>  'Text',
+
         'en'    =>  [
             'name'  =>  'Name',
         ],

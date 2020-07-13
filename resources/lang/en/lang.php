@@ -258,4 +258,5 @@ return [
     'tomorrow'    =>  'tomorrow',
     'days'    =>  'days',
     'character' =>  'Character',
+    'storyImagesVideos' =>  'Attach image or video',
 ];

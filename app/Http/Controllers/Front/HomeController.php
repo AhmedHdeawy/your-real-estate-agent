@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Front;
 
-use Validator;
 use Image;
-use Johntaa\Arabic\I18N_Arabic;
-
+use Validator;
+use App\Models\Post;
 use App\Models\Group;
+
+use App\Models\Story;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use Johntaa\Arabic\I18N_Arabic;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Post;
-use App\Models\Story;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Johntaa\Arabic\Arabic\I18N_Arabic_Identifier;
 
 class HomeController extends Controller
 {
@@ -26,6 +28,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
         if (auth()->check()) {
             return $this->homeForAuthedUser($request);
         }
@@ -45,10 +48,14 @@ class HomeController extends Controller
         $userFreindsIDs = auth()->user()->friends()->pluck('id')->toArray();
         $userFreindsIDs[] = auth()->id();
 
-        $stories = Story::with('items', 'user')
-            ->whereHas('items')
+        // Get Stories that has Items and each item has valid date
+        $stories = Story::with(['items' => function ($query) {
+            $query->where('created_at', '>=', now()->subHours(24));
+        }, 'user'])
+            ->whereHas('items', function (Builder $query) {
+                $query->where('created_at', '>=', now()->subHours(24));
+            })
             ->whereIn('user_id', $userFreindsIDs)
-            ->where('created_at', '>=', now()->subHours(24))
             ->get();
 
         return view('front.timeline', compact('posts', 'stories'));
@@ -115,14 +122,138 @@ class HomeController extends Controller
      */
     public function storeStory(Request $request)
     {
-        return response()->json(['x_x' => 'Hi again']);
-        dd($request->storyText);
-        // Validate Form
-        $this->validateContactUs($request);
 
-        Story::create($request->all());
+        if ($request->storyText) {
 
-        return redirect()->route('contactus')->with('status', __('lang.contactUsDone'));
+            // Validate Text
+            Validator::make($request->all(), [
+                'storyText' => 'required|string|max:120',
+            ])->validate();
+
+            $name = $this->saveTextStory($request->storyText);
+
+            $story = Story::with(['items' => function ($query) {
+                            $query->where('created_at', '>=', now()->subHours(24));
+                        }, 'user'])
+                        ->whereHas('items', function (Builder $query) {
+                            $query->where('created_at', '>=', now()->subHours(24));
+                        })
+                        ->where('user_id', auth()->id())
+                        ->first();
+
+            if (!$story) {
+                $story = Story::create(['user_id'   =>  auth()->id()]);
+            }
+
+            // Create Item
+            $story->items()->create([
+                'length'    =>  3,
+                'type'      =>  'photo',
+                'media'     =>  $name,
+            ]);
+        }
+
+        if ($request->storyMedia) {
+
+            // Validate Media
+            Validator::make($request->all(), [
+                'storyMedia' => 'required|max:5000',
+            ])->validate();
+
+            $file = $this->saveMediaStory($request);
+
+            $name = $file['name'];
+            $type = $file['type'];
+
+            $story = Story::with(['items' => function ($query) {
+                        $query->where('created_at', '>=', now()->subHours(24));
+                    }, 'user'])
+                    ->whereHas('items', function (Builder $query) {
+                        $query->where('created_at', '>=', now()->subHours(24));
+                    })
+                    ->where('user_id', auth()->id())
+                    ->first();
+
+
+            // Create Story if not exist
+            if (!$story) {
+                $story = Story::create(['user_id'   =>  auth()->id()]);
+            }
+
+            // Create Items
+            $story->items()->create([
+                'length'    =>  $type == 'photo' ? 4 : 0,
+                'type'      =>  $type,
+                'media'     =>  $name,
+            ]);
+        }
+        // return redirect()->route('home')->with('status', __('lang.contactUsDone'));
+
+        return response()->json(['story'   => $story->load('items', 'user')]);
+    }
+
+    /**
+     * Convert Story Text to Image and Save it
+     */
+    private function saveTextStory($text)
+    {
+        $Arabic = new I18N_Arabic('Glyphs');
+
+        $text = $Arabic->utf8Glyphs($text);
+
+        $imageName = time() . str_random(8) . '_rbzgo' . '_stories.jpg';
+
+        Image::canvas(500, 500, '#635D92')
+            ->text($text, 250, 100, function ($font) {
+                $font->file(public_path('vendors/fonts/arial/ARIAL.TTF'));
+                $font->size(25);
+                $font->color('#ffffff');
+                $font->align('center');
+                $font->valign('middle');
+            })
+            ->save('uploads/stories/' . $imageName);
+
+        return $imageName;
+    }
+
+    /**
+     * Save Story Media.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    private function saveMediaStory(Request $request)
+    {
+
+        if ($request->file('storyMedia')->isValid()) {
+
+            $file = $request->file('storyMedia');
+
+            $name =  $file->getClientOriginalName();
+            $name = time() . str_random(8) . '_rbzgo_' . $name;
+
+            $type = $this->getFileType($file);
+
+            $file->move(public_path("/uploads/stories/"), $name);
+
+            return ['name' => $name, 'type'    =>  $type];
+        }
+    }
+
+    /**
+     * Get File type.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function getFileType($file)
+    {
+        $type = explode('/', $file->getClientMimeType())[0];
+
+        if ($type == 'image') {
+            return 'photo';
+        }
+
+        return $type;
     }
 
 

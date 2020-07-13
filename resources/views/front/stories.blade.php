@@ -1,4 +1,5 @@
 @section('style')
+<link rel="stylesheet" href="{{ asset('vendors/dropzone/dropzone.css') }}">
 <style>
     .stories.list .story>.item-link {
         text-align: {{ $currentLangDir=='rtl'? 'right': 'left' }} !important
@@ -162,8 +163,8 @@
                     <span class="time d-inline-block">إضافة حالة</span>
                 </span>
                 <span class="status_types mx-1">
-                    <i class="fas fa-camera mx-2 color-rbzgo add_story_image"></i>
-                    <i class="fas fa-pen mx-2 color-rbzgo add_story_text" data-toggle="modal" data-target="#exampleModal"></i>
+                    <i class="fas fa-camera mx-2 color-rbzgo add_story_image" data-toggle="modal" data-target="#mediaModal"></i>
+                    <i class="fas fa-pen mx-2 color-rbzgo add_story_text" data-toggle="modal" data-target="#textModal"></i>
                 </span>
 
             </div>
@@ -172,15 +173,17 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Story Text Modal -->
+<div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="textModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <form>
+                <div class="error_message"></div>
+                <form action="{{ route('storeStory') }}" method="POST" id="saveStoryText">
+                    @csrf
                     <div class='form-group mt-3'>
-                        <textarea maxlength="120" rows="10" name="text" class='form-control story_text'></textarea>
+                        <textarea maxlength="120" rows="5" name="storyText" class='form-control story_text'></textarea>
                         <small class="text-secondary">
                             <span class="text_count"> 120 </span> {{ __('lang.character') }}
                         </small>
@@ -199,9 +202,31 @@
     </div>
 </div>
 
+<!-- Story Media Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="error_message"></div>
+                <form action="{{ route('storeStory') }}" method="POST" class="dropzone" id="storyMedia"></form>
+                {{-- <div id="storyMedia"></div> --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    {{ __('lang.close') }}
+                </button>
+                <button type="button" class="btn btn-rbzgo save_story_media">
+                    {{ __('lang.save') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('script')
 
 <script src="{{ asset('vendors/zuck/zuck.js') }}"></script>
+<script src="{{ asset('vendors/dropzone/dropzone.js') }}"></script>
 <script>
     function timestamp(){
         var timeIndex=0;
@@ -223,7 +248,7 @@
 
                 Zuck.buildTimelineItem(
                     'story_{{ $story->id }}',
-                    '{{ $story->user->avatar ? "/uploads/users/" . $story->user->avatar : "/images/user.png" }}',
+                    '{{ $story->user->avatar ? "/uploads/users/" . $story->user->avatar : "/uploads/no-img.png" }}',
                     '{{ $story->user->name }}',
                     '',
                     '{{ $story->created_at->diffForHumans() }}',
@@ -249,6 +274,7 @@
         return storItems;
     }
 
+    // Initialize ZuckJS
     var stories = new Zuck('stories', {
         backNative: true,
         previousTap: true,
@@ -279,7 +305,28 @@
         },
     });
 
+    Dropzone.autoDiscover = false;
     $(document).ready(function() {
+
+        // Initialize Dropzone
+        $("#storyMedia").dropzone({
+            paramName: 'storyMedia',
+            uploadMultiple: false,
+            maxFilesize: 5,
+            acceptedFiles: "image/*,video/*",
+            dictDefaultMessage: "<i class='fas fa-cloud-upload-alt mx-2'></i> {{ __('lang.storyImagesVideos') }} ",
+            dictFileTooBig: "{{ __('lang.maxFileSize') }}",
+            dictInvalidFileType: "{{ __('lang.invalid_filetype') }}",
+            dictCancelUpload: "{{ __('lang.cancel') }}",
+            headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            success: function (file, response) {
+                location.reload();
+            }
+        });
+
+        // Limit Textarea typing
         var max = 120;
         $('textarea.story_text').keyup(function(e) {
 
@@ -295,8 +342,13 @@
             }
         });
 
+        // Save New Story from Text
         $('.save_story_text').click(function (e) {
             e.preventDefault();
+
+            // $('#saveStoryText').submit();
+            // return;
+
             var thisBtn = $(this);
             var storyText = $('.story_text').val();
 
@@ -311,16 +363,42 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 beforeSend: function(){
-                    // hide select
+                    $( '.error_message' ).children().remove();
+                    // hide Text
                     $('.story_text').attr('readonly', 'readonly');
                     thisBtn.attr('disabled', 'disabled');
                 },
                 success: function (response) {
-                    console.log(response.x_x);
-                }
+                    location.reload();
+                    // Show Text
+                    $('.story_text').removeAttr('readonly');
+                    thisBtn.removeAttr('disabled');
+                },
+                error: function (err) {
+
+                    // Show Text
+                    $('.story_text').removeAttr('readonly');
+                    thisBtn.removeAttr('disabled');
+
+                    var errors = err.responseJSON.errors;
+                    errorsHtml = '<div class="alert alert-danger p-0"><ul class="mb-0">';
+                            $.each(errors,function (k,v) {
+                                errorsHtml += '<li>'+ v + '</li>';
+                            });
+                            errorsHtml += '</ul></di>';
+                        $( '.error_message' ).html( errorsHtml );
+                },
+
             });
 
 
+        });
+
+        // Save New Story from Uploaded image from the User
+        $('.save_story_media').click(function (e) {
+            e.preventDefault();
+            $('#storyMedia').submit();
+            return;
         });
 
     });

@@ -15,6 +15,13 @@ class StoryItem extends Model
     protected $table = 'story_items';
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

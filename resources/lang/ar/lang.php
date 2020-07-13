@@ -264,5 +264,6 @@ return [
     'tomorrow'    =>  'غدا',
     'days'    =>  'ايام',
     'character' =>  'حرف',
+    'storyImagesVideos' =>  'أرفق صوره أو فيديو',
 
 ];
