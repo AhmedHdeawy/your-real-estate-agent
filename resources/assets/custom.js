@@ -6,6 +6,7 @@ const DomElements = {
 
 var URL = window.location.href;
 var lang = URL.split('/')[3];
+    lang = lang[0] + lang[1];
 
 function menuOpen() {
     if (lang == 'ar') {

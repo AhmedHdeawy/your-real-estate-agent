@@ -4,7 +4,7 @@ return [
 
     'maintenanceMode'           =>  'عذراً الموقع متوقف حالياً',
     'welcomeDashboard'          =>  'مرحبا بك في لوحة تحكم الموقع',
-    'websiteName'               =>  'اسم الموقع',
+    'websiteName'               =>  'ربز جو',
     'home'	                    =>	'الرئيسية',
     'dashboard'                 =>  'لوحة التحكم',
     'contactWithUs'             =>  'تواصل معنا',

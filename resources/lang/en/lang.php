@@ -4,7 +4,7 @@ return [
 
     'maintenanceMode'           =>  'Maintenance Mode',
     'welcomeDashboard'          =>  'Welcome to Website Dashboard',
-    'websiteName'               =>  'Website Name',
+    'websiteName'               =>  'RbzGO',
     'home'                        =>    'Home',
     'dashboard'                 =>  'Dashboard',
     'contactWithUs'             =>  'Contact With Us',
