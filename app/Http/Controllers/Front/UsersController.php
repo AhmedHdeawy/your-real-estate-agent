@@ -7,6 +7,7 @@ use Validator;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -19,9 +20,13 @@ class UsersController extends Controller
      */
     public function profile(Request $request)
     {
-        $groups = Auth::user()->inGroups()->withCount('users', 'posts')->get();
+        $user = User::whereUsername($request->username)->first();
 
-        return view('front.profile', compact('groups'));
+        $groups = $user->inGroups()->withCount('users', 'posts')->get();
+
+        $userLikes = Like::where('user_id', $user->id)->count();
+
+        return view('front.profile', compact('groups', 'user', 'userLikes'));
     }
 
 

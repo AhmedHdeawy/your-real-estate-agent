@@ -1003,6 +1003,271 @@ body {
 							}
 						}
 					}
+                }
+
+                @at-root .view-profile-page .posts-con, .posts-con {
+					h2 {
+						color         : $primary;
+						font-size     : 24px;
+						margin-bottom : 15px;
+						text-align    : center;
+					}
+
+					.post {
+						background : $textWhite;
+						box-shadow : 0 0 8px $shadowColor;
+						padding    : 20px;
+						text-align : center;
+						@media screen and (max-width : 767px) {
+							margin : 0 -20px 20px -20px;
+						}
+						@media screen and (min-width : 768px) {
+							//width         : 60%;
+							border-radius : 8px;
+							margin        : 0 auto 20px auto;
+						}
+
+						.post-head {
+							margin-bottom : 15px;
+							text-align    : start;
+
+							.row {
+								div[class^='col']:last-child {
+									margin-inline-start : auto;
+								}
+							}
+
+							.user-data {
+								a:first-of-type {
+									color           : $primary;
+									text-decoration : none;
+
+									span {
+										color               : inherit;
+										font-weight         : 700;
+										margin-inline-start : 15px;
+									}
+
+									img {
+										height         : 64px;
+										vertical-align : top;
+										width          : 64px;
+									}
+								}
+
+								a:last-of-type {
+									display             : block;
+									margin-inline-start : 79px;
+									margin-top          : -30px;
+									position            : relative;
+									z-index             : 9;
+								}
+							}
+
+							.group-data {
+								text-align : end;
+
+								.dropdown, .group-name {
+									display             : block;
+									margin-inline-start : auto;
+									width               : fit-content;
+
+									a {
+										i {
+											color     : $primary;
+											font-size : 24px;
+										}
+									}
+
+									.dropdown-menu {
+										background    : $textWhite;
+										border-radius : 4px;
+										box-shadow    : 0 0 6px $shadowColor;
+										color         : $textDark;
+										text-align    : start;
+									}
+								}
+							}
+						}
+
+						.post-content {
+							p {
+								text-align : start;
+							}
+
+							.img-fluid {
+								width : 80%;
+							}
+
+							hr {
+								border-top : 2px solid #2228311a;
+								margin     : 15px -20px;
+							}
+						}
+
+						.post-interaction {
+							button {
+								border  : none;
+								padding : 8px 10px;
+
+								i {
+									color             : $primary;
+									font-size         : 24px;
+									margin-inline-end : 5px;
+									vertical-align    : middle;
+								}
+
+								span {
+									vertical-align : middle;
+								}
+
+								&:first-of-type {
+									margin-inline-end : 10px;
+								}
+							}
+						}
+
+						.post-comments {
+							padding-top : 35px;
+							position    : relative;
+							text-align  : start;
+
+							h6 {
+								margin-bottom : 15px;
+
+								i {
+									color             : $primary;
+									font-size         : 24px;
+									margin-inline-end : 10px;
+									vertical-align    : middle;
+								}
+
+								span {
+									color          : $textDark;
+									font-weight    : 700;
+									vertical-align : middle;
+								}
+							}
+
+							.comment {
+								margin-bottom : 20px;
+
+								.comment-head, .reply-head {
+									.user-data {
+										a {
+
+											img {
+												height            : 53px;
+												margin-inline-end : 10px;
+												width             : 53px;
+											}
+
+											span {
+												color       : $primary;
+												font-weight : 700;
+											}
+										}
+									}
+
+									.row {
+										div[class^='col']:last-child {
+											margin-inline-start : auto;
+										}
+									}
+								}
+
+								.comment-interactions, .reply-interactions {
+									text-align : end;
+
+									button {
+										i {
+											color     : $primary;
+											font-size : 24px;
+										}
+									}
+								}
+
+								.comment-replies {
+									margin-top           : 20px;
+									padding-inline-start : 40px;
+
+									.reply {
+										margin-bottom : 15px;
+									}
+
+
+								}
+							}
+
+							.reply-input, .comment-input {
+								margin-top : 10px;
+
+								&.comment-input {
+									margin-bottom : 10px;
+								}
+
+								.form-group {
+									height        : 50px;
+									margin-bottom : 0;
+									position      : relative;
+
+									.form-control {
+										background           : $backGround;
+										border               : none;
+										bottom               : 0;
+										height               : 100%;
+										left                 : 0;
+										padding-inline-start : 15px;
+										position             : absolute;
+										right                : 0;
+										top                  : 0;
+
+										&:focus {
+											box-shadow : 0 0 8px $shadowColor;
+										}
+
+										&::placeholder {
+											color : rgba(34, 40, 49, 0.5);
+										}
+									}
+
+									.input-group-append {
+										bottom   : 0;
+										left     : 0;
+										position : absolute;
+										right    : auto;
+										top      : 0;
+
+										.btn {
+											background    : $primary;
+											border-radius : 4px 0 0 4px;
+											box-shadow    : none;
+											color         : $textWhite;
+											padding       : 0;
+											text-align    : center;
+											width         : 50px;
+
+											i {
+												color     : inherit;
+												font-size : 24px;
+											}
+										}
+									}
+								}
+							}
+
+							&:before {
+								border-top : 2px solid #2228311a;
+								bottom     : auto;
+								content    : '';
+								left       : 0;
+								margin     : 15px -20px;
+								position   : absolute;
+								right      : 0;
+								top        : 0;
+							}
+						}
+					}
 				}
 
 				.posts-con {
@@ -1612,7 +1877,94 @@ body {
 						}
 					}
 				}
-			}
+            }
+
+            //  View Profile
+            .view-profile-page {
+                padding: 0 40px;
+                text-align: right;
+                position: relative;
+                margin-top: -80px;
+
+                @media screen and (max-width : 767px) {
+                    padding: 0 20px;
+                    margin-top: -40px;
+                }
+
+                .cover-img {
+                    background: url('/images/cover.jpg') $primary center/cover no-repeat;
+                    height: 300px;
+                    cursor: pointer;
+                    margin: 0 -40px;
+                    width: calc(100% + 80px);
+
+                    @media screen and (max-width : 767px) {
+                        margin: 0 -20px;
+                        width: calc(100% + 40px);
+                    }
+                }
+
+                >.user-data {
+                    margin-top: -64px;
+                    @media screen and (max-width : 767px) {
+                        margin-top: -40px;
+                    }
+
+                    .img-con {
+                        display: inline-block;
+
+                        img {
+                            width: 128px;
+                            height: 128px;
+                            border-radius: 4px;
+
+                            @media screen and (max-width : 767px) {
+                                width: 90px;
+                                height: 90px;
+                            }
+                        }
+                    }
+
+                    .data-con {
+                        display: inline-block;
+                        vertical-align: bottom;
+                        margin-inline-start: 15px;
+
+                        h3 {
+                            color: $primary;
+                            margin-bottom: 10px;
+                            font-size: 24px;
+                            display: inline-block;
+                        }
+
+                        .btn {
+                            margin-inline-start: 5px;
+                            display: inline-block;
+
+                            i {
+                                font-size: 24px;
+                                color: $primary;
+                            }
+                        }
+                    }
+                }
+
+                .modal {
+                    .modal-dialog {
+                        width: 100%;
+                        max-width: 90%;
+
+                        .modal-content {
+                            border: none;
+                            overflow: hidden;
+
+                            .modal-body {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
 
 			.create-group-page {
 				padding    : 0 40px;

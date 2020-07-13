@@ -54,7 +54,7 @@
                 </li>
 
                 <li class='nav-item mx-2'>
-                    <a class='nav-link register-btn' href='{{ route('profile') }}'>
+                    <a class='nav-link register-btn' href='{{ route('profile', auth()->user()->username) }}'>
                         {{ auth()->user()->name }}
                     </a>
                 </li>

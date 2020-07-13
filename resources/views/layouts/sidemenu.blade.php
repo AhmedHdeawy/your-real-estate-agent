@@ -17,7 +17,7 @@
 
             @auth
                 <li class='section-con'>
-                    <a href='{{ route('profile') }}'>
+                    <a href='{{ route('profile', auth()->user()->username) }}'>
                         <i class='fas fa-user-circle'></i>
                         <span> {{ auth()->user()->name }} </span>
                     </a>

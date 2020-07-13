@@ -153,6 +153,12 @@ return [
     'privacyPolicy'             =>  'سياسة الخصوصية',
 
     /**
+     * Profile
+     */
+    'followers' =>  'المتابعون',
+    'following' =>  'يتابع',
+
+    /**
      * Groups
      */
     'createGroup'   =>  'فتح ربز جماعي',

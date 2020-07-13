@@ -148,6 +148,12 @@ return [
     'privacyPolicy'             =>  'Privacy Policy',
 
     /**
+     * Profile
+     */
+    'followers' =>  'Followers',
+    'following' =>  'Following',
+
+    /**
      * Groups
      */
     'createGroup'   =>  'Open New Rbz',
