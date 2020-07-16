@@ -79,6 +79,7 @@ class LoginController extends Controller
         $existingUser = User::where('provider_name', $provider)
                                 ->where('provider_id', $user->getId())->first();
 
+
         // If User Exist, then make User Authenticated
         if ($existingUser) {
             auth()->login($existingUser, true);
@@ -100,7 +101,7 @@ class LoginController extends Controller
                 Image::make($user->getAvatar())->save('uploads/users/' . $imageName);
 
                 // Save Image in DB
-                $newUser->avatar            = $user->getAvatar();
+                $newUser->avatar            = $imageName;
                 $newUser->save();
             }
 
