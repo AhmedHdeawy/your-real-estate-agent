@@ -47,6 +47,8 @@ return [
     'send'                      =>  'ارسل',
     'address'                   =>  'العنوان',
     'mobile'                    =>  'الموبايل',
+    'loginWithFacebook'         =>  'التسجيل بالفيس بوك',
+    'loginWithGoogle'           =>  'التسجيل بجوجل',
     'login'                     =>  'تسجيل الدخول',
     'register'                  =>  'انشاء حساب',
     'logout'                     =>  'تسجيل الخروج',

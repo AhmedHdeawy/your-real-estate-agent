@@ -47,6 +47,8 @@ return [
     'send'                      =>  'Send',
     'address'                   =>  'Address',
     'mobile'                    =>  'Mobile',
+    'loginWithFacebook'         =>  'Login By Facebook',
+    'loginWithGoogle'           =>  'Login By Google',
     'login'                     =>  'Login',
     'register'                  =>  'Create account',
     'logout'                     =>  'Logout',

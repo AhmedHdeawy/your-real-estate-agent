@@ -28,7 +28,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
         if (auth()->check()) {
             return $this->homeForAuthedUser($request);
         }
