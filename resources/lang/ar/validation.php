@@ -195,6 +195,7 @@ return [
         'attachedFiles'         =>  'المرفقات',
 
         'storyText' =>  'النص',
+        'questions.0'   =>  'لابد من اضافة سؤال على الاقل',
 
         'ar' => [
             'name'                  => 'الاسم العربي',

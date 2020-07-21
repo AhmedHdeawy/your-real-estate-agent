@@ -203,6 +203,7 @@ return [
         'attachedFiles'         =>  'Attached files',
 
         'storyText' =>  'Text',
+        'questions.0'   =>  'you must provide one question at least',
 
         'en'    =>  [
             'name'  =>  'Name',

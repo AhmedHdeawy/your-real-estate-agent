@@ -144,10 +144,12 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name'  =>  'required|max:255|min:5|string',
             'description'  =>  'required|min:5|string',
             'questions'  =>  'required|array|min:1|max:10',
+            'questions.*' => 'required',
             'location'  =>  'required',
         ]);
 

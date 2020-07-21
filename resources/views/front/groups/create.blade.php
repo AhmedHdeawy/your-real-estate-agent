@@ -48,6 +48,17 @@
 
         <div class='col-md-10 mx-auto'>
             <h2 class="mb-5"> {{ __('lang.createGroup') }} </h2>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('groups.store') }}" method="post" id="createGroupForm" enctype="multipart/form-data">
                 @csrf
 
