@@ -62,6 +62,7 @@ Vue.component('HomeGroups', require('./components/HomeGroups.vue').default);
 Vue.component('HomePosts', require('./components/HomePosts.vue').default);
 Vue.component('ShowPost', require('./components/group/posts/ShowPost.vue').default);
 Vue.component('avatar', require('vue-avatar').default);
+Vue.component('discussions', require('./components/discussions/index.vue').default);
 
 
 // Map

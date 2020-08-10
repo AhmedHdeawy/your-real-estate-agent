@@ -194,6 +194,70 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 }
 
 
+
+
+/* Start / Discussion */
+
+.discussion_container {
+    background-color: #06A3CB;
+}
+
+.discussion_container .discussion_time * {
+    color: #9BDAEA;
+}
+
+.discussion_container .discussion_content * {
+    color: #FFF;
+}
+
+.discussion_container .discussion_content p {
+    font-size: .8rem;
+}
+
+.discussion_container .discussion_voting * {
+    font-weight: bold;
+}
+
+.discussion_container .discussion_comment * {
+    color: #9BDAEA;
+}
+
+.new_discussion .new_discussion_header {
+    background-color: #FFF;
+}
+
+.new_discussion .new_discussion_text textarea {
+    color: #FFF;
+    width: 100%;
+    height: 200px;
+    background-color: #9EC41C;
+}
+
+.new_discussion .new_discussion_text textarea::placeholder {
+    color: #DDD;
+    padding: 15px;
+}
+
+.discussion_info .nav {
+    border: 1px solid #403a6e;
+    border-radius: 5px;
+}
+
+.discussion_info .nav .nav-item {
+    border-right: 1px solid #403a6e;
+}
+
+.discussion_info .nav-pills .nav-link {
+    border-radius: 0;
+}
+
+.discussion_info .nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    background-color: #403a6e;
+}
+/* End / Discussion */
+
+
 /* Framework */
 
 .btn-rbzgo,
