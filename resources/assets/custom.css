@@ -199,7 +199,17 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 /* Start / Discussion */
 
 .discussion_container {
-    background-color: #06A3CB;
+    height: 200px;
+}
+
+.discussion_container .discussion_time {
+    height: 35px;
+}
+.discussion_container .discussion_content {
+    height: 130px;
+}
+.discussion_container .discussion_comment {
+    height: 35px;
 }
 
 .discussion_container .discussion_time * {

@@ -2,6 +2,8 @@
 <div>
     <info></info>
     <discussion></discussion>
+    <discussion :bg-color="'#DD5F5F'"></discussion>
+    <discussion :bg-color="'#9EC41C'"></discussion>
     <new-discussion></new-discussion>
 </div>
 
