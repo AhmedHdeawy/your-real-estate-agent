@@ -14649,6 +14649,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       placeholder: 'Share your thoughts and experiences with the people around you.'
     };
+  },
+  methods: {
+    cancelCreation: function cancelCreation() {
+      this.$emit('cancel-discussion');
+    }
   }
 });
 
@@ -14712,6 +14717,10 @@ __webpack_require__.r(__webpack_exports__);
     bgColor: {
       type: String,
       "default": '#06A3CB'
+    },
+    textColor: {
+      type: String,
+      "default": '#9BDAEA'
     }
   }
 });
@@ -14741,6 +14750,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14749,6 +14768,19 @@ __webpack_require__.r(__webpack_exports__);
     info: _info__WEBPACK_IMPORTED_MODULE_0__["default"],
     discussion: _discussion__WEBPACK_IMPORTED_MODULE_1__["default"],
     NewDiscussion: _NewDiscussion__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      newDiscussion: false
+    };
+  },
+  methods: {
+    addNewDiscussion: function addNewDiscussion() {
+      this.newDiscussion = true;
+    },
+    cancelDiscussion: function cancelDiscussion() {
+      this.newDiscussion = false;
+    }
   }
 });
 
@@ -84161,7 +84193,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "new_discussion overflow-hidden" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "row new_discussion_header p-2" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "button",
+          { staticClass: "no-btn", on: { click: _vm.cancelCreation } },
+          [_c("i", { staticClass: "fas fa-arrow-left" })]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row new_discussion_text" }, [
       _c("textarea", {
@@ -84176,17 +84218,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row new_discussion_header p-2" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("button", { staticClass: "no-btn" }, [
-          _c("i", { staticClass: "fas fa-arrow-left" })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col text-right" }, [
-        _c("button", { staticClass: "no-btn" }, [
-          _vm._v("\n                Next\n            ")
-        ])
+    return _c("div", { staticClass: "col text-right" }, [
+      _c("button", { staticClass: "no-btn" }, [
+        _vm._v("\n                Next\n            ")
       ])
     ])
   }
@@ -84218,24 +84252,53 @@ var render = function() {
       staticClass: "discussion_container container px-0 mb-2",
       style: { backgroundColor: _vm.bgColor }
     },
-    [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]
+    [
+      _c("div", { staticClass: "row no-gutters px-2 discussion_time" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("i", {
+            staticClass: "fas fa-map-marker-alt",
+            style: { color: _vm.textColor }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "px-1", style: { color: _vm.textColor } }, [
+            _vm._v("close . ")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "px-1", style: { color: _vm.textColor } }, [
+            _vm._v("4min")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "row no-gutters px-2 discussion_comment" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("i", {
+            staticClass: "fas fa-comment-alt",
+            style: { color: _vm.textColor }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "px-1", style: { color: _vm.textColor } }, [
+            _vm._v("12")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "button",
+            {
+              staticClass: "no-btn font-weight-bold",
+              style: { color: _vm.textColor }
+            },
+            [_vm._v("...")]
+          )
+        ])
+      ])
+    ]
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row no-gutters px-2 discussion_time" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("i", { staticClass: "fas fa-map-marker-alt" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "px-1" }, [_vm._v("close . ")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "px-1" }, [_vm._v("4min")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -84274,28 +84337,6 @@ var staticRenderFns = [
         )
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row no-gutters px-2 discussion_comment" },
-      [
-        _c("div", { staticClass: "col" }, [
-          _c("i", { staticClass: "fas fa-comment-alt" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "px-1" }, [_vm._v("12")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("button", { staticClass: "no-btn font-weight-bold" }, [
-            _vm._v("...")
-          ])
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -84322,15 +84363,40 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("info"),
+      !_vm.newDiscussion
+        ? _c(
+            "section",
+            [
+              _c("info"),
+              _vm._v(" "),
+              _c("discussion"),
+              _vm._v(" "),
+              _c("discussion", {
+                attrs: { "bg-color": "#DD5F5F", "text-color": "#F1BFBF" }
+              }),
+              _vm._v(" "),
+              _c("discussion", {
+                attrs: { "bg-color": "#8ABDB0", "text-color": "#D0E4DF" }
+              })
+            ],
+            1
+          )
+        : _c("new-discussion", {
+            on: { "cancel-discussion": _vm.cancelDiscussion }
+          }),
       _vm._v(" "),
-      _c("discussion"),
-      _vm._v(" "),
-      _c("discussion", { attrs: { "bg-color": "#DD5F5F" } }),
-      _vm._v(" "),
-      _c("discussion", { attrs: { "bg-color": "#9EC41C" } }),
-      _vm._v(" "),
-      _c("new-discussion")
+      !_vm.newDiscussion
+        ? _c("div", { staticClass: "add-discussion-wrapper" }, [
+            _c(
+              "button",
+              {
+                staticClass: "add-discussion",
+                on: { click: _vm.addNewDiscussion }
+              },
+              [_c("i", { staticClass: "fa fa-plus" })]
+            )
+          ])
+        : _vm._e()
     ],
     1
   )

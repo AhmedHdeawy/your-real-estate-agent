@@ -212,9 +212,9 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
     height: 35px;
 }
 
-.discussion_container .discussion_time * {
+/* .discussion_container .discussion_time * {
     color: #9BDAEA;
-}
+} */
 
 .discussion_container .discussion_content * {
     color: #FFF;
@@ -227,10 +227,31 @@ body[dir='ltr'] .select2-container .select2-selection .select2-selection__render
 .discussion_container .discussion_voting * {
     font-weight: bold;
 }
-
+/*
 .discussion_container .discussion_comment * {
     color: #9BDAEA;
+} */
+
+.add-discussion-wrapper {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    left: auto;
+    right: auto;
+    bottom: 15%;
 }
+
+.add-discussion {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border-color: #554f85;
+    font-size: 2rem;
+}
+.add-discussion i {
+    color: #554f85;
+}
+
 
 .new_discussion .new_discussion_header {
     background-color: #FFF;

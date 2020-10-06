@@ -2,7 +2,7 @@
     <section class="new_discussion overflow-hidden">
         <div class="row new_discussion_header p-2">
             <div class="col">
-                <button class="no-btn">
+                <button class="no-btn" @click="cancelCreation">
                     <i class="fas fa-arrow-left"></i>
                 </button>
             </div>
@@ -23,6 +23,11 @@ export default {
     data() {
         return {
             placeholder: 'Share your thoughts and experiences with the people around you.'
+        }
+    },
+    methods: {
+        cancelCreation() {
+            this.$emit('cancel-discussion');
         }
     },
 }

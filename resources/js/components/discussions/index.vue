@@ -1,10 +1,20 @@
 <template>
 <div>
-    <info></info>
-    <discussion></discussion>
-    <discussion :bg-color="'#DD5F5F'"></discussion>
-    <discussion :bg-color="'#9EC41C'"></discussion>
-    <new-discussion></new-discussion>
+
+    <section v-if="!newDiscussion">
+        <info></info>
+        <discussion></discussion>
+        <discussion :bg-color="'#DD5F5F'" :text-color="'#F1BFBF'"></discussion>
+        <discussion :bg-color="'#8ABDB0'" :text-color="'#D0E4DF'"></discussion>
+    </section>
+
+    <new-discussion @cancel-discussion="cancelDiscussion" v-else></new-discussion>
+
+    <div class="add-discussion-wrapper" v-if="!newDiscussion">
+        <button class="add-discussion" @click="addNewDiscussion">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
 </div>
 
 </template>
@@ -18,6 +28,19 @@ export default {
         info,
         discussion,
         NewDiscussion
-    }
+    },
+    data() {
+        return {
+            newDiscussion: false
+        }
+    },
+    methods: {
+        addNewDiscussion() {
+            this.newDiscussion = true
+        },
+        cancelDiscussion() {
+            this.newDiscussion = false
+        }
+    },
 }
 </script>

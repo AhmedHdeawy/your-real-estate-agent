@@ -3,9 +3,9 @@
       <!-- Discussion time -->
       <div class="row no-gutters px-2 discussion_time">
           <div class="col-12">
-            <i class="fas fa-map-marker-alt"></i>
-            <span class="px-1">close . </span>
-            <span class="px-1">4min</span>
+            <i class="fas fa-map-marker-alt" :style="{color: textColor}"></i>
+            <span class="px-1" :style="{color: textColor}">close . </span>
+            <span class="px-1" :style="{color: textColor}">4min</span>
           </div>
       </div>
       <!-- Discussion Contnet and Voting -->
@@ -32,11 +32,11 @@
       <!-- Discussion Comments -->
       <div class="row no-gutters px-2 discussion_comment">
           <div class="col">
-              <i class="fas fa-comment-alt"></i>
-              <span class="px-1">12</span>
+              <i class="fas fa-comment-alt" :style="{color: textColor}"></i>
+              <span class="px-1" :style="{color: textColor}">12</span>
           </div>
           <div class="col">
-              <button class="no-btn font-weight-bold">...</button>
+              <button class="no-btn font-weight-bold" :style="{color: textColor}">...</button>
           </div>
       </div>
     </section>
@@ -48,6 +48,10 @@ export default {
         bgColor: {
             type: String,
             default: '#06A3CB'
+        },
+        textColor: {
+            type: String,
+            default: '#9BDAEA'
         }
     }
 };
