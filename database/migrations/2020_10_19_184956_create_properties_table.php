@@ -15,7 +15,40 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->decimal('price', 10, 3)->nullable();
+            $table->decimal('lat', 10, 6)->nullable();
+            $table->decimal('long', 10, 6)->nullable();
+            $table->text('address')->nullable();
             $table->enum('status', [0, 1])->default(1)->comment('0 => Stopped, 1 => Active');
+            $table->string('agent_phone')->nullable();
+            $table->string('agent_email')->nullable();
+            $table->string('agent_name')->nullable();
+
+            $table->tinyInteger('no_of_rooms')->default(0);
+            $table->tinyInteger('no_of_maidrooms')->default(0);
+            $table->tinyInteger('no_of_bathrooms')->default(0);
+            $table->decimal('area', 6, 3)->nullable();
+
+            $table->text('description')->nullable();
+
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
+            $table->unsignedInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+
+            $table->unsignedInteger('period_id');
+            $table->foreign('period_id')->references('id')->on('periods')->onDelete('cascade');
+
+            $table->unsignedInteger('furnishing_id');
+            $table->foreign('furnishing_id')->references('id')->on('furnishings')->onDelete('cascade');
+
+            $table->unsignedInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

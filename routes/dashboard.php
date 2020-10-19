@@ -29,11 +29,26 @@ Route::prefix('admin')
             // Dashboard Routes
             Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-            // Groups Routes
-            Route::resource('groups', 'GroupsController')->except('create', 'store', 'edit');
+            // Types Routes
+            Route::resource('types', 'TypesController');
 
-            // Posts Routes
-            Route::resource('posts', 'PostsController')->except('create', 'store', 'edit');
+            // Periods Routes
+            Route::resource('periods', 'PeriodsController');
+
+            // Furnishings Routes
+            Route::resource('furnishings', 'FurnishingsController');
+
+            // Amenities Routes
+            Route::resource('amenities', 'AmenitiesController');
+
+            // Status Routes
+            Route::resource('status', 'StatusController');
+
+            // Properties Routes
+            Route::resource('properties', 'PropertiesController');
+
+            // Categories Routes
+            Route::resource('categories', 'CategoriesController');
 
             // Countries Routes
             Route::resource('countries', 'CountriesController');

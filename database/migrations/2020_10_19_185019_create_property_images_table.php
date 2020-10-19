@@ -15,8 +15,9 @@ class CreatePropertyImagesTable extends Migration
     {
         Schema::create('property_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('properties_id');
-            $table->foreign('properties_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->unsignedInteger('property_id');
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
         });
     }
 

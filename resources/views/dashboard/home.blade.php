@@ -29,30 +29,15 @@
     </div>
 
     <div class="col-xs-6 col-lg-3">
-        <a href="{{ route('admin.groups.index') }}">
+        <a href="{{ route('admin.properties.index') }}">
             <div class="card">
                 <div class="card-block p-a-1 clearfix">
                     <i
                         class="icon-layers bg-success p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
                     <div class="h5 text-primary m-b-0 m-t-h">
-                        {{ countRows('App\Models\Group') }}
+                        {{ countRows('App\Models\Property') }}
                     </div>
-                    <div class="text-muted text-uppercase font-weight-bold font-xs">{{ __('dashboard.groups') }}</div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-xs-6 col-lg-3">
-        <a href="{{ route('admin.posts.index') }}">
-            <div class="card">
-                <div class="card-block p-a-1 clearfix">
-                    <i
-                        class="icon-pencil bg-warning p-a-1 font-2xl m-r-1 {{ $currentLangDir == 'rtl' ? 'pull-right' : 'pull-left' }} "></i>
-                    <div class="h5 text-primary m-b-0 m-t-h">
-                        {{ countRows('App\Models\Post') }}
-                    </div>
-                    <div class="text-muted text-uppercase font-weight-bold font-xs">{{ __('dashboard.posts') }}</div>
+                    <div class="text-muted text-uppercase font-weight-bold font-xs">{{ __('dashboard.properties') }}</div>
                 </div>
             </div>
         </a>

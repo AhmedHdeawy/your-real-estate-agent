@@ -15,37 +15,62 @@
             </li>
             @endif
 
-            @if(auth('admin')->user()->can('admin.groups.view'))
+            @if(auth('admin')->user()->can('admin.properties.view'))
             <li class="nav-item">
-                <a class="nav-link {{ $segment == 'groups' ? 'active' : '' }}" href="{{ route('admin.groups.index') }}">
-                    <i class="icon-layers"></i> {{ __('dashboard.groups') }}
+                <a class="nav-link {{ $segment == 'properties' ? 'active' : '' }}" href="{{ route('admin.properties.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.properties') }}
                 </a>
             </li>
             @endif
 
-            @if(auth('admin')->user()->can('admin.posts.view'))
+            @if(auth('admin')->user()->can('admin.categories.view'))
             <li class="nav-item">
-                <a class="nav-link {{ $segment == 'posts' ? 'active' : '' }}" href="{{ route('admin.posts.index') }}">
-                    <i class="icon-pencil"></i> {{ __('dashboard.posts') }}
+                <a class="nav-link {{ $segment == 'categories' ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
+                    <i class="icon-layers"></i> {{ __('dashboard.categories') }}
                 </a>
             </li>
             @endif
 
-            @if(auth('admin')->user()->can('admin.countries.view'))
+            @if(auth('admin')->user()->can('admin.types.view'))
             <li class="nav-item">
-                <a class="nav-link {{ $segment == 'countries' ? 'active' : '' }}" href="{{ route('admin.countries.index') }}">
-                    <i class="icon-flag"></i> {{ __('dashboard.countries') }}
+                <a class="nav-link {{ $segment == 'types' ? 'active' : '' }}" href="{{ route('admin.types.index') }}">
+                    <i class="icon-pencil"></i> {{ __('dashboard.types') }}
                 </a>
             </li>
             @endif
 
-            @if(auth('admin')->user()->can('admin.states.view'))
+            @if(auth('admin')->user()->can('admin.periods.view'))
             <li class="nav-item">
-                <a class="nav-link {{ $segment == 'states' ? 'active' : '' }}" href="{{ route('admin.states.index') }}">
-                    <i class="icon-compass"></i> {{ __('dashboard.states') }}
+                <a class="nav-link {{ $segment == 'periods' ? 'active' : '' }}" href="{{ route('admin.periods.index') }}">
+                    <i class="icon-flag"></i> {{ __('dashboard.periods') }}
                 </a>
             </li>
             @endif
+
+            @if(auth('admin')->user()->can('admin.furnishings.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'furnishings' ? 'active' : '' }}" href="{{ route('admin.furnishings.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.furnishings') }}
+                </a>
+            </li>
+            @endif
+
+            @if(auth('admin')->user()->can('admin.amenities.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'amenities' ? 'active' : '' }}" href="{{ route('admin.amenities.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.amenities') }}
+                </a>
+            </li>
+            @endif
+
+            @if(auth('admin')->user()->can('admin.status.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'status' ? 'active' : '' }}" href="{{ route('admin.status.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.property_status') }}
+                </a>
+            </li>
+            @endif
+
 
             @if (auth('admin')->user()->can('admin.infos.view'))
             <li class="nav-item">

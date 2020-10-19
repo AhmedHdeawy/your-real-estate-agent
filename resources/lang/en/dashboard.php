@@ -103,17 +103,58 @@ return [
      */
     'writer'    =>  'Writer',
 
-    /**
-     * Groups
-     */
-    'groups'    =>  'Groups',
-    'group'    =>  'Group',
 
     /**
-     * Posts
+     * Categories
      */
-    'posts'    =>  'Posts',
-    'post'    =>  'Post',
+    'categories'    =>  'Categories',
+    'category'    =>  'Category',
+
+    /**
+     * Types
+     */
+    'types'     =>  'Property Type',
+    'type'     =>  'Property Type',
+
+
+    /**
+     * Periods
+     */
+    'periods'     =>  'Payment Type',
+    'period'     =>  'Payment Type',
+
+    /**
+     * Furnishings
+     */
+    'furnishings'     =>  'Furnishings',
+    'furnishing'     =>  'Furnishing',
+
+    /**
+     * Amenities
+     */
+    'amenities'     =>  'Amenities',
+    'amenitie'     =>  'Amenitie',
+
+    /**
+     * Propert Status
+     */
+    'property_status'     =>  'Completion',
+
+    /**
+     * Properties
+     *
+     */
+    'properties'    =>  'properties',
+    'property'    =>  'property',
+    'price'     =>  'price',
+    'agent_phone'   =>  'agent phone',
+    'agent_email'   =>  'agent email',
+    'agent_name'   =>  'agent name',
+    'agent'   =>  'Agent',
+    'no_of_rooms'   =>  'Bedrooms',
+    'no_of_bathrooms'   =>  'Bathrooms',
+    'no_of_maidrooms'   =>  'Maid',
+    'area'   =>  'area',
 
     /**
      * Roles

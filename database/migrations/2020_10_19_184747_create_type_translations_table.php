@@ -14,12 +14,12 @@ class CreateTypeTranslationsTable extends Migration
     public function up()
     {
         Schema::create('type_translations', function (Blueprint $table) {
-            $table->increments('types_trans_id');
+            $table->increments('id');
             $table->string('locale', 191)->index();
             $table->text('name');
 
-            $table->unsignedInteger('types_id');
-            $table->foreign('types_id')->references('id')->on('types')->onDelete('cascade');
+            $table->unsignedInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
     }
 

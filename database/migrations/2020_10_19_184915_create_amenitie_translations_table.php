@@ -14,12 +14,12 @@ class CreateAmenitieTranslationsTable extends Migration
     public function up()
     {
         Schema::create('amenitie_translations', function (Blueprint $table) {
-            $table->increments('amenities_trans_id');
+            $table->increments('id');
             $table->string('locale', 191)->index();
             $table->text('name');
 
-            $table->unsignedInteger('amenities_id');
-            $table->foreign('amenities_id')->references('id')->on('amenities')->onDelete('cascade');
+            $table->unsignedInteger('amenitie_id');
+            $table->foreign('amenitie_id')->references('id')->on('amenities')->onDelete('cascade');
         });
     }
 

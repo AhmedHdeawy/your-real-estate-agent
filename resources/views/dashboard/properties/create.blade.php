@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">{{ __('dashboard.home') }}</li>
-  <li class="breadcrumb-item"><a href="{{ route('admin.groups.index') }}"> {{ __('dashboard.groups') }} </a></li>
+  <li class="breadcrumb-item"><a href="{{ route('admin.properties.index') }}"> {{ __('dashboard.properties') }} </a></li>
   <li class="breadcrumb-item active">{{ __('dashboard.create') }}</li>
 @endsection
 
@@ -10,7 +10,7 @@
 
   @include('dashboard.includes.status')
 
-  <form action="{{ route('admin.groups.store') }}" method="post" class="form-horizontal " enctype="multipart/form-data">
+  <form action="{{ route('admin.properties.store') }}" method="post" class="form-horizontal " enctype="multipart/form-data">
 
     <div class="card">
       <div class="card-header">
@@ -18,7 +18,7 @@
       </div>
       <div class="card-block">
           @csrf
-          @include('dashboard.groups.form')
+          @include('dashboard.properties.form')
       </div>
       <div class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary">

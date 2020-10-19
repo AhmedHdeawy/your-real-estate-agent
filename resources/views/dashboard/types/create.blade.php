@@ -2,17 +2,15 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">{{ __('dashboard.home') }}</li>
-  <li class="breadcrumb-item"><a href="{{ route('admin.groups.index') }}"> {{ __('dashboard.groups') }} </a></li>
-  <li class="breadcrumb-item active">{{ __('dashboard.edit') }}</li>
+  <li class="breadcrumb-item"><a href="{{ route('admin.types.index') }}"> {{ __('dashboard.types') }} </a></li>
+  <li class="breadcrumb-item active">{{ __('dashboard.create') }}</li>
 @endsection
 
 @section('content')
 
   @include('dashboard.includes.status')
 
-  <form action="{{ route('admin.groups.update', $group->id) }}" method="post" class="form-horizontal " enctype="multipart/form-data">
-    @method('PUT')
-    @csrf
+  <form action="{{ route('admin.types.store') }}" method="post" class="form-horizontal " enctype="multipart/form-data">
 
     <div class="card">
       <div class="card-header">
@@ -20,11 +18,11 @@
       </div>
       <div class="card-block">
           @csrf
-          @include('dashboard.groups.form')
+          @include('dashboard.types.form')
       </div>
       <div class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary">
-            <i class="fa fa-dot-circle-o"></i> {{ __('dashboard.update') }}
+            <i class="fa fa-dot-circle-o"></i> {{ __('dashboard.save') }}
           </button>
           <button type="button" class="btn btn-sm btn-danger reset-form"><i class="fa fa-ban"></i>
             {{ __('dashboard.resetInputs') }}
@@ -36,4 +34,3 @@
 
 
 @endsection
-

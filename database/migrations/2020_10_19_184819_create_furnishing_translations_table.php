@@ -14,12 +14,12 @@ class CreateFurnishingTranslationsTable extends Migration
     public function up()
     {
         Schema::create('furnishing_translations', function (Blueprint $table) {
-            $table->increments('furnishings_trans_id');
+            $table->increments('id');
             $table->string('locale', 191)->index();
             $table->text('name');
 
-            $table->unsignedInteger('furnishings_id');
-            $table->foreign('furnishings_id')->references('id')->on('furnishings')->onDelete('cascade');
+            $table->unsignedInteger('furnishing_id');
+            $table->foreign('furnishing_id')->references('id')->on('furnishings')->onDelete('cascade');
         });
     }
 

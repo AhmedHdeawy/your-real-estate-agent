@@ -150,123 +150,54 @@ return [
     'privacyPolicy'             =>  'Privacy Policy',
 
     /**
-     * Profile
+     * Categories
      */
-    'followers' =>  'Followers',
-    'following' =>  'Following',
+    'categories'    =>  'Categories',
+    'category'    =>  'Category',
 
     /**
-     * Groups
+     * Types
      */
-    'createGroup'   =>  'Open New Rbz',
-    'groupInfo' =>  'Group Info',
-    'groupLocation' =>  'Group Location',
-    'groupName' =>  'Write any accounts, places, numbers, and groups',
-    'groupImage' =>  'Group image',
-    'groupDescription' =>  'Hint',
-    'groupJoinsQuestions' =>  'Group Join Questions',
-    'questionTitle' =>  'Question title',
-    'addQuestion'   =>  'Add Question',
-    'deleteQuestion'    =>  'Delete Question',
-    'createTheGroup'   =>  'Create The Group',
-    'leave' =>  'Leave',
-    'areSureLeave'  =>  'Are you sure you want to leave the group?',
-    'leaveHint' =>  "After leaving the group, you cannot view the group's posts or contact the group's members",
-    'noJoinedGroups'    =>  'You are not subscribed to any group. Create your own group or search for a group',
-    'countries' =>  'Countries',
-    'country' =>  'Country',
-    'states' =>  'States',
-    'state' =>  'State',
-    'findGroup'   =>  'Find Group',
-    'searchPlaceholder' =>  'Search by country, city, address, group',
-    'searchByAddress' =>  'Search by address',
-    'searchByName' =>  'Search by group name',
-    'searchByCity' =>  'Search by city',
-    'searchByLocation' =>  'Select Location on the Map and we will find nearest the groups in 50km',
-    'searchByMap'   =>  'Search By Map',
-    'searchByInfo'   =>  'Search By Info',
-    'searching' =>  'Searching',
-    'searchResult'  =>  'Search Result',
-    'join'  =>  'Join',
-    'askeQuestionToJoin'    =>  'to join in this group you must answer these questions',
-    'answer'    =>  'Answer',
-    'sendAnswerAndJoin'    =>  'Send Questions and Request Join',
-    'answersSentAndDone'  =>  'Answers have been sent and request to join. We will notify you when you are approved to join the group',
-    'noResultsFound'    =>  'No Groups found for this search, please try again',
-    'loginToJoin'       =>  'You must log in to request Join',
-    'nearestGroups'     =>  'Nearest Groups',
-    'nearestGroupsSearching'     =>  'Searching for the closest groups to you',
-    'distanceFromHere'  =>  'It is :km km away',
-    'here'      =>  'Here',
-    'veryClose'      =>  'Very close',
-    'youMustAnswerOneQuestions'   =>  'You must answer one question at least',
-    'userRequestJoinToGroup'    =>  ':user Request Join to :group',
-    'requestJoining'    =>  'Requests to join',
-    'youHaveNoRequestJoining'   =>  'You do not have any requests to join at this time',
-    'reviewAnswers' =>  'Review answers',
-    'accept'    =>  'Accept',
-    'denied'    =>  'Denied',
-    'acceptedSuccessfully'  =>  'Accepted Succefully',
-    'deniedSuccessfully'  =>  'Denied Succefully',
-    'youCannotLeaveYourGroup'   =>  'You cannot leave the group that you own',
-    'requestJoiningAccepted'  =>  'A request to join a Rbz :group was accepted',
-    'requestJoiningRejected'  =>  'A request to join a Rbz :group was rejected',
-    'youHaveNoNotifications'    =>  'You do not have any unread notifications',
+    'types'     =>  'Property Type',
+    'type'     =>  'Property Type',
+
 
     /**
-     * Posts
+     * Periods
      */
-    'posts' =>  'Posts',
-    'post' =>  'Post',
-    'discussions'   =>  'Discussions',
-    'stories'   =>  'Stories',
-    'whatsInYourMind'   =>  "what's on your mind",
-    'attachFileOrImage'   =>  'Photo/Video',
-    'publish'   =>  'publish',
-    'likes'   =>  'Likes',
-    'like'   =>  'Like',
-    'likeMe'   =>  'Like',
-    'comments'   =>  'Comments',
-    'comment'   =>  'Comment',
-    'writeComment'   =>  'write a comment',
-    'viewComments'  =>  'View Comments',
-    'noMorePosts'   =>  'There are no More Posts to show',
-    'noPosts'       =>  'There are no Posts to show',
-    'dragFilesHere'    =>    'Drop files here or click to upload.',
-    'maxFileSize'    =>    'The file is too big, cannot upload it.',
-    'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
-    'seeMore'   =>  'See More',
-    'seeLess'   =>  'See Less',
+    'periods'     =>  'Payment Type',
+    'period'     =>  'Payment Type',
 
     /**
-     * Messenger
+     * Furnishings
      */
-    'chat' =>  'Chat',
-    'friends'   =>  'Friends',
-    'typeMessage'  =>  'Type a message',
-    'youhavenofriends'  =>  'You have no any friends yet',
-    'youhavenoMessage'  =>  'There are no message yet',
-    'loadingChat'   =>  'Loading Chat',
-    'youHaveNewMessage' =>  'You have a new message from :user',
+    'furnishings'     =>  'Furnishings',
+    'furnishing'     =>  'Furnishing',
 
     /**
-     * Stories
+     * Amenities
      */
-    'myStories' =>  'My Story',
-    'addStory' =>  'Add Story',
-    'unmute'    =>  'unmute',
-    'keyboardTip'    =>  'Press space to see next',
-    'visitLink'    =>  'Visit link',
-    'ago'    =>  'ago',
-    'hour'    =>  'hour',
-    'hours'    =>  'hours',
-    'minute'    =>  'minute',
-    'minutes'    =>  'minutes',
-    'fromnow'    =>  'from now',
-    'seconds'    =>  'seconds',
-    'yesterday'    =>  'yesterday',
-    'tomorrow'    =>  'tomorrow',
-    'days'    =>  'days',
-    'character' =>  'Character',
-    'storyImagesVideos' =>  'Attach image or video',
+    'amenities'     =>  'Amenities',
+    'amenitie'     =>  'Amenitie',
+
+    /**
+     * Propert Status
+     */
+    'property_status'     =>  'Completion',
+
+    /**
+     * Properties
+     *
+     */
+    'properties'    =>  'properties',
+    'property'    =>  'property',
+    'price'     =>  'price',
+    'agent_phone'   =>  'agent phone',
+    'agent_email'   =>  'agent email',
+    'agent_name'   =>  'agent name',
+    'no_of_rooms'   =>  'Bedrooms',
+    'no_of_bathrooms'   =>  'Bathrooms',
+    'no_of_maidrooms'   =>  'Maid',
+    'area'   =>  'area',
+
 ];

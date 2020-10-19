@@ -111,16 +111,56 @@ return [
     'writer'    =>  'الكاتب',
 
     /**
-     * Groups
+     * Categories
      */
-    'groups'    =>  'المجموعات',
-    'group'    =>  'مجموعة',
+    'categories'    =>  'التصنيفات',
+    'category'    =>  'التصنيف',
 
     /**
-     * Posts
+     * Types
      */
-    'posts'    =>  'المنشورات',
-    'post'    =>  'منشور',
+    'types'     =>  'نوع العقار',
+    'type'     =>  'نوع العقار',
+
+
+    /**
+     * Periods
+     */
+    'periods'     =>  'انوع الدفع',
+    'period'     =>  'نوع الدفع',
+
+    /**
+     * Furnishings
+     */
+    'furnishings'     =>  'المفروشات',
+    'furnishing'     =>  'المفروشات',
+
+    /**
+     * Amenities
+     */
+    'amenities'     =>  'المزايا',
+    'amenitie'     =>  'المزايا',
+
+    /**
+     * Propert Status
+     */
+    'property_status'     =>  'حالة العقار',
+
+    /**
+     * Properties
+     *
+     */
+    'properties'    =>  'العقارات',
+    'property'    =>  'العقار',
+    'price'     =>  'السعر',
+    'agent_phone'   =>  'رقم الوسيط',
+    'agent_email'   =>  'ايميل الوسيط',
+    'agent_name'   =>  'اسم الوسيط',
+    'agent'   =>  'الوسيط',
+    'no_of_rooms'   =>  'عدد الغرف',
+    'no_of_bathrooms'   =>  'حمامات',
+    'no_of_maidrooms'   =>  'غرفة الخادمة',
+    'area'   =>  'مساحة العقار',
 
     /**
      * Roles

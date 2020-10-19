@@ -18,8 +18,8 @@ class CreateCategoryTranslationsTable extends Migration
             $table->string('locale', 191)->index();
             $table->text('name');
 
-            $table->unsignedInteger('categories_id');
-            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

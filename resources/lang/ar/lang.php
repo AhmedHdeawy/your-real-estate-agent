@@ -155,125 +155,54 @@ return [
     'privacyPolicy'             =>  'سياسة الخصوصية',
 
     /**
-     * Profile
+     * Categories
      */
-    'followers' =>  'المتابعون',
-    'following' =>  'يتابع',
+    'categories'    =>  'التصنيفات',
+    'category'    =>  'التصنيف',
 
     /**
-     * Groups
+     * Types
      */
-    'createGroup'   =>  'فتح ربز جماعي',
-    'groupInfo' =>  'بيانات المجموعة',
-    'groupLocation' =>  'مكان المجموعة',
-    'groupName' =>  'اكتب اي حسابات, اماكن, ارقام, مجموعات',
-    'groupImage' =>  'صورة المجموعة',
-    'groupDescription' =>  'تلميح',
-    'groupJoinsQuestions' =>  'أسئلة الانضمام للمجموعة',
-    'questionTitle' =>  'عنوان السؤال',
-    'addQuestion'   =>  'إضافة سؤال',
-    'deleteQuestion'    =>  'حذف السؤال',
-    'createTheGroup'   =>  'إنشاء المجموعة',
-    'leave' =>  'مغادرة',
-    'areSureLeave'  =>  'هل انت متأكد من مغادرة المجموعة',
-    'leaveHint' =>  'بعد مغادرة المجموعة لايمكنك مشاهدة منشورات المجموعة ولا مراسلة أعضاء المجموعة',
-    'noJoinedGroups'    =>  'انت غير مشترك في اي مجموعة. قم بانشاء مجموعتك الخاصه أو ابحث عن مجموعة',
-    'countries' =>  'الدول',
-    'country' =>  'الدولة',
-    'states' =>  'المحافظات',
-    'states' =>  'المحافظة',
-    'findGroup'   =>  'ايجاد مجموعة',
-    'searchPlaceholder' =>  'ابحث باسم الدولة, المدينة, العنوان, المجموعة',
-    'searchByAddress' =>  'ابحث بالعنوان',
-    'searchByName' =>  'ابحث باسم المجموعة',
-    'searchByCity' =>  'ابحث بالمدينة',
-    'searchByLocation' =>  'حدد الموقع على الخريطة وسنجد أقرب المجموعات على بعد 50 كم',
-    'searchByMap'   =>  'بحث بالخرائط',
-    'searchByInfo'   =>  'بحث بالبيانات',
-    'searching' =>  'جاري البحث',
-    'searchResult'  =>  'نتيجة البحث',
-    'join'  =>  'انضمام',
-    'askeQuestionToJoin'    =>  'لكي تنضم الى المجموعة لابد أن تجيب على هذه الاسئلة',
-    'answer'    =>  'الاجابة',
-    'sendAnswerAndJoin'    =>  'ارسال الاجابات وطلب الانضمام',
-    'answersSentAndDone'    =>  'تم ارسال الاجابات وطلب الانضمام. سوف نقوم باشعارك عندما يتم الموافقة على انضمامك للمجموعة',
-    'noResultsFound'    =>  'لم يتم ايجاد اي مجموعات مطابقة لبحثك. حاول مره اخرى',
-    'loginToJoin'       =>  'يجب عليك التسجيل لكي تنضم للمجموعة',
-    'nearestGroups'     =>  'أقرب المجموعات',
-    'nearestGroupsSearching'     =>  'جاري البحث عن أقرب المجموعات اليك',
-    'distanceFromHere'  =>  'تبعد :km كيلو متر',
-    'here'      =>  'هنا',
-    'veryClose'      =>  'قريب جدا',
-    'youMustAnswerOneQuestions'   =>  'يجب عليك الاجابة على سؤال واحد على الاقل',
-    'userRequestJoinToGroup'    =>  ':user طلب الانضمام الى ربز :group',
-    'requestJoining'    =>  'طلبات الانضمام',
-    'youHaveNoRequestJoining'   =>  'ليس لديك اي طلبات انضمام في الوقت الحالي',
-    'reviewAnswers' =>  'مراجعة الاجابات',
-    'accept'    =>  'قبول',
-    'denied'    =>  'رفض',
-    'acceptedSuccessfully'  =>  'تم القبول بنجاح',
-    'deniedSuccessfully'  =>  'تم الرفض بنجاح',
-    'youCannotLeaveYourGroup'   =>  'لا يمكنك مغادرة المجموعة التي انت تملكها',
-    'requestJoiningAccepted'  =>  'تم قبول طلب الانضمام الى ربز :group',
-    'requestJoiningRejected'  =>  'تم رفض طلب الانضمام الى ربز :group',
-    'youHaveNoNotifications'    =>  'ليس لديك اي اشعارات غير مقرؤة',
+    'types'     =>  'نوع العقار',
+    'type'     =>  'نوع العقار',
 
 
     /**
-     * Posts
+     * Periods
      */
-    'posts' =>  'المنشورات',
-    'post' =>  'منشور',
-    'discussions'   =>  'المناقشات',
-    'stories'   =>  'الحالات',
-    'whatsInYourMind'   =>  'بم تفكر',
-    'attachFileOrImage'   =>  'صورة/فيديو',
-    'publish'   =>  'نشر',
-    'likes'   =>  'اعجابات',
-    'like'   =>  'اعجاب',
-    'likeMe'   =>  'اعجبني',
-    'comments'   =>  'التعليقات',
-    'comment'   =>  'تعليق',
-    'writeComment'   =>  'اكتب تعليقاً',
-    'viewComments'  =>  'عرض التعليقات',
-    'noMorePosts'   =>  'لايوجد منشورات اخرى لعرضها',
-    'noPosts'       =>  'لايوجد منشورات لعرضها',
-    'dragFilesHere'    =>    'اسحب الملفات هنا او اضغط لاختيار الملفات.',
-    'maxFileSize'    =>    'حجم الملف كبير جدا . لايمكن رفعه',
-    'invalid_filetype'   => 'لا يمكن رفع هذا النوع من الملفات',
-    'seeMore'   =>  'عرض المزيد',
-    'seeLess'   =>  'عرض اقل',
+    'periods'     =>  'انوع الدفع',
+    'period'     =>  'نوع الدفع',
 
     /**
-     * Messenger
+     * Furnishings
      */
-    'chat' =>  'الدردشة',
-    'friends'   =>  'الاصدقاء',
-    'typeMessage'  =>  'اكتب رسالتك',
-    'youhavenofriends'  =>  'ليس لديك أي اصدقاء حالياً',
-    'youhavenoMessage'  =>  'لا يوجد رسائل بينكم حتى الان',
-    'loadingChat'   =>  'جاري تحميل الدردشة',
-    'youHaveNewMessage' =>  'لديك رسالة جديدة من :user',
+    'furnishings'     =>  'المفروشات',
+    'furnishing'     =>  'المفروشات',
 
     /**
-     * Stories
+     * Amenities
      */
-    'myStories' =>  'حالتى',
-    'addStory' =>  'إضافة حالة',
-    'unmute'    =>  'تشغيل الصوت',
-    'keyboardTip'    =>  'اضغط مسطرة للتالى',
-    'visitLink'    =>  'زيارة الرابط',
-    'ago'    =>  'منذ',
-    'hour'    =>  'ساعة',
-    'hours'    =>  'ساعات',
-    'minute'    =>  'دقيقة',
-    'minutes'    =>  'دقائق',
-    'fromnow'    =>  'من الان',
-    'seconds'    =>  'ثوان',
-    'yesterday'    =>  'أمس',
-    'tomorrow'    =>  'غدا',
-    'days'    =>  'ايام',
-    'character' =>  'حرف',
-    'storyImagesVideos' =>  'أرفق صوره أو فيديو',
+    'amenities'     =>  'المزايا',
+    'amenitie'     =>  'المزايا',
+
+    /**
+     * Propert Status
+     */
+    'property_status'     =>  'حالة العقار',
+
+    /**
+     * Properties
+     *
+     */
+    'properties'    =>  'العقارات',
+    'property'    =>  'العقار',
+    'price'     =>  'السعر',
+    'agent_phone'   =>  'رقم الوسيط',
+    'agent_email'   =>  'ايميل الوسيط',
+    'agent_name'   =>  'اسم الوسيط',
+    'no_of_rooms'   =>  'عدد الغرف',
+    'no_of_bathrooms'   =>  'حمامات',
+    'no_of_maidrooms'   =>  'غرفة الخادمة',
+    'area'   =>  'مساحة العقار',
 
 ];
