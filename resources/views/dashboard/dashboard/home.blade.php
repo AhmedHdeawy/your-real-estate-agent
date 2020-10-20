@@ -8,9 +8,9 @@
 
 @section('content')
 
-<h1 class="m-b-3">
+<h3 class="m-b-1">
 	{{ __('dashboard.websiteStatistics') }}
-</h1>
+</h3>
 
 <div class="row dashboard-statistic">
 
@@ -46,4 +46,37 @@
 
 </div>
 
+<div class="row m-y-3">
+    <div class="col-xs-10 m-b-3">
+        <h3 class="m-b-3">
+            {{ __('dashboard.recentProperties') }}
+        </h3>
+        @include('dashboard.dashboard.newProperties')
+    </div>
+
+</div>
+
+<div class="row m-y-3">
+    <h3 class="m-y-3">
+        {{ __('dashboard.activePropertiesToStoppedProperties') }}
+    </h3>
+    <div class="col-xs-10">
+        @include('dashboard.dashboard.propertiesStatus')
+    </div>
+
+</div>
+
+@endsection
+
+
+@section('script')
+<script>
+	$(document).ready(function() {
+
+		chartColors = {
+			active			: 'rgb(32, 168, 216)',
+			stopped	        : 'rgb(248, 108, 107)',
+		};
+	});
+</script>
 @endsection

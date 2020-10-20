@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusTranslationsTable extends Migration
+class CreateCompletingTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateStatusTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_translations', function (Blueprint $table) {
+        Schema::create('completing_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('locale', 191)->index();
             $table->text('name');
 
-            $table->unsignedInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+            $table->unsignedInteger('completing_id');
+            $table->foreign('completing_id')->references('id')->on('completings')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateStatusTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_translations');
+        Schema::dropIfExists('completing_translations');
     }
 }

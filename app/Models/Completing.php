@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 
-class Status extends Model implements TranslatableContract
+class Completing extends Model implements TranslatableContract
 {
     use Translatable;
 
@@ -15,7 +15,7 @@ class Status extends Model implements TranslatableContract
      *
      * @var string
      */
-    protected $table = 'status';
+    protected $table = 'completings';
 
     /**
      * translated attributes

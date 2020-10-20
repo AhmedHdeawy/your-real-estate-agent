@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StatusTranslation extends Model
+class CompletingTranslation extends Model
 {
     /**
      * table
      */
-    protected $table = 'status_translations';
+    protected $table = 'completing_translations';
 
     /**
      * Timestamps.
@@ -21,7 +21,7 @@ class StatusTranslation extends Model
     /**
      * fillable attributes
      */
-    protected $fillable = ['status_id', 'locale', 'name'];
+    protected $fillable = ['completing_id', 'locale', 'name'];
 
 
     /**
@@ -29,6 +29,6 @@ class StatusTranslation extends Model
      */
     public function type()
     {
-        return $this->belongsTo('App\Models\Status', 'status_id', 'id');
+        return $this->belongsTo('App\Models\Completing', 'completing_id', 'id');
     }
 }

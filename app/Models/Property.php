@@ -44,7 +44,7 @@ class Property extends Model implements TranslatableContract
         'type_id',
         'period_id',
         'furnishing_id',
-        'status_id'
+        'completing_id'
     ];
 
     public function agent()
@@ -72,9 +72,9 @@ class Property extends Model implements TranslatableContract
         return $this->belongsTo('App\Models\Furnishing', 'furnishing_id');
     }
 
-    public function status()
+    public function completing()
     {
-        return $this->belongsTo('App\Models\Status', 'status_id');
+        return $this->belongsTo('App\Models\Completing', 'completing_id');
     }
 
     public function images()

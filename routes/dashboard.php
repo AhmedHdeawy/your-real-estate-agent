@@ -42,7 +42,7 @@ Route::prefix('admin')
             Route::resource('amenities', 'AmenitiesController');
 
             // Status Routes
-            Route::resource('status', 'StatusController');
+            Route::resource('completings', 'CompletingsController');
 
             // Properties Routes
             Route::resource('properties', 'PropertiesController');

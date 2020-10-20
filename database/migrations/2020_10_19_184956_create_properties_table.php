@@ -46,8 +46,8 @@ class CreatePropertiesTable extends Migration
             $table->unsignedInteger('furnishing_id');
             $table->foreign('furnishing_id')->references('id')->on('furnishings')->onDelete('cascade');
 
-            $table->unsignedInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+            $table->unsignedInteger('completing_id');
+            $table->foreign('completing_id')->references('id')->on('completings')->onDelete('cascade');
 
             $table->timestamps();
         });

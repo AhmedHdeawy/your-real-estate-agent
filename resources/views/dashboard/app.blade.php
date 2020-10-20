@@ -94,17 +94,19 @@
     <!-- CoreUI main scripts -->
     <script src="{{ asset('dashboard/js/app.js') }}"></script>
 
-
     <!-- Plugins and scripts required by this views -->
     <script src="{{ asset('dashboard/js/libs/alertify.min.js') }}"></script>
 
     <!-- Custom scripts required by this view -->
     <script src="{{ asset('dashboard/js/views/main.js') }}"></script>
 
-
     <script src="{{ asset('dashboard/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('dashboard/plugins/chart-js/chart.js') }}"></script>
 
     <script src="{{ asset('dashboard/js/custom.js') }}"></script>
+
+    @yield('script')
+    @stack('js')
 
 </body>
 </html>

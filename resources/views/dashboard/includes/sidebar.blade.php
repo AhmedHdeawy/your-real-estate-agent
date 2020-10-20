@@ -63,10 +63,10 @@
             </li>
             @endif
 
-            @if(auth('admin')->user()->can('admin.status.view'))
+            @if(auth('admin')->user()->can('admin.completings.view'))
             <li class="nav-item">
-                <a class="nav-link {{ $segment == 'status' ? 'active' : '' }}" href="{{ route('admin.status.index') }}">
-                    <i class="icon-compass"></i> {{ __('dashboard.property_status') }}
+                <a class="nav-link {{ $segment == 'completings' ? 'active' : '' }}" href="{{ route('admin.completings.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.completings') }}
                 </a>
             </li>
             @endif

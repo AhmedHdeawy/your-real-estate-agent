@@ -144,7 +144,7 @@ return [
     /**
      * Propert Status
      */
-    'property_status'     =>  'حالة العقار',
+    'completings'     =>  'حالة العقار',
 
     /**
      * Properties
@@ -161,6 +161,13 @@ return [
     'no_of_bathrooms'   =>  'حمامات',
     'no_of_maidrooms'   =>  'غرفة الخادمة',
     'area'   =>  'مساحة العقار',
+
+    'newProperty'   =>  'عقار جديد',
+    'recentProperties'  =>  'العقارات المضافة حديثا',
+    'propertiesOnMap'   =>  'أماكن العقارات على الخريطة',
+    'activeProperties'  =>  'العقارات النشطة',
+    'stoppedProperties'  =>  'العقارات المتوقفه',
+    'activePropertiesToStoppedProperties'   =>  'نسبة العقارات النشطة إلى العقارات المتوقفه',
 
     /**
      * Roles

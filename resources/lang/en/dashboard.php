@@ -138,7 +138,7 @@ return [
     /**
      * Propert Status
      */
-    'property_status'     =>  'Completion',
+    'completings'     =>  'Completion',
 
     /**
      * Properties
