@@ -156,6 +156,12 @@ return [
     'no_of_maidrooms'   =>  'Maid',
     'area'   =>  'area',
 
+    'newProperty'   =>  'New Property',
+    'recentProperties'  =>  'Recent Properties',
+    'activeProperties'  =>  'Active Properties',
+    'stoppedProperties'  =>  'Stopped Properties',
+    'activePropertiesToStoppedProperties'   =>  'Active Properties to Stopped Properties',
+
     /**
      * Roles
      */

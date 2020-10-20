@@ -17,6 +17,7 @@ class CreatePropertyTranslationsTable extends Migration
             $table->increments('id');
             $table->string('locale', 191)->index();
             $table->text('name');
+            $table->text('desc');
 
             $table->unsignedInteger('property_id');
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');

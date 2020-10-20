@@ -38,7 +38,6 @@ class Property extends Model implements TranslatableContract
         'no_of_maidrooms',
         'no_of_bathrooms',
         'area',
-        'description',
         'user_id',
         'category_id',
         'type_id',
