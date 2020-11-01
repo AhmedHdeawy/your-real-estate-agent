@@ -1,152 +1,52 @@
-//	Start Side Menu Settings
-const DomElements = {
-    navBarBtn: document.querySelector('.navbar-toggler'),
-    sideMenuClose: document.querySelector('.side-menu .close-menu button')
-};
-
-var URL = window.location.href;
-var lang = URL.split('/')[3];
-    lang = lang[0] + lang[1];
-
-function menuOpen() {
-    if (lang == 'ar') {
-        $('#sideMenu')
-            .css('display', 'block')
-            .animate({
-                right: '0'
-            }, 400);
-    } else {
-        $('#sideMenu')
-            .css('display', 'block')
-            .animate({
-                left: '0'
-            }, 400);
-    }
-    $('body').css('overflow', 'hidden');
-}
-
-function menuClose() {
-    if (lang == 'ar') {
-
-        $('.side-menu').animate({
-            right: '-100vw'
-        }, 400).delay(400).queue(function (next) {
-            $('.side-menu').css('display', 'none');
-            $('body').css('overflow', 'auto');
-            next();
-        });
-    } else {
-        $('.side-menu').animate({
-            left: '-100vw'
-        }, 400).delay(400).queue(function (next) {
-            $('.side-menu').css('display', 'none');
-            $('body').css('overflow', 'auto');
-            next();
-        });
-    }
-}
-
-DomElements.navBarBtn.addEventListener('click', menuOpen);
-DomElements.sideMenuClose.addEventListener('click', menuClose);
-//	End Side Menu Settings
-
-//	Start Password Input Visible
-// $('.input-group-append').on('click', function () {
-// 	if ($(this).siblings().attr('type') === 'password') {
-// 		$(this).siblings().prop('type', 'text');
-// 	} else if ($(this).siblings().attr('type') === 'text') {
-// 		$(this).siblings().prop('type', 'password');
-// 	}
-// 	$(this).find('i')
-// 		.toggleClass('fa-eye')
-// 		.toggleClass('fa-eye-slash');
-// });
-//	End Password Input Visible
-
-
-//	Start Search Toggle Expand
-$('span.expand').on('click', function () {
-    if ($('.search-form').hasClass('small-search')) {
-        showSearch();
-    } else {
-        hideSearch();
-    }
-});
-const showSearch = function () {
-    $('.search-form')
-        .removeClass('small-search')
-        .css({
-            overflow: 'visible'
-        })
-        .animate({
-            height: '440px'
-        })
-        .children('span').css({
-            transform: 'rotateX(180deg)'
-        });
-};
-
-const hideSearch = function () {
-    $('.search-form')
-        .addClass('small-search')
-        .css({
-            overflow: 'hidden'
-        })
-        .animate({
-            height: '174px'
-        })
-        .children('span').css({
-            transform: 'rotateX(0)'
-        });
-};
-//	End Search Toggle Expand
-
-
-//	Start profile Data Edit
-$('.data-head').on('click', function () {
-    $('.data-edit').slideToggle(400);
-});
-//	End profile Data Edit
-
-//	Start Friends List Hide / Show
-$('#listToggle').on('click', function () {
-    friendsShow();
+$('.unit > .unit-images-carousel').owlCarousel({
+    loop: true,
+    nav: false,
+    rtl: true,
+    items: 1,
 });
 
-const friendsShow = function () {
-    $('.contacts').slideToggle(400);
-    $('#listToggle').toggleClass('opened', 400);
-    if ($('#listToggle').hasClass('opened')) {
-        $('#listToggle span').css({
-            transform: 'rotateX(180deg)'
-        });
-    } else {
-        $('#listToggle span').css({
-            transform: 'rotateX(0)'
-        });
+$('.unit-images-gallery > .owl-carousel').owlCarousel({
+    loop: false,
+    nav: true,
+    dots: false,
+    margin: 30,
+    rtl: true,
+    items: 4,
+    navText: [
+        '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
+    ],
+    responsive: {
+        // breakpoint from 0 up
+        0: {
+            items: 2,
+        },
+        // breakpoint from 480 up
+        480: {
+            items: 3,
+        },
+        // breakpoint from 768 up
+        768: {
+            items: 4,
+        }
     }
-};
-//	End Friends List Hide / Show
-
-
-// Add another Question when create the group
-$('.btn-create-question').click(function (e) {
-    e.preventDefault();
-
-    // Get Teaxtarea Container
-    const textAreaSection = $(this).parent().find('section');
-
-    // Get the first textarea
-    const textArea = textAreaSection.find('textarea.first:first');
-
-    if (textAreaSection.find('textarea').length > 3) {
-        return;
-    }
-    // Clone it, and insert it in the last
-    var tx = textArea.clone().insertAfter(textAreaSection.find('textarea:last')).val('');
-
-
 });
+
+
+const bigImage = document.querySelector('.big-image-con img');
+const smImage = document.querySelectorAll('.unit-images-gallery .image-con img');
+
+smImage.forEach(el => {
+    el.addEventListener('click', () => {
+        if (el.getAttribute('data-target') !== null) {
+            bigImage.setAttribute('src', el.getAttribute('data-target'));
+        } else {
+            bigImage.setAttribute('src', el.getAttribute('src'));
+        }
+    });
+});
+
+
 
 // Show Uploaded image under file input
 $('.imageUpload').change(function (event) {

@@ -20,56 +20,28 @@
     <link rel="stylesheet" href="{{  mix('css/app.css') }}">
     @yield('style')
     <link rel="stylesheet" href="{{ mix('css/all.css') }}">
-
-    <script>
-        @auth
-            window.authedUser = {!! json_encode(auth()->user()) !!};
-        @else
-            window.authedUser = null;
-        @endauth
-    </script>
-
 </head>
 
 <!-- class="rtl" -->
 
-<body dir="{{ $currentLangDir}}">
+<body dir="{{ $currentLangDir}}" style='text-align: right'>
+    {{-- App Navbar --}}
+    @include('layouts.navbar')
+    {{-- App Navbar / End --}}
 
-    <div class='container'>
-        <div class='app-con' id="app">
+    <div class='content-wrapper'>
 
-            {{-- App Navbar --}}
-            @include('layouts.navbar')
-            {{-- App Navbar / End --}}
+        {{-- Main Section --}}
+        @yield('content')
+        {{-- Main Section / End --}}
 
-            {{-- Main Section --}}
-            <main class='page-content'>
-                @yield('content')
-            </main>
-            {{-- Main Section / End --}}
-
-            {{-- Footer --}}
-            @include('layouts.footer')
-            {{-- Footer / End --}}
-
-        </div>
-    </div>
-
-    {{-- Mobile Navbar --}}
-    @include('layouts.sidemenu')
-    {{-- Mobile Navbar / End --}}
-
-    {{-- Mobile Navbar --}}
-    @include('layouts.mobile_navbar')
-    {{-- Mobile Navbar / End --}}
-
-    <div id="sound">
-        <audio id="notificationAudio">
-            <source src="{{ asset('uploads/swiftly.mp3') }}">
-        </audio>
+        {{-- Footer --}}
+        @include('layouts.footer')
+        {{-- Footer / End --}}
     </div>
 
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ mix('js/all.js') }}"></script>
 
     @yield('script')

@@ -14,15 +14,6 @@ try {
 } catch (e) {}
 
 
-/**
- * Get Locale Language from HTML attr
- */
-const localeLang = $('html').attr('lang');
-window.localeLang = localeLang;
-
-// Configure BaseURL
-window.BASE_URL = window.location.protocol + "//" + window.location.hostname + '/' + localeLang;
-
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -33,30 +24,3 @@ window.BASE_URL = window.location.protocol + "//" + window.location.hostname + '
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Load moment js
- */
-window.moment = require('moment');
-moment.locale(localeLang);
-
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-import Echo from 'laravel-echo';
-
-window.Pusher = require('pusher-js');
-// Pusher.logToConsole = true;
-
-
-window.Echo = new Echo({
-    authEndpoint: BASE_URL + '/broadcasting/auth',
-    broadcaster: 'pusher',
-    key: '8a52f3e1feb9bb849ba2',
-    cluster: 'mt1',
-    encrypted: true,
-});
