@@ -200,4 +200,30 @@ return [
     'no_of_maidrooms'   =>  'Maid',
     'area'   =>  'area',
 
+    /**
+     * Front
+     */
+    'for_rent'  =>  'Rent',
+    'for_buy'  =>  'Buy',
+    'commercial_rent'   =>  'Commercial Rent',
+    'commercial_buy'   =>  'Commercial Buy',
+    'commercial'   =>  'Commercial',
+    'searchForYourProperty'   =>  'Search for Property',
+    'searchPropertyText'   =>  'City or Area or Address',
+    'yearly'   =>  'Yearly',
+    'monthly'   =>  'Monthly',
+    'weekly'   =>  'Weekly',
+    'daily'   =>  'Daily',
+    'max_area'   =>  'Max. area',
+    'min_area'   =>  'Min. area',
+    'max_price'   =>  'Max. price',
+    'min_price'   =>  'Min. price',
+    'property_type'   =>  'Property type',
+    'recommended_properties'    =>  'Recommended properties',
+    'details'   =>  'Details',
+    'call'   =>  'Call',
+    'recent_news'   =>  'Recent Articles',
+    'published_date'    =>  'Published at',
+    'read_more'    =>  'Read More',
+    'visit_blog'    =>  'Visit our Blog',
 ];

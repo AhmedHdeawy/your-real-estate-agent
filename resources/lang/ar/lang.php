@@ -205,4 +205,31 @@ return [
     'no_of_maidrooms'   =>  'غرفة الخادمة',
     'area'   =>  'مساحة العقار',
 
+    /**
+     * Front
+     */
+    'for_rent'  =>  'للايجار',
+    'for_buy'  =>  'للبيع',
+    'commercial_rent'   =>  'تجاريه للايجار',
+    'commercial_buy'   =>  'تجاريه للبيع',
+    'commercial'   =>  'تجاريه',
+    'searchForYourProperty'   =>  'ابحث عن عقارك',
+    'searchPropertyText'   =>  'مدينة أو منطقة أو عنوان',
+    'yearly'   =>  'سنويا',
+    'monthly'   =>  'شهريا',
+    'weekly'   =>  'اسبوعيا',
+    'daily'   =>  'يوميا',
+    'max_area'   =>  'أقصى مساحة',
+    'min_area'   =>  'أدنى مساحة',
+    'max_price'   =>  'أعلى سعر',
+    'min_price'   =>  'أدنى سعر',
+    'property_type'   =>  'نوع العقار',
+    'recommended_properties'    =>  'العقارات المقترحه لك',
+    'details'   =>  'التفاصيل',
+    'call'   =>  'اتصل',
+    'recent_news'   =>  'أحدث الاخبار',
+    'published_date'    =>  'تاريخ النشر',
+    'read_more'    =>  'اقرأ المزيد',
+    'visit_blog'    =>  'قم بزيارة مدونتنا',
+
 ];

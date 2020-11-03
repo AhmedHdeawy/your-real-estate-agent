@@ -18,6 +18,8 @@
     <link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' rel='stylesheet' as='font'>
     <script crossorigin='anonymous' src='https://kit.fontawesome.com/9a07467a57.js' async></script>
     <link rel="stylesheet" href="{{  mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/owl.theme.default.min.css') }}">
     @yield('style')
     <link rel="stylesheet" href="{{ mix('css/all.css') }}">
 </head>
