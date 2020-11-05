@@ -43,7 +43,6 @@
                 </thead>
 
                 @foreach($categories as $category)
-
                 <tbody>
                     @foreach($category->translations as $categoryTranslation)
 

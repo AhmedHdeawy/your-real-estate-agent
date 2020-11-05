@@ -34,7 +34,7 @@ class AmenitiesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $amenities = $searchQuery->paginate(config('rbzgo.perPage'));
+      $amenities = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.amenities.index', compact('amenities'));
     }
@@ -61,6 +61,8 @@ class AmenitiesController extends Controller
     {
        // dd($request->all());
         $amenitie = Amenitie::create($request->all());
+
+        Cache::forget('properties_amenities');
 
         return redirect()->route('admin.amenities.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
@@ -100,8 +102,9 @@ class AmenitiesController extends Controller
      */
     public function update(AmenitieRequest $request, Amenitie $amenitie)
     {
-
         $amenitie->update($request->all());
+
+        Cache::forget('properties_amenities');
 
         return redirect()->route('admin.amenities.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
@@ -114,7 +117,7 @@ class AmenitiesController extends Controller
         // Delete Record
         $amenitie->delete();
 
-        Cache::forget('amenities');
+        Cache::forget('properties_amenities');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }

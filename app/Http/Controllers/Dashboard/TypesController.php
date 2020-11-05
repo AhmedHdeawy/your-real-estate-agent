@@ -34,7 +34,7 @@ class TypesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $types = $searchQuery->paginate(config('rbzgo.perPage'));
+      $types = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.types.index', compact('types'));
     }
@@ -61,6 +61,8 @@ class TypesController extends Controller
     {
        // dd($request->all());
         $type = Type::create($request->all());
+
+        Cache::forget('properties_types');
 
         return redirect()->route('admin.types.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
@@ -100,8 +102,9 @@ class TypesController extends Controller
      */
     public function update(TypeRequest $request, Type $type)
     {
-
         $type->update($request->all());
+
+        Cache::forget('properties_types');
 
         return redirect()->route('admin.types.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
@@ -114,7 +117,7 @@ class TypesController extends Controller
         // Delete Record
         $type->delete();
 
-        Cache::forget('types');
+        Cache::forget('properties_types');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }

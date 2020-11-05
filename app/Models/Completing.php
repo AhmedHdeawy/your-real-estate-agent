@@ -22,6 +22,11 @@ class Completing extends Model implements TranslatableContract
      */
     public $translatedAttributes = ['name'];
 
+    /**
+     * fillable attributes
+     */
+    protected $fillable = ['status'];
+
     public function properties()
     {
         return $this->hasMany('App\Models\Property');

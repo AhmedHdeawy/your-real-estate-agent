@@ -34,7 +34,7 @@ class AdminsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $admins = $searchQuery->paginate(config('rbzgo.perPage'));
+      $admins = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.admins.index', compact('admins'));
     }

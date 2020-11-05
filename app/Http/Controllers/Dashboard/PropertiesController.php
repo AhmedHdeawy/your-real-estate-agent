@@ -34,7 +34,7 @@ class PropertiesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $properties = $searchQuery->paginate(config('rbzgo.perPage'));
+      $properties = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.properties.index', compact('properties'));
     }

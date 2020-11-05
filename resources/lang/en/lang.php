@@ -195,10 +195,11 @@ return [
     'agent_phone'   =>  'agent phone',
     'agent_email'   =>  'agent email',
     'agent_name'   =>  'agent name',
-    'no_of_rooms'   =>  'Bedrooms',
-    'no_of_bathrooms'   =>  'Bathrooms',
-    'no_of_maidrooms'   =>  'Maid',
+    'no_of_rooms'   =>  'Bedrooms No.',
+    'no_of_bathrooms'   =>  'Bathrooms No.',
+    'no_of_maidrooms'   =>  'Maid No.',
     'area'   =>  'area',
+    'add_title'   =>  'Property title',
 
     /**
      * Front

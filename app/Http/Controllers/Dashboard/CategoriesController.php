@@ -34,7 +34,7 @@ class CategoriesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $categories = $searchQuery->paginate(config('rbzgo.perPage'));
+      $categories = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.categories.index', compact('categories'));
     }
@@ -60,6 +60,8 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
         $category = Category::create($request->all());
+
+        Cache::forget('properties_categories');
 
         return redirect()->route('admin.categories.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
@@ -102,6 +104,8 @@ class CategoriesController extends Controller
 
         $category->update($request->all());
 
+        Cache::forget('properties_categories');
+
         return redirect()->route('admin.categories.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
@@ -113,7 +117,7 @@ class CategoriesController extends Controller
         // Delete Record
         $category->delete();
 
-        Cache::forget('categories');
+        Cache::forget('properties_categories');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }

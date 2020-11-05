@@ -34,7 +34,7 @@ class PeriodsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $periods = $searchQuery->paginate(config('rbzgo.perPage'));
+      $periods = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.periods.index', compact('periods'));
     }

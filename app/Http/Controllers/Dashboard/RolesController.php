@@ -33,7 +33,7 @@ class RolesController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $roles = $searchQuery->paginate(config('rbzgo.perPage'));
+      $roles = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.roles.index', compact('roles'));
     }

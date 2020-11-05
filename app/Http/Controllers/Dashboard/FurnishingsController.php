@@ -34,7 +34,7 @@ class FurnishingsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $furnishings = $searchQuery->paginate(config('rbzgo.perPage'));
+      $furnishings = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.furnishings.index', compact('furnishings'));
     }

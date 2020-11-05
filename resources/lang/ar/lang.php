@@ -201,9 +201,10 @@ return [
     'agent_email'   =>  'ايميل الوسيط',
     'agent_name'   =>  'اسم الوسيط',
     'no_of_rooms'   =>  'عدد الغرف',
-    'no_of_bathrooms'   =>  'حمامات',
-    'no_of_maidrooms'   =>  'غرفة الخادمة',
+    'no_of_bathrooms'   =>  'عدد الحمامات',
+    'no_of_maidrooms'   =>  'عدد غرف الخادم',
     'area'   =>  'مساحة العقار',
+    'add_title'   =>  'عنوان الاعلان',
 
     /**
      * Front

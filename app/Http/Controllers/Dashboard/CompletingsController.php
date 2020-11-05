@@ -33,7 +33,7 @@ class CompletingsController extends Controller
 
       $searchQuery = $this->handleSearch($query, $inputsArray);
 
-      $completings = $searchQuery->paginate(config('rbzgo.perPage'));
+      $completings = $searchQuery->paginate(config('my-config.perPage'));
 
       return view('dashboard.completings.index', compact('completings'));
     }
@@ -60,6 +60,7 @@ class CompletingsController extends Controller
     {
        // dd($request->all());
         $completing = Completing::create($request->all());
+        Cache::forget('properties_completings');
 
         return redirect()->route('admin.completings.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
@@ -99,8 +100,9 @@ class CompletingsController extends Controller
      */
     public function update(CompletingRequest $request, Completing $completing)
     {
-
         $completing->update($request->all());
+
+        Cache::forget('properties_completings');
 
         return redirect()->route('admin.completings.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
@@ -113,7 +115,7 @@ class CompletingsController extends Controller
         // Delete Record
         $completing->delete();
 
-        Cache::forget('completings');
+        Cache::forget('properties_completings');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }
