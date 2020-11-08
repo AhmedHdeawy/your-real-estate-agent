@@ -43,60 +43,59 @@
                 </thead>
 
                 @foreach($periods as $period)
+                    <tbody>
+                        @foreach($period->translations as $periodTranslation)
 
-                <tbody>
-                    @foreach($period->translations as $periodTranslation)
+                            <tr class="text-sm-center">
 
-                    <tr class="text-sm-center">
+                                <td> {{ $periodTranslation->locale }} </td>
+                                <td>
+                                    @if($loop->first)
+                                    {{ $period->code }}
+                                    @endif
+                                </td>
 
-                        <td> {{ $periodTranslation->locale }} </td>
-                        <td>
-                            @if($loop->first)
-                            {{ $period->code }}
-                            @endif
-                        </td>
+                                <td class="text-sm-center"> {{ $periodTranslation->name  }} </td>
 
-                        <td class="text-sm-center"> {{ $periodTranslation->name  }} </td>
+                                <td>
+                                    @if($loop->first)
+                                    @if($period->status == '0')
+                                    <span class="tag tag-danger">{{ __('dashboard.stopped') }}</span>
+                                    @else
+                                    <span class="tag tag-success">{{ __('dashboard.active') }}</span>
+                                    @endif
 
-                        <td>
-                            @if($loop->first)
-                            @if($period->status == '0')
-                            <span class="tag tag-danger">{{ __('dashboard.stopped') }}</span>
-                            @else
-                            <span class="tag tag-success">{{ __('dashboard.active') }}</span>
-                            @endif
-
-                            @endif
-                        </td>
+                                    @endif
+                                </td>
 
 
-                        <td>
+                                <td>
 
-                            <a href="{{ route('admin.periods.show', [$period->id, 'showLang'  => $periodTranslation->locale ] ) }}"
-                                class="btn btn-primary btn-sm">
-                                <i class="icon-eye"></i>
-                            </a>
+                                    <a href="{{ route('admin.periods.show', [$period->id, 'showLang'  => $periodTranslation->locale ] ) }}"
+                                        class="btn btn-primary btn-sm">
+                                        <i class="icon-eye"></i>
+                                    </a>
 
-                        </td>
-                        <td>
+                                </td>
+                                <td>
 
-                            @if($loop->first)
-                            <a href="{{ route('admin.periods.edit', $period->id) }}" class="btn btn-warning btn-sm">
-                                <i class="icon-pencil"></i>
-                            </a>
-                            <form method="post" action="{{ route('admin.periods.destroy', $period->id) }}" class="d-inline-block">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-sm delete-form" period="submit">
-                                    <i class="icon-trash"></i>
-                                </button>
-                            </form>
-                            @endif
+                                    @if($loop->first)
+                                    <a href="{{ route('admin.periods.edit', $period->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                    <form method="post" action="{{ route('admin.periods.destroy', $period->id) }}" class="d-inline-block">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-sm delete-form" period="submit">
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </form>
+                                    @endif
 
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
                 @endforeach
             </table>

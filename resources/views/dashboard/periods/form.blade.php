@@ -12,12 +12,12 @@
         @endphp
 
         <label class="radio-inline" for="active">
-            <input period="radio" id="active" name="status" value="1" {{ $status == 1 ? 'checked' : '' }}>
+            <input type="radio" id="active" name="status" value="1" {{ $status == 1 ? 'checked' : '' }}>
             {{ __('dashboard.active') }}
         </label>
 
         <label class="radio-inline" for="stopped">
-            <input period="radio" id="stopped" name="status" value="0" {{ $status == 0 ? 'checked' : '' }}>
+            <input type="radio" id="stopped" name="status" value="0" {{ $status == 0 ? 'checked' : '' }}>
             {{ __('dashboard.stopped') }}
         </label>
 
@@ -40,7 +40,7 @@
     <label class="col-md-3 form-control-label" for="{{ $languag->locale }}[name]"> {{ __('dashboard.name') }} </label>
     <div class="col-md-9">
 
-        <textarea period="text" id="{{ $languag->locale }}[name]" name="{{ $languag->locale }}[name]"
+        <textarea type="text" id="{{ $languag->locale }}[name]" name="{{ $languag->locale }}[name]"
             class="form-control {{ $errors->first($languag->locale .'.name') ? 'is-invalid' : '' }}"
             placeholder="{{ __('dashboard.name') }}">{{ old($languag->locale .'name', isset($period) ? $period->translate($languag->locale)->name : '') }}</textarea>
 

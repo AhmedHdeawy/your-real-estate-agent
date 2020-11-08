@@ -4,7 +4,7 @@ return [
 
     'maintenanceMode'           =>  'عذراً الموقع متوقف حالياً',
     'welcomeDashboard'          =>  'مرحبا بك في لوحة تحكم الموقع',
-    'websiteName'               =>  'ربز جو',
+    'websiteName'               =>  'نادي العقارات',
     'home'	                    =>	'الرئيسية',
     'dashboard'                 =>  'لوحة التحكم',
     'contactWithUs'             =>  'تواصل معنا',
@@ -204,11 +204,15 @@ return [
     'no_of_bathrooms'   =>  'عدد الحمامات',
     'no_of_maidrooms'   =>  'عدد غرف الخادم',
     'area'   =>  'مساحة العقار',
-    'add_title'   =>  'عنوان الاعلان',
+    'ar_add_title'   =>  'عنوان الاعلان بالعربي',
+    'en_add_title'  =>  'عنوان الاعلان بالانجليزي',
 
     /**
      * Front
      */
+    'create_new_property'   =>  'إضافة اعلان جديد',
+    'property_info'     =>  'بيانات الاعلان',
+    'property_details'     =>  'تفاصيل الاعلان',
     'for_rent'  =>  'للايجار',
     'for_buy'  =>  'للبيع',
     'commercial_rent'   =>  'تجاريه للايجار',

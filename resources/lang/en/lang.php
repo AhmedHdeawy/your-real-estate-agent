@@ -4,7 +4,7 @@ return [
 
     'maintenanceMode'           =>  'Maintenance Mode',
     'welcomeDashboard'          =>  'Welcome to Website Dashboard',
-    'websiteName'               =>  'RbzGO',
+    'websiteName'               =>  'Property Club',
     'home'                        =>    'Home',
     'dashboard'                 =>  'Dashboard',
     'contactWithUs'             =>  'Contact With Us',
@@ -199,11 +199,14 @@ return [
     'no_of_bathrooms'   =>  'Bathrooms No.',
     'no_of_maidrooms'   =>  'Maid No.',
     'area'   =>  'area',
-    'add_title'   =>  'Property title',
-
+    'ar_add_title'   =>  'Property title in AR',
+    'en_add_title'  =>  'Property title in EN',
     /**
      * Front
      */
+    'create_new_property'   =>  'Create New Property',
+    'property_info'     =>  'Property Info',
+    'property_details'     =>  'Property Details',
     'for_rent'  =>  'Rent',
     'for_buy'  =>  'Buy',
     'commercial_rent'   =>  'Commercial Rent',

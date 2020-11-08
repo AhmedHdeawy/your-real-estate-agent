@@ -62,6 +62,8 @@ class PeriodsController extends Controller
        // dd($request->all());
         $period = Period::create($request->all());
 
+        Cache::forget('properties_periods');
+
         return redirect()->route('admin.periods.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
@@ -103,6 +105,8 @@ class PeriodsController extends Controller
 
         $period->update($request->all());
 
+        Cache::forget('properties_periods');
+
         return redirect()->route('admin.periods.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
@@ -114,7 +118,7 @@ class PeriodsController extends Controller
         // Delete Record
         $period->delete();
 
-        Cache::forget('periods');
+        Cache::forget('properties_periods');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }

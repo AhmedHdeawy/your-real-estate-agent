@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenitie;
 use App\Models\Category;
 use App\Models\Completing;
+use App\Models\Period;
 use App\Models\Type;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,8 +43,12 @@ class PropertiesController extends Controller
             return Completing::all();
         });
 
+        $periods = Cache::rememberForever('properties_periods', function () {
+            return Period::all();
+        });
 
-        return view('front.create', compact('categories', 'types', 'amenities', 'completings'));
+
+        return view('front.create', compact('categories', 'types', 'amenities', 'completings', 'periods'));
     }
 
     /**
