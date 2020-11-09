@@ -16,7 +16,7 @@ class CreatePropertyTranslationsTable extends Migration
         Schema::create('property_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('locale', 191)->index();
-            $table->text('name');
+            $table->text('title');
             $table->text('desc');
 
             $table->unsignedInteger('property_id');

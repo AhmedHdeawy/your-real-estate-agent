@@ -21,7 +21,7 @@ class Property extends Model implements TranslatableContract
     /**
      * translated attributes
      */
-    public $translatedAttributes = ['name'];
+    public $translatedAttributes = ['title'];
 
     /**
      * fillable attributes
@@ -32,13 +32,14 @@ class Property extends Model implements TranslatableContract
         'long',
         'address',
         'status',
+        'agent_name',
         'agent_phone',
         'agent_email',
-        'agent_name',
         'no_of_rooms',
         'no_of_maidrooms',
         'no_of_bathrooms',
-        'area',
+        'height',
+        'width',
         'user_id',
         'category_id',
         'type_id',
@@ -46,6 +47,11 @@ class Property extends Model implements TranslatableContract
         'furnishing_id',
         'completing_id'
     ];
+
+    public function amenities()
+    {
+        return $this->belongsToMany('App\Models\Property', 'property_amenities', 'property_id', 'amenitie_id');
+    }
 
     public function agent()
     {

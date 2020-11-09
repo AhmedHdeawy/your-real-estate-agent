@@ -25,7 +25,6 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware'    =>  'auth'], function () {
 
-        // Get User Notification
 
         // User Profile
         Route::get('profile/{username}', 'UsersController@profile')->name('profile');

@@ -27,7 +27,8 @@ class CreatePropertiesTable extends Migration
             $table->tinyInteger('no_of_rooms')->default(0);
             $table->tinyInteger('no_of_maidrooms')->default(0);
             $table->tinyInteger('no_of_bathrooms')->default(0);
-            $table->decimal('area', 6, 3)->nullable();
+            $table->string('height')->nullable();
+            $table->string('width')->nullable();
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

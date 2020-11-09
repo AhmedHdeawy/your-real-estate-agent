@@ -21,7 +21,7 @@ class PropertyTranslation extends Model
     /**
      * fillable attributes
      */
-    protected $fillable = ['property_id', 'locale', 'name', 'desc'];
+    protected $fillable = ['property_id', 'locale', 'title', 'desc'];
 
 
     /**

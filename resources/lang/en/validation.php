@@ -205,9 +205,30 @@ return [
         'storyText' =>  'Text',
         'questions.0'   =>  'you must provide one question at least',
 
-        'en'    =>  [
-            'name'  =>  'Name',
+        'ar'    =>  [
+            'name'  =>  'Arabic Name',
+            'title'  =>  'Arabic Title',
         ],
+        'en'    =>  [
+            'name'  =>  'English Name',
+            'title'  =>  'English Title',
+        ],
+
+        /**
+         * Front
+         */
+        'category_id'   =>  'Category',
+        'type_id'   =>  'Type',
+        'completing_id'   =>  'Completings',
+        'amenities'   =>  'Amenities',
+        'period_id'   =>  'Period',
+        'price'   =>  'Price',
+        'no_of_rooms'   =>  'No. of rooms',
+        'no_of_maidrooms'   =>  'No. of maidrooms',
+        'no_of_bathrooms'   =>  'No. of bathrooms',
+        'description'   =>  'Description',
+        'height'    =>  'Height',
+        'width'    =>  'Width',
 
     ],
 

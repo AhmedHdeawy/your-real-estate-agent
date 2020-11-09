@@ -199,6 +199,8 @@ return [
     'no_of_bathrooms'   =>  'Bathrooms No.',
     'no_of_maidrooms'   =>  'Maid No.',
     'area'   =>  'area',
+    'height'    =>  'Height',
+    'width'    =>  'Width',
     'ar_add_title'   =>  'Property title in AR',
     'en_add_title'  =>  'Property title in EN',
     /**
@@ -207,6 +209,7 @@ return [
     'create_new_property'   =>  'Create New Property',
     'property_info'     =>  'Property Info',
     'property_details'     =>  'Property Details',
+    'agent_info'     =>  'Agent Info',
     'for_rent'  =>  'Rent',
     'for_buy'  =>  'Buy',
     'commercial_rent'   =>  'Commercial Rent',

@@ -11,6 +11,26 @@ body[dir='rtl'] .invalid-feedback {
 }
 
 
+.select2-container {
+    height: 40px;
+}
+
+.select2-container .select2-selection {
+    height: 40px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #e5e5e5;
+}
+
+.select2-container .select2-selection .select2-selection__rendered .select2-selection__choice  {
+    background-color: #FFF;
+}
+
+.select2-container .select2-selection .select2-selection__arrow {
+    top: 3px;
+}
+
+
 
 /* Framework */
 

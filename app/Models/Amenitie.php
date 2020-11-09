@@ -29,7 +29,7 @@ class Amenitie extends Model implements TranslatableContract
 
     public function properties()
     {
-        return $this->hasMany('App\Models\Property');
+        return $this->belongsToMany('App\Models\Property', 'property_amenities', 'amenitie_id', 'property_id');
     }
 
 
