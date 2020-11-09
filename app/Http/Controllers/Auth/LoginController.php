@@ -41,16 +41,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function username()
-    {
-        return 'phone';
-    }
-
-    /**
      * Redirect the user to the Facebook authentication page.
      *
      * @return \Illuminate\Http\Response

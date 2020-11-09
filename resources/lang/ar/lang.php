@@ -212,7 +212,7 @@ return [
     /**
      * Front
      */
-    'create_new_property'   =>  'إضافة اعلان جديد',
+    'create_new_property'   =>  'إضافة اعلان',
     'property_info'     =>  'بيانات الاعلان',
     'property_details'     =>  'تفاصيل الاعلان',
     'agent_info'     =>  'بيانات الوسيط',

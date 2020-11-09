@@ -19,43 +19,53 @@
 		<div class='collapse navbar-collapse' id='navbarSupportedContent'>
 			<ul class='navbar-nav mr-auto'>
 				<li class='nav-item'>
-					<a class='nav-link' href='#'>للبيع</a>
+					<a class='nav-link' href='#'> {{ __('lang.for_buy') }} </a>
 				</li>
 				<li class='nav-item'>
-					<a class='nav-link' href='#'>للإيجار</a>
+					<a class='nav-link' href='#'>{{ __('lang.for_rent') }}</a>
 				</li>
 				<li class='nav-item'>
-					<a class='nav-link' href='#'>تجارية</a>
+					<a class='nav-link' href='#'>{{ __('lang.commercial_rent') }}</a>
 				</li>
 				<li class='nav-item'>
-					<a class='nav-link' href='#'>مشاريع جديدة</a>
-				</li>
+					<a class='nav-link' href='#'>{{ __('lang.commercial_buy') }}</a>
+                </li>
+                @auth
+                    <li class='nav-item'>
+                        <a class='nav-link' href='#'>{{ __('lang.create_new_property') }}</a>
+                    </li>
+                @endauth
+                @if (!auth()->check())
+				    <li class='nav-item dropdown'>
+                        <a aria-expanded='false' aria-haspopup='true' class='nav-link btn' data-toggle='dropdown' href='#' id='navbarDropdown' role='button'>
+                            حسابي
+                            <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
+                                <path d='M24 24H0V0h24v24z' fill='none' opacity='.87'/>
+                                <path
+                                        d='M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z'/>
+                            </svg>
+                        </a>
+                        <div aria-labelledby='navbarDropdown' class='dropdown-menu'>
+                            <a class='dropdown-item' href='{{ route('login') }}'> {{ __('lang.login') }} </a>
+                            <a class='dropdown-item' href='{{ route('register') }}'> {{ __('lang.register') }} </a>
+                        </div>
+                    </li>
+                @endif
 				<li class='nav-item'>
-					<a class='nav-link' href='#'>وسيط</a>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'>أسعار العقارات</a>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'>اكتشف</a>
-				</li>
-				<li class='nav-item dropdown'>
-					<a aria-expanded='false' aria-haspopup='true' class='nav-link btn' data-toggle='dropdown' href='#' id='navbarDropdown' role='button'>
-						حسابي
-						<svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-							<path d='M24 24H0V0h24v24z' fill='none' opacity='.87'/>
-							<path
-									d='M15.88 9.29L12 13.17 8.12 9.29c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41-.39-.38-1.03-.39-1.42 0z'/>
-						</svg>
-					</a>
-					<div aria-labelledby='navbarDropdown' class='dropdown-menu'>
-						<a class='dropdown-item' href='#'>تسجيل الدخول</a>
-						<a class='dropdown-item' href='#'>مستخدم جديد</a>
-					</div>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link btn' href='#'>English</a>
-				</li>
+					<a class='nav-link btn' href="{{ str_replace( request()->segment(1),  $localeLangInverse, url()->full() ) }}">
+                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
+                    </a>
+                </li>
+                @auth
+                    <li class='nav-item'>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class='nav-link logout-btn register-btn' type="submit">
+                                {{ __('lang.logout') }}
+                            </button>
+                        </form>
+                    </li>
+                @endauth
 			</ul>
 		</div>
 	</div>

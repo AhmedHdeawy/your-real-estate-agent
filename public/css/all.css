@@ -6,6 +6,12 @@ body[dir='rtl'] .invalid-feedback {
     text-align: right;
 }
 
+.logout-btn {
+    background: transparent;
+    border: none;
+}
+
+
 .ck-content {
     height: 150px;
 }

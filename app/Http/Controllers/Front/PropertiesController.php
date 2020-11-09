@@ -45,7 +45,6 @@ class PropertiesController extends Controller
             return Period::all();
         });
 
-
         return view('front.create', compact('categories', 'types', 'amenities', 'completings', 'periods'));
     }
 
@@ -59,7 +58,7 @@ class PropertiesController extends Controller
         // Validate Form
         $this->validatePropertyRequest($request);
 
-        $property = Property::create(array_merge(['user_id' =>  1], $request->all()));
+        $property = Property::create(array_merge(['user_id' =>  auth()->id()], $request->all()));
 
         $property->amenities()->sync($request->amenities);
 
