@@ -216,6 +216,7 @@ return [
     'commercial_buy'   =>  'Commercial Buy',
     'commercial'   =>  'Commercial',
     'searchForYourProperty'   =>  'Search for Property',
+    'searchResult'  =>  'Search Result',
     'searchPropertyText'   =>  'City or Area or Address',
     'yearly'   =>  'Yearly',
     'monthly'   =>  'Monthly',

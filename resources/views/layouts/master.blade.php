@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{  mix('css/app.css') }}">
     <link rel="stylesheet" href="{{  asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{  asset('css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
     @yield('style')
     <link rel="stylesheet" href="{{ mix('css/all.css') }}">
 </head>
@@ -44,6 +45,7 @@
 
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
     <script src="{{ mix('js/all.js') }}"></script>
 
     @yield('script')

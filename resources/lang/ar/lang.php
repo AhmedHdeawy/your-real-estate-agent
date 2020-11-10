@@ -222,6 +222,7 @@ return [
     'commercial_buy'   =>  'تجاريه للبيع',
     'commercial'   =>  'تجاريه',
     'searchForYourProperty'   =>  'ابحث عن عقارك',
+    'searchResult'  =>  'نتائج البحث',
     'searchPropertyText'   =>  'مدينة أو منطقة أو عنوان',
     'yearly'   =>  'سنويا',
     'monthly'   =>  'شهريا',

@@ -50,7 +50,7 @@ class Property extends Model implements TranslatableContract
 
     public function amenities()
     {
-        return $this->belongsToMany('App\Models\Property', 'property_amenities', 'property_id', 'amenitie_id');
+        return $this->belongsToMany('App\Models\Amenitie', 'property_amenities', 'property_id', 'amenitie_id');
     }
 
     public function agent()

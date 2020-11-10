@@ -47,6 +47,13 @@ smImage.forEach(el => {
 });
 
 
+// Select2
+var select2 = $('.select2');
+select2.select2({
+    placeholder: select2.attr('placeholder'),
+    // allowClear: true
+});
+
 
 // Show Uploaded image under file input
 $('.imageUpload').change(function (event) {

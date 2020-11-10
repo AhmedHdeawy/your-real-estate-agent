@@ -2,7 +2,7 @@
 
 @section('style')
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/dropzone/dropzone.css') }}">
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@ type="text/css"
 			<h1> {{ __('lang.create_new_property') }} </h1>
 			<div class='row'>
 				<div class='col-xl-8 col-md-10 mx-auto'>
-                    <form method="POST" action="{{ route('property.store') }}" class='add-form-con'>
+                    <form method="POST" action="{{ route('property.store') }}" class='add-form-con' enctype="multipart/form-data">
                         @csrf
 
                         {{-- Property Info --}}
@@ -286,6 +286,17 @@ type="text/css"
 
                         </div>
 
+                        {{-- Property Images --}}
+                        <div class="row mt-3">
+                            <h1> {{ __('lang.desc') }} </h1>
+							<div class='col-12 mb-5'>
+                                {{-- <input type="file" name="file" class="dropzone" id="my-awesome-dropzone"/> --}}
+                                <div id="dZUpload" class="dropzone">
+                                    <div class="dz-default dz-message"></div>
+                                </div>
+							</div>
+                        </div>
+
                         {{-- Footer --}}
                         <div class="row mt-3">
                             <div class='col-12 text-left'>
@@ -305,7 +316,7 @@ type="text/css"
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
     <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('vendors/ckeditor/translations/ar.js') }}"></script>
-    <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('vendors/dropzone/dropzone.js') }}"></script>
     <script>
 
     // TextEditor
@@ -321,14 +332,15 @@ type="text/css"
         console.error( error );
     });
 
-    // Select2
-    var select2 = $('.select2');
-    select2.select2({
-        placeholder: select2.attr('placeholder'),
-        // allowClear: true
+
+    // Dropzone for Images
+    Dropzone.autoDiscover = false;
+    $("#dZUpload").dropzone({
+        autoQueue: false,
+        addRemoveLinks: true,
+        url: 'upload.php',
+        paramName: 'images',
     });
-
-
     // MAP
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWhtZWRoZGVhd3kiLCJhIjoiY2s3eXFhYmppMDB6cDNtbzU5cmhydDNxNyJ9.fp3nCLW9HLkejiXjILSlBA';
     var map = new mapboxgl.Map({

@@ -62,6 +62,8 @@ class FurnishingsController extends Controller
        // dd($request->all());
         $furnishing = Furnishing::create($request->all());
 
+        Cache::forget('properties_furnishings');
+
         return redirect()->route('admin.furnishings.index')->with('msg_success', __('dashboard.createdSuccessfully'));
     }
 
@@ -103,6 +105,8 @@ class FurnishingsController extends Controller
 
         $furnishing->update($request->all());
 
+        Cache::forget('properties_furnishings');
+
         return redirect()->route('admin.furnishings.index')->with('msg_success', __('dashboard.updatedSuccessfully'));
     }
 
@@ -114,7 +118,7 @@ class FurnishingsController extends Controller
         // Delete Record
         $furnishing->delete();
 
-        Cache::forget('furnishings');
+        Cache::forget('properties_furnishings');
 
         return back()->with('msg_success', __('dashboard.deletedSuccessfully'));
     }

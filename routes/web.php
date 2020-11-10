@@ -19,6 +19,7 @@ Route::group(['namespace' => 'Front'], function () {
 
     // Home
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/search', 'HomeController@search')->name('search');
 
     Route::get('property/create', 'PropertiesController@create')->name('property.create');
     Route::post('property/store', 'PropertiesController@store')->name('property.store');

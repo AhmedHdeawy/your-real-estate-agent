@@ -28,8 +28,16 @@ body[dir='rtl'] .invalid-feedback {
     background-color: #e5e5e5;
 }
 
+.select2_search .select2-container .select2-selection {
+    background-color: #fff;
+}
+
 .select2-container .select2-selection .select2-selection__rendered .select2-selection__choice  {
     background-color: #FFF;
+}
+
+.select2_search .select2-container .select2-selection .select2-selection__rendered .select2-selection__choice {
+    background-color: #e5e5e5;
 }
 
 .select2-container .select2-selection .select2-selection__arrow {
