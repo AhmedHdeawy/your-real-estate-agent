@@ -24,9 +24,9 @@ class CreatePropertiesTable extends Migration
             $table->string('agent_email')->nullable();
             $table->string('agent_name')->nullable();
 
-            $table->tinyInteger('no_of_rooms')->default(0);
-            $table->tinyInteger('no_of_maidrooms')->default(0);
-            $table->tinyInteger('no_of_bathrooms')->default(0);
+            $table->tinyInteger('no_of_rooms')->nullable();
+            $table->tinyInteger('no_of_maidrooms')->nullable();
+            $table->tinyInteger('no_of_bathrooms')->nullable();
             $table->string('height')->nullable();
             $table->string('width')->nullable();
 
@@ -39,7 +39,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
 
-            $table->unsignedInteger('period_id');
+            $table->unsignedInteger('period_id')->nullable();
             $table->foreign('period_id')->references('id')->on('periods')->onDelete('cascade');
 
             $table->unsignedInteger('furnishing_id')->nullable();

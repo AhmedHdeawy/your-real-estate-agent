@@ -44,6 +44,14 @@ body[dir='rtl'] .invalid-feedback {
     top: 3px;
 }
 
+.dropzone {
+    background-color: #e5e5e5;
+}
+
+.dropzone .fa-cloud-upload-alt {
+    color: #5f9ea0;
+}
+
 
 
 /* Framework */

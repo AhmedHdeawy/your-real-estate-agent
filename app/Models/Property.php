@@ -85,7 +85,7 @@ class Property extends Model implements TranslatableContract
 
     public function images()
     {
-        return $this->hasMany('App\Models\PropertyImage');
+        return $this->hasMany('App\Models\PropertyImage', 'property_id', 'id');
     }
 
 

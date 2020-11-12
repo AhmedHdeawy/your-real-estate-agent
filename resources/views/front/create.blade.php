@@ -2,7 +2,6 @@
 
 @section('style')
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="{{ asset('vendors/dropzone/dropzone.css') }}">
 @endsection
 
 @section('content')
@@ -281,20 +280,12 @@ type="text/css"
                                 @endif
 							</div>
 							<div class='col-12 text-left'>
-								<div id='map' style='width: 100%; height: 500px;'></div>
+                                <div id='map' style='width: 100%; height: 500px;'></div>
+                                <input type="hidden" name="lat">
+                                <input type="hidden" name="long">
+                                <input type="hidden" name="address">
 							</div>
 
-                        </div>
-
-                        {{-- Property Images --}}
-                        <div class="row mt-3">
-                            <h1> {{ __('lang.desc') }} </h1>
-							<div class='col-12 mb-5'>
-                                {{-- <input type="file" name="file" class="dropzone" id="my-awesome-dropzone"/> --}}
-                                <div id="dZUpload" class="dropzone">
-                                    <div class="dz-default dz-message"></div>
-                                </div>
-							</div>
                         </div>
 
                         {{-- Footer --}}
@@ -316,7 +307,6 @@ type="text/css"
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
     <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('vendors/ckeditor/translations/ar.js') }}"></script>
-    <script src="{{ asset('vendors/dropzone/dropzone.js') }}"></script>
     <script>
 
     // TextEditor
@@ -326,25 +316,14 @@ type="text/css"
         language: '{{ app()->getLocale() }}'
     })
     .then( editor => {
-        console.log( editor );
     })
     .catch( error => {
-        console.error( error );
     });
 
-
-    // Dropzone for Images
-    Dropzone.autoDiscover = false;
-    $("#dZUpload").dropzone({
-        autoQueue: false,
-        addRemoveLinks: true,
-        url: 'upload.php',
-        paramName: 'images',
-    });
     // MAP
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWhtZWRoZGVhd3kiLCJhIjoiY2s3eXFhYmppMDB6cDNtbzU5cmhydDNxNyJ9.fp3nCLW9HLkejiXjILSlBA';
     var map = new mapboxgl.Map({
-        center: [29.975784, 31.276302],
+        center: [23.4241, 31.276302],
         zoom: 3,
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11'
@@ -352,7 +331,7 @@ type="text/css"
     // Add Marker
     var marker = new mapboxgl.Marker({
         draggable: true
-    }).setLngLat([29.975784, 31.276302]).addTo(map);
+    }).setLngLat([23.4241, 31.276302]).addTo(map);
 
     // Add Controller to Map
     map.addControl(new mapboxgl.FullscreenControl());
@@ -380,6 +359,11 @@ type="text/css"
                     .setLngLat([lngLat.lat, lngLat.lng])
                     .setText(res.data.features[0].place_name)
                     .addTo(map);
+
+                    // Add to Form
+                    $('input[name=lat]').val(lngLat.lat);
+                    $('input[name=long]').val(lngLat.lng);
+                    $('input[name=address]').val(res.data.features[0].place_name);
 
                     $('.add-new-property').removeAttr('disabled');
             });

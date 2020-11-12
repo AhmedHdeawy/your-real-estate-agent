@@ -55,6 +55,7 @@ class PropertiesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate Form
         $this->validatePropertyRequest($request);
 
@@ -62,7 +63,41 @@ class PropertiesController extends Controller
 
         $property->amenities()->sync($request->amenities);
 
-        return redirect()->route('property.create')->with('status', __('lang.contactUsDone'));
+        return redirect()->route('property.upload_images')->with('status', __('lang.contactUsDone'));
+    }
+
+    /**
+     * Open to Upload Images
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function openUploadImages(Property $property)
+    {
+        return view('front.upload-images', compact('property'));
+    }
+
+    /**
+     * Open to Upload Images
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadImages(Request $request)
+    {
+
+        $file = $request->image;
+        $name =  $file->getClientOriginalName();
+        $name = uniqid('Property_Club_') . time() . '_' . $name;
+
+        Image::make($file)->save('uploads/properties/' . $request->property_id . '/' . $name);
+
+        // Get Property
+        $property = Property::find($request->property_id);
+        // Save Image
+        $property->images()->create(['name' =>  $name]);
+
+        $path = asset('uploads/properties/' . $request->property_id . '/' . $name);
+
+        return response()->json($path, 200);
     }
 
     /**
@@ -73,23 +108,23 @@ class PropertiesController extends Controller
     protected function validatePropertyRequest(Request $request)
     {
         Validator::make($request->all(), [
-            'category_id' => 'required|numeric',
-            'type_id' => 'required|numeric',
-            'completing_id' => 'nullable|numeric',
-            'amenities' => 'required|array|min:1',
-            'period_id' => 'nullable|numeric',
-            'ar.title' => 'required|string',
-            'en.title' => 'required|string',
-            'price' => 'required|numeric',
-            'no_of_rooms' => 'nullable|numeric',
-            'no_of_maidrooms' => 'nullable|numeric',
-            'no_of_bathrooms' => 'nullable|numeric',
-            'height' => 'nullable|numeric',
-            'width' => 'nullable|numeric',
-            'description' => 'required|string',
-            'agent_name' => 'required|string',
-            'agent_phone' => 'required|string',
-            'agent_email' => 'required|email',
+            'category_id'       => 'required|numeric',
+            'type_id'           => 'required|numeric',
+            'completing_id'     => 'nullable|numeric',
+            'amenities'         => 'required|array|min:1',
+            'period_id'         => 'nullable|numeric',
+            'ar.title'          => 'required|string',
+            'en.title'          => 'required|string',
+            'price'             => 'required|numeric',
+            'no_of_rooms'       => 'nullable|numeric',
+            'no_of_maidrooms'   => 'nullable|numeric',
+            'no_of_bathrooms'   => 'nullable|numeric',
+            'height'            => 'nullable|numeric',
+            'width'             => 'nullable|numeric',
+            'description'       => 'required|string',
+            'agent_name'        => 'required|string',
+            'agent_phone'       => 'required|string',
+            'agent_email'       => 'required|email',
         ])->validate();
     }
 

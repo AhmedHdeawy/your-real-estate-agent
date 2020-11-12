@@ -21,11 +21,12 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/search', 'HomeController@search')->name('search');
 
-    Route::get('property/create', 'PropertiesController@create')->name('property.create');
-    Route::post('property/store', 'PropertiesController@store')->name('property.store');
-
     Route::group(['middleware'    =>  'auth'], function () {
 
+        Route::get('property/create', 'PropertiesController@create')->name('property.create');
+        Route::post('property/store', 'PropertiesController@store')->name('property.store');
+        Route::get('property/{property}/upload-images', 'PropertiesController@openUploadImages')->name('property.upload_images');
+        Route::post('property/upload-images', 'PropertiesController@uploadImages')->name('property.store.upload_images');
 
         // User Profile
         Route::get('profile/{username}', 'UsersController@profile')->name('profile');

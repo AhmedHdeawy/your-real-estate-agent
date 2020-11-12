@@ -234,4 +234,8 @@ return [
     'published_date'    =>  'Published at',
     'read_more'    =>  'Read More',
     'visit_blog'    =>  'Visit our Blog',
+    'add_images'    =>  'Add images',
+    'dragFilesHere' =>  'Drag images or click to select image',
+    'maxFileSize'    =>    'The file is too big, cannot upload it.',
+    'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
 ];

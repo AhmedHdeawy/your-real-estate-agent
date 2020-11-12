@@ -32,7 +32,7 @@
                 </li>
                 @auth
                     <li class='nav-item'>
-                        <a class='nav-link' href='#'>{{ __('lang.create_new_property') }}</a>
+                    <a class='nav-link' href='{{ route('property.create') }}'>{{ __('lang.create_new_property') }}</a>
                     </li>
                 @endauth
                 @if (!auth()->check())
