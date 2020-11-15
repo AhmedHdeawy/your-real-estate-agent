@@ -198,6 +198,7 @@ return [
     'no_of_rooms'   =>  'Bedrooms No.',
     'no_of_bathrooms'   =>  'Bathrooms No.',
     'no_of_maidrooms'   =>  'Maid No.',
+    'maidrooms' =>  'Maidrooms',
     'area'   =>  'area',
     'height'    =>  'Height',
     'width'    =>  'Width',
@@ -239,4 +240,9 @@ return [
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
     'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
     'uploadImages'  =>  'Upload images',
+    'map'   =>  'Map',
+    'extraAmenities'    =>  'Extra Amenities',
+    'doYouLikePropertyShareNow' =>  'Did you like this property? Share it now',
+    'aed'   =>  'AED',
+    'squareMeter'   =>  'sqm',
 ];

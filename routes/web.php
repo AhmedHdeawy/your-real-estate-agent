@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Front'], function () {
         Route::post('property/store', 'PropertiesController@store')->name('property.store');
         Route::get('property/{property}/upload-images', 'PropertiesController@openUploadImages')->name('property.upload_images');
         Route::post('property/upload-images', 'PropertiesController@uploadImages')->name('property.store.upload_images');
+        Route::get('property/{property}', 'PropertiesController@showProperty')->name('property.showProperty');
 
         // User Profile
         Route::get('profile/{username}', 'UsersController@profile')->name('profile');

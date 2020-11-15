@@ -64,7 +64,7 @@
                 dictCancelUpload: "{{ __('lang.cancel') }}",
                 headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
                 url: "{{ route('property.store.upload_images') }}",
-                paramName: 'image',
+                paramName: 'images',
                 parallelUploads: 20,
                 uploadMultiple: true,
                 sendingmultiple: (file, xhr, formData)  =>  {
@@ -73,7 +73,7 @@
                 },
                 success: (file, response) => {},
                 successmultiple: (file, response) => {
-                    // window.location.href = '/';
+                    window.location.href = '/';
                 },
                 removedfile: (file) => {
                     console.log(file);

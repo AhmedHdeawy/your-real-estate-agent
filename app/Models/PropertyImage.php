@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyImage extends Model
 {
@@ -18,10 +19,19 @@ class PropertyImage extends Model
      */
     public $timestamps = false;
 
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['image_url'];
+
     /**
      * fillable attributes
      */
-    protected $fillable = ['property_id', 'name'];
+    protected $fillable = ['property_id', 'image'];
+
 
 
     /**
@@ -30,5 +40,16 @@ class PropertyImage extends Model
     public function property()
     {
         return $this->belongsTo('App\Models\Property', 'property_id', 'id');
+    }
+
+    /**
+     * Get image url for the category image.
+     */
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image)
+            return null;
+
+        return Storage::disk('public')->url($this->image);
     }
 }

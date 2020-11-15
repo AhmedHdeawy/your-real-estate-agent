@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Front;
 
 use Image;
 use Validator;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Type;
+use App\Models\Period;
 use App\Models\Amenitie;
 use App\Models\Category;
-use App\Models\Completing;
-use App\Models\Period;
 use App\Models\Property;
-use App\Models\Type;
+use App\Models\Completing;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class PropertiesController extends Controller
 {
@@ -71,6 +72,16 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showProperty(Property $property)
+    {
+        return view('front.propertyDetails', compact('property'));
+    }
+
+    /**
+     * Open to Upload Images
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function openUploadImages(Property $property)
     {
         return view('front.upload-images', compact('property'));
@@ -83,20 +94,21 @@ class PropertiesController extends Controller
      */
     public function uploadImages(Request $request)
     {
-        dd("dd");
         // Get Property
         $property = Property::find($request->property_id);
-        foreach($request->image as $key => $image) {
+        foreach($request->images as $key => $image) {
+
+            // Generate Image Name
             $file = $image;
             $name =  $file->getClientOriginalName();
             $name = uniqid('Property_Club_') . $key . time() . '_' . $name;
+            $path = 'properties/' . $property->id . '/';
 
-            Image::make($file)->save('uploads/properties/' . $request->property_id . '/' . $name);
+            // Store Image
+            Storage::disk('public')->putFileAs($path, $file, $name);
 
             // Save Image
-            $property->images()->create(['name' =>  $name]);
-
-            // $path = asset('uploads/properties/' . $request->property_id . '/' . $name);
+            $property->images()->create(['image' =>  $path. '/' . $name]);
         }
 
         return response()->json(true, 200);

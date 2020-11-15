@@ -30,7 +30,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('front.home');
+        $properties = Property::active()->whereHas('images')->limit(20)->get();
+
+        return view('front.home', compact('properties'));
     }
 
     /**

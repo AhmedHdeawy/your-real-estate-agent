@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Property extends Model implements TranslatableContract
 {
@@ -22,6 +23,7 @@ class Property extends Model implements TranslatableContract
      * translated attributes
      */
     public $translatedAttributes = ['title'];
+
 
     /**
      * fillable attributes
@@ -40,6 +42,7 @@ class Property extends Model implements TranslatableContract
         'no_of_bathrooms',
         'height',
         'width',
+        'description',
         'user_id',
         'category_id',
         'type_id',
@@ -99,4 +102,6 @@ class Property extends Model implements TranslatableContract
     {
         return $query->where('status', '1')->orderBy('id');
     }
+
+
 }

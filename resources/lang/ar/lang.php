@@ -203,6 +203,7 @@ return [
     'no_of_rooms'   =>  'عدد الغرف',
     'no_of_bathrooms'   =>  'عدد الحمامات',
     'no_of_maidrooms'   =>  'عدد غرف الخادم',
+    'maidrooms' =>  'غرفة خادم',
     'area'   =>  'مساحة العقار',
     'height'    =>  'الطول',
     'width'    =>  'العرض',
@@ -245,5 +246,10 @@ return [
     'maxFileSize'    =>    'حجم الملف كبير جدا . لايمكن رفعه',
     'invalid_filetype'   => 'لا يمكن رفع هذا النوع من الملفات',
     'uploadImages'  =>  'رفع الصور',
+    'map'   =>  'الخريطة',
+    'extraAmenities'    =>  'المميزات الاضافيه',
+    'doYouLikePropertyShareNow' =>  'هل أعجبك هذا العقار؟ قم بمشاركته الان',
+    'aed'   =>  'درهم اماراتي',
+    'squareMeter'   =>  'متر مربع',
 
 ];
