@@ -238,4 +238,5 @@ return [
     'dragFilesHere' =>  'Drag images or click to select image',
     'maxFileSize'    =>    'The file is too big, cannot upload it.',
     'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
+    'uploadImages'  =>  'Upload images',
 ];

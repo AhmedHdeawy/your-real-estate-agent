@@ -83,21 +83,23 @@ class PropertiesController extends Controller
      */
     public function uploadImages(Request $request)
     {
-
-        $file = $request->image;
-        $name =  $file->getClientOriginalName();
-        $name = uniqid('Property_Club_') . time() . '_' . $name;
-
-        Image::make($file)->save('uploads/properties/' . $request->property_id . '/' . $name);
-
+        dd("dd");
         // Get Property
         $property = Property::find($request->property_id);
-        // Save Image
-        $property->images()->create(['name' =>  $name]);
+        foreach($request->image as $key => $image) {
+            $file = $image;
+            $name =  $file->getClientOriginalName();
+            $name = uniqid('Property_Club_') . $key . time() . '_' . $name;
 
-        $path = asset('uploads/properties/' . $request->property_id . '/' . $name);
+            Image::make($file)->save('uploads/properties/' . $request->property_id . '/' . $name);
 
-        return response()->json($path, 200);
+            // Save Image
+            $property->images()->create(['name' =>  $name]);
+
+            // $path = asset('uploads/properties/' . $request->property_id . '/' . $name);
+        }
+
+        return response()->json(true, 200);
     }
 
     /**
