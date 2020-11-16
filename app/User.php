@@ -59,7 +59,6 @@ class User extends Authenticatable implements CanResetPassword
      */
     public function setAvatarAttribute($file)
     {
-
     	if ($file) {
 
 	        if (is_string($file)) {

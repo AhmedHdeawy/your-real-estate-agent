@@ -245,4 +245,5 @@ return [
     'doYouLikePropertyShareNow' =>  'Did you like this property? Share it now',
     'aed'   =>  'AED',
     'squareMeter'   =>  'sqm',
+    'sendMailToAgent'   =>  'Send Email to agent',
 ];

@@ -251,5 +251,6 @@ return [
     'doYouLikePropertyShareNow' =>  'هل أعجبك هذا العقار؟ قم بمشاركته الان',
     'aed'   =>  'درهم اماراتي',
     'squareMeter'   =>  'متر مربع',
+    'sendMailToAgent'   =>  'ارسل بريد الكتروني الى الوكيل',
 
 ];

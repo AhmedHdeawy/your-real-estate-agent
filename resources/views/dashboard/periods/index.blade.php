@@ -51,7 +51,7 @@
                                 <td> {{ $periodTranslation->locale }} </td>
                                 <td>
                                     @if($loop->first)
-                                    {{ $period->code }}
+                                    {{ $period->id }}
                                     @endif
                                 </td>
 

@@ -71,6 +71,14 @@
             </li>
             @endif
 
+            @if(auth('admin')->user()->can('admin.blogs.view'))
+            <li class="nav-item">
+                <a class="nav-link {{ $segment == 'blogs' ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                    <i class="icon-compass"></i> {{ __('dashboard.blogs') }}
+                </a>
+            </li>
+            @endif
+
 
             @if (auth('admin')->user()->can('admin.infos.view'))
             <li class="nav-item">

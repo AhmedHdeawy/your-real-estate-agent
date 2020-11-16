@@ -52,7 +52,7 @@
                         <td> {{ $completingTranslation->locale }} </td>
                         <td>
                             @if($loop->first)
-                            {{ $completing->code }}
+                            {{ $completing->id }}
                             @endif
                         </td>
 

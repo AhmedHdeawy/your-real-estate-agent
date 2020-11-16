@@ -48,7 +48,7 @@
                         <td> {{ $countryTranslation->locale }} </td>
                         <td>
                             @if($loop->first)
-                            {{ $country->code }}
+                            {{ $country->id }}
                             @endif
                         </td>
 

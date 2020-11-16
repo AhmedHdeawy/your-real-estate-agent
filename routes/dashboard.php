@@ -56,6 +56,9 @@ Route::prefix('admin')
             // States Routes
             Route::resource('states', 'StatesController');
 
+            // Blogs Routes
+            Route::resource('blogs', 'BlogsController');
+
             // Infos Routes
             Route::resource('infos', 'InfosController')->except('create', 'store', 'destroy');
 

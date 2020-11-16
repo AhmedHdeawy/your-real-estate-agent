@@ -111,6 +111,13 @@ return [
     'writer'    =>  'الكاتب',
 
     /**
+     * Blogs
+     */
+    'blogs' =>  'المقالات',
+    'blog' =>  'المقالة',
+    'content' =>  'المحتوى',
+
+    /**
      * Categories
      */
     'categories'    =>  'التصنيفات',

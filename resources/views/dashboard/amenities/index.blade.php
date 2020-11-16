@@ -52,7 +52,7 @@
                         <td> {{ $amenitieTranslation->locale }} </td>
                         <td>
                             @if($loop->first)
-                            {{ $amenitie->code }}
+                            {{ $amenitie->id }}
                             @endif
                         </td>
 

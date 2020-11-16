@@ -4,7 +4,7 @@
 @section('breadcrumb')
 <li class="breadcrumb-item">{{ __('dashboard.home') }}</li>
 {{-- <li class="breadcrumb-item"><a href="#">المستخدم</a></li> --}}
-<li class="breadcrumb-item active">{{ __('dashboard.categories') }}</li>
+<li class="breadcrumb-item active">{{ __('dashboard.blogs') }}</li>
 @endsection
 
 @section('content')
@@ -15,16 +15,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> {{ __('dashboard.categories') }}
+                <i class="fa fa-align-justify"></i> {{ __('dashboard.blogs') }}
 
-                <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-create {{ $currentLangDir == 'rtl' ? 'pull-left' : 'pull-right' }}">
+                <a href="{{ route('admin.blogs.create') }}" class="btn btn-success btn-create {{ $currentLangDir == 'rtl' ? 'pull-left' : 'pull-right' }}">
                     <i class="icon-plus"></i> {{ __('dashboard.create') }}
                 </a>
             </div>
 
             <div class="card-block">
 
-                @if(count($categories) < 1) <div class="row">
+                @if(count($blogs) < 1) <div class="row">
                     <h4 class="col-12 text-danger text-xs-center"> {{ __('dashboard.noData') }} </h4>
             </div>
             @else
@@ -35,31 +35,31 @@
                     <tr>
                         <th class="text-sm-center">{{ __('dashboard.lang') }}</th>
                         <th class="text-sm-center">{{ __('dashboard.id') }}</th>
-                        <th class="text-sm-center">{{ __('dashboard.name') }}</th>
+                        <th class="text-sm-center">{{ __('dashboard.title') }}</th>
                         <th class="text-sm-center">{{ __('dashboard.status') }}</th>
                         <th class="text-sm-center">{{ __('dashboard.show') }}</th>
                         <th class="text-sm-center">{{ __('dashboard.actions') }}</th>
                     </tr>
                 </thead>
 
-                @foreach($categories as $category)
+                @foreach($blogs as $blog)
                 <tbody>
-                    @foreach($category->translations as $categoryTranslation)
+                    @foreach($blog->translations as $blogTranslation)
 
                     <tr class="text-sm-center">
 
-                        <td> {{ $categoryTranslation->locale }} </td>
+                        <td> {{ $blogTranslation->locale }} </td>
                         <td>
                             @if($loop->first)
-                            {{ $category->id }}
+                            {{ $blog->id }}
                             @endif
                         </td>
 
-                        <td class="text-sm-center"> {{ $categoryTranslation->name  }} </td>
+                        <td class="text-sm-center"> {{ $blogTranslation->title  }} </td>
 
                         <td>
                             @if($loop->first)
-                            @if($category->status == '0')
+                            @if($blog->status == '0')
                             <span class="tag tag-danger">{{ __('dashboard.stopped') }}</span>
                             @else
                             <span class="tag tag-success">{{ __('dashboard.active') }}</span>
@@ -71,7 +71,7 @@
 
                         <td>
 
-                            <a href="{{ route('admin.categories.show', [$category->id, 'showLang'  => $categoryTranslation->locale ] ) }}"
+                            <a href="{{ route('admin.blogs.show', [$blog->id, 'showLang'  => $blogTranslation->locale ] ) }}"
                                 class="btn btn-primary btn-sm">
                                 <i class="icon-eye"></i>
                             </a>
@@ -80,10 +80,10 @@
                         <td>
 
                             @if($loop->first)
-                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('admin.blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm">
                                 <i class="icon-pencil"></i>
                             </a>
-                            <form method="post" action="{{ route('admin.categories.destroy', $category->id) }}" class="d-inline-block">
+                            <form method="post" action="{{ route('admin.blogs.destroy', $blog->id) }}" class="d-inline-block">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-danger btn-sm delete-form" type="submit">
@@ -100,7 +100,7 @@
                 @endforeach
             </table>
 
-            {{ $categories->links() }}
+            {{ $blogs->links() }}
             @endif
 
         </div>

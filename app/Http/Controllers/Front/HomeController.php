@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Front;
 
 use Image;
 use Validator;
+use App\Models\Blog;
 use App\Models\Type;
 use App\Models\Period;
 use App\Models\Amenitie;
 use App\Models\Category;
+use App\Models\Property;
 use App\Models\ContactUs;
 use App\Models\Completing;
+use App\Models\Furnishing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Furnishing;
-use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,8 +32,33 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $properties = Property::active()->whereHas('images')->limit(20)->get();
+        $blogs = Blog::active()->latest()->limit(3)->get();
 
-        return view('front.home', compact('properties'));
+        return view('front.home', compact('properties', 'blogs'));
+    }
+
+    /**
+     * Show the application home.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function blogs(Request $request)
+    {
+        $blogs = Blog::active()->latest()->limit(3)->paginate();
+
+        return view('front.blogs', compact('blogs'));
+    }
+
+    /**
+     * Show the application home.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function blog(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id)->active()->first();
+
+        return view('front.blog', compact('blog'));
     }
 
     /**

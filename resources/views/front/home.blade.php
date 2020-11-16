@@ -21,52 +21,30 @@
 		</section>
 		<section class='articles-sec'>
 			<div class='container'>
-				<h2>تابع احدث الأخبار من وكيلك العقارى</h2>
+				<h2> {{ __('lang.recent_news') }} </h2>
 				<div class='row'>
-					<div class='col-lg-4 col-sm-6'>
+                    @foreach ($blogs as $blog)
+                    <div class='col-lg-4 col-sm-6'>
 						<div class='article' role='article'>
-							<span class='date'>تاريخ النشر: 28-9-2020</span>
+							<span class='date'>
+                                {{ __('lang.published_date') }}
+                                {{ \Carbon\Carbon::parse($blog->created_at)->format('Y-m-d') }}
+                            </span>
 							<div class='article-img'>
-								<img alt='Article Image' class='img-fluid' src='https://via.placeholder.com/538x317'>
+                            <img alt='{{ $blog->title }}' class='img-fluid' src='{{ $blog->image_url }}'>
 							</div>
 							<div class='article-data'>
-								<h5>دليلك لأفضل 10 شركات نقل الأثاث في الشارقة</h5>
-								<p>إذا كنت تخطط للانتقال وينتابك الخوف من أن ينال أثاثك أي ضرر أو كسر، فلا داعي للقلق حيال كل هذا؛ ستقوم شركات نقل الأثاث بتولي هذا الأمر مكانك،
-								   فنقل الاثاث في الشارقة من أسهل ما يكون.</p>
-								<a class='btn' href='#'>أقرأ المزيد</a>
+								<h5> {{ $blog->title }} </h5>
+								<p>
+                                    {{ $blog->content }}
+                                </p>
+                            <a class='btn' href='{{ route('blog', ['id' =>  $blog->id]) }}'> {{ __('lang.read_more') }} </a>
 							</div>
 						</div>
 					</div>
-					<div class='col-lg-4 col-sm-6'>
-						<div class='article' role='article'>
-							<span class='date'>تاريخ النشر: 28-9-2020</span>
-							<div class='article-img'>
-								<img alt='Article Image' class='img-fluid' src='https://via.placeholder.com/538x317'>
-							</div>
-							<div class='article-data'>
-								<h5>دليلك لأفضل 10 شركات نقل الأثاث في الشارقة</h5>
-								<p>إذا كنت تخطط للانتقال وينتابك الخوف من أن ينال أثاثك أي ضرر أو كسر، فلا داعي للقلق حيال كل هذا؛ ستقوم شركات نقل الأثاث بتولي هذا الأمر مكانك،
-								   فنقل الاثاث في الشارقة من أسهل ما يكون.</p>
-								<a class='btn' href='#'>أقرأ المزيد</a>
-							</div>
-						</div>
-					</div>
-					<div class='col-lg-4 col-sm-6'>
-						<div class='article' role='article'>
-							<span class='date'>تاريخ النشر: 28-9-2020</span>
-							<div class='article-img'>
-								<img alt='Article Image' class='img-fluid' src='https://via.placeholder.com/538x317'>
-							</div>
-							<div class='article-data'>
-								<h5>دليلك لأفضل 10 شركات نقل الأثاث في الشارقة</h5>
-								<p>إذا كنت تخطط للانتقال وينتابك الخوف من أن ينال أثاثك أي ضرر أو كسر، فلا داعي للقلق حيال كل هذا؛ ستقوم شركات نقل الأثاث بتولي هذا الأمر مكانك،
-								   فنقل الاثاث في الشارقة من أسهل ما يكون.</p>
-								<a class='btn' href='#'>أقرأ المزيد</a>
-							</div>
-						</div>
-					</div>
+                    @endforeach
 				</div>
-				<a class='btn see-more' href='#'>قم بزياره مدونتنا</a>
+				<a class='btn see-more' href='{{ route('blogs') }}'> {{ __('lang.visit_blog') }} </a>
 			</div>
 		</section>
 	</main>

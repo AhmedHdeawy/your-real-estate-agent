@@ -103,6 +103,13 @@ return [
      */
     'writer'    =>  'Writer',
 
+    /**
+     * Blogs
+     */
+    'blogs' =>  'Blogs',
+    'blog' =>  'Blog',
+    'content' =>  'Content',
+
 
     /**
      * Categories

@@ -52,7 +52,7 @@
                         <td> {{ $typeTranslation->locale }} </td>
                         <td>
                             @if($loop->first)
-                            {{ $type->code }}
+                            {{ $type->id }}
                             @endif
                         </td>
 

@@ -20,6 +20,8 @@ Route::group(['namespace' => 'Front'], function () {
     // Home
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/search', 'HomeController@search')->name('search');
+    Route::get('/blogs', 'HomeController@blogs')->name('blogs');
+    Route::get('/blog/{id}', 'HomeController@blog')->name('blog');
 
     Route::group(['middleware'    =>  'auth'], function () {
 
