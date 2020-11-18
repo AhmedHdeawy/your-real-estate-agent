@@ -241,6 +241,7 @@ return [
     'invalid_filetype'   => 'You Cannot Upload Files Of This Type.',
     'uploadImages'  =>  'Upload images',
     'map'   =>  'Map',
+    'penPropertyOnMap'  =>  'Mark the property on Map',
     'extraAmenities'    =>  'Extra Amenities',
     'doYouLikePropertyShareNow' =>  'Did you like this property? Share it now',
     'aed'   =>  'AED',

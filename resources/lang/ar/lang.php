@@ -247,6 +247,7 @@ return [
     'invalid_filetype'   => 'لا يمكن رفع هذا النوع من الملفات',
     'uploadImages'  =>  'رفع الصور',
     'map'   =>  'الخريطة',
+    'penPropertyOnMap'  =>  'حدد مكان العقار على الخريطة',
     'extraAmenities'    =>  'المميزات الاضافيه',
     'doYouLikePropertyShareNow' =>  'هل أعجبك هذا العقار؟ قم بمشاركته الان',
     'aed'   =>  'درهم اماراتي',

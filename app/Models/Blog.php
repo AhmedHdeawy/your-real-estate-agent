@@ -47,7 +47,7 @@ class Blog extends Model implements TranslatableContract
                 $name = uniqid('Property_Club_') . time() . '_' . $name;
                 $path = 'blogs/';
                 // Store Image
-                Storage::disk('public')->putFileAs($path, $file, $name);
+                Storage::disk('gcs')->putFileAs($path, $file, $name);
 
                 $this->attributes['image'] = $path . $name;
             }
@@ -73,6 +73,6 @@ class Blog extends Model implements TranslatableContract
         if (!$this->image)
             return null;
 
-        return Storage::disk('public')->url($this->image);
+        return Storage::disk('gcs')->url($this->image);
     }
 }

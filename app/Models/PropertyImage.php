@@ -50,6 +50,6 @@ class PropertyImage extends Model
         if (!$this->image)
             return null;
 
-        return Storage::disk('public')->url($this->image);
+        return Storage::disk('gcs')->url($this->image);
     }
 }

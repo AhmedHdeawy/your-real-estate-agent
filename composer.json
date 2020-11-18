@@ -12,14 +12,15 @@
         "astrotomic/laravel-translatable": "^11.6",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
+        "johntaa/ar-php": "dev-master",
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^1.0",
         "pusher/pusher-php-server": "^4.1",
         "spatie/laravel-permission": "^3.3",
+        "superbalist/laravel-google-cloud-storage": "^2.2",
         "tohidplus/laravel-vue-translation": "^2.0",
-        "torann/geoip": "^1.1",
-        "johntaa/ar-php": "dev-master"
+        "torann/geoip": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

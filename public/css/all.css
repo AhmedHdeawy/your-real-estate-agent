@@ -52,6 +52,44 @@ body[dir='rtl'] .invalid-feedback {
     color: #5f9ea0;
 }
 
+/*  Map */
+.map-container {
+    position: relative;
+    height: 500px;
+}
+
+.map-container #map {
+    height: 450px;
+}
+
+.map-container #pac-input {
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    border-radius: 0;
+    margin-bottom: 5px;
+    height: 50px;
+}
+
+.map-container #pac-input:focus {
+    border-color: #4d90fe;
+}
+
+@media(max-width: 768px) {
+    .map-container {
+        height: 350px;
+    }
+
+    .map-container #map {
+        height: 300px;
+    }
+
+    .map-container #pac-input {
+        height: 40px;
+    }
+}
 
 
 /* Framework */

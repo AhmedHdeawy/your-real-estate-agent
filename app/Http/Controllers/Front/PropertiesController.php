@@ -102,10 +102,10 @@ class PropertiesController extends Controller
             $file = $image;
             $name =  $file->getClientOriginalName();
             $name = uniqid('Property_Club_') . $key . time() . '_' . $name;
-            $path = 'properties/' . $property->id . '/';
+            $path = 'properties/' . $property->id;
 
             // Store Image
-            Storage::disk('public')->putFileAs($path, $file, $name);
+            Storage::disk('gcs')->putFileAs($path, $file, $name);
 
             // Save Image
             $property->images()->create(['image' =>  $path. '/' . $name]);

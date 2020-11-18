@@ -1,20 +1,6 @@
 @extends('layouts.master')
 
-@section('style')
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-@endsection
-
 @section('content')
-
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-<link
-rel="stylesheet"
-href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-type="text/css"
-/>
-<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
 <main class='add-unit'>
 		<div class='container'>
@@ -270,7 +256,7 @@ type="text/css"
                             </div>
                         </div>
 
-                        {{-- Property Desc, Map --}}
+                        {{-- Property Desc --}}
                         <div class="row mt-3">
                             <h1> {{ __('lang.desc') }} </h1>
 							<div class='col-12 mb-5'>
@@ -279,13 +265,21 @@ type="text/css"
                                     <div class="invalid-feedback text-danger">{{ $errors->first('description') }}</div>
                                 @endif
 							</div>
+                        </div>
+
+                        {{-- Property Map --}}
+                        <div class="row mt-3">
+                            <h1> {{ __('lang.penPropertyOnMap') }} </h1>
 							<div class='col-12 text-left'>
-                                <div id='map' style='width: 100%; height: 500px;'></div>
+                                <div class='map-container'>
+                                    <input id="pac-input" class="form-control mx-auto" type="text"
+                                        placeholder="{{ __('lang.search') }}">
+                                    <div id="map"></div>
+                                </div>
                                 <input type="hidden" name="lat">
                                 <input type="hidden" name="long">
                                 <input type="hidden" name="address">
 							</div>
-
                         </div>
 
                         {{-- Footer --}}
@@ -304,7 +298,7 @@ type="text/css"
 @endsection
 
 @section('script')
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKU2pOeE34mizOMutB8WaCHNIfoYO7yPg&libraries=places&language={{ app()->getLocale() }}&callback=initMap"></script>
     <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('vendors/ckeditor/translations/ar.js') }}"></script>
     <script>
@@ -321,55 +315,212 @@ type="text/css"
     });
 
     // MAP
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYWhtZWRoZGVhd3kiLCJhIjoiY2s3eXFhYmppMDB6cDNtbzU5cmhydDNxNyJ9.fp3nCLW9HLkejiXjILSlBA';
-    var map = new mapboxgl.Map({
-        center: [23.4241, 31.276302],
-        zoom: 3,
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11'
-    });
-    // Add Marker
-    var marker = new mapboxgl.Marker({
-        draggable: true
-    }).setLngLat([23.4241, 31.276302]).addTo(map);
+    var map;
+    var marker;
+    function initMap() {
+        var myLatlng = {lat: 24.4128334, lng: 54.4749754};
+        var geocoder = new google.maps.Geocoder();
+        map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 9,
+            center: myLatlng,
+            zoomControl: true,
+            streetViewControl: true,
+            mapTypeControl: false,
+            gestureHandling: 'greedy'
+        });
 
-    // Add Controller to Map
-    map.addControl(new mapboxgl.FullscreenControl());
+        // Add Basic Marker
+        addMarker(myLatlng);
 
-    // Add Controller to Map
-    map.addControl(new mapboxgl.GeolocateControl({
-        positionOptions: { enableHighAccuracy: true },
-        trackUserLocation: true
-    }));
+        // Get Basic Place and Filll Form Inputs with initial place details
+        handleGeocoder(geocoder, myLatlng);
 
-    var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'top-left');
+        // Displaying User or Device Position on Maps
+        handleNavigatorGeolocation();
 
-    // Event on Drag Marker
-    function onDragEnd() {
-        $('.add-new-property').attr('disabled', 'disabled');
-        var lngLat = marker.getLngLat();
-        var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ lngLat.lat +','+ lngLat.lng +'.json?language=ar&access_token=pk.eyJ1IjoiYWhtZWRoZGVhd3kiLCJhIjoiY2s3eXFhYmppMDB6cDNtbzU5cmhydDNxNyJ9.fp3nCLW9HLkejiXjILSlBA';
+        // Hadnle Search AutoComplete
+        habdleAutocomplete();
 
-            axios.get(url).then((res) => {
-                if(typeof popup !== 'undefined') {
-                    popup.remove();
-                }
-                var popup = new mapboxgl.Popup({ closeOnClick: false })
-                    .setLngLat([lngLat.lat, lngLat.lng])
-                    .setText(res.data.features[0].place_name)
-                    .addTo(map);
+        // Configure the click listener.
+        map.addListener('click', function(event) {
 
-                    // Add to Form
-                    $('input[name=lat]').val(lngLat.lat);
-                    $('input[name=long]').val(lngLat.lng);
-                    $('input[name=address]').val(res.data.features[0].place_name);
+            // Delete old Marker
+            deleteMarker();
 
-                    $('.add-new-property').removeAttr('disabled');
-            });
+            // Add new Marker with new Location
+            addMarker(event.latLng);
+
+            // Get Place Details and Fill Inputs with new details
+            if (event.placeId) {
+                getPlaceDetails(event.placeId);
+            } else {
+                handleGeocoder(geocoder, event.latLng)
+            }
+
+        });
     }
-    // Fire Event
-    marker.on('dragend', onDragEnd);
+
+    // Add new Marker to Map
+    function addMarker(location) {
+        marker = new google.maps.Marker({
+        position: location,
+        map: map
+        });
+    }
+
+    // Delete old Marker
+    function deleteMarker() {
+        marker.setMap(null);
+    }
+
+    // Add Info Window on the marker
+    function addInfoWidow(content) {
+        var infowindow = new google.maps.InfoWindow({
+        content
+        });
+
+        infowindow.open(map, marker);
+    }
+
+    function contentString(title, address) {
+        return `<p class='font-weight-bold mb-0'>${title}</p><p class='mb-0'>${address}</p>`;
+    }
+
+    // Get Place details from LatLng
+    function handleGeocoder(geocoder, latLong) {
+
+        // Get Place Details from LatLng
+        geocoder.geocode({'latLng': latLong}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                // Call Function to Get Place Details and Fill Inputs
+                getPlaceDetails(results[0].place_id);
+            }
+        }
+        });
+    }
+
+    // Handle Navigation and Get Current position for the visitor
+    function handleNavigatorGeolocation(params) {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+            // Override init Position by User Location
+            map.setCenter(pos);
+            // Delete old Marker
+            deleteMarker();
+            // Add new Marker with new Location
+            addMarker(pos);
+
+            // handle Gecoder to append Lat , Lng and Get Country, State, City and Address
+            handleGeocoder(geocoder, pos);
+
+
+        }, function() {});
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError();
+        }
+
+        function handleLocationError(browserHasGeolocation) {
+            alert('{{ __('lang.doesnotSupportGeolocation') }}');
+        }
+    }
+
+    // Get Place Details using Google Map Place Library
+    function getPlaceDetails(placeID) {
+
+        // Prepare Request
+        var request = {
+            placeId: placeID,
+            fields: ['name', 'address_components', 'formatted_address', 'geometry']
+        };
+
+        // Call Places Service
+        service = new google.maps.places.PlacesService(map);
+        service.getDetails(request, fillFormInputs);
+    }
+
+    // Handle Search Autocomplete
+    function habdleAutocomplete() {
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+
+        // Append Input to the Map
+        // map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+        // Get Autocomplete Service
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.bindTo('bounds', map);
+
+        // Set the data fields to return when the user selects a place.
+        autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+        autocomplete.addListener('place_changed', function() {
+
+            // Get Place Selected
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17); // Why 17? Because it looks good.
+            }
+
+            // Delete old Marker
+            deleteMarker();
+
+            // Add new Marker with new Location
+            addMarker(place.geometry.location);
+
+            // collect data
+            var address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+
+            // Append values to form input
+            $('.add-new-property').attr('disabled', 'disabled');
+            $('input[name=lat]').val(place.geometry.location.lat());
+            $('input[name=long]').val(place.geometry.location.lng());
+            $('input[name=address]').val(address);
+            $('.add-new-property').removeAttr('disabled');
+
+
+
+            // Add Window to Display this Location
+            addInfoWidow(contentString(place.name, address));
+
+        });
+    }
+
+        // Fill form inputs with place details
+    function fillFormInputs(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+            // Append values to form input
+            $('.add-new-property').attr('disabled', 'disabled');
+            $('input[name=lat]').val(place.geometry.location.lat());
+            $('input[name=long]').val(place.geometry.location.lng());
+            $('input[name=address]').val(place.formatted_address);
+            $('.add-new-property').removeAttr('disabled');
+        }
+    }
 
 </script>
 @endsection
