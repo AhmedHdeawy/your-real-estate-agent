@@ -687,5 +687,46 @@
 @section('script')
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fb1aa65248cf5e6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script>
+    var errorClass = 'is-invalid';
+    var validClass = '';
+    $("#sendMailToAgent").validate({
+        rules: {
+            // simple rule, converted to {required:true}
+            name: "required",
+            // compound rule
+            email: {
+            required: true,
+            email: true
+            }
+        },
+        messages: {
+            name: {
+                required: "{{ __('validation.required', ['attribute'    =>  __('lang.name') ]) }}",
+            },
+            email: {
+                required: "{{ __('validation.required', ['attribute'    =>  __('lang.email') ]) }}",
+                email: "{{ __('validation.email', ['attribute'    =>  __('lang.email') ]) }}"
+            },
+            phone: {
+                required: "{{ __('validation.required', ['attribute'    =>  __('lang.phone') ]) }}",
+            },
+            message: {
+                required: "{{ __('validation.required', ['attribute'    =>  __('lang.message') ]) }}",
+            },
+        },
+        submitHandler: function(form) {
+            form.submit();
+        },
+        success: function(label) {
+            $(label).parent().prev().removeClass('is-invalid');
+        },
+        errorPlacement: function(error, element) {
+            $(element).addClass('is-invalid');
+            error.appendTo( $(element).next() );
+        }
+    });
+</script>
 
 @endsection

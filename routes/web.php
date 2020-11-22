@@ -23,13 +23,15 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/blogs', 'HomeController@blogs')->name('blogs');
     Route::get('/blog/{id}', 'HomeController@blog')->name('blog');
 
+    Route::post('property/sendMail', 'PropertiesController@sendMailToAgent')->name('property.sendMailToAgent');
+    Route::get('property/{property}', 'PropertiesController@showProperty')->name('property.showProperty');
+
     Route::group(['middleware'    =>  'auth'], function () {
 
         Route::get('property/create', 'PropertiesController@create')->name('property.create');
         Route::post('property/store', 'PropertiesController@store')->name('property.store');
         Route::get('property/{property}/upload-images', 'PropertiesController@openUploadImages')->name('property.upload_images');
         Route::post('property/upload-images', 'PropertiesController@uploadImages')->name('property.store.upload_images');
-        Route::get('property/{property}', 'PropertiesController@showProperty')->name('property.showProperty');
 
         // User Profile
         Route::get('profile/{username}', 'UsersController@profile')->name('profile');

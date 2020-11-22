@@ -94,26 +94,26 @@ body[dir='rtl'] .invalid-feedback {
 
 /* Framework */
 
-.btn-rbzgo,
-.btn-rbzgo:hover {
+.btn-theme,
+.btn-theme:hover {
     color: #fff;
-    background-color: #403a6e;
-    border-color: #403a6e;
+    background-color: #800080;
+    border-color: #800080;
 }
 
-.color-rbzgo {
-    color: #403a6e;
+.color-theme {
+    color: #800080;
 }
 
-.bg-rbzgo {
+.bg-theme {
     background-color: #3d376a !important;
 }
 
-.bg-rbzgo * {
+.bg-theme * {
     color: #FFF;
 }
 
-.border-rbzgo {
+.border-theme {
     border-color: #3d376a !important;
 }
 

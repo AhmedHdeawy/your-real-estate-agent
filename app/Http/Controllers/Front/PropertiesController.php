@@ -12,8 +12,10 @@ use App\Models\Property;
 use App\Models\Completing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMailToAgent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PropertiesController extends Controller
@@ -112,6 +114,32 @@ class PropertiesController extends Controller
         }
 
         return response()->json(true, 200);
+    }
+
+    /**
+     * Send Email to Agent
+     */
+    public function sendMailToAgent(Request $request)
+    {
+        $this->validate($request, [
+            'property_id'  =>  'required|numeric',
+            'name'  =>  'required',
+            'email' =>  'required|email',
+            'phone' =>  'required',
+            'message' =>  'required',
+        ]);
+
+        $property = Property::findOrFail($request->property_id);
+        $data = [
+            'name'  =>  $request->name,
+            'phone'  =>  $request->phone,
+            'email'  =>  $request->email,
+            'message'  =>  $request->message,
+        ];
+
+        Mail::to($property->agent_email)->send(new SendMailToAgent($property, $data));
+
+        return back();
     }
 
     /**

@@ -21,26 +21,26 @@
             <div class='posts-con'>
                 <ul class="nav justify-content-center px-0">
                     <li class="nav-item text-center">
-                        <h5 class="nav-link p-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 font-weight-bold color-theme">
                             {{ count($user->firendsOfMine) }}
                         </h5>
-                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-theme">
                             {{ __('lang.following') }}
                         </h5>
                     </li>
                     <li class="nav-item text-center mx-3 mx-md-5">
-                        <h5 class="nav-link p-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 font-weight-bold color-theme">
                             {{ count($user->firendOf) }}
                         </h5>
-                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-theme">
                             {{ __('lang.followers') }}
                         </h5>
                     </li>
                     <li class="nav-item text-center">
-                        <h5 class="nav-link p-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 font-weight-bold color-theme">
                             {{ $userLikes }}
                         </h5>
-                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-rbzgo">
+                        <h5 class="nav-link p-0 mb-0 font-weight-bold color-theme">
                             {{ __('lang.likes') }}
                         </h5>
                     </li>
@@ -92,9 +92,9 @@
 
                     @csrf
 
-                    <div class="card border-rbzgo rounded-0">
+                    <div class="card border-theme rounded-0">
                         <div class="card-header p-0">
-                            <div class="bg-rbzgo text-white text-center py-2">
+                            <div class="bg-theme text-white text-center py-2">
                                 <h3>{{ __('lang.profileTitle') }} </h3>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-user color-theme"></i></div>
                                     </div>
                                     <input type="text" class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}"
                                         id="name" name="name" placeholder="{{ __('lang.name') }}"
@@ -119,7 +119,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-phone color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-phone color-theme"></i></div>
                                     </div>
                                     <input type="text"
                                         class="form-control {{ $errors->first('phone') ? 'is-invalid' : '' }}" id="phone"
@@ -135,7 +135,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-envelope color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-envelope color-theme"></i></div>
                                     </div>
                                     <input type="email"
                                         class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}" id="email"
@@ -150,7 +150,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-lock color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-lock color-theme"></i></div>
                                     </div>
                                     <input type="password"
                                         class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
@@ -164,7 +164,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-lock color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-lock color-theme"></i></div>
                                     </div>
                                     <input type="password"
                                         class="form-control {{ $errors->first('password_confirmation') ? 'is-invalid' : '' }}"
@@ -179,7 +179,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     {{-- <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-lock color-rbzgo"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-lock color-theme"></i></div>
                                     </div> --}}
                                     @include('dashboard.includes.uploadImage',
                                     ['name' => 'avatar', 'value' => auth()->check() ? auth()->user()->avatar : null, 'path'
@@ -194,7 +194,7 @@
 
                             <div class="text-center">
                                 <input type="submit" value="{{ __('lang.update') }}"
-                                    class="btn btn-rbzgo btn-block rounded-0 py-2">
+                                    class="btn btn-theme btn-block rounded-0 py-2">
                             </div>
                         </div>
 

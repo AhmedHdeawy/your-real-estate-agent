@@ -103,6 +103,7 @@ return [
     'resetPassword'    =>  'Reset Password',
     'sendPasswordResetLink'  =>  'Send Password Reset Link',
     'saveNewPassword'   =>  'Save New Password',
+    'message'   =>  'Message',
 
 
     'createdSuccessfully'   =>  'Created Successfully',
@@ -247,4 +248,5 @@ return [
     'aed'   =>  'AED',
     'squareMeter'   =>  'sqm',
     'sendMailToAgent'   =>  'Send Email to agent',
+    'mailMessage'   =>  'Hello . You found your property on the Real Estate Club website. Please contact me. Thank',
 ];
