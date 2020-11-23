@@ -91,6 +91,14 @@ body[dir='rtl'] .invalid-feedback {
     }
 }
 
+.reset-search-form {
+    color: #d5573b;
+    text-decoration: underline;
+    cursor: pointer;
+    -webkit-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    opacity: 1;
+}
 
 /* Framework */
 

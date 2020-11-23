@@ -251,4 +251,5 @@ return [
     'mailMessage'   =>  'Hello . You found your property on the Real Estate Club website. Please contact me. Thank',
     'oops'  =>  'Oops',
     'youMustLogin'    =>  'You must Log in first',
+    'savedInFav'    =>  'Saved in your list',
 ];

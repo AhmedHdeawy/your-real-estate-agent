@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Front'], function () {
 
     // Home
     Route::get('/', 'HomeController@index')->name('home');
-    Route::post('/search', 'HomeController@search')->name('search');
+    Route::get('/search', 'HomeController@search')->name('search');
     Route::get('/blogs', 'HomeController@blogs')->name('blogs');
     Route::get('/blog/{id}', 'HomeController@blog')->name('blog');
 
@@ -32,6 +32,7 @@ Route::group(['namespace' => 'Front'], function () {
         Route::post('property/store', 'PropertiesController@store')->name('property.store');
         Route::get('property/{property}/upload-images', 'PropertiesController@openUploadImages')->name('property.upload_images');
         Route::post('property/upload-images', 'PropertiesController@uploadImages')->name('property.store.upload_images');
+        Route::post('property/addToFavorites', 'PropertiesController@addToFavorites')->name('property.addToFavorites');
 
         // User Profile
         Route::get('profile/{username}', 'UsersController@profile')->name('profile');

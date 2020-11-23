@@ -46,9 +46,8 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
-    <script src="{{ mix('js/all.js') }}"></script>
-
     @yield('script')
+    <script src="{{ mix('js/all.js') }}"></script>
 
 </body>
 

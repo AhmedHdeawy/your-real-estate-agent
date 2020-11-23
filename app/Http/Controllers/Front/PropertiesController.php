@@ -11,11 +11,12 @@ use App\Models\Category;
 use App\Models\Property;
 use App\Models\Completing;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Mail\SendMailToAgent;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class PropertiesController extends Controller
@@ -58,7 +59,6 @@ class PropertiesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         // Validate Form
         $this->validatePropertyRequest($request);
 
@@ -76,7 +76,21 @@ class PropertiesController extends Controller
      */
     public function showProperty(Property $property)
     {
-        return view('front.propertyDetails', compact('property'));
+        // $relatedProperties = Property::limit(3)->get();
+
+        $latitude = $property->lat;
+        $longitude = $property->lng;
+
+        $relatedProperties = Property::active()->select(
+            DB::raw('
+                *, ( 6367 * acos( cos( radians(' . $latitude . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $longitude . ') ) + sin( radians(' . $latitude . ') ) * sin( radians( lat ) ) ) ) AS distance
+                ')
+            )->having('distance', '<', 10)
+            ->orderBy('distance')
+            ->where('id', '!=', $property->id)
+            ->get();
+
+        return view('front.propertyDetails', compact('property', 'relatedProperties'));
     }
 
     /**
@@ -140,6 +154,30 @@ class PropertiesController extends Controller
         Mail::to($property->agent_email)->send(new SendMailToAgent($property, $data));
 
         return back();
+    }
+
+    /**
+     * Send Email to Agent
+     */
+    public function addToFavorites(Request $request)
+    {
+        $this->validate($request, [
+            'property_id'  =>  'required|numeric',
+        ]);
+
+        $user = auth()->user();
+
+        $oldFavorites = $user->favorites->pluck('id')->toArray();
+        if (in_array($request->property_id, $oldFavorites)) {
+            // Remove this property from favorites
+            $user->favorites()->detach($request->property_id);
+        } else {
+            // Add this property to favorites
+            $user->favorites()->attach($request->property_id);
+        }
+
+
+        return response()->json(null, 200);
     }
 
     /**

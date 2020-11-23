@@ -31,7 +31,7 @@ class Property extends Model implements TranslatableContract
     protected $fillable = [
         'price',
         'lat',
-        'long',
+        'lng',
         'address',
         'status',
         'agent_name',
@@ -51,9 +51,23 @@ class Property extends Model implements TranslatableContract
         'completing_id'
     ];
 
+    public function getPriceAttribute($value)
+    {
+        $price = explode('.', $value);
+        if ($price[1] == 0) {
+            return $price[0];
+        }
+        return $price;
+    }
+
     public function amenities()
     {
         return $this->belongsToMany('App\Models\Amenitie', 'property_amenities', 'property_id', 'amenitie_id');
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany('App\Models\User', 'favorites', 'property_id', 'user_id');
     }
 
     public function agent()
@@ -89,6 +103,11 @@ class Property extends Model implements TranslatableContract
     public function images()
     {
         return $this->hasMany('App\Models\PropertyImage', 'property_id', 'id');
+    }
+
+    public function threeImages()
+    {
+        return $this->hasMany('App\Models\PropertyImage', 'property_id', 'id')->offset(3)->limit();
     }
 
 

@@ -70,3 +70,9 @@ $('.imageUpload').change(function (event) {
     }
 
 });
+
+$('.reset-search-form').click(function (event) {
+    $('#search').trigger("reset");
+    $('.select2').val(null).trigger('change');
+
+});

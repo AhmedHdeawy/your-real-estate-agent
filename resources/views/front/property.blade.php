@@ -1,7 +1,6 @@
 <div class='unit'>
     <span class='tag'> {{ $property->category->name }} </span>
     <div class='owl-carousel unit-images-carousel owl-theme'>
-
         @foreach ($property->images as $image)
                 <div class='item'>
                     <div class='image-con'>

@@ -277,7 +277,7 @@
                                     <div id="map"></div>
                                 </div>
                                 <input type="hidden" name="lat">
-                                <input type="hidden" name="long">
+                                <input type="hidden" name="lng">
                                 <input type="hidden" name="address">
 							</div>
                         </div>
@@ -497,7 +497,7 @@
             // Append values to form input
             $('.add-new-property').attr('disabled', 'disabled');
             $('input[name=lat]').val(place.geometry.location.lat());
-            $('input[name=long]').val(place.geometry.location.lng());
+            $('input[name=lng]').val(place.geometry.location.lng());
             $('input[name=address]').val(address);
             $('.add-new-property').removeAttr('disabled');
 
@@ -516,7 +516,7 @@
             // Append values to form input
             $('.add-new-property').attr('disabled', 'disabled');
             $('input[name=lat]').val(place.geometry.location.lat());
-            $('input[name=long]').val(place.geometry.location.lng());
+            $('input[name=lng]').val(place.geometry.location.lng());
             $('input[name=address]').val(place.formatted_address);
             $('.add-new-property').removeAttr('disabled');
         }

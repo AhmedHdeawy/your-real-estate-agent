@@ -1,35 +1,54 @@
 @extends('layouts.master')
 
+@section('style')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="{{ asset('vendors/lightslider/css/lightslider.css') }}">
+@endsection
+
 @section('content')
 <main class='unit-page'>
     <div class='container'>
+
+        {{-- Property Images --}}
         <div class='unit-gallery'>
             <div class='row'>
-                <div class='col-lg-10 col-md-12 mx-auto'>
-                    <div class='row'>
-                        <div class='col-12'>
-                            <div class='big-image-con'>
-                                <img alt='{{ $property->title }}' class='img-fluid' src='{{ $property->images->first()->image_url }}'>
-                            </div>
-                        </div>
-                        <div class='col-12'>
-                            <div class='unit-images-gallery'>
-                                <div class='owl-carousel owl-theme'>
-                                    @foreach ($property->images as $image)
-                                            <div class='item'>
-                                                <div class='image-con'>
-                                                    <img alt='{{ $property->title }}'
-                                                    class='img-fluid' src='{{ $image->image_url }}'>
-                                                </div>
-                                            </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+                @php
+                    $imagesCount = count($property->images);
+                    $take =  $imagesCount - 3 < 0 ? 0 : $imagesCount - 3;
+                @endphp
+                <div class="col-6">
+                    <a style="width: 100%" data-fancybox="gallery" href="{{ $property->images()->first()->image_url }}">
+                        <img style="width: 100%; height: 450px;" src="{{ $property->images()->first()->image_url }}" class="img-thumbnail">
+                    </a>
+                </div>
+                <div class="col-6">
+                    @foreach ($property->images()->limit(3)->get() as $image)
+                        @if (!$loop->first)
+                            <a data-fancybox="gallery" href="{{ $image->image_url }}">
+                                <img style="height: 200px; width: 100%" src="{{ $image->image_url }}" class="img-thumbnail">
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
+
+                <div class='col-12 mt-3 d-none'>
+                    <div class='unit-images-gallery'>
+                        <ul id="lightSlider">
+                            @foreach ($property->images()->skip(3)->take($take)->get() as $image)
+                                    <li>
+                                        <a data-fancybox="gallery" href="{{ $image->image_url }}">
+                                            <img style="height: 150px; width: 200px" alt='{{ $property->title }}' class='img-fluid' src='{{ $image->image_url }}'>
+                                        </a>
+                                    </li>
+                            @endforeach
+                        </ul>
+
                     </div>
                 </div>
             </div>
+
         </div>
+        {{-- Property Details --}}
         <div class='brief-data'>
             <div class='row'>
                 <div class='col-12 mx-auto'>
@@ -39,7 +58,7 @@
                             <h1> {{ $property->title }} </h1>
                         </div>
 
-                        <div class='col-lg-9 col-md-8 mx-auto'>
+                        <div class='col-md-8 mx-auto'>
                             <div class='unit-details'>
                                 <div class='row'>
                                     @if ($property->type)
@@ -151,16 +170,19 @@
                             </div>
                         </div>
 
-                        <div class='col-lg-3 col-md-4 mt-md-0 mt-4'>
+                        <div class='col-md-4 mt-md-0 mt-4'>
                             <div class='contact-info'>
                                 <p class='price'>
-                                    <span> {{ __('lang.price') }} : </span>
-                                    <span>{{ $property->price }} {{ __('lang.aed') }} </span>
+                                    <span>
+                                        {{ $property->price }} {{ __('lang.aed') }}
+                                        /
+                                        {{ $property->period->name }}
+                                    </span>
                                 </p>
                                 <div class='btns-con'>
                                     <div class='row'>
                                         <div class='col-6'>
-                                            <a class='btn' href='tel:{{ $property->agent_phone }}'>
+                                            <a class='btn callAgent' data-phone="{{ $property->agent_phone }}" href='tel:{{ $property->agent_phone }}'>
                                                 <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
                                                     <path d='M0 0h24v24H0V0z' fill='none'/>
                                                     <path
@@ -170,30 +192,35 @@
                                             </a>
                                         </div>
                                         <div class='col-6'>
-                                            <button onclick="saveProperty()" id="addToFavurite" class='btn'>
-                                                <i class="far fa-heart"></i>
-                                                {{-- <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                                    <path d='M0 0h24v24H0V0z' fill='none'/>
-                                                    <path
-                                                            d='M19.66 3.99c-2.64-1.8-5.9-.96-7.66 1.1-1.76-2.06-5.02-2.91-7.66-1.1-1.4.96-2.28 2.58-2.34 4.29-.14 3.88 3.3 6.99 8.55 11.76l.1.09c.76.69 1.93.69 2.69-.01l.11-.1c5.25-4.76 8.68-7.87 8.55-11.75-.06-1.7-.94-3.32-2.34-4.28zM12.1 18.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/>
-                                                </svg> --}}
-                                                {{ __('lang.save') }}
-                                            </button>
-                                        </div>
-                                        <div class='col-auto mx-auto mt-4'>
-                                            <button class='btn' data-toggle="modal" data-target="#exampleModal">
+                                            <button class='btn' data-toggle="modal" data-target="#sensMailModal">
                                                 <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
                                                     <path d='M0 0h24v24H0z' fill='none'/>
                                                     <path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/>
                                                 </svg>
                                                 {{ __('lang.email') }}
                                             </button>
+                                        </div>
+                                        <div class='col-auto mx-auto mt-4'>
+                                            @auth
+                                                @php
+                                                    $checkInFav = in_array($property->id, auth()->user()->favorites->pluck('id')->toArray());
+                                                @endphp
+                                                <button onclick="saveProperty()" id="addToFavurite" class='btn'>
+                                                    <i class="{{ $checkInFav  ? 'fas' : 'far' }} fa-heart"></i>
+                                                    <span>{{ $checkInFav ? __('lang.savedInFav') : __('lang.save') }}</span>
+                                                </button>
+                                            @else
+                                                <button onclick="saveProperty()" id="addToFavurite" class='btn'>
+                                                    <i class="far fa-heart"></i>
+                                                    <span>{{ __('lang.save') }}</span>
+                                                </button>
+                                            @endauth
 
                                         </div>
                                         <div class='col-12'>
                                             <div class='map'>
                                                 <div class='card-img-overlay'>
-                                                    <a href='#'>
+                                                    <button class='showMap' data-toggle="modal" data-target="#mapModal">
                                                         <span>
                                                             {{ __('lang.map') }}
                                                             <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
@@ -202,7 +229,7 @@
                                                                         d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/>
                                                             </svg>
                                                         </span>
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,7 +238,7 @@
                             </div>
                         </div>
 
-                        <div class='col-12'>
+                        <div class='col-12 col-md-8'>
                             <div class='description'>
 
                                 <div class='row mb-4'>
@@ -247,513 +274,176 @@
             </div>
         </div>
 
-
-
-
-@include('front.sendMail')
-
-        <div class='similar-units'>
-            <h2>عقارات أخرى في نفس المنطقة</h2>
-            <div class='row'>
-                <div class='col-xl-3 col-md-4 col-sm-6'>
-                    <div class='unit'>
-                        <span class='tag'>للبيع</span>
-                        <div class='owl-carousel unit-images-carousel owl-theme'>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
+        {{-- Related Properties --}}
+        @if (count($relatedProperties))
+            <div class='similar-units'>
+                <h2>عقارات أخرى في نفس المنطقة</h2>
+                <div class='row'>
+                    @foreach ($relatedProperties as $relatedProperty)
+                        <div class='col-xl-3 col-md-4 col-sm-6'>
+                            @include('front.property', ['property'  =>  $relatedProperty])
                         </div>
-                        <p class='location'>
-                            <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                <path d='M0 0h24v24H0V0z' fill='none'/>
-                                <path
-                                        d='M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.48 1.13.48 1.53 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
-                            </svg>
-                            تيرانوفا، المرابع العربية، دبي
-                        </p>
-                        <h6 class='unit-name'>Exclusive | Upgraded 5 Bedroom | Terranova</h6>
-                        <div class='unit-data'>
-                            <p>
-                                <span>نوع العقار:</span>
-                                فيلا
-                            </p>
-                            <p>
-                                <span>السعر:</span>
-                                4,350,000 درهم
-                            </p>
-                            <p>
-                                <span>المساحة:</span>
-                                408 متر مربع
-                            </p>
-                            <p>
-                                <span>عدد الغرف:</span>
-                                6
-                            </p>
-                        </div>
-                        <div class='btns-con'>
-                            <div class='row'>
-                                <div class='col-auto mx-auto'>
-                                    <a class='btn visit'>
-                                        <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                            <path d='M0 0h24v24H0V0z' fill='none'/>
-                                            <path
-                                                    d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                        </svg>
-                                        شاهد التفاصيل
-                                    </a>
-                                    <!--											<a class='btn' href='#'>-->
-                                    <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                    <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                    <!--													<path-->
-                                    <!--															d='M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z'/>-->
-                                    <!--												</svg>-->
-                                    <!--												أتصل-->
-                                    <!--											</a>-->
-                                </div>
-                                <!--										<div class='col-6'>-->
-                                <!--											<button class='btn'>-->
-                                <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                <!--													<path-->
-                                <!--															d='M19.66 3.99c-2.64-1.8-5.9-.96-7.66 1.1-1.76-2.06-5.02-2.91-7.66-1.1-1.4.96-2.28 2.58-2.34 4.29-.14 3.88 3.3 6.99 8.55 11.76l.1.09c.76.69 1.93.69 2.69-.01l.11-.1c5.25-4.76 8.68-7.87 8.55-11.75-.06-1.7-.94-3.32-2.34-4.28zM12.1 18.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/>-->
-                                <!--												</svg>-->
-                                <!--												حفظ-->
-                                <!--											</button>-->
-                                <!--										</div>-->
-                            </div>
-                        </div>
-                        <!--<div class='link-con'>
-                            <a clasFs='visit'>
-                                <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M0 0h24v24H0V0z' fill='none'/>
-                                    <path
-                                            d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                </svg>
-                                شاهد التفاصيل
-                            </a>
-                        </div>-->
-                    </div>
-                </div>
-                <div class='col-xl-3 col-md-4 col-sm-6'>
-                    <div class='unit'>
-                        <span class='tag'>للبيع</span>
-                        <div class='owl-carousel unit-images-carousel owl-theme'>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                        </div>
-                        <p class='location'>
-                            <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                <path d='M0 0h24v24H0V0z' fill='none'/>
-                                <path
-                                        d='M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.48 1.13.48 1.53 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
-                            </svg>
-                            تيرانوفا، المرابع العربية، دبي
-                        </p>
-                        <h6 class='unit-name'>Exclusive | Upgraded 5 Bedroom | Terranova</h6>
-                        <div class='unit-data'>
-                            <p>
-                                <span>نوع العقار:</span>
-                                فيلا
-                            </p>
-                            <p>
-                                <span>السعر:</span>
-                                4,350,000 درهم
-                            </p>
-                            <p>
-                                <span>المساحة:</span>
-                                408 متر مربع
-                            </p>
-                            <p>
-                                <span>عدد الغرف:</span>
-                                6
-                            </p>
-                        </div>
-                        <div class='btns-con'>
-                            <div class='row'>
-                                <div class='col-auto mx-auto'>
-                                    <a class='btn visit'>
-                                        <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                            <path d='M0 0h24v24H0V0z' fill='none'/>
-                                            <path
-                                                    d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                        </svg>
-                                        شاهد التفاصيل
-                                    </a>
-                                    <!--											<a class='btn' href='#'>-->
-                                    <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                    <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                    <!--													<path-->
-                                    <!--															d='M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z'/>-->
-                                    <!--												</svg>-->
-                                    <!--												أتصل-->
-                                    <!--											</a>-->
-                                </div>
-                                <!--										<div class='col-6'>-->
-                                <!--											<button class='btn'>-->
-                                <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                <!--													<path-->
-                                <!--															d='M19.66 3.99c-2.64-1.8-5.9-.96-7.66 1.1-1.76-2.06-5.02-2.91-7.66-1.1-1.4.96-2.28 2.58-2.34 4.29-.14 3.88 3.3 6.99 8.55 11.76l.1.09c.76.69 1.93.69 2.69-.01l.11-.1c5.25-4.76 8.68-7.87 8.55-11.75-.06-1.7-.94-3.32-2.34-4.28zM12.1 18.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/>-->
-                                <!--												</svg>-->
-                                <!--												حفظ-->
-                                <!--											</button>-->
-                                <!--										</div>-->
-                            </div>
-                        </div>
-                        <!--<div class='link-con'>
-                            <a clasFs='visit'>
-                                <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M0 0h24v24H0V0z' fill='none'/>
-                                    <path
-                                            d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                </svg>
-                                شاهد التفاصيل
-                            </a>
-                        </div>-->
-                    </div>
-                </div>
-                <div class='col-xl-3 col-md-4 col-sm-6'>
-                    <div class='unit'>
-                        <span class='tag'>للبيع</span>
-                        <div class='owl-carousel unit-images-carousel owl-theme'>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                        </div>
-                        <p class='location'>
-                            <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                <path d='M0 0h24v24H0V0z' fill='none'/>
-                                <path
-                                        d='M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.48 1.13.48 1.53 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
-                            </svg>
-                            تيرانوفا، المرابع العربية، دبي
-                        </p>
-                        <h6 class='unit-name'>Exclusive | Upgraded 5 Bedroom | Terranova</h6>
-                        <div class='unit-data'>
-                            <p>
-                                <span>نوع العقار:</span>
-                                فيلا
-                            </p>
-                            <p>
-                                <span>السعر:</span>
-                                4,350,000 درهم
-                            </p>
-                            <p>
-                                <span>المساحة:</span>
-                                408 متر مربع
-                            </p>
-                            <p>
-                                <span>عدد الغرف:</span>
-                                6
-                            </p>
-                        </div>
-                        <div class='btns-con'>
-                            <div class='row'>
-                                <div class='col-auto mx-auto'>
-                                    <a class='btn visit'>
-                                        <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                            <path d='M0 0h24v24H0V0z' fill='none'/>
-                                            <path
-                                                    d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                        </svg>
-                                        شاهد التفاصيل
-                                    </a>
-                                    <!--											<a class='btn' href='#'>-->
-                                    <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                    <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                    <!--													<path-->
-                                    <!--															d='M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z'/>-->
-                                    <!--												</svg>-->
-                                    <!--												أتصل-->
-                                    <!--											</a>-->
-                                </div>
-                                <!--										<div class='col-6'>-->
-                                <!--											<button class='btn'>-->
-                                <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                <!--													<path-->
-                                <!--															d='M19.66 3.99c-2.64-1.8-5.9-.96-7.66 1.1-1.76-2.06-5.02-2.91-7.66-1.1-1.4.96-2.28 2.58-2.34 4.29-.14 3.88 3.3 6.99 8.55 11.76l.1.09c.76.69 1.93.69 2.69-.01l.11-.1c5.25-4.76 8.68-7.87 8.55-11.75-.06-1.7-.94-3.32-2.34-4.28zM12.1 18.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/>-->
-                                <!--												</svg>-->
-                                <!--												حفظ-->
-                                <!--											</button>-->
-                                <!--										</div>-->
-                            </div>
-                        </div>
-                        <!--<div class='link-con'>
-                            <a clasFs='visit'>
-                                <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M0 0h24v24H0V0z' fill='none'/>
-                                    <path
-                                            d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                </svg>
-                                شاهد التفاصيل
-                            </a>
-                        </div>-->
-                    </div>
-                </div>
-                <div class='col-xl-3 col-md-4 col-sm-6'>
-                    <div class='unit'>
-                        <span class='tag'>للبيع</span>
-                        <div class='owl-carousel unit-images-carousel owl-theme'>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class='image-con'>
-                                    <img alt='Unit Image' class='img-fluid' src='https://via.placeholder.com/360x280'>
-                                </div>
-                            </div>
-                        </div>
-                        <p class='location'>
-                            <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                <path d='M0 0h24v24H0V0z' fill='none'/>
-                                <path
-                                        d='M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.48 1.13.48 1.53 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
-                            </svg>
-                            تيرانوفا، المرابع العربية، دبي
-                        </p>
-                        <h6 class='unit-name'>Exclusive | Upgraded 5 Bedroom | Terranova</h6>
-                        <div class='unit-data'>
-                            <p>
-                                <span>نوع العقار:</span>
-                                فيلا
-                            </p>
-                            <p>
-                                <span>السعر:</span>
-                                4,350,000 درهم
-                            </p>
-                            <p>
-                                <span>المساحة:</span>
-                                408 متر مربع
-                            </p>
-                            <p>
-                                <span>عدد الغرف:</span>
-                                6
-                            </p>
-                        </div>
-                        <div class='btns-con'>
-                            <div class='row'>
-                                <div class='col-auto mx-auto'>
-                                    <a class='btn visit'>
-                                        <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                            <path d='M0 0h24v24H0V0z' fill='none'/>
-                                            <path
-                                                    d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                        </svg>
-                                        شاهد التفاصيل
-                                    </a>
-                                    <!--											<a class='btn' href='#'>-->
-                                    <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                    <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                    <!--													<path-->
-                                    <!--															d='M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z'/>-->
-                                    <!--												</svg>-->
-                                    <!--												أتصل-->
-                                    <!--											</a>-->
-                                </div>
-                                <!--										<div class='col-6'>-->
-                                <!--											<button class='btn'>-->
-                                <!--												<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>-->
-                                <!--													<path d='M0 0h24v24H0V0z' fill='none'/>-->
-                                <!--													<path-->
-                                <!--															d='M19.66 3.99c-2.64-1.8-5.9-.96-7.66 1.1-1.76-2.06-5.02-2.91-7.66-1.1-1.4.96-2.28 2.58-2.34 4.29-.14 3.88 3.3 6.99 8.55 11.76l.1.09c.76.69 1.93.69 2.69-.01l.11-.1c5.25-4.76 8.68-7.87 8.55-11.75-.06-1.7-.94-3.32-2.34-4.28zM12.1 18.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'/>-->
-                                <!--												</svg>-->
-                                <!--												حفظ-->
-                                <!--											</button>-->
-                                <!--										</div>-->
-                            </div>
-                        </div>
-                        <!--<div class='link-con'>
-                            <a clasFs='visit'>
-                                <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M0 0h24v24H0V0z' fill='none'/>
-                                    <path
-                                            d='M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/>
-                                </svg>
-                                شاهد التفاصيل
-                            </a>
-                        </div>-->
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
+        @endif
+
+        {{-- Load Modals --}}
+        @include('front.sendMail')
+        @include('front.propertyMap')
     </div>
 </main>
 @endsection
 
 @section('script')
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fb1aa65248cf5e6"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKU2pOeE34mizOMutB8WaCHNIfoYO7yPg&language={{ app()->getLocale() }}&callback=initMap"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="{{ asset('vendors/lightslider/js/lightslider.min.js') }}"></script>
 <script>
-    var errorClass = 'is-invalid';
-    var validClass = '';
-    $("#sendMailToAgent").validate({
-        rules: {
-            // simple rule, converted to {required:true}
-            name: "required",
-            // compound rule
-            email: {
-            required: true,
-            email: true
+    $(document).ready(function() {
+
+        $("#lightSlider").lightSlider({
+            item:4,
+            loop:false,
+            slideMove:2,
+            easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+            speed:600,
+            responsive : [
+                {
+                    breakpoint:800,
+                    settings: {
+                        item:3,
+                        slideMove:1,
+                        slideMargin:6,
+                    }
+                },
+                {
+                    breakpoint:480,
+                    settings: {
+                        item:2,
+                        slideMove:1
+                    }
+                }
+            ]
+        });
+
+        // Show Agent phone
+        $('.callAgent').click(function(e){
+            const agentPhone = $(this).data('phone');
+            $(this).text(agentPhone);
+        });
+
+        // Handle Send Mail Error
+        var errorClass = 'is-invalid';
+        var validClass = '';
+        $("#sendMailToAgent").validate({
+            rules: {
+                // simple rule, converted to {required:true}
+                name: "required",
+                // compound rule
+                email: {
+                required: true,
+                email: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "{{ __('validation.required', ['attribute'    =>  __('lang.name') ]) }}",
+                },
+                email: {
+                    required: "{{ __('validation.required', ['attribute'    =>  __('lang.email') ]) }}",
+                    email: "{{ __('validation.email', ['attribute'    =>  __('lang.email') ]) }}"
+                },
+                phone: {
+                    required: "{{ __('validation.required', ['attribute'    =>  __('lang.phone') ]) }}",
+                },
+                message: {
+                    required: "{{ __('validation.required', ['attribute'    =>  __('lang.message') ]) }}",
+                },
+            },
+            submitHandler: function(form) {
+                form.submit();
+            },
+            success: function(label) {
+                $(label).parent().prev().removeClass('is-invalid');
+            },
+            errorPlacement: function(error, element) {
+                $(element).addClass('is-invalid');
+                error.appendTo( $(element).next() );
             }
-        },
-        messages: {
-            name: {
-                required: "{{ __('validation.required', ['attribute'    =>  __('lang.name') ]) }}",
-            },
-            email: {
-                required: "{{ __('validation.required', ['attribute'    =>  __('lang.email') ]) }}",
-                email: "{{ __('validation.email', ['attribute'    =>  __('lang.email') ]) }}"
-            },
-            phone: {
-                required: "{{ __('validation.required', ['attribute'    =>  __('lang.phone') ]) }}",
-            },
-            message: {
-                required: "{{ __('validation.required', ['attribute'    =>  __('lang.message') ]) }}",
-            },
-        },
-        submitHandler: function(form) {
-            form.submit();
-        },
-        success: function(label) {
-            $(label).parent().prev().removeClass('is-invalid');
-        },
-        errorPlacement: function(error, element) {
-            $(element).addClass('is-invalid');
-            error.appendTo( $(element).next() );
+        });
+
+        // Add to favourite
+        $('#addToFavurite').click(function(e) {
+            e.preventDefault();
+            const favIcon = $(this).find('i');
+            if (favIcon.hasClass('far')) {
+                favIcon.removeClass('far').addClass('fas');
+                $(this).find('span').text('{{ __('lang.savedInFav') }}');
+            } else {
+                favIcon.removeClass('fas').addClass('far');
+                $(this).find('span').text('{{ __('lang.save') }}');
+            }
+        });
+
+        // When User clikc on Add to Favorites
+        function saveProperty() {
+            var authCheck = '{{ auth()->check() }}';
+
+            if (authCheck) {
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: "POST",
+                    url: "{{ route('property.addToFavorites') }}",
+                    data: {
+                        property_id: "{{ $property->id }}"
+                    },
+                    success: function (response) {
+
+                    }
+                });
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: "{{ __('lang.oops') }}",
+                    text: "{{ __('lang.youMustLogin') }}",
+                    footer: "<a href='{{ route('login') }}'> {{ __('lang.login') }} </a>"
+                })
+            }
+
         }
+
     });
+    // MAP
+    var map;
+    var marker;
+    const lat = {{ $property->lat }};
+    const lng = {{ $property->lng }};
+    function initMap() {
+        var propertyLatLng = {lat: lat, lng: lng};
+        var geocoder = new google.maps.Geocoder();
+        map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 15,
+            center: propertyLatLng,
+            zoomControl: true,
+            streetViewControl: true,
+            mapTypeControl: false,
+            gestureHandling: 'greedy'
+        });
 
-    // Add to favourite
-    $('#addToFavurite').click(function(e){
-        e.preventDefault();
-        const favIcon = $(this).find('i');
-        if (favIcon.hasClass('far')) {
-            favIcon.removeClass('far').addClass('fas');
-        } else {
-            favIcon.removeClass('fas').addClass('far');
-        }
-    })
-
-    function saveProperty() {
-        var authCheck = '{{ auth()->check() }}';
-
-        if (authCheck) {
-            console.log('Auth');
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: "{{ __('lang.oops') }}",
-                text: "{{ __('lang.youMustLogin') }}",
-                footer: "<a href='{{ route('login') }}'> {{ __('lang.login') }} </a>"
-            })
-        }
-
+        // Add Basic Marker
+        new google.maps.Marker({
+            position: propertyLatLng,
+            map: map
+        });
     }
 </script>
 

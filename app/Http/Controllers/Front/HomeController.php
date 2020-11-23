@@ -71,46 +71,45 @@ class HomeController extends Controller
     {
         $query = Property::latest();
 
-        if($request->has('category')) {
+        if($request->has('category') && $request->filled('category')) {
             $query = $query->where('category_id', $request->category);
         }
 
-        if($request->has('type')) {
+        if($request->has('type') && $request->filled('type')) {
             $query = $query->orWhere('type_id', $request->type);
         }
 
-        if($request->has('period')) {
+        if($request->has('period') && $request->filled('period')) {
             $query = $query->orWhere('period_id', $request->period);
         }
-
-        if ($request->has('furnishing')) {
+        if ($request->has('furnishing') && $request->filled('furnishing')) {
             $query = $query->orWhere('furnishing_id', $request->furnishing);
         }
 
-        if ($request->has('no_of_rooms')) {
+        if ($request->has('no_of_rooms') && $request->filled('no_of_rooms')) {
             $query = $query->orWhere('no_of_rooms', $request->no_of_rooms);
         }
 
-        if ($request->has('min_price')) {
+        if ($request->has('min_price') && $request->filled('min_price')) {
             $query = $query->orWhere('price', '>=', $request->min_price);
         }
 
-        if ($request->has('max_price')) {
+        if ($request->has('max_price') && $request->filled('max_price')) {
             $query = $query->orWhere('price', '<=', $request->max_price);
         }
 
-        if ($request->has('text')) {
+        if ($request->has('text') && $request->filled('text')) {
             $query = $query->orWhere('address', 'LIKE', '%'. $request->text . '%');
         }
 
-        if ($request->has('amenities')) {
+        if ($request->has('amenities') && $request->filled('amenities')) {
             $query = $query->whereHas('amenities', function (Builder $q) use($request) {
                 $q->whereIn('amenities.id', $request->amenities);
             });
         }
 
         $properties = $query->get();
-dd($properties);
+
         return view('front.search-result', compact('properties'));
     }
 

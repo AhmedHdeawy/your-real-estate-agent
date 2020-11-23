@@ -40,6 +40,11 @@ class User extends Authenticatable implements CanResetPassword
         'password', 'remember_token', 'provider_name', 'provider_id'
     ];
 
+    public function favorites()
+    {
+        return $this->belongsToMany('App\Models\Property', 'favorites', 'user_id', 'property_id');
+    }
+
     /**
      * Set the client's password.
      *

@@ -154,6 +154,10 @@ $('.imageUpload').change(function (event) {
     reader.readAsDataURL(input);
   }
 });
+$('.reset-search-form').click(function (event) {
+  $('#search').trigger("reset");
+  $('.select2').val(null).trigger('change');
+});
 
 /***/ }),
 

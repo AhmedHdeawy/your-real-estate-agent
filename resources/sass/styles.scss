@@ -919,7 +919,7 @@ body {
 				padding       : 15px;
 
 				p.price {
-					font-size     : 20px;
+					font-size     : 1.375rem;
 					font-weight   : 700;
 					margin-bottom : 15px;
 
@@ -956,18 +956,19 @@ body {
 						justify-content : center;
 						padding         : 0;
 
-						a {
+						button {
 							color           : $white;
 							flex            : 1;
 							flex-basis      : 100%;
 							font-size       : 24px;
 							font-weight     : 700;
 							text-align      : center;
-							text-decoration : none;
+                            text-decoration : none;
+                            background      : transparent;
 
 							span {
 								display   : block;
-								transform : translateY(80%);
+								// transform : translateY(80%);
 
 								svg {
 									fill      : $white;
