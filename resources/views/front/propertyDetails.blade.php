@@ -17,8 +17,8 @@
                     $take =  $imagesCount - 3 < 0 ? 0 : $imagesCount - 3;
                 @endphp
                 <div class="col-6">
-                    <a style="width: 100%" data-fancybox="gallery" href="{{ $property->images()->first()->image_url }}">
-                        <img style="width: 100%; height: 450px;" src="{{ $property->images()->first()->image_url }}" class="img-thumbnail">
+                    <a style="width: 100%" data-fancybox="gallery" href="{{ $property->images->first()->image_url }}">
+                        <img style="width: 100%; height: 450px;" src="{{ $property->images->first()->image_url }}" class="img-thumbnail">
                     </a>
                 </div>
                 <div class="col-6">
@@ -210,7 +210,7 @@
                                                     <span>{{ $checkInFav ? __('lang.savedInFav') : __('lang.save') }}</span>
                                                 </button>
                                             @else
-                                                <button onclick="saveProperty()" id="addToFavurite" class='btn'>
+                                                <button onclick="saveProperty()" class='btn'>
                                                     <i class="far fa-heart"></i>
                                                     <span>{{ __('lang.save') }}</span>
                                                 </button>
@@ -389,39 +389,40 @@
             }
         });
 
-        // When User clikc on Add to Favorites
-        function saveProperty() {
-            var authCheck = '{{ auth()->check() }}';
+    });
 
-            if (authCheck) {
+    // When User clikc on Add to Favorites
+    function saveProperty() {
+        var authCheck = '{{ auth()->check() }}';
 
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: "POST",
-                    url: "{{ route('property.addToFavorites') }}",
-                    data: {
-                        property_id: "{{ $property->id }}"
-                    },
-                    success: function (response) {
+        if (authCheck) {
 
-                    }
-                });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'json',
+                type: "POST",
+                url: "{{ route('property.addToFavorites') }}",
+                data: {
+                    property_id: "{{ $property->id }}"
+                },
+                success: function (response) {
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: "{{ __('lang.oops') }}",
-                    text: "{{ __('lang.youMustLogin') }}",
-                    footer: "<a href='{{ route('login') }}'> {{ __('lang.login') }} </a>"
-                })
-            }
+                }
+            });
 
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: "{{ __('lang.oops') }}",
+                text: "{{ __('lang.youMustLogin') }}",
+                footer: "<a href='{{ route('login') }}'> {{ __('lang.login') }} </a>"
+            })
         }
 
-    });
+    }
+
     // MAP
     var map;
     var marker;

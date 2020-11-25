@@ -51,7 +51,7 @@ return [
     'loginWithGoogle'           =>  'التسجيل بجوجل',
     'login'                     =>  'تسجيل الدخول',
     'register'                  =>  'انشاء حساب',
-    'logout'                     =>  'تسجيل الخروج',
+    'logout'                     =>  'خروج',
     'loginDetails'              =>  'ادخل بيانات حسابك',
     'password'                  =>  'كلمة المرور',
     'password_confirmation'     =>  'اعادة كلمة المرور',
@@ -104,6 +104,7 @@ return [
     'selectOnMap'   =>  'تحديد على الخريطة',
     '404Error'  =>  'لقد حدث خطأ ما. يمكنك الذهاب الى الرئيسية مره اخري',
     'resetPassword'    =>  'إعادة تعيين كلمة المرور',
+    'resetPasswordHint'    =>  'من فضلك اكتب بريدك الالكتروني',
     'sendPasswordResetLink'  =>  'ارسال رابط لتعيين كلمة المرور',
     'saveNewPassword'   =>  'حفظ كلمة المرور الجديدة',
     'message'   =>  'الرسالة',
@@ -260,5 +261,8 @@ return [
     'youMustLogin'    =>  'يجب عليك تسجيل الدخول أولاً',
     'savedInFav'    =>  'تم الحفظ في قائمتك',
     'relatedPropertiesInSameArea'   =>  'عقارات أخرى في نفس المنطقة',
+    'savedProperties'   =>  'الاعلانات المحفوظة',
+    'mySaved'   =>  'مفضلتي',
+    'youHaveNotFavorites'   =>  'ليس لديك أي اعلانات محفوظه',
 
 ];

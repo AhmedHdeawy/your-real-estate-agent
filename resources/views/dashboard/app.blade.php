@@ -102,6 +102,9 @@
 
     <script src="{{ asset('dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('dashboard/plugins/chart-js/chart.js') }}"></script>
+
+    {{-- <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script> --}}
+
     <script src="{{ asset('dashboard/plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('dashboard/plugins/ckeditor/translations/ar.js') }}"></script>
 

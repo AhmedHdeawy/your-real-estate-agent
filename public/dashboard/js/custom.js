@@ -63,10 +63,17 @@ $(document).ready(function() {
 
   });
 
+    // CKEDITOR.replace('editor1', {
+    //     removePlugins: ['MediaEmbed', 'ImageUpload'],
+    //       language: 'ar',
+    //       height: '300px'
+    // });
+
   // TextEditor
   ClassicEditor
       .create(document.querySelector('.ar_ckEditor'), {
-          toolbar: ["heading", "|", "bold", "italic", "Strikethrough", "Code", "fontFamily", "fontColor", "fontBackgroundColor", "alignment",
+
+        toolbar: ["heading", "|", "bold", "italic", "Strikethrough", "Code", "fontFamily", "fontColor", "fontBackgroundColor", "alignment",
               "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "undo", "redo"
           ],
           removePlugins: ['MediaEmbed', 'ImageUpload'],
@@ -78,13 +85,14 @@ $(document).ready(function() {
 
       ClassicEditor
       .create(document.querySelector('.en_ckEditor'), {
-          toolbar: ["heading", "|", "bold", "italic", "Strikethrough", "Code", "fontFamily", "fontColor", "fontBackgroundColor", "alignment",
+
+        toolbar: ["heading", "|", "bold", "italic", "Strikethrough", "Code", "fontFamily", "fontColor", "fontBackgroundColor", "alignment",
               "link", "bulletedList", "numberedList", "|", "indent", "outdent", "|", "blockQuote", "insertTable", "undo", "redo"
           ],
           removePlugins: ['MediaEmbed', 'ImageUpload'],
-          language: 'en'
+          language: 'en',
+          height: '300px'
       })
       .then(editor => {})
       .catch(error => {});
-
 });

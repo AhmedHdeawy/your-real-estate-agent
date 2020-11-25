@@ -20,7 +20,7 @@
                                 <div class='form-group'>
                                     <input class='form-control {{ $errors->first('email') ? 'is-invalid' : '' }}'
                                         placeholder='{{ __('lang.email') }}' title='{{ __('lang.email') }}' name="email"
-                                        value="{{ old('email') }}" type='text'>
+                                        value="{{ old('email') }}" type='email'>
                                     @if ($errors->first('email'))
                                     <div class="invalid-feedback">{{ $errors->first('email') }}</div>
                                     @endif
@@ -67,7 +67,7 @@
                             {{ __('lang.register') }}
                         </a>
 
-                        <a href='{{ route('register') }}'>
+                        <a href='{{ route('password.request') }}'>
                             {{ __('lang.forgetPassword') }}
                         </a>
                     </div>

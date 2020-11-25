@@ -101,6 +101,7 @@ return [
     'selectOnMap'   =>  'Select on the map',
     '404Error'  =>  'Uh oh! Somthing wromg happens. Go back to the homepage!',
     'resetPassword'    =>  'Reset Password',
+    'resetPasswordHint'    =>  'Please, type your Email',
     'sendPasswordResetLink'  =>  'Send Password Reset Link',
     'saveNewPassword'   =>  'Save New Password',
     'message'   =>  'Message',
@@ -254,4 +255,7 @@ return [
     'youMustLogin'    =>  'You must Log in first',
     'savedInFav'    =>  'Saved in your list',
     'relatedPropertiesInSameArea'   =>  'Other real estate in the same area',
+    'savedProperties'   =>  'Saved Properties',
+    'mySaved'   =>  'Favorites',
+    'youHaveNotFavorites'   =>  'you have not any saved properties',
 ];

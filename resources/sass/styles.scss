@@ -1299,8 +1299,10 @@ body {
 			}
 
 			.ad-con {
-				background    : $white;
-				border-radius : $fourRoundness;
+                .item-save {
+                    background : $white;
+                    border-radius : $fourRoundness;
+                }
 
 				img {
 					border-radius : 0 $fourRoundness $fourRoundness 0;
@@ -1359,7 +1361,6 @@ body {
 					}
 
 					.btns-con {
-						text-align : center;
 
 						.btn {
 							font-weight : 700;

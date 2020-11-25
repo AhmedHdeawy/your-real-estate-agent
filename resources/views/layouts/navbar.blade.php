@@ -47,12 +47,14 @@
                         </div>
                     </li>
                 @endif
-				<li class='nav-item'>
-					<a class='nav-link btn' href="{{ str_replace( request()->segment(1),  $localeLangInverse, url()->full() ) }}">
-                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
-                    </a>
-                </li>
+
                 @auth
+                    <li class='nav-item'>
+                        <a class='nav-link' href="{{ route('savedProperties') }}">
+                            <i class="fas fa-heart"></i>
+                            {{ __('lang.mySaved') }}
+                        </a>
+                    </li>
                     <li class='nav-item'>
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
@@ -62,6 +64,11 @@
                         </form>
                     </li>
                 @endauth
+                <li class='nav-item'>
+					<a class='nav-link btn' href="{{ str_replace( request()->segment(1),  $localeLangInverse, url()->full() ) }}">
+                        {{ __('dashboard.'.$localeLangInverse.'.inverse') }}
+                    </a>
+                </li>
 			</ul>
 		</div>
 	</div>

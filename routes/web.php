@@ -36,9 +36,9 @@ Route::group(['namespace' => 'Front'], function () {
         Route::post('property/addToFavorites', 'PropertiesController@addToFavorites')->name('property.addToFavorites');
 
         // User Profile
-        Route::get('profile/{username}', 'UsersController@profile')->name('profile');
-        // Route::get('profile', 'UsersController@profile')->name('profile');
-        Route::post('profile', 'UsersController@updateProfile')->name('updateProfile');
+        Route::get('savedProperties', 'UserController@savedProperties')->name('savedProperties');
+        // Route::get('profile', 'UserController@profile')->name('profile');
+        Route::post('profile', 'UserController@updateProfile')->name('updateProfile');
     });
 
     // About
