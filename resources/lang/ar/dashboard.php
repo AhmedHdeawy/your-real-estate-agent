@@ -211,6 +211,8 @@ return [
     'message'   =>  'الرسالة',
     'mission'   =>  'المهمة',
     'vision'   =>  'الرؤية',
+    'termsAndConditions'           =>  'الشروط والاحكام',
+    'privacyPolicy'             =>  'سياسة الخصوصية',
 
     /**
      * Countries

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -26,5 +28,12 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer('front.search', 'App\Http\View\Composers\SearchComposer');
+
+        View::composer('layouts.navbar', function ($view) {
+            $navCategories = Cache::rememberForever('properties_categories', function () {
+                return Category::all();
+            });
+            $view->with('navCategories', $navCategories);
+        });
     }
 }

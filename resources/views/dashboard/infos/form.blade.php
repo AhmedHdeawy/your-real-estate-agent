@@ -43,8 +43,8 @@
       <div class="col-md-9">
 
           <textarea type="text" id="{{ $languag->locale }}[infos_desc]" name="{{ $languag->locale }}[infos_desc]"
-            class="form-control {{ $errors->first($languag->locale .'.infos_desc') ? 'is-invalid' : '' }}"
-            placeholder="{{ __('dashboard.infos_desc') }}"
+            class="form-control {{ $languag->locale . '_ckEditor' }} {{ $errors->first($languag->locale .'.infos_desc') ? 'is-invalid' : '' }}"
+            placeholder="{{ __('dashboard.infos_desc') }}" rows="10"
           >{{ old($languag->locale .'infos_desc', isset($info) ? $info->translate($languag->locale)->infos_desc : '') }}</textarea>
 
           @if ($errors->first($languag->locale .'.infos_desc'))

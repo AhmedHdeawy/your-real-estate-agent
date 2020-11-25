@@ -11,17 +11,16 @@
 					</a>
 					<nav>
 						<ul>
-							<li>
-								<a href='#'>نبذة عنا</a>
+                            <li>
+								<a href='{{ route('about') }}'> {{ __('lang.about') }} </a>
 							</li>
-							<li>
-								<a href='#'>الشروط والأحكام</a>
+
+                            <li>
+								<a href='{{ route('terms.and.conditions') }}'> {{ __('lang.termsAndConditions') }} </a>
 							</li>
+
 							<li>
-								<a href='#'>سياسة الخصوصية</a>
-							</li>
-							<li>
-								<a href='#'>وظائف</a>
+								<a href='{{ route('privacy.policy') }}'> {{ __('lang.privacyPolicy') }} </a>
 							</li>
 						</ul>
 					</nav>

@@ -11203,6 +11203,7 @@ button:hover {
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 10px;
+  height: 40px;
 }
 
 .content-wrapper main.unit-page .similar-units .unit .unit-data,

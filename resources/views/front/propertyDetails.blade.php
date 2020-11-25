@@ -157,7 +157,7 @@
                                 <div class='row'>
                                     <div class='col-12'>
                                         <h6 class="text-black"> {{ __('lang.agent_info') }} </h6>
-                                        <div class='col-12 col-md-6'>
+                                        <div class='col-12 col-md-6 p-0'>
                                             <p>
                                                 <i class="fa fa-info-circle mx-2"></i>
                                                 {{ __('lang.agent_name') }} :
@@ -239,7 +239,7 @@
                         </div>
 
                         <div class='col-12 col-md-8'>
-                            <div class='description'>
+                            <div class='description bg-white p-4 rounded'>
 
                                 <div class='row mb-4'>
                                     <div class='col-sm-6'>
@@ -251,13 +251,14 @@
                                         </ul>
                                     </div>
                                 </div>
-
-                                <h3> {{ __('lang.desc') }} </h3>
-                                <div>
-                                    <p>
-                                        {{ $property->description }}
-                                    </p>
-                                </div>
+                                @if ($property->description)
+                                    <h3> {{ __('lang.desc') }} </h3>
+                                    <div>
+                                        <p>
+                                            {{ $property->description }}
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class='col-12 mt-3'>
@@ -277,7 +278,7 @@
         {{-- Related Properties --}}
         @if (count($relatedProperties))
             <div class='similar-units'>
-                <h2>عقارات أخرى في نفس المنطقة</h2>
+                <h2> {{ __('lang.relatedPropertiesInSameArea') }} </h2>
                 <div class='row'>
                     @foreach ($relatedProperties as $relatedProperty)
                         <div class='col-xl-3 col-md-4 col-sm-6'>

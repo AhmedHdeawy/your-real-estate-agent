@@ -21,7 +21,7 @@
                             <p>
                                 {{ $blog->content }}
                             </p>
-                        <a class='btn' href='{{ route('blog', ['id' =>  $blog->id]) }}'> {{ __('lang.read_more') }} </a>
+                        <a class='btn' href='{{ route('blog', $blog->id . '-' . make_slug($blog->title)) }}'> {{ __('lang.read_more') }} </a>
                         </div>
                     </div>
                 </div>

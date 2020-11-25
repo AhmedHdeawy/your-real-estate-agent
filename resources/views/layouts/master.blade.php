@@ -27,7 +27,7 @@
 
 <!-- class="rtl" -->
 
-<body dir="{{ $currentLangDir}}" style='text-align: right'>
+<body dir="{{ $currentLangDir }}" style="text-align: {{ $currentLangDir == 'rtl' ? 'right' : 'left' }}" '>
     {{-- App Navbar --}}
     @include('layouts.navbar')
     {{-- App Navbar / End --}}

@@ -147,8 +147,9 @@ return [
     'joinToYourGroup'           =>  'Join To The Group',
     'startWithUsNow'            =>  'Start With Us',
     'footerText'                =>  'When you create an account, you agree to',
-    'conditionsTerms'           =>  'Conditions & Terms',
+    'termsAndConditions'           =>  'Conditions and Terms',
     'privacyPolicy'             =>  'Privacy Policy',
+    'about'                     =>  'About',
 
     /**
      * Categories
@@ -252,4 +253,5 @@ return [
     'oops'  =>  'Oops',
     'youMustLogin'    =>  'You must Log in first',
     'savedInFav'    =>  'Saved in your list',
+    'relatedPropertiesInSameArea'   =>  'Other real estate in the same area',
 ];

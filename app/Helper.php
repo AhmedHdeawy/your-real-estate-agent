@@ -10,21 +10,6 @@ use App\Models\Language;
 
 
 /**
- * Get user Group Requests Join
- */
-function getUserGroupRequestsJoin()
-{
-    if (!auth()->check()) {
-        return 0;
-    }
-
-    $groupsRequest = auth()->user()->myGroups()->withCount('requests')->get()->pluck('requests_count')->toArray();
-
-    return array_sum($groupsRequest);
-}
-
-
-/**
  * Get static Setting by it's key
  */
 function getInfoByKey($key)

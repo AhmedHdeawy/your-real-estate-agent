@@ -152,8 +152,9 @@ return [
     'joinToYourGroup'           =>  'انضم إلى مجموعتك',
     'startWithUsNow'            =>  'ابدأ معنا الان',
     'footerText'                =>  'عند قيامك بإنشاء حساب فانك توافق على',
-    'conditionsTerms'           =>  'الشروط والاحكام',
+    'termsAndConditions'           =>  'الشروط والاحكام',
     'privacyPolicy'             =>  'سياسة الخصوصية',
+    'about'                     =>  'نبذة عنا',
 
     /**
      * Categories
@@ -258,5 +259,6 @@ return [
     'oops'  =>  'عفواً',
     'youMustLogin'    =>  'يجب عليك تسجيل الدخول أولاً',
     'savedInFav'    =>  'تم الحفظ في قائمتك',
+    'relatedPropertiesInSameArea'   =>  'عقارات أخرى في نفس المنطقة',
 
 ];

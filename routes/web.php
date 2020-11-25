@@ -19,12 +19,13 @@ Route::group(['namespace' => 'Front'], function () {
 
     // Home
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/category/{sluf}', 'HomeController@category')->name('category');
     Route::get('/search', 'HomeController@search')->name('search');
     Route::get('/blogs', 'HomeController@blogs')->name('blogs');
-    Route::get('/blog/{id}', 'HomeController@blog')->name('blog');
+    Route::get('/blog/{slug}', 'HomeController@blog')->name('blog');
 
     Route::post('property/sendMail', 'PropertiesController@sendMailToAgent')->name('property.sendMailToAgent');
-    Route::get('property/{property}', 'PropertiesController@showProperty')->name('property.showProperty');
+    Route::get('property/{slug}', 'PropertiesController@showProperty')->name('property.showProperty');
 
     Route::group(['middleware'    =>  'auth'], function () {
 
@@ -42,6 +43,8 @@ Route::group(['namespace' => 'Front'], function () {
 
     // About
     Route::get('about', 'HomeController@about')->name('about');
+    Route::get('privacy-policy', 'HomeController@privacyPolicy')->name('privacy.policy');
+    Route::get('terms-and-conditions', 'HomeController@termsAndConditions')->name('terms.and.conditions');
 
     // Contact Us
     Route::get('contact-us', 'HomeController@contactus')->name('contactus');

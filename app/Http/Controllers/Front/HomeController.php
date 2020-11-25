@@ -23,8 +23,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
-
-
     /**
      * Show the application home.
      *
@@ -36,6 +34,19 @@ class HomeController extends Controller
         $blogs = Blog::active()->latest()->limit(3)->get();
 
         return view('front.home', compact('properties', 'blogs'));
+    }
+
+    /**
+     * Show the application home.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function category(Request $request, $slug)
+    {
+        $id = explode('-', $slug);
+        $properties = Property::where('category_id', $id[0])->active()->get();
+
+        return view('front.category', compact('properties'));
     }
 
     /**
@@ -55,9 +66,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function blog(Request $request, $id)
+    public function blog(Request $request, $slug)
     {
-        $blog = Blog::findOrFail($id)->active()->first();
+        $id = explode('-', $slug);
+        $blog = Blog::findOrFail($id[0])->active()->first();
 
         return view('front.blog', compact('blog'));
     }
@@ -121,6 +133,26 @@ class HomeController extends Controller
     public function about()
     {
         return view('front.about');
+    }
+
+    /**
+     * Show the about page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function privacyPolicy()
+    {
+        return view('front.privacyPolicy');
+    }
+
+    /**
+     * Show the about page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function termsAndConditions()
+    {
+        return view('front.termsAndConditions');
     }
 
 

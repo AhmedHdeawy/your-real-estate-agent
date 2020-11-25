@@ -40,7 +40,8 @@
     <div class='btns-con'>
         <div class='row'>
             <div class='col-auto mx-auto'>
-                <a class='btn visit' href="{{ route('property.showProperty', $property->id) }}">
+                <a class='btn visit'
+                href="{{ route('property.showProperty', $property->id . '-' . make_slug($property->title)) }}">
                     <svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'>
                         <path d='M0 0h24v24H0V0z' fill='none'/>
                         <path

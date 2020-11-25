@@ -102,9 +102,10 @@
 
     <script src="{{ asset('dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('dashboard/plugins/chart-js/chart.js') }}"></script>
+    <script src="{{ asset('dashboard/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('dashboard/plugins/ckeditor/translations/ar.js') }}"></script>
 
     <script src="{{ asset('dashboard/js/custom.js') }}"></script>
-
     @yield('script')
     @stack('js')
 

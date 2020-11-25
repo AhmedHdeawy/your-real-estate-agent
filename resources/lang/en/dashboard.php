@@ -201,6 +201,8 @@ return [
     'message'   =>  'Message',
     'mission'   =>  'Mission',
     'vision'   =>  'Vision',
+    'termsAndConditions'           =>  'Conditions & Terms',
+    'privacyPolicy'             =>  'Privacy Policy',
 
     /**
      * Countries

@@ -18,18 +18,14 @@
 		</button>
 		<div class='collapse navbar-collapse' id='navbarSupportedContent'>
 			<ul class='navbar-nav mr-auto'>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'> {{ __('lang.for_buy') }} </a>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'>{{ __('lang.for_rent') }}</a>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'>{{ __('lang.commercial_rent') }}</a>
-				</li>
-				<li class='nav-item'>
-					<a class='nav-link' href='#'>{{ __('lang.commercial_buy') }}</a>
-                </li>
+                @foreach ($navCategories as $navCategory)
+                    <li class='nav-item'>
+                        <a class='nav-link'
+                            href='{{ route('category', $navCategory->id . '-' . make_slug($navCategory->name)) }}'>
+                                {{ $navCategory->name }}
+                        </a>
+                    </li>
+                @endforeach
                 @auth
                     <li class='nav-item'>
                     <a class='nav-link' href='{{ route('property.create') }}'>{{ __('lang.create_new_property') }}</a>

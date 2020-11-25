@@ -52779,9 +52779,6 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   timer: 3000
 });
 window.toast = toast;
-var app = new Vue({
-  el: '#app'
-});
 
 /***/ }),
 

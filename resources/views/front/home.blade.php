@@ -6,7 +6,7 @@
 		@include('front.search')
 		<section class='units-sec'>
 			<div class='container'>
-				<h1>العقارات الموصى بها في دبي وأبوظبي</h1>
+				<h1> {{ __('lang.recommended_properties') }} </h1>
 				<div class='units-con'>
 					<div class='row'>
                         @foreach ($properties as $property)
@@ -38,7 +38,8 @@
 								<p>
                                     {{ $blog->content }}
                                 </p>
-                            <a class='btn' href='{{ route('blog', ['id' =>  $blog->id]) }}'> {{ __('lang.read_more') }} </a>
+                            <a class='btn'
+                                href='{{ route('blog', $blog->id . '-' . make_slug($blog->title)) }}'> {{ __('lang.read_more') }} </a>
 							</div>
 						</div>
 					</div>

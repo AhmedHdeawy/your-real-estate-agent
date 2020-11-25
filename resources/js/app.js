@@ -20,8 +20,3 @@ const toast = Swal.mixin({
     timer: 3000
 });
 window.toast = toast;
-
-
-const app = new Vue({
-    el: '#app',
-});

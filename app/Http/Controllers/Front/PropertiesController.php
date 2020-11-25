@@ -74,8 +74,10 @@ class PropertiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showProperty(Property $property)
+    public function showProperty(Request $request, $slug)
     {
+        $id = explode('-', $slug);
+        $property = Property::findOrFail($id[0]);
         // $relatedProperties = Property::limit(3)->get();
 
         $latitude = $property->lat;
