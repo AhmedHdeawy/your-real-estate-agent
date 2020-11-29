@@ -19,15 +19,8 @@ class AdminsTableSeeder extends Seeder
         ]);
 
         Admin::create([
-            'username'  =>  'ahmed',
-            'email'     =>  'ahmed@ahmed.com',
-            'password'  =>  'password',
-        ]);
-
-
-        Admin::create([
-            'username'  =>  'bandr',
-            'email'     =>  'bandr@bandr.com',
+            'username'  =>  'auman',
+            'email'     =>  'ayman@propertyclub.ae.com',
             'password'  =>  'password',
         ]);
     }
