@@ -29,8 +29,11 @@
                                         </p>
                                         <p class='price'>
                                             {{ $property->price }} {{ __('lang.aed') }}
-                                            /
-                                            {{ $property->period->name }}
+                                            @if ($property->period)
+
+                                                /
+                                                {{ $property->period->name }}
+                                            @endif
                                         </p>
                                         <p class='price'>
                                         {{ $property->type->name }}
