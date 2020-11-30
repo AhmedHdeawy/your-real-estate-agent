@@ -47,12 +47,12 @@
                                 <div class='row'>
                                     <div class='col-6'>
                                         <div class='form-group'>
-                                        <input class='form-control' value="{{ request('min_price') ?? null }}" name="min_price" placeholder='{{ __('lang.min_price') }}' type='number'>
+                                        <input class='form-control' min="1" value="{{ request('min_price') ?? null }}" name="min_price" placeholder='{{ __('lang.min_price') }}' type='number'>
                                         </div>
                                     </div>
                                     <div class='col-6'>
                                         <div class='form-group'>
-                                            <input class='form-control' value="{{ request('max_price') ?? null }}" name="max_price" placeholder='{{ __('lang.max_price') }}' type='number'>
+                                            <input class='form-control' min="1" value="{{ request('max_price') ?? null }}" name="max_price" placeholder='{{ __('lang.max_price') }}' type='number'>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                 <div class='row'>
                                     <div class='col-12'>
                                         <div class='form-group'>
-                                        <input class='form-control' value="{{ request('no_of_rooms') ?? null }}" name='no_of_rooms' placeholder='{{ __('lang.no_of_rooms') }}' title='min bedrooms' type='number'>
+                                        <input class='form-control' min="1" value="{{ request('no_of_rooms') ?? null }}" name='no_of_rooms' placeholder='{{ __('lang.no_of_rooms') }}' title='min bedrooms' type='number'>
                                         </div>
                                     </div>
                                 </div>
@@ -70,12 +70,12 @@
                                 <div class='row'>
                                     <div class='col-6'>
                                         <div class='form-group'>
-                                            <input class='form-control' value="{{ request('max_area') ?? null }}" name='max_area' placeholder='{{ __('lang.max_area') }}' title='min bedrooms' type='number'>
+                                            <input class='form-control' min="1" value="{{ request('max_area') ?? null }}" name='max_area' placeholder='{{ __('lang.max_area') }}' title='min bedrooms' type='number'>
                                         </div>
                                     </div>
                                     <div class='col-6'>
                                         <div class='form-group'>
-                                            <input class='form-control' value="{{ request('min_area') ?? null }}" name='min_area' placeholder='{{ __('lang.min_area') }}' title='min bedrooms' type='number'>
+                                            <input class='form-control' min="1" value="{{ request('min_area') ?? null }}" name='min_area' placeholder='{{ __('lang.min_area') }}' title='min bedrooms' type='number'>
                                         </div>
                                     </div>
                                 </div>
