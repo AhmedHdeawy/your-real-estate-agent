@@ -66,7 +66,9 @@ class PropertiesController extends Controller
 
         $property->amenities()->sync($request->amenities);
 
-        return redirect()->route('property.upload_images')->with('status', __('lang.contactUsDone'));
+        return redirect()
+                ->route('property.upload_images', ['property'   =>  $property])
+                ->with('status', __('lang.contactUsDone'));
     }
 
     /**

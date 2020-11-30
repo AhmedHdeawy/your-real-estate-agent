@@ -30,7 +30,7 @@
                         {{-- Footer --}}
                         <div class="row mt-3">
                             <div class='col-12 text-left'>
-								<button id="uploadImages" class='btn button add-new-property'>
+								<button id="uploadImages" class='btn button'>
                                     <i class="fa fa-spinner fa-spin d-none"></i>
                                     {{ __('lang.uploadImages') }}
                                 </button>
