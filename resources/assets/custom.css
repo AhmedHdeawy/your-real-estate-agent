@@ -22,7 +22,7 @@ body[dir='rtl'] .invalid-feedback {
 }
 
 .select2-container .select2-selection {
-    height: 40px;
+    height: auto;
     border: 0;
     border-radius: 4px;
     background-color: #e5e5e5;
