@@ -57,7 +57,7 @@
     <label class="col-md-3 form-control-label" for="{{ $languag->locale }}[title]"> {{ __('dashboard.title') }} </label>
     <div class="col-md-9">
         <textarea type="text" id="{{ $languag->locale }}[title]" name="{{ $languag->locale }}[title]"
-            class="form-control {{ $languag->locale . '_ckEditor' }} {{ $errors->first($languag->locale .'.title') ? 'is-invalid' : '' }}"
+            class="form-control {{ $errors->first($languag->locale .'.title') ? 'is-invalid' : '' }}"
             placeholder="{{ __('dashboard.title') }}">{{ old($languag->locale .'title', isset($blog) ? $blog->translate($languag->locale)->title : '') }}</textarea>
 
         @if ($errors->first($languag->locale .'.title'))
@@ -71,7 +71,7 @@
     <label class="col-md-3 form-control-label" for="{{ $languag->locale }}[content]"> {{ __('dashboard.content') }} </label>
     <div class="col-md-9">
         <textarea rows="20" type="text" id="{{ $languag->locale }}[content]" name="{{ $languag->locale }}[content]"
-            class="form-control {{ $errors->first($languag->locale .'.content') ? 'is-invalid' : '' }}"
+            class="form-control {{ $languag->locale . '_ckEditor' }} {{ $errors->first($languag->locale .'.content') ? 'is-invalid' : '' }}"
             placeholder="{{ __('dashboard.content') }}">{{ old($languag->locale .'content', isset($blog) ? $blog->translate($languag->locale)->content : '') }}</textarea>
 
         @if ($errors->first($languag->locale .'.content'))
