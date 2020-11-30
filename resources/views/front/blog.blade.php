@@ -16,7 +16,7 @@
                         {{ \Carbon\Carbon::parse($blog->created_at)->format('Y-m-d') }}
                     </p>
                     <p class='article-data'>
-                        {{ $blog->content }}
+                        {!! $blog->content !!}
                     </p>
                 </div>
             </div>
