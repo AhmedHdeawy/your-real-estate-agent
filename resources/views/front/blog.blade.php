@@ -11,13 +11,13 @@
                     <div class='article-img'>
                         <img alt='{{ $blog->title }}' class='img-fluid' src='{{ $blog->image_url }}'>
                     </div>
-                    <p class='post-date'>
+                    <div class='post-date'>
                         {{ __('lang.published_date') }}
                         {{ \Carbon\Carbon::parse($blog->created_at)->format('Y-m-d') }}
-                    </p>
-                    <p class='article-data'>
+                    </div>
+                    <div class='article-data'>
                         {!! $blog->content !!}
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
