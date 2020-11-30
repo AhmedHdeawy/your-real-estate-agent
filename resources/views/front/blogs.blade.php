@@ -19,7 +19,7 @@
                         <div class='article-data'>
                             <h5> {{ $blog->title }} </h5>
                             <p>
-                                {{ str_limit(strip_tags($blog->content), 200, '...') }}
+                                {{ str_limit(strip_tags($blog->content), 150, '...') }}
                             </p>
                         <a class='btn' href='{{ route('blog', $blog->id . '-' . make_slug($blog->title)) }}'> {{ __('lang.read_more') }} </a>
                         </div>
