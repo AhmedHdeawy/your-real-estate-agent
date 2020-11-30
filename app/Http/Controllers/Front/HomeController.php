@@ -69,7 +69,7 @@ class HomeController extends Controller
     public function blog(Request $request, $slug)
     {
         $id = explode('-', $slug);
-        $blog = Blog::findOrFail($id[0])->active()->first();
+        $blog = Blog::active()->findOrFail($id[0]);
 
         return view('front.blog', compact('blog'));
     }
