@@ -24,9 +24,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/blogs', 'HomeController@blogs')->name('blogs');
     Route::get('/blog/{slug}', 'HomeController@blog')->name('blog');
 
-    Route::post('property/sendMail', 'PropertiesController@sendMailToAgent')->name('property.sendMailToAgent');
-    Route::get('property/{slug}', 'PropertiesController@showProperty')->name('property.showProperty');
-
     Route::group(['middleware'    =>  'auth'], function () {
 
         Route::get('property/create', 'PropertiesController@create')->name('property.create');
@@ -40,6 +37,10 @@ Route::group(['namespace' => 'Front'], function () {
         // Route::get('profile', 'UserController@profile')->name('profile');
         Route::post('profile', 'UserController@updateProfile')->name('updateProfile');
     });
+
+    Route::post('property/sendMail', 'PropertiesController@sendMailToAgent')->name('property.sendMailToAgent');
+    Route::get('property/{slug}', 'PropertiesController@showProperty')->name('property.showProperty');
+
 
     // About
     Route::get('about', 'HomeController@about')->name('about');
