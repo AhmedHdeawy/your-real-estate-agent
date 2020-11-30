@@ -8,7 +8,7 @@
     <div class="col-md-9">
 
         @php
-        $status = old('status', isset($amenitie) ? $amenitie->status : 1);
+        $status = old('status', isset($amenity) ? $amenity->status : 1);
         @endphp
 
         <label class="radio-inline" for="active">
@@ -42,7 +42,7 @@
 
         <textarea type="text" id="{{ $languag->locale }}[name]" name="{{ $languag->locale }}[name]"
             class="form-control {{ $errors->first($languag->locale .'.name') ? 'is-invalid' : '' }}"
-            placeholder="{{ __('dashboard.name') }}">{{ old($languag->locale .'name', isset($amenitie) ? $amenitie->translate($languag->locale)->name : '') }}</textarea>
+            placeholder="{{ __('dashboard.name') }}">{{ old($languag->locale .'name', isset($amenity) ? $amenity->translate($languag->locale)->name : '') }}</textarea>
 
         @if ($errors->first($languag->locale .'.name'))
         <div class="invalid-feedback text-danger">{{ $errors->first($languag->locale .'.name') }}</div>
