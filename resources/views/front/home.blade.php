@@ -36,7 +36,7 @@
 							<div class='article-data'>
 								<h5> {{ $blog->title }} </h5>
 								<p>
-                                    {{ $blog->content }}
+                                    {!! substr($blog->content, 0, 200) !!}
                                 </p>
                             <a class='btn'
                                 href='{{ route('blog', $blog->id . '-' . make_slug($blog->title)) }}'> {{ __('lang.read_more') }} </a>
