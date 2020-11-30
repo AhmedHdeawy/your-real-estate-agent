@@ -16,7 +16,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-md-3 col-6'>
+                            <div class='col-md-6 col-6'>
                                 <div class='form-group'>
                                 <input class='form-control' name='text' value="{{ request('text') ?? null }}" placeholder='{{ __('lang.searchPropertyText') }}' type='text'>
                                 </div>
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class='col-md-3 col-6'>
+                            {{-- <div class='col-md-3 col-6'>
                                 <div class='form-group'>
                                     <select class='form-control' name='furnishing'>
                                         <option value="">{{ __('lang.furnishings') }}</option>
@@ -90,7 +90,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class='col-md-9 col-12'>
                                 <div class='form-group select2_search'>
