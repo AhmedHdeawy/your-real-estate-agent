@@ -74,10 +74,10 @@ class AmenitiesController extends Controller
      * @param  \App\Models\Amenitie  $amenitie
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Amenitie $amenitie)
+    public function show(Request $request, Amenitie $amenity)
     {
         $showLang = $request->showLang;
-        return view('dashboard.amenities.show', compact('amenitie', 'showLang'));
+        return view('dashboard.amenities.show', compact('amenity', 'showLang'));
     }
 
 
@@ -87,10 +87,9 @@ class AmenitiesController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Amenitie $amenitie)
+    public function edit(Amenitie $amenity)
     {
-
-        return view('dashboard.amenities.edit', compact('amenitie'));
+        return view('dashboard.amenities.edit', compact('amenity'));
     }
 
     /**
@@ -100,9 +99,9 @@ class AmenitiesController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(AmenitieRequest $request, Amenitie $amenitie)
+    public function update(AmenitieRequest $request, Amenitie $amenity)
     {
-        $amenitie->update($request->all());
+        $amenity->update($request->all());
 
         Cache::forget('properties_amenities');
 
@@ -112,10 +111,10 @@ class AmenitiesController extends Controller
     /**
      * Delete the amenitie
      */
-    public function destroy(Amenitie $amenitie)
+    public function destroy(Amenitie $amenity)
     {
         // Delete Record
-        $amenitie->delete();
+        $amenity->delete();
 
         Cache::forget('properties_amenities');
 

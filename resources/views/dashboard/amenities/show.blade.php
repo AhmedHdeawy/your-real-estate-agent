@@ -21,7 +21,7 @@
                         {{ __('dashboard.name') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $amenitie->translate($showLang)->name }}
+                        {{ $amenity->translate($showLang)->name }}
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                         {{ __('dashboard.status') }} :
                     </div>
                     <div class="col-sm-10">
-                        @if($amenitie->status == 1)
+                        @if($amenity->status == 1)
                             <strong class="text-success">{{ __('dashboard.'.$showLang.'.active') }}</strong>
                         @else
                             <strong class="text-danger">{{ __('dashboard.'.$showLang.'.stopped') }}</strong>
@@ -41,7 +41,7 @@
 
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.amenities.edit', $amenitie->id) }}" class="btn btn-warning">
+                <a href="{{ route('admin.amenities.edit', $amenity->id) }}" class="btn btn-warning">
                   Edit
                 </a>
 

@@ -9,8 +9,7 @@
 @section('content')
 
   @include('dashboard.includes.status')
-
-  <form action="{{ route('admin.amenities.update', $amenitie->id) }}" method="post" class="form-horizontal " encamenitie="multipart/form-data">
+  <form action="{{ route('admin.amenities.update', $amenity->id) }}" method="post" class="form-horizontal " encamenitie="multipart/form-data">
     @method('PUT')
     @csrf
 

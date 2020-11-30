@@ -34,3 +34,8 @@ header.navbar a.navbar-brand {
 .ck-content {
     height: 400px;
 }
+
+
+.show-details-row img {
+    max-width: 100%;
+}

@@ -21,7 +21,16 @@
                         {{ __('dashboard.name') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $blog->translate($showLang)->name }}
+                        {{ $blog->translate($showLang)->title }}
+                    </div>
+                </div>
+
+                <div class="row show-details-row">
+                    <div class="col-sm-2">
+                        {{ __('dashboard.name') }} :
+                    </div>
+                    <div class="col-sm-10">
+                        {!! $blog->translate($showLang)->content !!}
                     </div>
                 </div>
 
