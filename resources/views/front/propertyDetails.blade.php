@@ -257,7 +257,7 @@
                                     <h3> {{ __('lang.desc') }} </h3>
                                     <div>
                                         <p>
-                                            {{ $property->description }}
+                                            {!! $property->description !!}
                                         </p>
                                     </div>
                                 @endif

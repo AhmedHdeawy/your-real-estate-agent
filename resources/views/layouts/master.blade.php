@@ -35,7 +35,7 @@
     <div class='content-wrapper'>
 
         {{-- Main Section --}}
-        @yield('content')
+            @yield('content')
         {{-- Main Section / End --}}
 
         {{-- Footer --}}
