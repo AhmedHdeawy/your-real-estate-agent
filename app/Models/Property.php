@@ -67,12 +67,12 @@ class Property extends Model implements TranslatableContract
 
     public function favorites()
     {
-        return $this->belongsToMany('App\Models\User', 'favorites', 'property_id', 'user_id');
+        return $this->belongsToMany('App\User', 'favorites', 'property_id', 'user_id');
     }
 
     public function agent()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function category()
