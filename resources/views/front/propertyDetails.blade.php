@@ -175,8 +175,10 @@
                                 <p class='price'>
                                     <span>
                                         {{ $property->price }} {{ __('lang.aed') }}
-                                        /
-                                        {{ $property->period->name }}
+                                        @if ($property->period)
+                                            /
+                                            {{ $property->period->name }}
+                                        @endif
                                     </span>
                                 </p>
                                 <div class='btns-con'>
