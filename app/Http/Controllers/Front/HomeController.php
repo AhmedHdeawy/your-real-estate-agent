@@ -91,6 +91,10 @@ class HomeController extends Controller
             $query = $query->orWhere('type_id', $request->type);
         }
 
+        if($request->has('completing') && $request->filled('completing')) {
+            $query = $query->orWhere('completing_id', $request->completing);
+        }
+
         if($request->has('period') && $request->filled('period')) {
             $query = $query->orWhere('period_id', $request->period);
         }

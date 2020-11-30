@@ -16,7 +16,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-md-6 col-6'>
+                            <div class='col-md-3 col-6'>
                                 <div class='form-group'>
                                 <input class='form-control' name='text' value="{{ request('text') ?? null }}" placeholder='{{ __('lang.searchPropertyText') }}' type='text'>
                                 </div>
@@ -28,6 +28,18 @@
                                         @foreach ($types as $type)
                                             <option {{ request('type') == $type->id ? 'selected' : '' }}
                                                 value='{{ $type->id}}'> {{ $type->name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class='col-md-3 col-6'>
+                                <div class='form-group'>
+                                    <select class='form-control' name='completing'>
+                                        <option value="">{{ __('lang.property_status') }}</option>
+                                        @foreach ($completings as $completing)
+                                            <option {{ request('completing') == $completing->id ? 'selected' : '' }}
+                                                value='{{ $completing->id}}'> {{ $completing->name }} </option>
                                         @endforeach
                                     </select>
                                 </div>
