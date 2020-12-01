@@ -32,6 +32,7 @@ $darkWhite     : #E5E5E5;
 $white         : #F9F9F9;
 $black         : #222;
 $purple        : #800080;
+$blue          : #0277BD;
 $orange        : #D5573B;
 $darkBlue      : #2A628F;
 $brightBlue    : #3E92CC;
@@ -324,7 +325,7 @@ a, button {
 					border     : none;
 
 					i {
-						color     : rgba($purple, 0.75);
+						color     : rgba($blue, 0.75);
 						font-size : 24px;
 						opacity   : 0.75;
 					}
@@ -441,7 +442,7 @@ body {
 
 /* Styling Navbar */
 .navbar {
-	background : $purple;
+	background : $blue;
 	bottom     : auto;
 	height     : 93px;
 	left       : 0;
@@ -492,11 +493,12 @@ body {
 				.nav-link {
 					color       : $darkWhite;
 					font-size   : 18px;
-					font-weight : 500;
+					font-weight : 700;
 					padding     : 5px;
 
 					&.btn {
-						border : 3px solid rgba($darkWhite, 0.2);
+                        background-color: #FFF;
+                        color: $blue;
 
 						svg {
 							fill : $darkWhite;
@@ -535,7 +537,7 @@ body {
 		}
 
 		.banner {
-			background : url('/assets/images/banner.png') center/cover no-repeat $purple;
+			background : url('/assets/images/banner.png') center/cover no-repeat $blue;
 			bottom     : auto;
 			height     : 700px;
 
@@ -625,7 +627,7 @@ body {
 				text-align  : center;
 
 				h1 {
-					color       : $purple;
+					color       : $blue;
 					display     : inline-block;
 					font-size   : 32px;
 					font-weight : 700;
@@ -667,7 +669,7 @@ body {
 				padding-bottom : 60px;
 
 				h2 {
-					color         : $purple;
+					color         : $blue;
 					font-size     : 32px;
 					font-weight   : 700;
 					margin-bottom : 30px;
@@ -704,7 +706,7 @@ body {
 					border        : 3px solid;
 					border-color  : $orange $orange $darkBlue $darkBlue;
 					border-radius : $fourRoundness;
-					color         : $purple;
+					color         : $blue;
 					display       : inline-block;
 					font-size     : 32px;
 					font-weight   : 700;
@@ -936,7 +938,7 @@ body {
 				}
 
 				.map {
-					background    : $purple url('/assets/images/map.png') center/cover no-repeat;
+					background    : $blue url('/assets/images/map.png') center/cover no-repeat;
 					border-radius : $fourRoundness;
 					height        : 100px;
 					margin-top    : 15px;
@@ -1157,7 +1159,7 @@ body {
 			}
 
 			h1 {
-				color         : $purple;
+				color         : $blue;
 				font-size     : 34px;
 				margin-bottom : 25px;
 				@media screen and (max-width : 767px) {
@@ -1432,7 +1434,7 @@ body {
 			padding-top : 80px;
 
 			h1 {
-				color         : $purple;
+				color         : $blue;
 				font-size     : 32px;
 				font-weight   : 700;
 				margin-bottom : 30px;
@@ -1503,7 +1505,7 @@ body {
 			padding-top : 80px;
 
 			h1 {
-				color         : $purple;
+				color         : $blue;
 				font-size     : 32px;
 				font-weight   : 700;
 				margin-bottom : 30px;
@@ -1536,7 +1538,7 @@ body {
 					margin-bottom : 25px;
 
 					&.post-date {
-						color       : $purple;
+						color       : $blue;
 						font-weight : 500;
 					}
 
@@ -1553,7 +1555,7 @@ body {
 				margin-top : 40px;
 
 				h2 {
-					color         : $purple;
+					color         : $blue;
 					font-size     : 28px;
 					font-weight   : 700;
 					margin-bottom : 30px;
@@ -1617,7 +1619,7 @@ body {
 		//		margin-bottom : 10px;
 		//
 		//		svg {
-		//			fill  : $purple;
+		//			fill  : $blue;
 		//			width : 128px;
 		//		}
 		//	}

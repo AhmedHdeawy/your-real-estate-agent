@@ -17,7 +17,7 @@
 			</svg>
 		</button>
 		<div class='collapse navbar-collapse' id='navbarSupportedContent'>
-			<ul class='navbar-nav mr-auto'>
+			<ul class='navbar-nav {{ $currentLangDir == 'rtl' ? 'mr-auto' : 'ml-auto'  }}'>
                 @foreach ($navCategories as $navCategory)
                     <li class='nav-item'>
                         <a class='nav-link'

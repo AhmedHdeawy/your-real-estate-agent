@@ -44,7 +44,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-md-3 col-6'>
+                            <div class='col-md-3 col-12'>
                                 <div class='form-group'>
                                     <select class='form-control' name='period'>
                                         <option value="">{{ __('lang.period') }}</option>

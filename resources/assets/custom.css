@@ -77,6 +77,20 @@ body[dir='rtl'] .invalid-feedback {
     border-color: #4d90fe;
 }
 
+
+/* Property Details */
+.propertyDetailImage {
+    width: 100%;
+    height: 450px;
+}
+
+.propertyDetailImages {
+    width: 100%;
+    height: 200px;
+}
+
+
+
 @media(max-width: 768px) {
     .map-container {
         height: 350px;
@@ -88,6 +102,14 @@ body[dir='rtl'] .invalid-feedback {
 
     .map-container #pac-input {
         height: 40px;
+    }
+
+    .propertyDetailImage {
+        height: 100px;
+    }
+
+    .propertyDetailImages {
+        height: 50px;
     }
 }
 

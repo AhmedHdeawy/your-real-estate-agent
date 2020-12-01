@@ -21,14 +21,14 @@
                         @endphp
                         <div class="col-6">
                             <a style="width: 100%" data-fancybox="gallery" href="{{ $property->images->first()->image_url }}">
-                                <img style="width: 100%; height: 450px;" src="{{ $property->images->first()->image_url }}" class="img-thumbnail">
+                                <img src="{{ $property->images->first()->image_url }}" class="propertyDetailImage img-thumbnail">
                             </a>
                         </div>
                         <div class="col-6">
                             @foreach ($property->images()->limit(3)->get() as $image)
                                 @if (!$loop->first)
                                     <a data-fancybox="gallery" href="{{ $image->image_url }}">
-                                        <img style="height: 200px; width: 100%" src="{{ $image->image_url }}" class="img-thumbnail">
+                                        <img src="{{ $image->image_url }}" class="img-thumbnail propertyDetailImages">
                                     </a>
                                 @endif
                             @endforeach
