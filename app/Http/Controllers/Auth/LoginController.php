@@ -84,17 +84,6 @@ class LoginController extends Controller
             $newUser->email_verified_at = now();
             $newUser->save();
 
-            // Save User Avatar
-            if ($user->getAvatar()) {
-
-                $imageName = 'propertyClub_' . time() . '_' . str_random(8);
-                Image::make($user->getAvatar())->save('uploads/users/' . $imageName);
-
-                // Save Image in DB
-                $newUser->avatar            = $imageName;
-                $newUser->save();
-            }
-
             // Auth the User
             auth()->login($newUser, true);
         }

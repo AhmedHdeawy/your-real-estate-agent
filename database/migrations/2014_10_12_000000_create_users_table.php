@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('status', [0, 1])->default(1)->comment('0 => Stopped, 1 => Active');
             $table->string('avatar')->nullable();
+            $table->string('provider_name')->nullable();
+            $table->string('provider_id')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
