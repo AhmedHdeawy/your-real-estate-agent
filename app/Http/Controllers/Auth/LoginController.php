@@ -78,6 +78,9 @@ class LoginController extends Controller
             $existInOtherProvider = User::where('email', $user->getEmail())->first();
 
             if($existInOtherProvider) {
+
+                auth()->login($existInOtherProvider, true);
+
                 return redirect($this->redirectPath());
             }
 
