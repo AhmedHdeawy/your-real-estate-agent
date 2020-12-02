@@ -49,6 +49,7 @@ return [
     'mobile'                    =>  'الموبايل',
     'loginWithFacebook'         =>  'التسجيل بالفيس بوك',
     'loginWithInstsgram'         =>  'التسجيل بالانستغرام',
+    'loginWithTwitter'         =>  'التسجيل بتويتر',
     'loginWithGoogle'           =>  'التسجيل بجوجل',
     'login'                     =>  'تسجيل الدخول',
     'register'                  =>  'انشاء حساب',

@@ -49,6 +49,7 @@ return [
     'mobile'                    =>  'Mobile',
     'loginWithFacebook'         =>  'Login By Facebook',
     'loginWithInstsgram'         =>  'Login By Instsgram',
+    'loginWithTwitter'         =>  'Login By Twitter',
     'loginWithGoogle'           =>  'Login By Google',
     'login'                     =>  'Login',
     'register'                  =>  'Create account',

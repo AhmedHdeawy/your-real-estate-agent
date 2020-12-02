@@ -86,8 +86,13 @@
                                 </a>
 
                                 <a href="auth/instagram" class='btn facebook'>
-                                    {{ __('lang.loginWithFacebook') }}
+                                    {{ __('lang.loginWithInstagram') }}
                                     <i class='fab fa-instagram'></i>
+                                </a>
+
+                                <a href="auth/twitter" class='btn facebook'>
+                                    {{ __('lang.loginWithTwitter') }}
+                                    <i class='fab fa-twitter-square'></i>
                                 </a>
                             </div>
                         </div>
