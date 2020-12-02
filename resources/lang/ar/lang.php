@@ -48,6 +48,7 @@ return [
     'address'                   =>  'العنوان',
     'mobile'                    =>  'الموبايل',
     'loginWithFacebook'         =>  'التسجيل بالفيس بوك',
+    'loginWithInstsgram'         =>  'التسجيل بالانستغرام',
     'loginWithGoogle'           =>  'التسجيل بجوجل',
     'login'                     =>  'تسجيل الدخول',
     'register'                  =>  'انشاء حساب',

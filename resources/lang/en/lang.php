@@ -48,6 +48,7 @@ return [
     'address'                   =>  'Address',
     'mobile'                    =>  'Mobile',
     'loginWithFacebook'         =>  'Login By Facebook',
+    'loginWithInstsgram'         =>  'Login By Instsgram',
     'loginWithGoogle'           =>  'Login By Google',
     'login'                     =>  'Login',
     'register'                  =>  'Create account',
