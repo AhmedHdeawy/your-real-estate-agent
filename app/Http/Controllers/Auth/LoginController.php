@@ -74,6 +74,13 @@ class LoginController extends Controller
         if ($existingUser) {
             auth()->login($existingUser, true);
         } else {
+
+            $existInOtherProvider = User::where('email', $user->getEmail())->first();
+
+            if($existInOtherProvider->isNotEmpty()) {
+                return redirect($this->redirectPath());
+            }
+
             // Else, Create New User
             $newUser                    = new User;
             $newUser->provider_name     = $provider;
