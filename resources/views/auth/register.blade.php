@@ -85,7 +85,7 @@
                                     <i class='fab fa-facebook-square'></i>
                                 </a>
 
-                                <a href="auth/facebook" class='btn facebook'>
+                                <a href="auth/instagram" class='btn facebook'>
                                     {{ __('lang.loginWithFacebook') }}
                                     <i class='fab fa-instagram'></i>
                                 </a>
