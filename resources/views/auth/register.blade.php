@@ -90,11 +90,6 @@
                                     <i class='fab fa-instagram'></i>
                                 </a>
 
-                                <a href="auth/instagrambasic" class='btn facebook'>
-                                    {{ __('lang.loginWithInstagram') }}
-                                    <i class='fab fa-instagram'></i>
-                                </a>
-
                                 <a href="auth/twitter" class='btn facebook'>
                                     {{ __('lang.loginWithTwitter') }}
                                     <i class='fab fa-twitter-square'></i>
