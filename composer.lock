@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd5269bc51556b6fccb0a0278ac58f20",
+    "content-hash": "e3e986dde149bad097ea41da8fef6bf9",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
@@ -2623,6 +2623,44 @@
             ],
             "description": "Instagram OAuth2 Provider for Laravel Socialite",
             "time": "2017-01-25T09:48:29+00:00"
+        },
+        {
+            "name": "socialiteproviders/instagram-basic",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/InstagramBasic.git",
+                "reference": "9286060fe405e5e7090a1ce0753e425db2867da7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/InstagramBasic/zipball/9286060fe405e5e7090a1ce0753e425db2867da7",
+                "reference": "9286060fe405e5e7090a1ce0753e425db2867da7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\InstagramBasic\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp Mochine",
+                    "email": "support@avidofood.com"
+                }
+            ],
+            "description": "Instagram Basic Display OAuth2 Provider for Laravel Socialite",
+            "time": "2020-05-03T09:42:46+00:00"
         },
         {
             "name": "socialiteproviders/manager",

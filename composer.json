@@ -19,7 +19,8 @@
         "superbalist/laravel-google-cloud-storage": "^2.2",
         "socialiteproviders/manager": "3.3.5",
         "socialiteproviders/instagram": "3.0.0",
-        "socialiteproviders/twitter": "3.0.0"
+        "socialiteproviders/twitter": "3.0.0",
+        "socialiteproviders/instagram-basic": "3.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

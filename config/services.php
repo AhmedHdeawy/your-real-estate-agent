@@ -52,6 +52,12 @@ return [
         'redirect'      => env('INSTAGRAM_REDIRECT'),
     ],
 
+    'instagrambasic' => [
+        'client_id' => env('INSTAGRAMBASIC_CLIENT_ID'),
+        'client_secret' => env('INSTAGRAMBASIC_CLIENT_SECRET'),
+        'redirect' => env('INSTAGRAMBASIC_REDIRECT')
+    ],
+
     'twitter' => [
         'client_id'     => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
