@@ -513,8 +513,13 @@ body {
 						background : $white;
 						border     : none;
 						box-shadow : 0 0 6px rgba($black, 0.16);
-						text-align : center;
+                        text-align : center;
+
+                        .dropdown-item {
+                            color: $darkBlue;
+                        }
 					}
+
 				}
 			}
 		}

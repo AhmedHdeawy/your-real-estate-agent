@@ -90,6 +90,11 @@ body[dir='rtl'] .invalid-feedback {
 }
 
 
+/*  Footer */
+.footer-social i {
+    color: #0277BD
+}
+
 
 @media(max-width: 768px) {
     .map-container {
