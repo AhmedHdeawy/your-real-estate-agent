@@ -305,7 +305,7 @@
 @endsection
 
 @section('script')
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fb1aa65248cf5e6"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fcd16483a81e6f2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKU2pOeE34mizOMutB8WaCHNIfoYO7yPg&language={{ app()->getLocale() }}&callback=initMap"></script>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

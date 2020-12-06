@@ -5,6 +5,7 @@ return [
     'maintenanceMode'           =>  'عذراً الموقع متوقف حالياً',
     'welcomeDashboard'          =>  'مرحبا بك في لوحة تحكم الموقع',
     'websiteName'               =>  'نادي العقارات',
+    'underConstruction'         =>  'تحت الانشاء',
     'home'	                    =>	'الرئيسية',
     'dashboard'                 =>  'لوحة التحكم',
     'contactWithUs'             =>  'تواصل معنا',

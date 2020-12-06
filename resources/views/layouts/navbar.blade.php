@@ -4,7 +4,7 @@
                 <h4 class="text-white font-weight-bold">
                     {{ __('lang.websiteName') }}
                 </h4>
-                <span class="d-block text-white">beta</span>
+                <span style="font-size: .9rem" class="d-block text-white"> {{ __('lang.underConstruction') }} </span>
 		</a>
 		<button aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation' class='navbar-toggler'
 		        data-target='#navbarSupportedContent'
@@ -59,7 +59,10 @@
                             </svg>
                         </a>
                         <div aria-labelledby='navbarDropdown' class='dropdown-menu'>
-                            <a class='dropdown-item' href='{{ route('savedProperties') }}'> {{ __('lang.mySaved') }} </a>
+                            <a class='dropdown-item' href='{{ route('savedProperties') }}'>
+                                {{ __('lang.mySaved') }}
+                                ({{ auth()->user()->favorites->count() }})
+                            </a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <button class='dropdown-item' type="submit">

@@ -5,6 +5,7 @@ return [
     'maintenanceMode'           =>  'Maintenance Mode',
     'welcomeDashboard'          =>  'Welcome to Website Dashboard',
     'websiteName'               =>  'Property Club',
+    'underConstruction'         =>  'Beta',
     'home'                        =>    'Home',
     'dashboard'                 =>  'Dashboard',
     'contactWithUs'             =>  'Contact With Us',
@@ -212,7 +213,7 @@ return [
     /**
      * Front
      */
-    'create_new_property'   =>  'Create New Property',
+    'create_new_property'   =>  'Add Property',
     'property_info'     =>  'Property Info',
     'property_details'     =>  'Property Details',
     'agent_info'     =>  'Agent Info',
