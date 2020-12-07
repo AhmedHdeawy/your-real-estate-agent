@@ -23,6 +23,16 @@
     <link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
     @yield('style')
     <link rel="stylesheet" href="{{ mix('css/all.css') }}">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z066EDZ4L9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Z066EDZ4L9');
+    </script>
 </head>
 
 <!-- class="rtl" -->
