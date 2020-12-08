@@ -10,6 +10,7 @@ class BlogTranslation extends Model
      * table
      */
     protected $table = 'blog_translations';
+    protected $primaryKey = 'blog_trans_id';
 
     /**
      * Timestamps.

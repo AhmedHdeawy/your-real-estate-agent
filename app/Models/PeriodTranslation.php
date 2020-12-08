@@ -10,6 +10,7 @@ class PeriodTranslation extends Model
      * table
      */
     protected $table = 'period_translations';
+    protected $primaryKey = 'period_trans_id';
 
     /**
      * Timestamps.

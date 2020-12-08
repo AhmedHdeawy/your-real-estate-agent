@@ -61,7 +61,9 @@
                                     @endif
                                   </td>
 
-                                  <td class="text-sm-center"> {{ str_limit($infoTranslation->infos_desc, 40)  }}... </td>
+                                  <td class="text-sm-center">
+                                    {{ str_limit(strip_tags($infoTranslation->infos_desc), 50, '...') }}
+                                    </td>
 
                                   <td>
                                     @if($loop->first)

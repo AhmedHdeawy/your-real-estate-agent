@@ -10,6 +10,7 @@ class CompletingTranslation extends Model
      * table
      */
     protected $table = 'completing_translations';
+    protected $primaryKey = 'completing_trans_id';
 
     /**
      * Timestamps.

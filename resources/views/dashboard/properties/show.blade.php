@@ -21,7 +21,17 @@
                         {{ __('dashboard.name') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->translate($showLang)->name }}
+                        {{ $property->translate($showLang)->title }}
+                    </div>
+                </div>
+
+
+                <div class="row show-details-row">
+                    <div class="col-sm-2">
+                        {{ __('dashboard.address') }} :
+                    </div>
+                    <div class="col-sm-10">
+                        {{ $property->address }}
                     </div>
                 </div>
 
@@ -30,16 +40,7 @@
                         {{ __('dashboard.agent') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->user->name }}
-                    </div>
-                </div>
-
-                <div class="row show-details-row">
-                    <div class="col-sm-2">
-                        {{ __('dashboard.address') }} :
-                    </div>
-                    <div class="col-sm-10">
-                        {{ $property->address }}
+                        {{ $property->agent_name }}
                     </div>
                 </div>
 
@@ -84,17 +85,19 @@
                         {{ __('dashboard.area') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->area }}
+                        {{ $property->height }} {{ __('lang.squareMeter') }}
+                        /
+                        {{ $property->width }} {{ __('lang.squareMeter') }}
                     </div>
                 </div>
 
 
                 <div class="row show-details-row">
                     <div class="col-sm-2">
-                        {{ __('dashboard.description') }} :
+                        {{ __('dashboard.desc') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->description }}
+                        {!! $property->description !!}
                     </div>
                 </div>
 
@@ -103,7 +106,7 @@
                         {{ __('dashboard.category') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->category->name }}
+                        {{ $property->category->name ?? '--' }}
                     </div>
                 </div>
 
@@ -112,7 +115,7 @@
                         {{ __('dashboard.type') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->type->name }}
+                        {{ $property->type->name ?? '--' }}
                     </div>
                 </div>
 
@@ -121,7 +124,7 @@
                         {{ __('dashboard.period') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->period->name }}
+                        {{ $property->period->name ?? '--' }}
                     </div>
                 </div>
 
@@ -130,19 +133,23 @@
                         {{ __('dashboard.furnishing') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->furnishing->name }}
+                        {{ $property->furnishing->name ?? '--' }}
                     </div>
                 </div>
 
                 <div class="row show-details-row">
                     <div class="col-sm-2">
-                        {{ __('dashboard.status') }} :
+                        {{ __('dashboard.amenities') }} :
                     </div>
                     <div class="col-sm-10">
-                        {{ $property->status->name }}
+                        @foreach ($property->amenities as $item)
+                            {{ $item->name }}
+                            @if (!$loop->last)
+                                 <b>-</b>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
-
 
                 <div class="row show-details-row">
                     <div class="col-sm-2">
@@ -157,13 +164,20 @@
                     </div>
                 </div>
 
+                <div class="row show-details-row">
+                    <div class="col-sm-2">
+                        {{ __('dashboard.image') }} :
+                    </div>
+                    <div class="col-sm-10">
+                        @foreach ($property->images as $image)
+                            <img src="{{ $image->image_url }}" class="img-thumbnail mx-2 my-4" style="width: 200px !important; height: 200px !important;">
+                        @endforeach
+                    </div>
+                </div>
+
 
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.properties.edit', $property->id) }}" class="btn btn-warning">
-                  Edit
-                </a>
-
                 <a href="{{ route('admin.properties.index') }}" class="btn btn-secondary">
                   {{ __('dashboard.back') }}
                 </a>

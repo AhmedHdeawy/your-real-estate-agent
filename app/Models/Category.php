@@ -17,6 +17,7 @@ class Category extends Model implements TranslatableContract
      */
     protected $table = 'categories';
 
+
     /**
      * translated attributes
      */

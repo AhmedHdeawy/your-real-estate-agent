@@ -14,7 +14,7 @@ class CreateFurnishingTranslationsTable extends Migration
     public function up()
     {
         Schema::create('furnishing_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('furnishing_trans_id');
             $table->string('locale', 191)->index();
             $table->text('name');
 

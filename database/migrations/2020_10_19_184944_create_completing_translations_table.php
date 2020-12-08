@@ -14,7 +14,7 @@ class CreateCompletingTranslationsTable extends Migration
     public function up()
     {
         Schema::create('completing_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('completing_trans_id');
             $table->string('locale', 191)->index();
             $table->text('name');
 

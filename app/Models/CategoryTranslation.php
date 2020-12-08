@@ -11,6 +11,8 @@ class CategoryTranslation extends Model
      */
     protected $table = 'category_translations';
 
+    protected $primaryKey = 'category_trans_id';
+
     /**
      * Timestamps.
      *

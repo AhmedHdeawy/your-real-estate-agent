@@ -10,6 +10,7 @@ class FurnishingTranslation extends Model
      * table
      */
     protected $table = 'furnishing_translations';
+    protected $primaryKey = 'furnishing_trans_id';
 
     /**
      * Timestamps.

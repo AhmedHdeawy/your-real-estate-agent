@@ -10,6 +10,7 @@ class TypeTranslation extends Model
      * table
      */
     protected $table = 'type_translations';
+    protected $primaryKey = 'type_trans_id';
 
     /**
      * Timestamps.

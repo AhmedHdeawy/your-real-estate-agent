@@ -14,7 +14,7 @@ class CreateBlogTranslationsTable extends Migration
     public function up()
     {
         Schema::create('blog_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('blog_trans_id');
             $table->string('title');
             $table->text('content');
             $table->string('locale', 191)->index();

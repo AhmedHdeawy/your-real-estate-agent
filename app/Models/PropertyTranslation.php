@@ -10,6 +10,7 @@ class PropertyTranslation extends Model
      * table
      */
     protected $table = 'property_translations';
+    protected $primaryKey = 'property_trans_id';
 
     /**
      * Timestamps.

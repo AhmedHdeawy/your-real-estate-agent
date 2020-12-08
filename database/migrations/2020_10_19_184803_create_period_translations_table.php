@@ -14,7 +14,7 @@ class CreatePeriodTranslationsTable extends Migration
     public function up()
     {
         Schema::create('period_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('period_trans_id');
             $table->string('locale', 191)->index();
             $table->text('name');
 
