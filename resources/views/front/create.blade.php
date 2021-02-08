@@ -12,7 +12,6 @@
 				<div class='col-xl-8 col-md-10 mx-auto'>
                     <form method="POST" action="{{ route('property.store') }}" class='add-form-con' enctype="multipart/form-data">
                         @csrf
-
                         {{-- Property Info --}}
 						<div class='row'>
                             <h1> {{ __('lang.property_info') }} </h1>
